@@ -1,0 +1,196 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+body{
+    width: 100%;
+    height: 100%;
+}
+
+main{
+    display: flex;
+    border: none;
+}
+
+.part1{
+    height: 100vh;
+    width: 40vw;
+    background-color: #18344E;
+    font-size: 48px;
+    display: flex;
+    align-items: center;
+    color: #E8F1F8;
+}
+
+.part2{
+    height: 100vh;
+    width: 60vw;
+    background-color: #FFFFFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.salmos{
+    padding-left: 30px;
+    padding-bottom: 240px;
+    margin: auto;
+    display: flex;
+    /*text-shadow: 0.01em 0.01em 0.05em black;*/
+}
+
+.version{
+    font-size: 20px;
+    margin-top: 70px;
+    margin-left: 10px;
+}
+
+.img{
+    margin-top: 35px;
+    margin-left: 20px;
+    position: absolute;
+    top: 50%;
+    left: 21%;
+    transform: translate(-50%, -21%);
+}
+
+.img h6{
+    display: block;
+    margin-top: 200px;
+    font-size: 20px;
+    margin-left: -45px;
+    color: #E8F1F8;
+}
+
+.form{
+    /* position: absolute;
+    top: 50%;
+    left: 72%;
+    transform: translate(-50%, -100%);
+    margin-top: 15%; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 400px;
+    height: 600px;
+    box-shadow: 0 7px 30px -10px rgba(150,170,180,0.5);
+    padding: 20px;
+}
+
+.form a{
+    align-self: flex-end;
+    justify-self: end;
+}
+
+.form h2{
+    color: #006494;
+    font-size: 30px;
+    text-align: center;
+    font-size: 50px;
+    padding-bottom: 10px;
+}
+
+.form img{
+    margin-bottom: 25px;
+}
+
+.form span{
+    padding-bottom: 20px;
+    font-size: 18px;
+    color: #666;
+}
+
+.user{
+    border: none;
+    padding-left: 10px;
+    width: 100%;
+    height: 45px;
+    margin: 4px 2px;
+    background-color: #f1f1f1;
+    background-image: url(../images/o-email.png);
+    background-repeat: no-repeat;
+    background-position: right;
+    padding-left: 50px;
+    background-size: 1.3em;
+    background-position-x: 20px;
+}
+
+.user:focus{
+    background-color: #f1f1f1;
+    outline: none;
+    border-bottom: #006494 3px solid;
+}
+
+.keyword{
+    border: none;
+    padding-left: 10px;
+    width: 100%;
+    height: 45px;
+    margin: 15px 2px;
+    background-image: url(../images/cadeado.png);
+    background-color: #f1f1f1;
+    background-repeat: no-repeat;
+    background-position: right;
+    padding-left: 50px;
+    background-size: 1.3em;
+    background-position-x: 20px;
+}
+
+.keyword:focus{
+    outline: none;
+    border-bottom: #006494 3px solid;
+}
+
+.button{
+    width: 100%;
+    height: 40px;
+    background-color: #006494;
+    color: white;
+    cursor: pointer;
+    border: 0;
+    font-size: 16px;
+    transition: 1s;
+}
+
+.button:hover{
+    background-color: #247BA0;
+    color: rgb(241, 238, 238);
+    transition: 1s;
+}
+
+.system-type{
+    color: #0a0a0a;
+}
+
+.forgot{
+    text-align: right;
+    color: #72ABD5;
+    padding: 30px 0px;
+    cursor: pointer;
+    margin-right: -180px;
+    transition: 1s;
+}
+
+.forgot:hover{
+    color: #247BA0;
+    transition: 1s;
+}
+
+@media(max-width: 943px){
+    .part2{
+        width: 100vw;
+        justify-items: center;
+        align-items: center;
+    }
+    .part1{
+        display: none;
+    }
+
+    .img{
+        display: none;
+    }
+}

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empenho</title>
+    <link rel="stylesheet" href="empenho.css">
+</head>
+<body id="body">
+
+    <div class="d-flex flex-column justify-content-center w-100 h-100"></div>
+
+    <div class="form-popup" id="infoItensEmpenho">
+        <form class="form-container">
+            <h1>Info Empenho</h1>
+            <div class="infos">
+                <p>Nome do item: <span id="nomeItem"></span>.</p>
+                <p>Quantidade do Item: <span id="QuantiaItem"></span>.</p>                            
+                <button type="button" onclick="closeInfoItens(), telaEnabled()">Fechar</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="popupRemove" id="popupRemove">
+        <img src="../images/ask.png" alt="question-sign-in-circles">
+        <h2>Você tem certeza que deseja remover esse Empenho?</h2>
+        <button type="button" onclick="remover(), closePopup(), telaEnabled()">Sim</button>
+        <button type="button" onclick="closePopup(), telaEnabled()">Não</button>
+    </div>
+
+    <div class="popupEdit" id="popupEdit">
+        <img src="../images/caneta.png" alt="editar">
+        
+        <h2>Digite as novas informações do Empenho</h2>
+        
+        <input type="text" name="notaEmpenho" placeholder="Nota empenho..." autocomplete="off" 
+        class="notaEmpenho" id="notaEmpenhoEditar">
+        <input type="date" name="validadeEmpenho" placeholder="Validade empenho..." autocomplete="off" class="validadeEmpenho" id="validadeEmpenhoEditar">
+        <input type="text" name="valorEmpenho" placeholder="Valor empenho..." autocomplete="off" class="valorEmpenho" id="valorEmpenhoEditar">
+        <input type="text" name="itensEmpenho" placeholder="Itens empenho..." autocomplete="off" class="itensEmpenho" id="itensEmpenhoEditar">
+                
+        <button type="button" onclick="closeEditPopup(), editar(), telaEnabled()">Confirmar</button>
+        <button type="button" onclick="closeEditPopup(), telaEnabled()">Cancelar</button>
+    </div>
+
+    <div class="popupAdd" id="popupAdd">
+        <img src="../images/botao-adicionar3.png" alt="adicionar">
+        <h2>Digite as novas informações do Empenho</h2>
+        
+        <input type="text" name="notaEmpenho" placeholder="Nota empenho..." autocomplete="off" class="notaEmpenho" id="notaEmpenhoAdd">
+        <input type="date" name="validadeEmpenho" placeholder="Validade empenho..." autocomplete="off" class="validadeEmpenho" id="validadeEmpenhoAdd">
+        <input type="text" name="valorEmpenho" placeholder="Valor empenho..." autocomplete="off" class="valorEmpenho" id="valorEmpenhoAdd">
+        <input type="text" name="itensEmpenho" placeholder="Itens empenho..." autocomplete="off" class="itensEmpenho" id="itensEmpenhoAdd">
+                    
+        <button type="button" onclick="closeAddPopup(), adicionar(), telaEnabled()">Confirmar</button>
+        <button type="button" onclick="closeAddPopup(), telaEnabled()">Cancelar</button>
+    </div>
+
+    <div class="backdrop" id="backdrop" onclick="stopPropagation()"></div>
+
+
+    <div class="tela" id="tela">
+        <div class="search">
+            <input type="text" placeholder="Procurar..." class="loupe" id="loupe" onkeyup="buscar()"> 
+        </div>
+
+        <div class="scroll">
+        <table class="itens-table" id="itens-table">
+            <thead>
+                <tr>
+                    <th>Nota</th>
+                    <th>Validade</th>
+                    <th>Valor empenhado</th>
+                    <th>Itens</th>
+                    <th>Remover</th>
+                    <th>Editar</th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+            </tbody>
+        </table>
+
+        </div>
+        
+        <button class="homescreen"> <a href="../br.com.ifba.homescreen/homescreen.html"> <img src="../images/homescreen3.png" alt="homescreen"><p>Homescreen</p></a></button>
+
+        <button class="adicionar" type="button" onclick="openAddPopup(), teladisabled()"><img src="../images/botao-adicionar2.png" alt="adicionar" title="Adicionar"></button>
+
+        <button class="relatorio" type="button" onclick="gerarRelatorio()" title="Empenhos Válidos"><img src="../images/imprimir-negativo.png"></button>
+        
+    </div>
+    
+    <script type="text/javascript" src="../js/requisitions.js"></script>
+    <script type="text/javascript" src="empenho.js"></script>
+</body>
+</html>

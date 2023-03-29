@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Central de Notificações</title>
+    <link rel="stylesheet" href="notificationcenter.css">
+</head>
+<body>
+    
+    <div class="tela" id="tela">
+        
+        
+    <h1 id="title"><p>Central de Notificações</p></h1>
+    
+    
+    <button class="homescreen"> <a href="../br.com.ifba.homescreen/homescreen.html"> <img src="../images/homescreen3.png" alt="homescreen"><p>Homescreen</p></a></button>
+
+    <div class="table-content">
+        <table>
+            <tbody id="notification-table-body">
+                <tr class="notification-unread">
+                    <td>
+                        <h1>Título Notificação</h1>
+                        <div class="notification-message">
+                            <p class="message">
+                                Mensagem da notificação
+                            </p>
+                        </div>
+                        <div class="message-info">
+                            <p>
+                                data message
+                            </p>
+                            <p>
+                                <img class="nao-lido" src="../images/icons8-mensagem-24.png" alt="Marcar Como Lida">
+                                data message
+                            </p>
+                        </div>
+
+                        <hr class="separation">
+                    </td>     
+                </tr>
+                
+            </tbody>
+        </table>
+    </div>
+    </div>
+
+    <script type="text/javascript" src="../js/requisitions.js"></script>
+    <!-- <script type="text/javascript" src="../br.com.ifba.requisicao/requisicao.js"></script> -->
+    <script type="text/javascript" src="notification-center.js" onload='initNot()'></script>
+</body>
+</html>

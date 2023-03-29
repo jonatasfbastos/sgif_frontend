@@ -1,0 +1,387 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+body{
+    width: 100%;
+    height: 100%;
+}
+
+main{
+    display: flex;
+    border: none;
+    background-image: url(../images/pexels-tiger-lily-4481326\ \(1\).jpg);
+    background-repeat: no-repeat;
+    background-size: cover; 
+}
+
+.sidebar{
+    width: 300px;
+    height: 100vh;
+    background-image: linear-gradient(#006494, #13293D);
+    position: fixed;
+    padding: 61px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform: translateX(0);
+    transition: 0.5s;
+    z-index: 1;
+}
+
+.sidebar.active{
+    transform: translateX(-100%);
+}
+
+.links-option{
+    list-style: none;
+    position: relative;
+}
+
+.links-option li{
+    padding: 10px 0;
+    margin-bottom: -5px;
+}
+
+.links-option li a{
+    text-decoration: none;
+    color: #1A1A1A;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    width: 112%;
+    height: 45px;
+    margin: 0px 2px;
+    border-radius: 25px;
+    border: 2px #EDF4ED solid;
+    background-color: #EDF4ED;
+}
+
+.links-option li a img{
+    margin-right: 8px;
+}
+
+.projector{
+    background-color: #EDF4ED;
+    width: 122%;
+    height: 52px;
+    position: absolute;
+    left: 0;
+    z-index: -1;
+    border-radius: 6px;
+    box-shadow: 3px 5px 10px rgb(255, 255, 255, 0.6);
+    display: none;
+    transition: top 0.5s;
+}
+
+.links-option li:hover a{
+    color: #1A1A1A;
+    transition: 0.3s;
+}
+
+
+.links-option li:hover ~ .projector{
+    display: block;
+}
+
+.links-option li:nth-child(1):hover ~ .projector{
+    top: 1.2%;
+}
+
+.links-option li:nth-child(2):hover ~ .projector{
+    top: 11.1%;
+}
+
+.links-option li:nth-child(3):hover ~ .projector{
+    top: 21.1%;
+}
+
+.links-option li:nth-child(4):hover ~ .projector{
+    top: 31.1%;
+}
+
+.links-option li:nth-child(5):hover ~ .projector{
+    top: 41.1%;
+}
+
+.links-option li:nth-child(6):hover ~ .projector{
+    top: 51.1%;
+}
+
+.links-option li:nth-child(7):hover ~ .projector{
+    top: 61.1%;
+}
+
+.links-option li:nth-child(8):hover ~ .projector{
+    top: 71.1%;
+}
+
+.links-option li:nth-child(9):hover ~ .projector{
+    top: 81.1%;
+}
+
+.links-option li:nth-child(10):hover ~ .projector{
+    top: 91.1%;
+}
+
+
+.closeopen{
+    border: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translateX(100%);
+    padding: 10px 15px;
+    font-size: 20px;
+    background-image: linear-gradient(#006494, #13293D);
+    height: 100vh;
+    position: absolute;
+}
+
+.closeopen .barra{
+    display: none;
+    cursor: pointer;
+}
+
+.closeopen:hover{
+    opacity: 0.9;
+    cursor: pointer;
+}
+
+.closeopen .sair{
+    display: block;
+    cursor: pointer;
+}
+
+.sidebar.active .closeopen .barra{
+    display: block;
+}
+
+.sidebar.active .closeopen .sair{
+    display: none;
+}
+
+.complement{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(6px); 
+    text-align: center; 
+    align-items:center;  
+    flex-direction: column;
+    padding-top: 85vh; 
+    padding-left: 300px;
+    background-image: url(../images/estoque-maior.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-position-x: 575px;
+    
+}
+
+.complement h5{
+    color: #247BA0;
+    font-size: 60px;
+}
+
+button img{
+    padding: 5px;
+}
+
+button:hover{
+    background-color: #5CB6EB;
+}
+
+.menu-user{
+    align-self: baseline;
+    margin-top:5px;
+}
+
+.menu-user .user-options{
+    display: none;
+    flex-direction: row;
+    cursor: pointer;
+    border-radius: none;
+}
+
+.menu-user .user-options a{
+    all: none;
+    background-color: #0070A3;
+    align-items: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display:flex;
+    border-radius: 25px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-bottom: 5px;
+    text-decoration: none;
+    color: white;
+}
+.menu-user .user-options a:hover{
+    background-color: #024a6b;
+}
+
+.menu-user .user-options a:nth-of-type(1){
+    margin-top: 15px;
+}
+
+.menu-user .user{
+    display:flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.menu-user:hover .user-options {
+    display:block;
+}
+
+
+.menubar{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height:50px;
+    width:220px;
+    background-color: #0070A3;
+    position: absolute;
+    border-radius: 30px;
+    margin-top: 40px;
+    margin-right: 50px;
+    right: 0;
+    color:white;
+}
+
+.menubar:hover{
+    background-color: #006494;
+}
+
+
+.menubar .notification{
+    align-self: center;
+    margin-top: 6px;
+    cursor: pointer;
+}
+
+.menubar .notification #not-qty{
+    background-color: #eb0036;
+    text-align: center;
+    border-radius: 50%;
+    font-size: 12px;
+    width: 15px;
+    height: 15px;   
+    position: absolute;
+    margin-left: 10px;
+    top: 4px;
+}
+
+.menubar .notification .no-not{
+   display:none;
+}
+
+.menubar .notification .has-not{
+   display: block;
+}
+
+
+.notification-popup-hide{
+    display: none;
+}
+
+.notification-popup{
+    position: absolute;
+    height: 70vh;
+    width: 300px;
+    right: 40%;
+    top: 60px;
+    z-index: 9999;
+    border-radius: 30px;
+    background-color: white;
+    overflow: overlay;
+}
+
+.notification-popup::-webkit-scrollbar {
+    display: none;
+}
+
+
+.notification-not{
+    cursor: pointer;
+}
+
+.notification-not hr{
+    margin-top: 7px;
+    margin-bottom: 7px;
+}
+
+.notification-not h1{
+    background-color: #0070A3;
+    min-height: 20px;
+    color:white;
+    padding:5px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.notification-not:nth-of-type(1) h1{
+    border-top-left-radius: 30px !important;
+    border-top-right-radius: 30px !important;
+}
+
+.notification-not p{
+    text-align: end;
+    padding-right: 10px;
+    color:gray;
+    background-color: white;
+    font-size: 11px;
+    margin-bottom: 10px;
+}
+
+.notification-message p{
+    padding-top: 10px;
+    text-align: start;
+    color:black;
+    background-color: white;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.notification-message img{
+    width:40px;
+    height:40px;
+    align-self: flex-end;
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-top:10px;
+}
+
+.notification-message{
+    display: flex;
+}
+
+.menubar div a{
+    text-decoration: none;
+    align-items: center
+}
+
+
+/* .user-options{
+    left: -50%;
+} */
+
+.logout{
+    cursor: pointer;
+}
+
+@media(max-width:421px){
+
+    .sidebar .closeopen{
+        width: 100vw;
+    }
+}
+

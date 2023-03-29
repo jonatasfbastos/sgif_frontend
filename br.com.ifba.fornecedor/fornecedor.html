@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fornecedor</title>
+    <link rel="stylesheet" href="fornecedor.css">
+</head>
+<body>
+    <div class="popupRemove" id="popupRemove">
+        <img src="../images/ask.png" alt="question-sign-in-circles">
+        <h2>Você tem certeza que deseja remover esse Fornecedor?</h2>
+        <button type="button" onclick="remover(), closePopup(), telaEnabled()">Sim</button>
+        <button type="button" onclick="closePopup(), telaEnabled()">Não</button>
+    </div>
+
+    <div class="popupEdit" id="popupEdit">
+        <img src="../images/caneta.png" alt="editar">
+        <h2>Digite as novas informações</h2>
+        <input type="text" name="fornecedorName" placeholder="Nome..." autocomplete="off" class="fornecedorName" id="fornecedorName">
+        <input type="text" name="fornecedorEmail" placeholder="Email..." autocomplete="off" class="fornecedorEmail" id="fornecedorEmail">
+        <input type="text" name="fornecedorTelefone" placeholder="Telefone..." autocomplete="off" class="fornecedorTelefone" id="fornecedorTelefone">
+        <input type="text" name="fornecedorTelefone" placeholder="CNPJ..." autocomplete="off" class="fornecedorTelefone" id="fornecedorCnpj">
+        <button type="button" onclick="closeEditPopup(), editar(), telaEnabled()">Confirmar</button>
+        <button type="button" onclick="closeEditPopup(), telaEnabled()">Cancelar</button>
+    </div>
+
+    <div class="popupAdd" id="popupAdd">
+        <img src="../images/botao-adicionar3.png" alt="editar">
+        <h2>Digite as informações do Fornecedor</h2>
+        <input type="text" name="fornecedorName" placeholder="Nome..." autocomplete="off" class="fornecedorName" id="fornecedorNameAdd">
+        <input type="text" name="fornecedorEmail" placeholder="Email..." autocomplete="off" class="fornecedorEmail" id="fornecedorEmailAdd">
+        <input type="text" name="fornecedorTelefone" placeholder="Telefone..." autocomplete="off" class="fornecedorTelefone" id="fornecedorTelefoneAdd">
+        <input type="text" name="fornecedorTelefone" placeholder="CPNJ..." autocomplete="off" class="fornecedorTelefone" id="fornecedorCpnjAdd">
+        <button type="button" onclick="closeAddPopup(), adicionar(), telaEnabled()">Confirmar</button>
+        <button type="button" onclick="closeAddPopup(), telaEnabled()">Cancelar</button>
+    </div>
+
+    <div class="backdrop" id="backdrop" onclick="stopPropagation()"></div>
+
+
+    <div class="tela" id="tela">
+        <div class="search">
+            <input type="text" placeholder="Procurar..." class="loupe" id="loupe" onkeyup="buscar()"> 
+        </div>
+
+        <div class="scroll">
+        <table class="itens-table" id="itens-table">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Telefone</th>
+                    <th>CNPJ</th>
+                    <th>Remover</th>
+                    <th>Editar</th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+                
+            </tbody>
+        </table>
+
+        </div>
+        
+        <button class="homescreen"> <a href="../br.com.ifba.homescreen/homescreen.html"> <img src="../images/homescreen3.png" alt="homescreen"><p>Homescreen</p></a></button>
+
+        <button class="adicionar" type="button" onclick="openAddPopup(), teladisabled()"><img src="../images/botao-adicionar2.png" alt="adicionar" title="Adicionar"></button>
+
+    </div>
+
+    <script src="../js/requisitions.js"></script>
+    <script src="fornecedor.js"></script>
+</body>
+</html>

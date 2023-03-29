@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tela Login</title>
+    <link rel="stylesheet" href="index.css">
+    <script type="text/javascript" src="../js/session.js"></script>
+</head>
+<body>
+    <main>
+        <div class="part1">
+            <h1 class="salmos">Salmos <p class="version">1.0</p></h1> 
+        </div>
+
+        <div class="img">
+            <img src="../images/armazem3.png" alt="armazém" class="icon-armazem">
+            <h6 class="system-type">Sistema de Almoxarifado</h6>
+        </div>
+
+        <div class="part2">
+            <div class="form">
+                <img src="../images/enter.png" alt="enter">
+                <h2>Bem vindo</h2>
+                <span>Entre com a sua conta</span>
+                <input id="usuario" type="text" name="username" placeholder="E-mail/Login" class="user" autocomplete="off" onkeyup="handleChangeField()">
+                <input id="senha" type="password" name="password" placeholder="Senha" class="keyword" autocomplete="off" onkeyup="handleChangeField()">
+                <input id="botao-login" type="submit" name="send" value="Logar" class="button" onclick="getDatas()">
+                <p class="forgot">Esqueceu a senha?</p>
+            </div>
+        </div>  
+    </main>
+    <script src="../js/requisitions.js"></script>
+    <script>    
+        function getDatas(){
+            
+            var usuario = document.getElementById("usuario").value
+            var senha = document.getElementById("senha").value
+            get_params('login', {login:usuario, senha:senha}).then(usuario=>{
+                console.log(usuario)
+                setUser(usuario)
+                window.location.replace('../br.com.ifba.homescreen/homescreen.html')
+            }).catch(erro=>{
+                console.log(erro)
+                
+                showMessage({type:'warning', message:"Verifique o login e a senha e tente novamente"})
+            })
+        }
+
+        function handleChangeField(){
+            var usuario = document.getElementById("usuario")
+            var senha = document.getElementById("senha")
+            var botaoLogin = document.getElementById("botao-login")
+            
+            usuario.addEventListener('keyup', function(e){
+                var key = e.which || e.keyCode;
+                if (key == 13) { // codigo da tecla enter
+                    // colocas aqui a tua função a rodar
+                    if(senha.value === '' || senha.value === null){
+                        senha.focus()
+                    }else{
+                        botaoLogin.click()
+                    }
+                }
+            });
+
+            senha.addEventListener('keyup', function(e){
+                var key = e.which || e.keyCode;
+                if (key == 13) { // codigo da tecla enter
+                    // colocas aqui a tua função a rodar
+                    if(senha.value === '' || senha.value === null){
+                        senha.focus()
+                    }else if(usuario.value === '' || usuario.value === null){
+                        usuario.focus()
+                    }else{
+                        botaoLogin.click()
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>

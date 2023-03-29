@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Requisição</title>
+    <link rel="stylesheet" href="requisicao.css">
+</head>
+<body>
+    <div class='box'>
+        <div class='wave -one'></div>
+        <div class='wave -two'></div>
+        <div class='wave -three'></div>
+    </div>
+
+    <!--Olha isso daqui vertinho-->
+    <div class="form-popup" id="myForm">
+    <form class="form-container">
+        <h1>Info Requisição</h1>
+        <div class="infos">
+            <p>Item Requisitado: <span id="itemDemonstration"></span></p>
+            <p>Quantidade do Item Requisitado: <span id="itemQuantia"></span></p>
+            <p>Código de Saída: <span id="itemCodSaida"></span></p>
+            <button type="button" onclick="closeForm(), telaEnabled()">Fechar</button>
+        </div>
+    </form>
+    </div>
+        <div class="popupRemove" id="popupRemove">
+            <img src="../images/ask.png" alt="question-sign-in-circles">
+            <h2>Você tem certeza que deseja remover essa Requisição?</h2>
+            <button type="button" onclick="remover(), closePopup(), telaEnabled()">Sim</button>
+            <button type="button" onclick="closePopup(), telaEnabled()">Não</button>
+        </div>
+
+        <div class="popupEdit" id="popupEdit">
+            <img src="../images/botao-adicionar3.png" alt="adicionar">
+            <h2>Digite as novas informações da Requisição</h2>
+
+            <div class="scroll2">
+                <table class="itens-table2" id="itens-table3">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Quantidade</th>
+                            <th>Fornecedor</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body3">
+                        
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="info_container">
+                <input type="text" name="qtdReq" placeholder="Quantidade..." autocomplete="off" class="loginUsuario" id="EditqtdReq">
+                <input type="text" name="usuReq" placeholder="Usuario da Requisição..." autocomplete="off" class="loginUsuario" id="EditusuReq" >
+                <!-- <input type="text" name="descReq" placeholder="Descrição da Requisição..." autocomplete="off" class="loginUsuario" id="descReq"> -->
+
+                <select name="Setor" id="EditSetor">
+                    
+                </select>
+
+                <select name="Item" id="EditItem">
+                    
+                </select>
+
+                <button type="button" onclick="closeEditPopup(), editar(), telaEnabled()">Confirmar</button>
+                <button type="button" onclick="closeEditPopup(), telaEnabled()">Cancelar</button>
+            </div>
+        </div> 
+
+        <div class="popupAdd" id="popupAdd">
+            <img src="../images/botao-adicionar3.png" alt="adicionar">
+            <h2>Digite as informações da Requisição</h2>
+
+            <div class="scroll2">
+                <table class="itens-table2" id="itens-table2">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Quantidade</th>
+                            <th>Fornecedor</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body2">
+                        
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="info_container">
+                <input type="text" name="qtdReq" placeholder="Quantidade..." autocomplete="off" class="loginUsuario" id="qtdReq" onchange="requisicaoQtdAddChange()">
+                <input type="text" name="usuReq" placeholder="Usuario da Requisição..." autocomplete="off" class="loginUsuario" id="usuReq" onchange="requisicaoUsuAddChange()">
+                <!-- <input type="text" name="descReq" placeholder="Descrição da Requisição..." autocomplete="off" class="loginUsuario" id="descReq"> -->
+
+                <select name="Setor" id="Setor">
+                    
+                </select>
+
+                <select name="Item" id="Item">
+                    
+                </select>
+
+                <button type="button" onclick="closeAddPopup(), adicionar(), telaEnabled()">Confirmar</button>
+                <button type="button" onclick="closeAddPopup(), telaEnabled()">Cancelar</button>
+            </div>
+        </div>
+    <div class="backdrop" id="backdrop" onclick="stopPropagation()"></div>
+    <div class="tela" id="tela">
+    <div class="search">
+        <input type="text" placeholder="Procurar..." class="loupe" id="loupe" onkeyup="buscar()">
+    </div>
+
+    <div class="scroll">
+        <table class="itens-table" id="itens-table">
+            <thead>
+                <tr>
+                    <th>Num Requisição</th>
+                    <th>Usuário Requisitante</th>
+                    <th>Setor</th>
+                    <th>Informações</th>
+                    <th>Remover</th>
+                    <th>Editar</th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+
+            </tbody>
+        </table>
+
+    </div>
+
+    <button class="homescreen"> <a href="../br.com.ifba.homescreen/homescreen.html"> <img src="../images/homescreen3.png" alt="homescreen"><p>Homescreen</p></a></button>
+
+    <button class="adicionar" type="button" onclick="openAddPopup(), teladisabled()"><img src="../images/botao-adicionar2.png" alt="adicionar" title="Adicionar"></button>
+    </div>
+
+    <script type="text/javascript" src="../js/requisitions.js"></script>
+    <script type="text/javascript" src="requisicao.js"></script>
+</body>
+</html>

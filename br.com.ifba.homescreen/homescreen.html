@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homescreen</title>
+    <link rel="stylesheet" href="homescreen.css">
+    <script type="text/javascript" src="../js/session.js" onload="validateUser()"></script>
+</head>
+<body>
+    <main>
+        <div class="header" id="header">
+            <div class="sidebar" id="sidebar">
+
+                <button class="closeopen" id="closeopen">
+                    <img src="../images/barra-de-menu.png" alt="barra-de-menu" class="barra">
+                    <img src="../images/seta-esquerda.png" alt="fechar" class="sair">
+                </button>
+                <!--<h1>Salmos</h1>-->
+
+                <ul class="links-option">
+
+                    <li><a href="../br.com.ifba.usuario/usuario.html"><img src="../images/user.png" alt="Usuario"><p>Usuário</p></a></li>
+
+                    <li class="img2"><a href="../br.com.ifba.tipodeusuario/tipodeusuario.html"><img src="../images/silhueta-do-grupo-de-usuarios.png" alt="Tipos de Usuario"><p>Tipos de Usuário</p></a></li>
+
+                    <li><a href="../br.com.ifba.item/itens.html"><img src="../images/estoque.png" alt="estoque"><p>Itens</p></a></li>
+
+                    <li><a href="../br.com.ifba.tipodeitem/tipodeitem.html"><img src="../images/boxs.png" alt="Tipo de Item"><p>Tipos De Itens</p></a></li>
+
+                    <li><a href="../br.com.ifba.setores/setores.html"><img src="../images/grafico-de-setores.png" alt="setores"><p>Setor</p></a></li>
+
+                    <li><a href="../br.com.ifba.fornecedor/fornecedor.html"><img src="../images/fornecedor.png" alt="fornecedor"><p>Fornecedor</p></a></li>
+
+                    <li><a href="../br.com.ifba.graficos/graficos.html"><img src="../images/progressao-grafica.png" alt="graficos"><p>Gráficos</p></a></li>
+
+                    <li><a href="../br.com.ifba.requisicao/requisicao.html"><img src="../images/quote-request.png" alt="requisicao"><p>Requisição</p></a></li>
+
+                    <li><a href="../br.com.ifba.empenho/empenho.html"><img src="../images/empenho.png" alt="empenho"><p>Empenho</p></a></li>
+
+                    <li><a href="../br.com.ifba.notificationcenter/notificationcenter.html"><img src="../images/icons8-lembrete-de-compromissos-64.png" alt="notificações" width="22px" height="22px"><p>Central de notificações</p></a></li>
+
+                    <div class="projector"></div>
+                </ul>
+            </div>
+        </div>
+
+        <div class="complement">
+            <h5>Sistema de Almoxarifado</h5>
+        </div>
+
+        <div class="menubar">
+            <div class="notification">
+                <a onclick="showNotifications()">
+                    <div id="not-qty" class="no-not">9</div>
+                    <img src="../images/icons8-lembrete-de-compromissos-64.png" alt="" width="25px">
+                </a>
+
+                <div class="notification-popup-hide" id="notification-popup">
+                </div>
+
+            </div>
+
+            <div class="menu-user">
+                <a class="user">
+                    <img src="../images/userlogin.png" alt="userlogin" width="40px" height="40px"> 
+                    &nbsp;&nbsp;
+                    <p id="user_name">Dudinha</p>
+                </a>
+                                
+                <div class="user-options">
+                    <a href="../br.com.ifba.profile/profile.html"> 
+                        <img src="../images/usuario-logado2.png" alt="perfil-de-usuario"> 
+                        &nbsp;&nbsp;
+                        <p>Perfil</p>
+                    </a>
+                    <a href="#"> 
+                        <img src="../images/info-button.png" alt="info"> 
+                        &nbsp;&nbsp;
+                        <p>Sobre</p>
+                    </a>
+                    <a onclick="logOut()" class="logout" href="br.com.ifba.login/index.html"> 
+                        <img src="../images/logout2.png" alt="logout" >
+                        &nbsp;&nbsp;
+                        <p>Logout</p>
+                    </a>
+                </div>
+            </div>
+
+
+            
+        </div>
+    </main>
+    <!--padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    colocar em colunas certinho-->
+    <script src="../js/session.js"></script>
+    <script src="../scripts/javascript.js"></script>
+    <script src="../js/requisitions.js"></script>
+    <script type="text/javascript" src="../js/notification-home.js" onload="initNot()"></script>
+</body>
+</html>

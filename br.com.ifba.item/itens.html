@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Itens</title>
+    <link rel="stylesheet" href="itens.css">
+</head>
+<body>
+
+    <div class="form-popup" id="myForm">
+        <form class="form-container">
+            <h1>Info Item</h1>
+            <div class="infos">
+                <p>Nome do item: <span id="nomeItem"></span>.</p>
+                <p>Quantidade do Item: <span id="QuantiaItem"></span>.</p>
+                <p>Quantidade mínima do item: <span id="quantidadeMinimaItem"></span>.</p>
+                <p>Data de validade do Item: <span id="ValidadeItem"></span>.</p>
+                <p>O item é perecível?: <span id="perecivelItem"></span>.</p>
+                <p>Valor do item: <span id="ValorItem"></span> R$.</p>
+                <button type="button" onclick="closeForm(), telaEnabled()">Fechar</button>
+            </div>
+        </form>
+        </div>
+
+    <div class="popupRemove" id="popupRemove">
+        <img src="../images/ask.png" alt="question-sign-in-circles">
+        <h2>Você tem certeza que deseja remover esse Item?</h2>
+        <button type="button" onclick="remover(), closePopup(), telaEnabled()">Sim</button>
+        <button type="button" onclick="closePopup(), telaEnabled()">Não</button>
+    </div>
+
+    <div class="popupEdit" id="popupEdit">
+        <img src="../images/caneta.png" alt="editar">
+        <h2>Digite as novas informações</h2>
+        <input type="text" name="itemName" placeholder="Nome..." autocomplete="off" class="itemNameEd" id="itemNameEd">
+        
+        <input type="text" name="itemDescricao" placeholder="Descrição..." autocomplete="off" class="itemDescricaoEd" id="itemDescricaoEd" >
+        
+        <input type="text" name="itemQuantidade" placeholder="Quantidade..." autocomplete="off" class="itemQuantidadeEd" id="itemQuantidadeEd">
+        
+        <input type="number" name="itemQuantidadeMinima" placeholder="Quantidade Minima..." autocomplete="off" class="itemQuantidadeMinimaEd" id="itemQuantidadeMinimaEd" >
+        <input type="number" name="itemValor" placeholder="Valor do Item..." autocomplete="off" class="itemValorEd" id="itemValorEd">
+        <input type="date" name="itemValidade" placeholder="Data de Validade..." autocomplete="off" class="itemValidadeEd" id="itemValidadeEd">
+
+        <input type="text" name="itemPerecivel" placeholder="O item é perecível?..." autocomplete="off" class="itemPerecivelEd" id="itemPerecivelEd">
+
+        <select name="Tipo de Item" id="itemTypeEd" class="itemTypeEd"  placeholder="Tipo...">
+        </select> <br>        
+        
+        <select name="Fornecedor" id="itemFornecedorEd" class="itemFornecedorEd"  placeholder="Fornecedor...">
+        </select> <br>
+        <button type="button" onclick="closeEditPopup(), editar(), telaEnabled()">Confirmar</button>
+        <button type="button" onclick="closeEditPopup(), telaEnabled()">Cancelar</button>
+    </div>
+
+    <div class="popupAdd" id="popupAdd">
+        <img src="../images/botao-adicionar3.png" alt="editar">
+        <h2>Digite as informações do Item</h2>
+        <input type="text" name="itemName" placeholder="Nome..." autocomplete="off" class="itemNameAdd" id="itemNameAdd">
+        <input type="text" name="itemDescricao" placeholder="Descrição..." autocomplete="off" class="itemDescricaoAdd" id="itemDescricaoAdd" >
+        <input type="number" name="itemQuantidade" placeholder="Quantidade..." autocomplete="off" class="itemQuantidadeAdd" id="itemQuantidadeAdd" >
+
+        <input type="number" name="itemQuantidadeMinima" placeholder="Quantidade Minima..." autocomplete="off" class="itemQuantidadeMinimaAdd" id="itemQuantidadeMinimaAdd" >
+        <input type="number" name="itemValor" placeholder="Valor do Item..." autocomplete="off" class="itemValorAdd" id="itemValorAdd">
+
+         <select name="Fornecedor" id="itemFornecedor" class="itemFornecedor"  placeholder="Fornecedor...">
+        </select> <br>  
+
+            <input type="date" name="itemValidade" placeholder="Data de Validade..." autocomplete="off" class="itemValidadeAdd" id="itemValidadeAdd">
+
+            <input type="text" name="itemPerecivel" placeholder="O item é perecível?..." autocomplete="off" class="itemPerecivelAdd" id="itemPerecivelAdd">
+
+        <select name="Tipo de Item" id="itemType" class="itemType"  placeholder="Tipo...">
+        </select> <br>  
+        
+        <button type="button" onclick="closeAddPopup(), adicionar(), telaEnabled()">Confirmar</button>
+        <button type="button" onclick="closeAddPopup(), telaEnabled()">Cancelar</button>
+    </div>
+
+    <div class="backdrop" id="backdrop" onclick="stopPropagation()"></div>
+
+
+    <div class="tela" id="tela">
+        <div class="search">
+            <input type="text" placeholder="Procurar..." class="loupe" id="loupe" onkeyup="buscar()"> 
+        </div>
+
+        <div class="scroll">
+        <table class="itens-table" id="itens-table">
+            <thead>
+                <tr>
+                    <th>Código do item</th>
+                    <th>Descrição</th>
+                    <th>Fornecedor</th>
+                    <th>Tipo de item</th>
+                    <th>informações</th>
+                    <th>Remover</th>
+                    <th>Editar</th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+                
+            </tbody>
+        </table>
+
+        </div>
+        
+        <button class="homescreen"> <a href="../br.com.ifba.homescreen/homescreen.html"> <img src="../images/homescreen3.png" alt="homescreen"><p>Homescreen</p></a></button>
+
+        <button class="adicionar" type="button" onclick="openAddPopup(), teladisabled()"><img src="../images/botao-adicionar2.png" alt="adicionar" title="Adicionar"></button>
+    </div>
+    <script type="text/javascript" src="../js/requisitions.js"></script>
+    <script type="text/javascript" src="itens.js"></script> 
+
+</body>
+</html>

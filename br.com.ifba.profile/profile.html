@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil</title>
+    <link rel="stylesheet" href="profile.css">
+    
+    <script type="text/javascript" src="../js/session.js" onload="validateUser()"></script>
+</head>
+<body id="body">
+    <style>
+
+        #user-info{
+            width: 70%;
+            height: 70%;
+            border-radius: 20px;
+            display: flex;
+            background-color: white;
+            margin-top: 30px;
+        }
+
+        #profile-image img{
+            border-radius: 50%;
+            max-width: 250px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        #profile-image {
+            margin: 30px 0px 30px 30px;
+        }
+
+        #profile-syntax{
+            align-items: center;
+            text-align: center;
+            margin-right: 50px;
+        }
+        
+        #profile-syntax p{
+            color: rgb(71, 71, 71);
+            padding-top: 5px;
+        }
+
+        #user-detail{
+            width: 100%;
+            text-align: center;
+        }
+
+        #user-detail-table{
+            height: 100%;
+            width: 100%;
+        }
+
+        .image-edit-input{
+            vertical-align: sub;
+            visibility: hidden;
+        }
+
+        
+        tr:hover .image-edit-input{
+            vertical-align: sub;
+            visibility: visible;
+        }
+
+        #submit-actions{
+            height: 50px;
+            align-items: right;
+            visibility: hidden;
+        }
+        
+        #submit-actions button:hover{
+            background-color: #666;
+            color: #e3e6d0;
+        }
+
+        #alterarSenha:hover{
+            background-color: #666;
+            color: #e3e6d0;
+        }
+        
+        #submit-actions button, #alterarSenha{
+            width: 45%;
+            padding: 10px 0;
+            background: #165b79;
+            border: 0;
+            color: #e3e6d0;
+            border-radius: 16px;
+            outline: none;
+            cursor: pointer;
+            box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+            margin-left: 10px;
+        }
+
+        .input-show{
+            border: none;
+            display: inline;
+            font-family: inherit;
+            background-color: inherit;
+            font-size: inherit;
+            padding: none;
+            width: 60%;
+        }
+        
+
+        .input-edit{
+            width: 60%;
+            height: 40px;
+            border: 0;
+            border-radius: 20px;
+            padding: 20px;
+            font-size: 16px;
+            outline: 0;
+            cursor: auto;
+            box-shadow: 0 0px 5px rgba(0, 0, 0, 0.2);
+        }
+
+    </style>
+    <div class="tela" id="tela">
+        <button class="homescreen"> <a href="../br.com.ifba.homescreen/homescreen.html"> <img src="../images/homescreen3.png" alt="homescreen"><p>Homescreen</p></a></button>
+
+        
+        <div class="popupEdit" id="popupEdit">
+            <img src="../images/caneta.png" alt="editar">
+            <h2>Digite a nova senha</h2>
+
+            <input class="input-edit" type="password" id="senhanova" style="margin-bottom: 30px;" onkeyup="checkPass()">
+            
+            <p>Repita a senha</p>
+            <input class="input-edit" type="password" id="senhacheck" onkeyup="checkPass()">
+
+            <button id="confirm-pass" disabled="true" type="button" onclick="savePass(), closeEditPopup(), telaEnabled()">Confirmar</button>
+            <button type="button" onclick="closeEditPopup(), telaEnabled()">Cancelar</button>
+        </div>
+
+        <div id="user-info">
+            <div id="profile-syntax">
+                <div id="profile-image">
+                    <img src="../images/blank-profile.webp" alt="userlogin">
+
+                    
+                    <h2 id="nome-desc">Tarcisio Abade Mendonça</h2>
+                    <p id="email-desc">email</p>
+                    <p id="tipo-desc">tipo do usuario</p>
+                </div>
+            </div>
+            
+            <div id="user-detail">
+                <table id="user-detail-table">
+                    <form action="javascript: saveUser()" id="user-form">
+                        <tr><td>Nome</td>   <td><input class="input-show input-form" type="text" id="nome" value="Tarcisio Abade Mendonça"> <img src="../images/botao-editar2.png" class="image-edit-input" onclick="enableEdition()" alt="Editar" width="20px"></td></tr>
+                        <tr><td>Email</td>   <td><input class="input-show input-form" type="email" id="email" value="sidtarcisiosid88@gmail.com"> <img src="../images/botao-editar2.png" class="image-edit-input" onclick="enableEdition()" alt="Editar" width="20px"></td></tr>
+                        <tr><td>Login</td>   <td><input class="input-show input-form" type="text" id="login" value="tarciiz"> <img src="../images/botao-editar2.png" class="image-edit-input" onclick="enableEdition()" alt="Editar" width="20px"></td></tr>
+                        <tr><td>Senha</td>   <td>
+
+                            <button id="alterarSenha" onclick="openEditPopup()">Alterar senha</button>
+
+
+                            <!-- <input class="input-show input-form" type="password" id="senha" value="******"><img src="images/botao-editar2.png" class="image-edit-input" onclick="enableEdition()" alt="Editar" width="20px"> -->
+                        </td> </tr>
+
+                        <tr colspan="2" id="submit-actions"><td colspan="2"><button type="button" onclick="cacelEdition()" id="">Cancelar</button> <button type="submit" name="" id="">Salvar</button></td></tr>
+                        
+                    </form>
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script type="text/javascript" src="../js/requisitions.js"></script>
+    <script type="text/javascript" src="profile.js"></script>
+</body>
+</html>
