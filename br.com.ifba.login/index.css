@@ -18,17 +18,17 @@ main{
 .part1{
     height: 100vh;
     width: 40vw;
-    background-color: #18344E;
+    background-color: #009500;
     font-size: 48px;
     display: flex;
     align-items: center;
-    color: #E8F1F8;
+    color: #fafafa;
 }
 
 .part2{
     height: 100vh;
     width: 60vw;
-    background-color: #FFFFFF;
+    background-color: #fafafa;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -50,7 +50,7 @@ main{
 
 .img{
     margin-top: 35px;
-    margin-left: 20px;
+    margin-left: 25px;
     position: absolute;
     top: 50%;
     left: 21%;
@@ -59,10 +59,10 @@ main{
 
 .img h6{
     display: block;
-    margin-top: 200px;
+    margin-top: 190px;
     font-size: 20px;
-    margin-left: -45px;
-    color: #E8F1F8;
+    margin-left: -55px;
+    color: #fafafa;
 }
 
 .form{
@@ -87,7 +87,7 @@ main{
 }
 
 .form h2{
-    color: #006494;
+    color: #009500;
     font-size: 30px;
     text-align: center;
     font-size: 50px;
@@ -122,7 +122,8 @@ main{
 .user:focus{
     background-color: #f1f1f1;
     outline: none;
-    border-bottom: #006494 3px solid;
+    border-bottom: #08d408 3px solid;
+    transition: 0.1s;
 }
 
 .keyword{
@@ -142,13 +143,14 @@ main{
 
 .keyword:focus{
     outline: none;
-    border-bottom: #006494 3px solid;
+    border-bottom: #08d408 3px solid;
+    transition: 0.1s;
 }
 
 .button{
     width: 100%;
     height: 40px;
-    background-color: #006494;
+    background-color: #009500;
     color: white;
     cursor: pointer;
     border: 0;
@@ -157,7 +159,7 @@ main{
 }
 
 .button:hover{
-    background-color: #247BA0;
+    background-color: #08d408;
     color: rgb(241, 238, 238);
     transition: 1s;
 }
@@ -168,7 +170,7 @@ main{
 
 .forgot{
     text-align: right;
-    color: #72ABD5;
+    color: #009500;
     padding: 30px 0px;
     cursor: pointer;
     margin-right: -180px;
@@ -176,7 +178,7 @@ main{
 }
 
 .forgot:hover{
-    color: #247BA0;
+    color: #08d408;
     transition: 1s;
 }
 

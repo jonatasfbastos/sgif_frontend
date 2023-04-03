@@ -13,7 +13,7 @@ body{
 main{
     display: flex;
     border: none;
-    background-image: url(../images/pexels-tiger-lily-4481326\ \(1\).jpg);
+    background-image: url(../images/pexels-czapp-árpád-6147479.jpg);
     background-repeat: no-repeat;
     background-size: cover; 
 }
@@ -21,7 +21,7 @@ main{
 .sidebar{
     width: 300px;
     height: 100vh;
-    background-image: linear-gradient(#006494, #13293D);
+    background-image: linear-gradient(#009500, #d9dfd9);
     position: fixed;
     padding: 61px 0;
     display: flex;
@@ -48,7 +48,7 @@ main{
 
 .links-option li a{
     text-decoration: none;
-    color: #1A1A1A;
+    color: #000000;
     padding: 15px;
     display: flex;
     align-items: center;
@@ -56,8 +56,8 @@ main{
     height: 45px;
     margin: 0px 2px;
     border-radius: 25px;
-    border: 2px #EDF4ED solid;
-    background-color: #EDF4ED;
+    border: 1px #EDF4ED solid;
+    background-color: #f6f6f6;
 }
 
 .links-option li a img{
@@ -66,13 +66,13 @@ main{
 
 .projector{
     background-color: #EDF4ED;
-    width: 122%;
+    width: 115%;
     height: 52px;
     position: absolute;
     left: 0;
     z-index: -1;
     border-radius: 6px;
-    box-shadow: 3px 5px 10px rgb(255, 255, 255, 0.6);
+    box-shadow: 2px 4px 8px rgb(255, 255, 255, 0.6);
     display: none;
     transition: top 0.5s;
 }
@@ -136,7 +136,7 @@ main{
     transform: translateX(100%);
     padding: 10px 15px;
     font-size: 20px;
-    background-image: linear-gradient(#006494, #13293D);
+    background-image: linear-gradient(#009500, #d9dfd9);
     height: 100vh;
     position: absolute;
 }
@@ -175,15 +175,16 @@ main{
     flex-direction: column;
     padding-top: 85vh; 
     padding-left: 300px;
-    background-image: url(../images/estoque-maior.png);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-position-x: 575px;
+}
+
+.icon-ifba{
+    position: absolute;
+    margin: 0 auto;
     
 }
 
 .complement h5{
-    color: #247BA0;
+    color: #fafafa;
     font-size: 60px;
 }
 
@@ -209,7 +210,7 @@ button:hover{
 
 .menu-user .user-options a{
     all: none;
-    background-color: #0070A3;
+    background-color: #686464;
     align-items: center;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -222,7 +223,7 @@ button:hover{
     color: white;
 }
 .menu-user .user-options a:hover{
-    background-color: #024a6b;
+    background-color: #918c8c;
 }
 
 .menu-user .user-options a:nth-of-type(1){
@@ -248,19 +249,14 @@ button:hover{
     justify-content: space-around;
     height:50px;
     width:220px;
-    background-color: #0070A3;
+    background-color: #686464;
     position: absolute;
     border-radius: 30px;
     margin-top: 40px;
     margin-right: 50px;
     right: 0;
-    color:white;
+    color:#f6f6f6;
 }
-
-.menubar:hover{
-    background-color: #006494;
-}
-
 
 .menubar .notification{
     align-self: center;
@@ -320,7 +316,7 @@ button:hover{
 }
 
 .notification-not h1{
-    background-color: #0070A3;
+    background-color: #a30500;
     min-height: 20px;
     color:white;
     padding:5px;

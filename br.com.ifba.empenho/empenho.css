@@ -6,23 +6,10 @@
 }
 
 body {
-    background: linear-gradient(45deg, #13293D, #006494, #247BA0, #d3dbe2);
-    background-size: 200% 200%;
-    /* animation: gradient 25s ease infinite; */
+    background-image: linear-gradient(#20631d, #c2f5bf);
+    background-repeat: no-repeat;
+    background-size: auto;
     height: 100vh;
-}
-@keyframes gradient {
-    0% {
-        background-position: 0% 50%;
-    }
- 
-    50% {
-        background-position: 100% 50%;
-    }
- 
-    100% {
-        background-position: 0% 50%;
-    }
 }
 
 .scroll{
@@ -105,7 +92,7 @@ td:nth-child(4), td:nth-child(5), td:nth-child(6){
 }
 
 thead th{
-    background-color: #13293D;
+    background-color: #013b01;
 }
 
 tr:hover {
@@ -117,7 +104,7 @@ tr:hover {
     height: 45px;
     border: 0;
     border-radius: 25px;
-    background-color: #13293D;
+    background-color: #013b01;
     font-size: 16px;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     cursor: pointer;
@@ -128,7 +115,7 @@ tr:hover {
 
 .homescreen:hover{
     /* background-color: #13293D; */
-    box-shadow: 0 0 5px #13293D, 0 0 25px #13293D, 0 0 50px #13293D, 0 0 200px #13293D; 
+    box-shadow: 0 0 5px #20631d, 0 0 25px #20631d, 0 0 50px #20631d, 0 0 200px #20631d; 
     /* box-shadow: inset -6.5em 0 0 0 #165b79, inset 6.5em 0 0 0 #3f6c80; */
 }
 
@@ -181,7 +168,7 @@ tr:hover {
     right: 700px; 
     width: 200px;
     height: 45px;
-    background-color: #13293D;
+    background-color: #013b01;
     cursor: pointer;
     border: 1px solid rgb(211, 210, 210);
     border-radius: 20px;
@@ -198,7 +185,7 @@ tr:hover {
     right: 415px; 
     width: 200px;
     height: 45px;
-    background-color: #13293D;
+    background-color: #013b01;
     cursor: pointer;
     font-size: 16px;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -214,7 +201,7 @@ tr:hover {
 
 .popupAdd{
     width: 500px;
-    background-color: #13293D;
+    background-color: #013b01;
     border-radius: 10px;
     position: absolute;
     top: 0%;
@@ -343,7 +330,7 @@ tr:hover {
 
 .popupEdit{
     width: 500px;
-    background-color: #2177a8;
+    background-color: #013b01;
     border-radius: 10px;
     position: absolute;
     top: 0%;
@@ -480,7 +467,7 @@ tr:hover {
 
 .popupRemove{
     width: 400px;
-    background: #165b79;
+    background: #013b01;
     border-radius: 6px;
     position: absolute;
     top: 0%;

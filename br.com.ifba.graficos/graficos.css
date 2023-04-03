@@ -15,7 +15,7 @@ h1{
     text-align: center;
     padding-top: 25px;
     font-size: 50px;
-    color: #165b79;
+    color: #013b01;
 }
 /* .chart1{
     width: 800px;
@@ -75,7 +75,7 @@ h1{
     margin: 7px 2px ;
     border-radius: 20px;
     border: none;
-    background-color:#165b79;
+    background-color:#013b01;
     cursor: pointer;
     width: 250px;
     height: 50px;
@@ -84,7 +84,7 @@ h1{
 }
 
 .buttons li a:hover{
-    box-shadow: 0 0 5px #165b79, 0 0 25px #165b79, 0 0 50px #165b79, 0 0 200px #165b79;
+    box-shadow: 0 0 5px #013b01, 0 0 25px #013b01, 0 0 50px #013b01, 0 0 200px #013b01;
 }
 
 .buttons li a p{
@@ -101,7 +101,7 @@ h1{
     position: fixed;
     text-align: center;
     color: #fff;
-    background-color: #165b79;
+    background-color: #013b01;
     width: 100%;
     height: 40px;
 }

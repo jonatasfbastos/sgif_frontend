@@ -6,14 +6,14 @@
 }
 
 body{
-    max-height: 100vh;
-    background-image: linear-gradient(#13293D, #247BA0);
+    height: 100vh;
+    background-image: linear-gradient(#20631d, #c2f5bf);
     background-repeat: inherit;
     background-size: auto;
 }
 
 .table-content{
-    height: 75vh;
+    height: 74vh;
 }
 
 .homescreen{
@@ -21,7 +21,7 @@ body{
     height: 45px;
     border: 0;
     border-radius: 25px;
-    background-color: #165b79;
+    background-color: #013b01;
     font-size: 16px;
     cursor: pointer;
     position: absolute;
@@ -30,7 +30,7 @@ body{
 }
 
 .homescreen:hover{
-    box-shadow: 0 0 5px #165b79, 0 0 25px #165b79, 0 0 50px #165b79, 0 0 200px #165b79;
+    box-shadow: 0 0 5px #013b01, 0 0 25px #013b01, 0 0 50px #013b01, 0 0 200px #013b01;
 }
 
 .homescreen img{
@@ -54,7 +54,7 @@ body{
     margin-right: auto;
     margin-left: auto;
     margin-top: 50px;
-    background-color: #247BA0;
+    background-color: #013b01;
     width:500px;
     height: 60px;
     border-radius: 30px;
@@ -84,7 +84,7 @@ table h1{
     min-height: 30px;
     color: white;
     font-size: 22px;
-    background-color: #247BA0;
+    background-color: #013b01;
 }
 
 table .notification-message{

@@ -24,22 +24,18 @@ function atualizarTabelaItens(){
               label: 'Quantidade',
               data: itemGraf.quantidade,
               backgroundColor:[
-                '#13293D',
-                '#006494',
-                '#247BA0',
-                '#E8F1F8',
-                '#165b79',
-                '#0e6cc4',
-                '#0af'
+                '#013b01',
+                '#08d408',
+                '#c90c0f',
+                '#34972f',
+                '#359830'
               ],
               borderColor: [
-                '#13293D',
-                '#006494',
-                '#247BA0',
-                '#E8F1F8',
-                '#165b79',
-                '#0e6cc4',
-                '#0af'
+                '#013b01',
+                '#08d408',
+                '#c90c0f',
+                '#34972f',
+                '#359830'
               ],
               borderWidth: 2
             }]
