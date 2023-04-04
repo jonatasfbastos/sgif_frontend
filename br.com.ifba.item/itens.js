@@ -246,6 +246,8 @@ function editar(){
     var perecivel = document.getElementById('itemPerecivelEd').value;
     var valorItem = document.getElementById('itemValorEd').value;
     var codigoItem = "1234"
+
+    console.log(fornecedor)
     
     this.item = this.ItemList.find(user=>{
         return user.id === this.selectedId

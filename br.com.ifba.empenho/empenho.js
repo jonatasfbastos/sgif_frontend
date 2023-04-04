@@ -50,15 +50,15 @@ function tableCreate(data){
             colValor.appendChild(document.createTextNode(element.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })))
             row.appendChild(colValor)
             
-            var colInfo = document.createElement("td")
-            colInfo.setAttribute("onclick", "openInfoItens("+element.id+")")
-            var infoLink = document.createElement("a")
-            var imgInfo = document.createElement("img")
-            imgInfo.setAttribute("src", "../images/simbolo-de-informacao.png")
-            infoLink.appendChild(imgInfo)
+            // var colInfo = document.createElement("td")
+            // colInfo.setAttribute("onclick", "openInfoItens("+element.id+")")
+            // var infoLink = document.createElement("a")
+            // var imgInfo = document.createElement("img")
+            // imgInfo.setAttribute("src", "../images/simbolo-de-informacao.png")
+            // infoLink.appendChild(imgInfo)
     
-            colInfo.appendChild(infoLink)
-            row.appendChild(colInfo)
+            // colInfo.appendChild(infoLink)
+            // row.appendChild(colInfo)
             
             
             var colRemover = document.createElement("td")
@@ -126,28 +126,28 @@ function closePopup(){
     
 }
 
-function openInfoItens(id) {
-    teladisabled()
-    this.selectedId = id
-    this.selectedIdEdit = id
-    document.getElementById("infoItensEmpenho").style.display = "block";
-    console.log('Id ',id)
-    let usr = this.ItemList.find(Item=>{
-        return Item.id === id
-    })
+// function openInfoItens(id) {
+//     teladisabled()
+//     this.selectedId = id
+//     this.selectedIdEdit = id
+//     document.getElementById("infoItensEmpenho").style.display = "block";
+//     console.log('Id ',id)
+//     let usr = this.ItemList.find(Item=>{
+//         return Item.id === id
+//     })
 
-    console.log('Item achado', usr)
+//     console.log('Item achado', usr)
 
-    document.getElementById('nomeItem').innerHTML = usr.nome;
-    document.getElementById('QuantiaItem').innerHTML = usr.quantidade;
-    document.getElementById('quantidadeMinimaItem').innerHTML = usr.quantidadeMinima;
-    document.getElementById('ValidadeItem').innerHTML = usr.dataValidade;
-    document.getElementById('perecivelItem').innerHTML = usr.perecivel;
-    document.getElementById('ValorItem').innerHTML = usr.valorItem;
+//     document.getElementById('nomeItem').innerHTML = usr.nome;
+//     document.getElementById('QuantiaItem').innerHTML = usr.quantidade;
+//     document.getElementById('quantidadeMinimaItem').innerHTML = usr.quantidadeMinima;
+//     document.getElementById('ValidadeItem').innerHTML = usr.dataValidade;
+//     document.getElementById('perecivelItem').innerHTML = usr.perecivel;
+//     document.getElementById('ValorItem').innerHTML = usr.valorItem;
     
 
-    teladisabled();
-}
+//     teladisabled();
+// }
 
 function closeInfoItens() {
     document.getElementById("infoItensEmpenho").style.display = "none";

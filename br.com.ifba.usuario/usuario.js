@@ -145,8 +145,9 @@ function openEditPopup(id){
     console.log('Usuario achado ', usr)
     
     document.getElementById('loginUsuarioEditar').value = usr.login
-    if(usr.tipodeusuario)
-        document.getElementById('tipoUsuarioEdit').value = usr.tipodeusuario.id
+    if(usr.tipodeusuario){
+        document.getElementById('tipoUsuarioEdit').value = usr.tipodeusuario ? usr.tipodeusuario.id : '';
+    }
 }
 
 var tablee = document.getElementById("itens-table");
@@ -216,14 +217,16 @@ var table = document.getElementById("itens-table");
 
 function editar(){
     let newLogin = document.getElementById('loginUsuarioEditar').value
-    let newTipoId = document.getElementById('tipoUsuarioEdit').value
+    var newTipoId = {id:document.getElementById('tipoUsuarioEdit').value}
+
+    console.log(newTipoId)
 
     this.usuario = this.usuariosList.find(user=>{
         return user.id === this.selectedId
     })
     
-    this.usuario.login = newLogin
-    this.usuario.tipodeusuario = {id:newTipoId}
+    this.usuario.login = newLogin;
+    this.usuario.perfilUsuario = newTipoId;
 
     console.log('Novo user ', this.usuario)
     post('atualizarUsuario', this.usuario).then(result=>{
