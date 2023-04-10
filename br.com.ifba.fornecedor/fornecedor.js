@@ -36,6 +36,10 @@ function tableCreate(data){
         var colCnpj = document.createElement("td")
         colCnpj.appendChild(document.createTextNode(element.cnpj))
         row.appendChild(colCnpj)
+
+        var colIe = document.createElement("td")
+        colIe.appendChild(document.createTextNode(element.inscricaoEstadual))
+        row.appendChild(colIe)
         
         tableBody.appendChild(row)
 
@@ -116,6 +120,8 @@ function openEditPopup(id){
     document.getElementById('fornecedorEmail').value = usr.email
     document.getElementById('fornecedorTelefone').value = usr.telefone
     document.getElementById('fornecedorCnpj').value = usr.cnpj
+    document.getElementById('fornecedorIE').value = usr.inscricaoEstadual
+
 }
 
 function closeEditPopup(){
@@ -127,6 +133,7 @@ function adicionar(){
     this.fornecedor.email = document.getElementById('fornecedorEmailAdd').value;
     this.fornecedor.telefone = document.getElementById('fornecedorTelefoneAdd').value;
     this.fornecedor.cnpj = document.getElementById('fornecedorCpnjAdd').value;
+    this.fornecedor.inscricaoEstadual = document.getElementById('fornecedorIeAdd').value;
 
     //se os campos de nome ou de cnpj estiverem vazios, não serão salvos 
     if(this.fornecedor.nome != "" && this.fornecedor.cnpj != ""){
@@ -144,6 +151,8 @@ function adicionar(){
     document.getElementById('fornecedorEmailAdd').value = '';
     document.getElementById('fornecedorTelefoneAdd').value = '';
     document.getElementById('fornecedorCpnjAdd').value = '';
+    document.getElementById('fornecedorIeAdd').value = '';
+
 }
 
 function remover(){
@@ -186,6 +195,8 @@ function editar(){
     var email = document.getElementById("fornecedorEmail").value;
     var telefone = document.getElementById("fornecedorTelefone").value;
     var cnpj = document.getElementById("fornecedorCnpj").value
+    var ie = document.getElementById("fornecedorIE").value
+
 
     this.fornecedor = this.fornecedorList.find(user=>{
         return user.id === this.selectedId
@@ -195,6 +206,7 @@ function editar(){
     this.fornecedor.email = email
     this.fornecedor.telefone = telefone
     this.fornecedor.cnpj = cnpj
+    this.fornecedor.inscricaoEstadual = ie
 
     console.log('Novo fornecedor ', this.fornecedor)
     post('salvarFornecedor', this.fornecedor).then(result=>{

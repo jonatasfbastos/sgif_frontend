@@ -36,7 +36,7 @@
         <h2>Digite as novas informações</h2>
         <input type="text" name="itemName" placeholder="Nome..." autocomplete="off" class="itemNameEd" id="itemNameEd">
         
-        <input type="text" name="itemDescricao" placeholder="Descrição..." autocomplete="off" class="itemDescricaoEd" id="itemDescricaoEd" >
+        <input type="text" name="itemDescricao" placeholder="Unidade de medida..." autocomplete="off" class="itemDescricaoEd" id="itemDescricaoEd" >
         
         <input type="text" name="itemQuantidade" placeholder="Quantidade..." autocomplete="off" class="itemQuantidadeEd" id="itemQuantidadeEd">
         
@@ -51,6 +51,8 @@
         
         <select name="Fornecedor" id="itemFornecedorEd" class="itemFornecedorEd"  placeholder="Fornecedor...">
         </select> <br>
+        <select name="Empenho" id="itemEmpenhoEd" class="itemFornecedorEd"  placeholder="Código de empenho...">
+        </select> <br>
         <button type="button" onclick="closeEditPopup(), editar(), telaEnabled()">Confirmar</button>
         <button type="button" onclick="closeEditPopup(), telaEnabled()">Cancelar</button>
     </div>
@@ -59,19 +61,20 @@
         <img src="../images/botao-adicionar3.png" alt="editar">
         <h2>Digite as informações do Item</h2>
         <input type="text" name="itemName" placeholder="Nome..." autocomplete="off" class="itemNameAdd" id="itemNameAdd">
-        <input type="text" name="itemDescricao" placeholder="Descrição..." autocomplete="off" class="itemDescricaoAdd" id="itemDescricaoAdd" >
+        <input type="text" name="itemDescricao" placeholder="Unidade de medida..." autocomplete="off" class="itemDescricaoAdd" id="itemDescricaoAdd" >
         <input type="number" name="itemQuantidade" placeholder="Quantidade..." autocomplete="off" class="itemQuantidadeAdd" id="itemQuantidadeAdd" >
 
         <input type="number" name="itemQuantidadeMinima" placeholder="Quantidade Minima..." autocomplete="off" class="itemQuantidadeMinimaAdd" id="itemQuantidadeMinimaAdd" >
         <input type="number" name="itemValor" placeholder="Valor do Item..." autocomplete="off" class="itemValorAdd" id="itemValorAdd">
 
-         <select name="Fornecedor" id="itemFornecedor" class="itemFornecedor"  placeholder="Fornecedor...">
+        <select name="Fornecedor" id="itemFornecedor" class="itemFornecedor"  placeholder="Fornecedor...">
         </select> <br>  
 
-            <input type="date" name="itemValidade" placeholder="Data de Validade..." autocomplete="off" class="itemValidadeAdd" id="itemValidadeAdd">
+        <input type="date" name="itemValidade" placeholder="Data de Validade..." autocomplete="off" class="itemValidadeAdd" id="itemValidadeAdd">
 
-            <input type="text" name="itemPerecivel" placeholder="O item é perecível?..." autocomplete="off" class="itemPerecivelAdd" id="itemPerecivelAdd">
-
+        <input type="text" name="itemPerecivel" placeholder="O item é perecível?..." autocomplete="off" class="itemPerecivelAdd" id="itemPerecivelAdd">
+        <select name="Empenho" id="itemEmpenho" class="itemType"  placeholder="Código de empenho..."></select>
+        <br>
         <select name="Tipo de Item" id="itemType" class="itemType"  placeholder="Tipo...">
         </select> <br>  
         

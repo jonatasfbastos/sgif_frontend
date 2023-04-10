@@ -42,13 +42,13 @@ function tableCreate(data){
             colNota.appendChild(document.createTextNode(element.nota))
             row.appendChild(colNota)
                     
-            var colValidade = document.createElement("td")
-            colValidade.appendChild(document.createTextNode(element.validade))
-            row.appendChild(colValidade)
+            // var colValidade = document.createElement("td")
+            // colValidade.appendChild(document.createTextNode(element.validade))
+            // row.appendChild(colValidade)
             
-            var colValor = document.createElement("td")
-            colValor.appendChild(document.createTextNode(element.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })))
-            row.appendChild(colValor)
+            // var colValor = document.createElement("td")
+            // colValor.appendChild(document.createTextNode(element.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })))
+            // row.appendChild(colValor)
             
             // var colInfo = document.createElement("td")
             // colInfo.setAttribute("onclick", "openInfoItens("+element.id+")")
@@ -165,9 +165,9 @@ function openEditPopup(id){
     console.log('Empenho achado ', emp)
     
     document.getElementById('notaEmpenhoEditar').value = emp.nota
-    document.getElementById('validadeEmpenhoEditar').value = emp.validade
-    document.getElementById('valorEmpenhoEditar').value = emp.valor
-    document.getElementById('itensEmpenhoEditar').value = emp.itens
+    // document.getElementById('validadeEmpenhoEditar').value = emp.validade
+    // document.getElementById('valorEmpenhoEditar').value = emp.valor
+    // document.getElementById('itensEmpenhoEditar').value = emp.itens
 }
 
 function closeEditPopup(){
@@ -176,13 +176,13 @@ function closeEditPopup(){
 
 function adicionar(){
     this.empenho.nota = document.getElementById('notaEmpenhoAdd').value;
-    this.empenho.validade = document.getElementById('validadeEmpenhoAdd').value;
-    this.empenho.valor = parseFloat(document.getElementById('valorEmpenhoAdd').value);
-    this.empenho.itens = ItemList;
+    // this.empenho.validade = document.getElementById('validadeEmpenhoAdd').value;
+    // this.empenho.valor = parseFloat(document.getElementById('valorEmpenhoAdd').value);
+    // this.empenho.itens = ItemList;
 
     //se os campos de nome, valor(valores negativos não serão aceitos) e itens(quando estiver sendo salvo na tela) estiverem vazios, não serão salvos
     //naturalmente sem a validade não salva, então não colocarei no if 
-    if(this.empenho.nota != "" && this.empenho.valor >= 0){
+    if(this.empenho.nota != ""){
         post('salvarEmpenho', this.empenho).then(result=>{
             console.log('result', result)
             atualizarTabela()   
@@ -194,9 +194,9 @@ function adicionar(){
     this.empenho = {}
 
     document.getElementById('notaEmpenhoAdd').value = '';
-    document.getElementById('validadeEmpenhoAdd').value = '';
-    document.getElementById('valorEmpenhoAdd').value = '';
-    document.getElementById('itensEmpenhoAdd').value = '';
+    // document.getElementById('validadeEmpenhoAdd').value = '';
+    // document.getElementById('valorEmpenhoAdd').value = '';
+    // document.getElementById('itensEmpenhoAdd').value = '';
 }
 
 function remover(){
@@ -233,8 +233,8 @@ var table = document.getElementById("itens-table");
 
 function editar(){
     let newNota = document.getElementById('notaEmpenhoEditar').value
-    let newValidade = document.getElementById('validadeEmpenhoEditar').value
-    let newValor = document.getElementById('valorEmpenhoEditar').value
+    // let newValidade = document.getElementById('validadeEmpenhoEditar').value
+    // let newValor = document.getElementById('valorEmpenhoEditar').value
     //let newItens = document.getElementById('itensEmpenhoEditar').value
 
     this.empenho = this.empenhoList.find(emp=>{
@@ -242,8 +242,8 @@ function editar(){
     })
     
     this.empenho.nota = newNota
-    this.empenho.validade = newValidade
-    this.empenho.valor = newValor
+    // this.empenho.validade = newValidade
+    // this.empenho.valor = newValor
    // this.empenho.itens = newItens
 
     console.log('Novo empenho ', this.empenho)
@@ -256,33 +256,33 @@ function editar(){
     this.empenho = {}
 }
 
-function gerarRelatorio(){
-    get('empenhosValidos').then(data=>{
-        this.empenhosValidos = data
-        console.log('Empenhos validos: ', this.empenhosValidos)
-        }).catch(error=>{
-            console.log('Error ', error)
-        })
-    _gerarCsv();
-}
+// function gerarRelatorio(){
+//     get('empenhosValidos').then(data=>{
+//         this.empenhosValidos = data
+//         console.log('Empenhos validos: ', this.empenhosValidos)
+//         }).catch(error=>{
+//             console.log('Error ', error)
+//         })
+//     _gerarCsv();
+// }
   
-var _gerarCsv = function(){
-    var csv = 'id, nota, validade, valorTotal\n';
-    this.empenhosValidos.forEach(function(row) {
-            csv += row.id;
-            csv += ','+ row.nota;
-            csv += ','+ row.validade;
-            csv += ','+ row.valor;
-            csv += '\n';        
-    });
+// var _gerarCsv = function(){
+//     var csv = 'id, nota, validade, valorTotal\n';
+//     this.empenhosValidos.forEach(function(row) {
+//             csv += row.id;
+//             csv += ','+ row.nota;
+//             csv += ','+ row.validade;
+//             csv += ','+ row.valor;
+//             csv += '\n';        
+//     });
    
-    var hiddenElement = document.createElement('a');
-    hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
-    hiddenElement.target = '_blank';
-    hiddenElement.download = 'Empenhos Validos.csv';
-    hiddenElement.click();
-    //window.location.reload(true);
-};
+//     var hiddenElement = document.createElement('a');
+//     hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+//     hiddenElement.target = '_blank';
+//     hiddenElement.download = 'Empenhos Validos.csv';
+//     hiddenElement.click();
+//     //window.location.reload(true);
+// };
 
 let popup = document.getElementById("popupRemove");
 let telaDesativada = document.getElementById("tela");

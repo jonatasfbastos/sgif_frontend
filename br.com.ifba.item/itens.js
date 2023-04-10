@@ -5,6 +5,7 @@ var item = {}
 
 setFornecedor()
 setTiposItem()
+setEmpenhosItem()
 atualizarTabela()
 function atualizarTabela(){
     
@@ -26,11 +27,11 @@ function tableCreate(data){
         var row = document.createElement("tr");
 
         var colCodItem = document.createElement("td")
-        colCodItem.appendChild(document.createTextNode(element.codigoItem))
+        colCodItem.appendChild(document.createTextNode(element.codigoItem ? element.codigoItem.nota: ''))
         row.appendChild(colCodItem)
 
         var colDescription = document.createElement("td")
-        colDescription.appendChild(document.createTextNode(element.descricao))
+        colDescription.appendChild(document.createTextNode(element.unidadeMedida))
         row.appendChild(colDescription)
         
         console.log(element.fornecedor?.nome)
@@ -132,7 +133,7 @@ function openForm(id) {
     document.getElementById('nomeItem').innerHTML = usr.nome;
     document.getElementById('QuantiaItem').innerHTML = usr.quantidade;
     document.getElementById('quantidadeMinimaItem').innerHTML = usr.quantidadeMinima;
-    document.getElementById('ValidadeItem').innerHTML = usr.dataValidade;
+    document.getElementById('ValidadeItem').innerHTML = usr.validade;
     document.getElementById('perecivelItem').innerHTML = usr.perecivel;
     document.getElementById('ValorItem').innerHTML = usr.valorItem;
     
@@ -154,24 +155,25 @@ function openEditPopup(id){
     })
 
     console.log('Item achado ', item)
-    console.log(item.perecivel)
+    console.log(item.tipoDeItem)
     
     document.getElementById('itemNameEd').value = item.nome;
-    document.getElementById('itemDescricaoEd').value = item.descricao;
+    document.getElementById('itemDescricaoEd').value = item.unidadeMedida;
     document.getElementById('itemQuantidadeEd').value = item.quantidade;
     document.getElementById('itemQuantidadeMinimaEd').value = item.quantidadeMinima;
     document.getElementById('itemFornecedorEd').value = item.fornecedor ? item.fornecedor.id : '';
 
-    var now = new Date(item.dataValidade);
-    var day = ("0" + now.getDate()).slice(-2);
-    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+    // var now = new Date(item.dataValidade);
+    // var day = ("0" + now.getDate()).slice(-2);
+    // var month = ("0" + (now.getMonth() + 1)).slice(-2);
 
-    var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+    // var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
 
     document.getElementById('itemTypeEd').value = item.tipoDeItem ? item.tipoDeItem.id: '';
     document.getElementById('itemPerecivelEd').value = item.perecivel
-    document.getElementById('itemValidadeEd').value = today;
+    document.getElementById('itemValidadeEd').value = item.validade;
     document.getElementById('itemValorEd').value = item.valorItem;
+    document.getElementById('itemEmpenhoEd').value = item.codigoItem ? item.codigoItem.id: '';
 }
 
 function closeEditPopup(){
@@ -180,15 +182,15 @@ function closeEditPopup(){
 
 function adicionar(){
     this.item.nome = document.getElementById("itemNameAdd").value;
-    this.item.descricao = document.getElementById("itemDescricaoAdd").value;
+    this.item.unidadeMedida = document.getElementById("itemDescricaoAdd").value;
     this.item.quantidade = document.getElementById("itemQuantidadeAdd").value;
     this.item.quantidadeMinima = document.getElementById("itemQuantidadeMinimaAdd").value;
     this.item.fornecedor = {id:document.getElementById('itemFornecedor').value}
-    this.item.dataValidade = document.getElementById('itemValidadeAdd').value;
+    this.item.validade = document.getElementById('itemValidadeAdd').value;
 
     this.item.perecivel = document.getElementById('itemPerecivelAdd').value;
     this.item.tipoDeItem = {id:document.getElementById('itemType').value}
-    this.item.codigoItem = "12345"
+    this.item.codigoItem = {id:document.getElementById('itemEmpenho').value}
     this.item.valorItem = document.getElementById('itemValorAdd').value;
     
 
@@ -245,7 +247,7 @@ function editar(){
     var dataValidade = document.getElementById('itemValidadeEd').value;
     var perecivel = document.getElementById('itemPerecivelEd').value;
     var valorItem = document.getElementById('itemValorEd').value;
-    var codigoItem = "1234"
+    var codigoItem ={id:document.getElementById('itemEmpenhoEd').value}
 
     console.log(fornecedor)
     
@@ -259,7 +261,7 @@ function editar(){
     this.item.fornecedor = fornecedor;
     this.item.quantidadeMinima = quantidadeMinima;
     this.item.descricao = descricao;
-    this.item.dataValidade = dataValidade;
+    this.item.validade = dataValidade;
     this.item.perecivel = perecivel;
     this.item.valorItem = valorItem;
     this.item.codigoItem = codigoItem;
@@ -293,6 +295,34 @@ function setTiposItem(){
             let option = document.createElement('option')
             option.value = tipo.id
             option.innerHTML = tipo.nome
+
+            multiCombo.appendChild(option)
+            
+        })
+    }).catch(error=>{
+        console.log('Error ', error)
+    })
+}
+
+function setEmpenhosItem(){
+    
+    get('empenho').then(tipoitem=>{
+        console.log('Códigos de empenho ', tipoitem)
+        var multiCombo = document.getElementById('itemEmpenho')
+        tipoitem.forEach(tipo=>{
+            let option = document.createElement('option')
+            option.value = tipo.id
+            option.innerHTML = tipo.nota
+
+            multiCombo.appendChild(option)
+            
+        })
+
+        var multiCombo = document.getElementById('itemEmpenhoEd')
+        tipoitem.forEach(tipo=>{
+            let option = document.createElement('option')
+            option.value = tipo.id
+            option.innerHTML = tipo.nota
 
             multiCombo.appendChild(option)
             
