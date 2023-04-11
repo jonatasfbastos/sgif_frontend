@@ -98,7 +98,7 @@ tr:last-child td:last-child{
     border-bottom-right-radius: 20px;
 }
 
-td:nth-child(5), td:nth-child(6), td:nth-child(7){
+td:nth-child(6), td:nth-child(7), td:nth-child(8){
     cursor: pointer;
 }
 

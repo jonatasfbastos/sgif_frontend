@@ -1,4 +1,4 @@
-setInterval(initNot, 60000)
+setInterval(initNot, 10000)
 
 function initNot() {
     get_no_load('notificationsUnread').then(not=>{

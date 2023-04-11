@@ -70,6 +70,10 @@ function tableCreate(data){
         var colDescricao = document.createElement("td")
         colDescricao.appendChild(document.createTextNode(element.setor ? element.setor.nome : ''))
         row.appendChild(colDescricao)
+
+        var colCriador = document.createElement("td")
+        colCriador.appendChild(document.createTextNode(element.criador ? element.criador.login : ''))
+        row.appendChild(colCriador)
         
         tableBody.appendChild(row)
 
@@ -423,6 +427,7 @@ function adicionar(){
     this.requisicao.itens = {id:document.getElementById('Item').value};
     this.requisicao.nome = "Req";
     this.requisicao.codigoSaida = codSaida;
+    this.requisicao.criador = {id:getUser().id}
 
     post('salvarRequisicao', this.requisicao).then(result=>{
         console.log('result', result)

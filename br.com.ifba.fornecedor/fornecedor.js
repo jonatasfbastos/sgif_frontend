@@ -40,6 +40,10 @@ function tableCreate(data){
         var colIe = document.createElement("td")
         colIe.appendChild(document.createTextNode(element.inscricaoEstadual))
         row.appendChild(colIe)
+
+        var colCriador = document.createElement("td")
+        colCriador.appendChild(document.createTextNode(element.criador ? element.criador.login : ''))
+        row.appendChild(colCriador)
         
         tableBody.appendChild(row)
 
@@ -134,6 +138,7 @@ function adicionar(){
     this.fornecedor.telefone = document.getElementById('fornecedorTelefoneAdd').value;
     this.fornecedor.cnpj = document.getElementById('fornecedorCpnjAdd').value;
     this.fornecedor.inscricaoEstadual = document.getElementById('fornecedorIeAdd').value;
+    this.fornecedor.criador = {id:getUser().id}
 
     //se os campos de nome ou de cnpj estiverem vazios, não serão salvos 
     if(this.fornecedor.nome != "" && this.fornecedor.cnpj != ""){

@@ -2,6 +2,9 @@ var selectedId
 var setorList = [] 
 var setor = {}
 
+console.log(typeof getUser().login)
+console.log({id:getUser().login})
+
 function setorNameAddChange(){
     setor.nome = document.getElementById('setorNameAdd').value;
     console.log(setor);
@@ -41,6 +44,10 @@ function tableCreate(data){
         var colDescricao = document.createElement("td")
         colDescricao.appendChild(document.createTextNode(element.descricao))
         row.appendChild(colDescricao)
+
+        var colCriador = document.createElement("td")
+        colCriador.appendChild(document.createTextNode(element.criador ? element.criador.login : ''))
+        row.appendChild(colCriador)
         
         
         tableBody.appendChild(row)
@@ -130,6 +137,7 @@ function tableCreate(data){
                 this.setor.nome = document.getElementById('setorNameAdd').value;
                 this.setor.descricao = document.getElementById('setorDescricaoAdd').value;
                 console.log(setor)
+                this.setor.criador = {id:getUser().id}
 
                 //se os campos de nome ou de descricao estiverem vazios, não serão salvos 
                 if(this.setor.nome != "" && this.setor.descricao != ""){

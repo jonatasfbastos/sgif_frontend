@@ -41,6 +41,10 @@ function tableCreate(data){
             var colNota = document.createElement("td")
             colNota.appendChild(document.createTextNode(element.nota))
             row.appendChild(colNota)
+
+            var colCriador = document.createElement("td")
+            colCriador.appendChild(document.createTextNode(element.criador ? element.criador.login : ''))
+            row.appendChild(colCriador)
                     
             // var colValidade = document.createElement("td")
             // colValidade.appendChild(document.createTextNode(element.validade))
@@ -176,6 +180,7 @@ function closeEditPopup(){
 
 function adicionar(){
     this.empenho.nota = document.getElementById('notaEmpenhoAdd').value;
+    this.empenho.criador = {id:getUser().id}
     // this.empenho.validade = document.getElementById('validadeEmpenhoAdd').value;
     // this.empenho.valor = parseFloat(document.getElementById('valorEmpenhoAdd').value);
     // this.empenho.itens = ItemList;

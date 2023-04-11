@@ -42,6 +42,10 @@ function tableCreate(data){
         var colType = document.createElement("td")
         colType.appendChild(document.createTextNode(element.tipoDeItem ? element.tipoDeItem.nome : ''))
         row.appendChild(colType)
+
+        var colCriador = document.createElement("td")
+        colCriador.appendChild(document.createTextNode(element.criador ? element.criador.login : ''))
+        row.appendChild(colCriador)
         
         tableBody.appendChild(row)
 
@@ -192,6 +196,8 @@ function adicionar(){
     this.item.tipoDeItem = {id:document.getElementById('itemType').value}
     this.item.codigoItem = {id:document.getElementById('itemEmpenho').value}
     this.item.valorItem = document.getElementById('itemValorAdd').value;
+
+    this.item.criador = {id:getUser().id}
     
 
     console.log("item ", item)
