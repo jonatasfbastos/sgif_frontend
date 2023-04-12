@@ -196,6 +196,8 @@ function adicionar(){
     this.item.tipoDeItem = {id:document.getElementById('itemType').value}
     this.item.codigoItem = {id:document.getElementById('itemEmpenho').value}
     this.item.valorItem = document.getElementById('itemValorAdd').value;
+    this.item.alerta = document.getElementById('itemAlerta').value;
+
 
     this.item.criador = {id:getUser().id}
     
