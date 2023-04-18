@@ -68,6 +68,22 @@ h1{
     padding: 10px 0;
 }
 
+.buttons .itemType{
+    border: 1px #13293D solid;
+    padding-left: 10px;
+    width: 98%;
+    height: 35px;
+    margin: 4px 2px;
+    border-radius: 25px;
+    background-image: url(../images/definicao-do-tipo-de-documento.png);
+    background-repeat: no-repeat;
+    background-position: left;
+    padding-left: 50px;
+    background-size: 1.3em;
+    background-position-x: 20px;
+    outline: 0;
+}
+
 .buttons li a{
     padding: 10px;
     display: flex;
@@ -83,7 +99,7 @@ h1{
     text-decoration: none;
 }
 
-.buttons li a:hover{
+.buttons li a:hover, .buttons li button:hover{
     box-shadow: 0 0 5px #013b01, 0 0 25px #013b01, 0 0 50px #013b01, 0 0 200px #013b01;
 }
 

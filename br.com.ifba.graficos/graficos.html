@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gráficos</title>
     <link rel="stylesheet" href="graficos.css">
-
+    
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     
 </head>
@@ -22,46 +22,18 @@
 
     <div class="sidebar">
       <ul class="buttons">
-        <!-- <li onclick="graficoItens()"><a href="#"><img src="../images/lista-de-marcadores.png" alt="Itens"><p>Itens</p></a></li> -->
-        <li><a href="../br.com.ifba.homescreen/homescreen.html"><img src="../images/homescreen3.png" alt="homescreen"><p>Homescreen</p></a></li>
+        <li><a href="#" onclick="atualizarTabelaItens()"><img src="../images/grafico-de-barras.png"><p>Gerar gráfico</p></a></li>
+        <li><a href="../br.com.ifba.homescreen/homescreen.html"><img src="../images/homescreen3.png"><p>Homescreen</p></a></li>
+        <li><select name="Tipo de Item" id="itemType" class="itemType"  placeholder="Tipo..."></li>
       </ul>
     </div>
   </div>
-    <div id="piechart" class="chart1"></div>
+
     <div class="footer">
       <p>Sistema de Almoxarifado</p>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script type="text/javascript" src="js/requisitions.js"></script>
-    <!-- <script>
-
-      function graficoItens(){
-        piechart.classList.remove("tableItensNull");
-        piechart.classList.add("tableAdd");
-        piechart2.classList.add("tableItensNull");
-        piechart3.classList.add("tableItensNull");
-      }
-
-      function graficoSetores(){
-        piechart2.classList.add("tableAdd");
-        piechart.classList.add("tableItensNull");
-        piechart3.classList.add("tableItensNull");
-        piechart2.classList.remove("tableItensNull");
-      }
-
-      function graficoFornecedores(){
-        piechart3.classList.remove("tableItensNull");
-        piechart3.classList.add("tableAdd");
-        piechart2.classList.add("tableItensNull");
-        piechart.classList.add("tableItensNull");
-      }
-
-      var piechart =  document.getElementById("piechart");
-      var piechart2 = document.getElementById("piechart2");
-      var piechart3 = document.getElementById("piechart3");
-
-    </script> -->
-
     <script type="text/javascript" src="../js/requisitions.js"></script>
     <script type="text/javascript" src="graficos.js"></script>
 
