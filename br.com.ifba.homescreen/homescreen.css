@@ -365,19 +365,14 @@ button:hover{
     align-items: center
 }
 
-
-/* .user-options{
-    left: -50%;
-} */
-
 .logout{
     cursor: pointer;
 }
 
 @media(max-width:421px){
 
-    .sidebar .closeopen{
-        width: 100vw;
+    .sidebar{
+        width: 80vw;
     }
 }
 

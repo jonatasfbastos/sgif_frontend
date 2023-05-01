@@ -12,90 +12,44 @@ body{
     background-size: auto;
 }
 
-
-.scroll{
-    max-height: 500px;
-    overflow-y: scroll;
-    border-radius: 20px; 
-    margin-top: 100px;
-}
-
-.scroll::-webkit-scrollbar{
-    width: 0;
-} 
-
-th{
-    position: sticky;
-    top: 0;
-}
-
-.tela{
+.buttons{
+    width: 100vw;
+    height: 20vh;
     display: flex;
-    justify-content: center;
     align-items: center;
-    height: 100%;
-    position: relative;
+    justify-content: space-around;
 }
 
-table.itens-table{
-    border-radius: 20px;
-    width: 1100px;
-    text-align: center;
+.search .loupe{
+    background: url(../images/search-interface-symbol2.png);
+    background-repeat: no-repeat;
     background-color: white;
-    box-shadow: 1px 1px 8px 1px #000000;
-    overflow: scroll;
+    background-position-x: 10px;
+    background-position-y: center;
+    background-size: 1.8em;
 }
 
-table.itens-table td, table.itens-table th + table.itens-table th{
-    border-top: 1px solid #f2f2f2;
-    padding: 2px 2px;
-}
-
-table.itens-table thead th{
-    color: #e3e6d0;
+.search input{
+    width: 260px;
+    height: 40px;
+    border: 0;
+    border-radius: 20px;
+    text-align: center;
     font-size: 16px;
-    text-transform: uppercase;
-    border-bottom: 1px solid #f2f2f2;
-    padding-bottom: 30px;
-    padding-top: 20px;
-    padding-left: 20px;
-    padding-right: 20px;
+    outline: 0;
 }
 
-table.itens-table td{
-    color: #666;
-}
-
-table.itens-table tr{
-    height: 61.39px;
-}
-
-table{
-    border-collapse:collapse;
-}
-
-tr:first-child td:first-child{
-    border-bottom-left-radius: 20px;
-}
-
-tr:last-child td:first-child{
-    border-bottom-left-radius: 20px;
-}
-
-tr:last-child td:last-child{
-    border-bottom-right-radius: 20px;
-}
-
-td:nth-child(3), td:nth-child(4){
-    cursor: pointer;
-}
-
-thead th{
+.adicionar{
     background-color: #013b01;
+    cursor: pointer;
+    border: 1px solid #666;
+    border-radius: 20px;
+    width: 200px;
+    height: 45px;
 }
 
-tr:hover {
-    background-color: #f5f5f5;
+.adicionar:hover{
+    opacity: 0.8;
 }
 
 .homescreen{
@@ -105,11 +59,7 @@ tr:hover {
     border-radius: 25px;
     background-color: #013b01;
     font-size: 16px;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     cursor: pointer;
-    position: absolute;
-    top: 50px;
-    left: 1035px;
 }
 
 .homescreen:hover{
@@ -132,52 +82,118 @@ tr:hover {
     padding-left: 13px;
 }
 
-.search{
-    position: absolute;
-    top: 50px;
-    left: 125px;
+.tableContain{
+    width: 100vw;
+    height: 75vh;
+    display: flex;
+    align-items: center;
+    justify-content: center; 
 }
 
-.search .loupe{
-    background: url(../images/search-interface-symbol2.png);
-    background-repeat: no-repeat;
-    background-color: white;
-    background-position-x: 10px;
-    background-position-y: center;
-    background-size: 1.8em;
-    margin-left: 10px;
+.scroll{
+    max-height: 495px;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-y: scroll;
 }
 
-.search input{
-    width: 260px;
-    height: 40px;
-    border: 0;
-    border-radius: 20px;
+.scroll::-webkit-scrollbar{
+    width: 0;
+} 
+
+th{
+    position: sticky;
+    top: 0;
+}
+
+tr:first-child td:first-child{
+    border-bottom-left-radius: 20px;
+}
+
+tr:last-child td:first-child{
+    border-bottom-left-radius: 20px;
+}
+
+tr:last-child td:last-child{
+    border-bottom-right-radius: 20px;
+}
+
+.rTable{
+    width: 83%;
     text-align: center;
+    background-color: white;
+    /* box-shadow: 1px 1px 8px 1px #000000; */
+}
+
+.rTable thead th{
+    color: #e3e6d0;
     font-size: 16px;
-    outline: 0;
-    cursor: auto;
-}
-
-.adicionar{
-    position: absolute;
-    top: 50px;
-    right: 545px; 
-    width: 200px;
-    height: 45px;
+    text-transform: uppercase;
+    border-bottom: 1px solid #f2f2f2;
+    padding: 20px 20px 30px 20px;
     background-color: #013b01;
-    cursor: pointer;
-    border: 1px solid #666;
-    border-radius: 20px;
-    display: block;
 }
 
-.adicionar:hover{
-    opacity: 0.8;
+.rTable td{
+    color: #666;
+}
+    
+.rTable tr{
+    height: 61.39px;
+}
+    
+table{
+    border-collapse:collapse;
+}
+
+td:nth-child(5), td:nth-child(4){
+    cursor: pointer;
+}
+
+tr:hover {
+    background-color: #f5f5f5;
+}
+
+@media screen and (max-width: 448px){
+    .tableContain{
+        width: 94%;
+    }
+
+    
+    .rTable tbody td{
+        display: flex; 
+        flex-direction: column; 
+    }
+}
+
+@media screen and (max-width: 659px){
+    .adicionar{
+        width: 150px;
+    }
+
+    .homescreen{
+        width: 150px;  
+    }
+
+    .search input{
+        width: 150px;
+    }
+}
+
+@media only screen and (min-width: 1200px){
+    .content{width:100%;}
+    .rTable tbody tr td:nth-child(1){width:10%;}
+    .rTable tbody tr td:nth-child(2){width:30%;}
+    .rTable tbody tr td:nth-child(3){width:20%;}
+    .rTable tbody tr td:nth-child(4){width:10%;}
+    .rTable tbody tr td:nth-child(4){width:30%;}
+
 }
 
 .popupAdd{
-    width: 500px;
+    width: 400px;
     background-color: #20631d;
     border-radius: 10px;
     position: absolute;
@@ -218,71 +234,33 @@ tr:hover {
     margin-left: 10px;
 }
 
-
-.popupAdd .emailUsuario{
+.popupAdd .tipoDeUsuarioName, .tipoDeUsuarioDescricao{
     border: 1px #13293D solid;
     padding-left: 10px;
     width: 100%;
     height: 45px;
     margin: 4px 2px;
     border-radius: 25px;
-    background-image: url(../images/o-email2.png);
-    background-repeat: no-repeat;
-    background-position: left;
-    padding-left: 50px;
-    background-size: 1.3em;
-    background-position-x: 20px;
     outline: 0;
+    padding-left: 50px;
 }
 
-
-.popupAdd .loginUsuario{
-    border: 1px #13293D solid;
-    padding-left: 10px;
-    width: 100%;
-    height: 45px;
-    margin: 4px 2px;
-    border-radius: 25px;
+.tipoDeUsuarioName{
     background-image: url(../images/login.png);
     background-repeat: no-repeat;
     background-position: left;
-    padding-left: 50px;
     background-size: 1.3em;
     background-position-x: 20px;
-    outline: 0;
 }
 
-.popupAdd .senhaUsuario{
-    border: 1px #13293D solid;
-    padding-left: 10px;
-    width: 100%;
-    height: 45px;
-    margin: 4px 2px;
-    border-radius: 25px;
-    background-image: url(../images/senha.png);
+.tipoDeUsuarioDescricao{
+    background-image: url(../images/procura-de-emprego.png);
     background-repeat: no-repeat;
     background-position: left;
-    padding-left: 50px;
     background-size: 1.3em;
     background-position-x: 20px;
-    outline: 0;
 }
 
-.popupAdd .nomeUsuario{
-    border: 1px #13293D solid;
-    padding-left: 10px;
-    width: 100%;
-    height: 45px;
-    margin: 4px 2px;
-    border-radius: 25px;
-    background-image: url(../images/nome.png);
-    background-repeat: no-repeat;
-    background-position: left;
-    padding-left: 50px;
-    background-size: 1.3em;
-    background-position-x: 20px;
-    outline: 0;
-}
 
 .popupAdd button:hover{
     background-color: #666;
@@ -306,7 +284,7 @@ tr:hover {
 }
 
 .popupEdit{
-    width: 500px;
+    width: 400px;
     background-color: #20631d;
     border-radius: 10px;
     position: absolute;
@@ -352,68 +330,15 @@ tr:hover {
     color: #e3e6d0;
 }
 
-.popupEdit .loginUsuario{
+.popupEdit .tipoDeUsuarioDescricao, .tipoDeUsuarioName{
     border: 1px #13293D solid;
     padding-left: 10px;
     width: 100%;
     height: 45px;
     margin: 4px 2px;
     border-radius: 25px;
-    background-image: url(../images/login.png);
-    background-repeat: no-repeat;
-    background-position: left;
-    padding-left: 50px;
-    background-size: 1.3em;
-    background-position-x: 20px;
     outline: 0;
-}
-
-.popupEdit .senhaUsuario{
-    border: 1px #13293D solid;
-    padding-left: 10px;
-    width: 100%;
-    height: 45px;
-    margin: 4px 2px;
-    border-radius: 25px;
-    background-image: url(../images/senha.png);
-    background-repeat: no-repeat;
-    background-position: left;
     padding-left: 50px;
-    background-size: 1.3em;
-    background-position-x: 20px;
-    outline: 0;
-}
-
-.popupEdit .emailUsuario{
-    border: 1px #13293D solid;
-    padding-left: 10px;
-    width: 100%;
-    height: 45px;
-    margin: 4px 2px;
-    border-radius: 25px;
-    background-image: url(../images/o-email2.png);
-    background-repeat: no-repeat;
-    background-position: left;
-    padding-left: 50px;
-    background-size: 1.3em;
-    background-position-x: 20px;
-    outline: 0;
-}
-
-.popupEdit .nomeUsuario{
-    border: 1px #13293D solid;
-    padding-left: 10px;
-    width: 100%;
-    height: 45px;
-    margin: 4px 2px;
-    border-radius: 25px;
-    background-image: url(../images/nome.png);
-    background-repeat: no-repeat;
-    background-position: left;
-    padding-left: 50px;
-    background-size: 1.3em;
-    background-position-x: 20px;
-    outline: 0;
 }
 
 .popupEdit select{
@@ -507,8 +432,3 @@ tr:hover {
 .popupRemove button:hover{
     background-color: #666;
 }
-@media(max-width: 600px){
-
-}
-
-
