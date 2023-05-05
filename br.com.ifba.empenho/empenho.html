@@ -9,9 +9,7 @@
     <script type="text/javascript" src="../js/session.js" onload="validateUser()"></script>
 
 </head>
-<body id="body">
-
-    <div class="d-flex flex-column justify-content-center w-100 h-100"></div>
+<body id="tela">
 
     <div class="popupRemove" id="popupRemove">
         <img src="../images/ask.png" alt="question-sign-in-circles">
@@ -44,14 +42,17 @@
 
     <div class="backdrop" id="backdrop" onclick="stopPropagation()"></div>
 
-
-    <div class="tela" id="tela">
+    <div class="buttons">
         <div class="search">
             <input type="text" placeholder="Procurar..." class="loupe" id="loupe" onkeyup="buscar()"> 
         </div>
+        <button class="adicionar" type="button" onclick="openAddPopup(), teladisabled()"><img src="../images/botao-adicionar2.png" alt="adicionar" title="Adicionar"></button>
+        <button class="homescreen"> <a href="../br.com.ifba.homescreen/homescreen.html"> <img src="../images/homescreen3.png" alt="homescreen"><p>Homescreen</p></a></button>
+    </div>
 
+    <div class="tableContain">
         <div class="scroll">
-        <table class="itens-table" id="itens-table">
+        <table class="rTable" id="itens-table">
             <thead>
                 <tr>
                     <th>Nota</th>
@@ -60,15 +61,13 @@
                     <th>Editar</th>
                 </tr>
             </thead>
+            
             <tbody id="table-body">
+
             </tbody>
         </table>
 
         </div>
-        
-        <button class="homescreen"> <a href="../br.com.ifba.homescreen/homescreen.html"> <img src="../images/homescreen3.png" alt="homescreen"><p>Homescreen</p></a></button>
-
-        <button class="adicionar" type="button" onclick="openAddPopup(), teladisabled()"><img src="../images/botao-adicionar2.png" alt="adicionar" title="Adicionar"></button>
                 
     </div>
     

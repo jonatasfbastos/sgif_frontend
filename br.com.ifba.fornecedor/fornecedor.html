@@ -9,7 +9,7 @@
     <script type="text/javascript" src="../js/session.js" onload="validateUser()"></script>
 
 </head>
-<body>
+<body id="tela">
     <div class="popupRemove" id="popupRemove">
         <img src="../images/ask.png" alt="question-sign-in-circles">
         <h2>Você tem certeza que deseja remover esse Fornecedor?</h2>
@@ -43,14 +43,18 @@
 
     <div class="backdrop" id="backdrop" onclick="stopPropagation()"></div>
 
-
-    <div class="tela" id="tela">
+    <div class="buttons">
         <div class="search">
             <input type="text" placeholder="Procurar..." class="loupe" id="loupe" onkeyup="buscar()"> 
         </div>
+        <button class="adicionar" type="button" onclick="openAddPopup(), teladisabled()"><img src="../images/botao-adicionar2.png" alt="adicionar" title="Adicionar"></button>
+        <button class="homescreen"> <a href="../br.com.ifba.homescreen/homescreen.html"> <img src="../images/homescreen3.png" alt="homescreen"><p>Homescreen</p></a></button>
+    </div>
+
+    <div class="tableContain">
 
         <div class="scroll">
-        <table class="itens-table" id="itens-table">
+        <table class="rTable" id="itens-table">
             <thead>
                 <tr>
                     <th>Nome</th>
@@ -69,11 +73,7 @@
         </table>
 
         </div>
-        
-        <button class="homescreen"> <a href="../br.com.ifba.homescreen/homescreen.html"> <img src="../images/homescreen3.png" alt="homescreen"><p>Homescreen</p></a></button>
-
-        <button class="adicionar" type="button" onclick="openAddPopup(), teladisabled()"><img src="../images/botao-adicionar2.png" alt="adicionar" title="Adicionar"></button>
-
+    
     </div>
 
     <script src="../js/requisitions.js"></script>

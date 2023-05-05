@@ -12,30 +12,23 @@
 </head>
 <body>
 
-  <div class="screen">
-
+  <div class="title">
     <h1>Gráficos do Sistema</h1>
-
-    <div id="my-Chart">
-      <canvas id="myChart"></canvas>
-    </div>
-
-    <div class="sidebar">
-      <ul class="buttons">
-        <li><a href="#" onclick="atualizarTabelaItens()"><img src="../images/grafico-de-barras.png"><p>Gerar gráfico</p></a></li>
-        <li><a href="../br.com.ifba.homescreen/homescreen.html"><img src="../images/homescreen3.png"><p>Homescreen</p></a></li>
-        <li><select name="Tipo de Item" id="itemType" class="itemType"  placeholder="Tipo..."></li>
-      </ul>
-    </div>
   </div>
 
-    <div class="footer">
-      <p>Sistema de Almoxarifado</p>
-    </div>
+  <div class="graphic">
+    <canvas id="myChart"></canvas>
+  </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script type="text/javascript" src="../js/requisitions.js"></script>
-    <script type="text/javascript" src="graficos.js"></script>
+  <div class="buttons">
+    <li><a href="../br.com.ifba.homescreen/homescreen.html"><img src="../images/homescreen3.png"><p>Homescreen</p></a></li>
+    <li><a href="#" onclick="atualizarTabelaItens()"><img src="../images/grafico-de-barras.png"><p>Gerar gráfico</p></a></li>
+    <li><select name="Tipo de Item" id="itemType" class="itemType"  placeholder="Tipo..."></li>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script type="text/javascript" src="../js/requisitions.js"></script>
+  <script type="text/javascript" src="graficos.js"></script>
 
 </body>
 </html>

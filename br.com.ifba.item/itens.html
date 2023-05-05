@@ -7,10 +7,8 @@
     <title>Itens</title>
     <link rel="stylesheet" href="itens.css">
     <script type="text/javascript" src="../js/session.js" onload="validateUser()"></script>
-
 </head>
-<body>
-
+<body id="tela">
     <div class="form-popup" id="myForm">
         <form class="form-container">
             <h1>Info Item</h1>
@@ -24,7 +22,7 @@
                 <button type="button" onclick="closeForm(), telaEnabled()">Fechar</button>
             </div>
         </form>
-        </div>
+    </div>
 
     <div class="popupRemove" id="popupRemove">
         <img src="../images/ask.png" alt="question-sign-in-circles">
@@ -87,39 +85,41 @@
 
     <div class="backdrop" id="backdrop" onclick="stopPropagation()"></div>
 
+    <div class="backdrop" id="backdrop" onclick="stopPropagation()"></div>
 
-    <div class="tela" id="tela">
+    <div class="buttons">
         <div class="search">
             <input type="text" placeholder="Procurar..." class="loupe" id="loupe" onkeyup="buscar()"> 
         </div>
-
-        <div class="scroll">
-        <table class="itens-table" id="itens-table">
-            <thead>
-                <tr>
-                    <th>Código do item</th>
-                    <th>Descrição</th>
-                    <th>Fornecedor</th>
-                    <th>Tipo de item</th>
-                    <th>Criador por</th>
-                    <th>informações</th>
-                    <th>Remover</th>
-                    <th>Editar</th>
-                </tr>
-            </thead>
-            <tbody id="table-body">
-                
-            </tbody>
-        </table>
-
-        </div>
-        
-        <button class="homescreen"> <a href="../br.com.ifba.homescreen/homescreen.html"> <img src="../images/homescreen3.png" alt="homescreen"><p>Homescreen</p></a></button>
-
         <button class="adicionar" type="button" onclick="openAddPopup(), teladisabled()"><img src="../images/botao-adicionar2.png" alt="adicionar" title="Adicionar"></button>
+        <button class="homescreen"> <a href="../br.com.ifba.homescreen/homescreen.html"> <img src="../images/homescreen3.png" alt="homescreen"><p>Homescreen</p></a></button>
     </div>
+
+    <div class="tableContain">
+        <div class="scroll">
+            <table class="rTable" id="itens-table">
+                <thead>
+                    <tr>
+                        <th>Código de item</th>
+                        <th>Descrição</th>
+                        <th>Fornecedor</th>
+                        <th>Tipo de item</th>
+                        <th>Criado por</th>
+                        <th>Informações</th>
+                        <th>Remover</th>
+                        <th>Editar</th>
+                    </tr>
+                </thead>
+            
+                <tbody id="table-body">
+                        
+                </tbody>
+            </table>
+        </div>
+    </div>
+
     <script type="text/javascript" src="../js/requisitions.js"></script>
-    <script type="text/javascript" src="itens.js"></script> 
+    <script type="text/javascript" src="itens.js"></script>
     <script src="../js/session.js"></script>    
 
 </body>

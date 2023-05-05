@@ -11,68 +11,45 @@ body{
     width: 100wh;
 }
 
+.title{
+    width: 100vw;
+    height: 15vh;
+}
+
 h1{
     text-align: center;
     padding-top: 25px;
     font-size: 50px;
     color: #013b01;
 }
-/* .chart1{
-    width: 800px;
-    height: 400px;
-    transform: translate(53%, 11%);
-    transition: transform 0.8s, top 1.4s; 
-}
 
-.chart2{
-    width: 800px;
-    height: 400px;
-    transform: translate(53%, -300%) scale(0.1);
-    visibility: hidden;
-    transition: transform 0.8s, top 1.4s; 
+.graphic{
+    width: 100vw;
+    height: 65vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-
-.chart3{
-    width: 800px;
-    height: 400px;
-    transform: translate(53%, -300%) scale(0.1);
-    visibility: hidden;
-    transition: transform 0.8s, top 1.4s; 
-} */
 
 #my-Chart{
-    min-width: 550px;
-    min-height: 420px;
-    position: absolute;
-    top: 33%;
-    left: 31%;
-}
-
-.sidebar{
     width: 550px;
-    height: 100vh;
-    position: fixed;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 220px;
-    padding-right: 180px;
+    height: 420px;
 }
 
 .buttons{
+    width: 100vw;
+    height: 20vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     list-style: none;
-    position: relative;
-}
-
-.buttons li{
-    padding: 10px 0;
 }
 
 .buttons .itemType{
     border: 1px #13293D solid;
     padding-left: 10px;
-    width: 98%;
-    height: 35px;
+    height: 50px;
+    width: 190px;
     margin: 4px 2px;
     border-radius: 25px;
     background-image: url(../images/definicao-do-tipo-de-documento.png);
@@ -84,6 +61,10 @@ h1{
     outline: 0;
 }
 
+.buttons li{
+    padding: 30px;
+}
+
 .buttons li a{
     padding: 10px;
     display: flex;
@@ -93,7 +74,7 @@ h1{
     border: none;
     background-color:#013b01;
     cursor: pointer;
-    width: 250px;
+    width: 190px;
     height: 50px;
     color: #fff;
     text-decoration: none;
@@ -104,38 +85,31 @@ h1{
 }
 
 .buttons li a p{
-    padding-left: 15%;
+    padding-left: 25%;
 }
 
 .buttons li img{
     padding-left: 10px;
 }
 
-.footer{
-    bottom: 0;
-    left: 0;
-    position: fixed;
-    text-align: center;
-    color: #fff;
-    background-color: #013b01;
-    width: 100%;
-    height: 40px;
-}
+@media screen and (max-width: 448px){
+    .buttons{
+        width: 100vw;
+        height: 20vh;
+        display: flex;
+        align-items: center;
+    }
 
-.footer p{
-    margin-top: 10px;
-}
+    .buttons .itemType{
+        width: 100px;
+    }
 
-.tableAdd{
-    width: 800px;
-    height: 400px;
-    transform: translate(53%, 11%) scale(1);
-    visibility: visible;
-}
+    .buttons li a{
+        width: 100px;
+        padding: 2px;
+    }
 
-.tableItensNull{
-    width: 0px;
-    height: 0px;
-    transform: translate(53%, -300%) scale(0.1);
-    visibility: hidden; 
+    .buttons li{
+        padding: 10px;
+    }
 }
