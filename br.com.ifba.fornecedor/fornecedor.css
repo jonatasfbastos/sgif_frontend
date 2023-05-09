@@ -241,7 +241,7 @@ tr:hover {
     margin-left: 10px;
 }
 
-.popupAdd .fornecedorName, .fornecedorTelefone, .fornecedorEmail{
+.popupAdd .fornecedorName, .fornecedorTelefone, .fornecedorEmail, .fornecedorCNPJ, .fornecedorIe{
     border: 1px #13293D solid;
     padding-left: 10px;
     width: 100%;
@@ -267,6 +267,23 @@ tr:hover {
     background-size: 1.3em;
     background-position-x: 20px;
 }
+
+.fornecedorCNPJ{
+    background-image: url(../images/local-na-rede-internet.png);
+    background-repeat: no-repeat;
+    background-position: left;
+    background-size: 1.3em;
+    background-position-x: 20px;
+}
+
+.fornecedorIe{
+    background-image: url(../images/numerico.png);
+    background-repeat: no-repeat;
+    background-position: left;
+    background-size: 1.3em;
+    background-position-x: 20px;
+}
+
 
 .fornecedorEmail{
     background-image: url(../images/o-email3.png);
