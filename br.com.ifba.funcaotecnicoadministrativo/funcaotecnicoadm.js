@@ -170,7 +170,7 @@ inputBuscar.addEventListener("keyup", () => {
     const linhas = corpoTabela.getElementsByTagName("tr");
 
     for(let i = 0; i < linhas.length; i++) {
-        const colunaTexto = linhas[i].getElementsByTagName("td")[1].innerText;
+        const colunaTexto = linhas[i].getElementsByTagName("td")[0].innerText;
         if (colunaTexto.toLowerCase().includes(busca)) {
             linhas[i].style.display = "";
         } else {
