@@ -21,6 +21,51 @@ async function get(endpoint){
     }
 }
 
+async function fetchDelete(endpoint) {
+    loadingStart()
+    try {
+        const fetched = await fetch(HOST+API+endpoint, {
+            method:'DELETE', 
+            headers: {
+                'Content-type': 'application/json'
+            }
+        })
+        
+        if (fetched.ok) {
+            const result = await fetched.text();
+            return result
+        }
+
+        throw fetched
+    } catch(error) {
+        throw error
+    } finally {
+        loadingEnd()
+    }
+}
+
+async function put(endpoint, body) {
+    loadingStart()
+    try {
+        const fetched = await fetch(HOST+API+endpoint, {
+            method:'PUT', 
+            headers: {'Content-type': 'application/json'}, 
+            body: JSON.stringify(body)
+        })
+        
+        if (fetched.ok){
+            const result = await fetched.json();
+            return result
+        }
+        
+        throw fetched
+    } catch(error) {
+        throw error
+    } finally {
+        loadingEnd()
+    }
+}
+
 async function get_no_load(endpoint){
     
     try{

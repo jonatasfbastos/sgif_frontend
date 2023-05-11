@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./funcaotecnicoadm.css">
+        <title>Função Técnico Administrativo</title>
+    </head>
+    <body>
+        <div id="container">
+            <header>
+                <input type="text" placeholder="Procurar..." id="input-buscar"> 
+                <button id="btn-adicionar" type="button">
+                    <img src="../images/botao-adicionar2.png" alt="Ícone do sinal de soma." title="Adicionar">
+                </button>
+                <a href="../br.com.ifba.homescreen/homescreen.html" id="btn-home-screen">
+                    <img src="../images/homescreen3.png" alt="Ícone representando a HomeScreen.">
+                    <p>HomeScreen</p>
+                </a>
+            </header>
+
+            <main>
+                <div id="popup-remover">
+                    <img src="../images/ask.png" alt="Ícone de um balão azul com uma interrogação." class="popup-img">
+                    <h1 class="popup-h1">Você tem certeza que deseja remover essa função técnico administrativo?</h1>
+
+                    <div class="popup-buttons">
+                        <button type="button" id="btn-remover-confirmar" class="popup-button">Sim</button>
+                        <button type="button" id="btn-remover-cancelar" class="popup-button">Não</button>
+                    </div>
+                </div>
+    
+                <div id="popup-editar">
+                    <img src="../images/caneta.png" alt="Ícone de uma lápis." class="popup-img">
+
+                    <div class="popup-inputs">
+                        <h1 class="popup-h1">Digite as novas informações</h1>
+                        <input type="text" name="funcao-nome-editar" placeholder="Nome..." autocomplete="off" id="funcao-nome-editar">
+                        <input type="text" name="funcao-descricao-editar" placeholder="Descrição..." autocomplete="off" id="funcao-descricao-editar">
+                    </div>
+    
+                    <div class="popup-buttons">
+                        <button type="button" class="popup-button" id="btn-editar-confirmar">
+                            Confirmar
+                        </button>
+                        <button type="button" class="popup-button" id="btn-editar-cancelar">
+                            Cancelar
+                        </button>
+                    </div>
+                </div>
+    
+                <div id="popup-adicionar">
+                    <img src="../images/botao-adicionar3.png" alt="Ícone de adição." class="popup-img">
+            
+                    <div class="popup-inputs">
+                        <h1 class="popup-h1">Digite as informações da função técnico administrativo</h1>
+                        <input type="text" name="funcao-nome-add" placeholder="Nome..." autocomplete="off" id="funcao-nome-add">
+                        <input type="text" name="funcao-descricao-add" placeholder="Descrição..." autocomplete="off" id="funcao-descricao-add">
+                    </div>
+    
+                    <div class="popup-buttons">
+                        <button type="button" class="popup-button" id="btn-add-confirmar">
+                            Confirmar
+                        </button>
+                        <button type="button" class="popup-button" id="btn-add-cancelar">
+                            Cancelar
+                        </button>
+                    </div>
+                </div>
+
+                <div id="background-efeito">
+                </div>
+
+                <div id="popup-erro">
+                    <img src="../images/alerta-icone.png" alt="Ícone de alerta." class="popup-img">
+                    <p id="erro-mensagem">
+                    </p>
+                    <button type="button" class="popup-button" id="btn-erro-fechar">
+                        Fechar
+                    </button>
+                </div>
+    
+                <div id="table-container">
+                    <div id="table-scroll">
+                        <table id="table">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Descrição</th>
+                                    <th>Remover</th>
+                                    <th>Editar</th>
+                                </tr>
+                            </thead>
+                        
+                            <tbody id="table-body">
+                            </tbody>
+                        </table>
+                    </div>
+                </div> 
+            </main>
+        </div>
+
+        <script type="text/javascript" src="../js/requisitions.js"></script>
+        <script type="text/javascript" src="funcaotecnicoadm.js"></script> 
+    </body>
+</html>
