@@ -71,7 +71,7 @@ function setCursos() {
     get('curso').then(cursos=>{
         console.log('Cursos ', cursos)
 
-        var multiCombo = document.getElementById('curso')
+        var multiCombo = document.getElementById('cursoAdd')
         var multiComboEdit = document.getElementById('cursoEdit')
         cursos.forEach(tipo=>{
             let option = document.createElement('option')
@@ -97,7 +97,7 @@ function setEtapasCurso() {
     get('etapaCurso').then(etapascursos=>{
         console.log('Etapas do curso ', etapascursos)
 
-        var multiCombo = document.getElementById('etapaCurso')
+        var multiCombo = document.getElementById('etapaCursoAdd')
         var multiComboEdit = document.getElementById('etapaCursoEdit')
         etapascursos.forEach(tipo=>{
             let option = document.createElement('option')
@@ -168,6 +168,9 @@ function openEditPopup(id){
     console.log('Matriz encontrada', usr)
     
     document.getElementById('nomeMatrizEditar').value = usr.nome
+    if(usr.curso){
+        document.getElementById('cursoEdit').value = usr.curso ? usr.curso.id : '';
+    }
     if(usr.etapacurso){
         document.getElementById('etapaCursoEdit').value = usr.etapacurso ? usr.etapacurso.id : '';
     }
@@ -186,8 +189,8 @@ function adicionar(){
     /*
         quando tiver o controller de curso e etapa curso descomentar as duas linhas abaixo
     */
-    //this.matriz.curso = {id:document.getElementById('curso').value};
-    //this.matriz.etapacurso = {id:document.getElementById('etapaCurso').value};
+    //this.matriz.curso = {id:document.getElementById('cursoAdd').value};
+    this.matriz.etapacurso = {id:document.getElementById('etapaCursoAdd').value};
     console.log(this.matriz)
 
     //this.matriz.pessoa = null;
@@ -207,6 +210,8 @@ function adicionar(){
 
     document.getElementById('nomeMatrizAdd').value = '';
     document.getElementById('descricaoMatrizAdd').value = '';
+    //document.getElementById('cursoAdd').value = '';
+    //document.getElementById('etapaCursoAdd').value = '';
 }
 
 function remover(){
@@ -248,7 +253,7 @@ function editar(){
         quando tiver o controller de curso e etapa curso descomentar as duas linhas abaixo
     */
     //var newCurso = {id:document.getElementById('cursoMatrizEdit').value}
-    //var newEtapaCurso = {id:document.getElementById('etapaCursoEdit').value}
+    var newEtapaCurso = {id:document.getElementById('etapaCursoEdit').value}
 
     console.log(newName)
     console.log(newDescricao)
