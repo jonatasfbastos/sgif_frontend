@@ -66,22 +66,6 @@ body{
     box-shadow: 0 0 5px #009500, 0 0 25px #009500, 0 0 50px #009500, 0 0 200px #009500;
 }
 
-.homescreen img{
-    padding-left: 9px;
-}
-
-.homescreen a{
-    text-decoration: none;
-    color: #e3e6d0;
-    display: flex;
-    align-items: center;
-    padding: 7px;
-}
-
-.homescreen p{
-    padding-left: 13px;
-}
-
 .tableContain{
     width: 100vw;
     height: 75vh;

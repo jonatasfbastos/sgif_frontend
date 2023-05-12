@@ -66,22 +66,6 @@ body{
     box-shadow: 0 0 5px #009500, 0 0 25px #009500, 0 0 50px #009500, 0 0 200px #009500;
 }
 
-.homescreen img{
-    padding-left: 9px;
-}
-
-.homescreen a{
-    text-decoration: none;
-    color: #e3e6d0;
-    display: flex;
-    align-items: center;
-    padding: 7px;
-}
-
-.homescreen p{
-    padding-left: 13px;
-}
-
 .tableContain{
     width: 100vw;
     height: 75vh;
@@ -228,12 +212,12 @@ tr:hover {
 .popupAdd h2{
     font-size: 23px;
     font-weight: 500;
-    margin: 30px 0 10px;
+    margin: 10px 0 10px;
 }
 
 .popupAdd button{
     width: 45%;
-    margin-top: 50px;
+    margin-top: 10px;
     padding: 10px 0;
     background: #fff;
     border: 0;
@@ -248,7 +232,7 @@ tr:hover {
     border: 1px #13293D solid;
     padding-left: 10px;
     width: 100%;
-    height: 35px;
+    height: 25px;
     margin: 4px 2px;
     border-radius: 25px;
     background-image: url(../images/item.png);
@@ -263,10 +247,10 @@ tr:hover {
     border: 1px #13293D solid;
     padding-left: 10px;
     width: 100%;
-    height: 35px;
+    height: 25px;
     margin: 4px 2px;
     border-radius: 25px;
-    background-image: url(../images/item.png);
+    background-image: url(../images/medir.png);
     background-repeat: no-repeat;
     background-position: left;
     padding-left: 50px;
@@ -278,10 +262,10 @@ tr:hover {
     border: 1px #13293D solid;
     padding-left: 10px;
     width: 100%;
-    height: 35px;
+    height: 25px;
     margin: 4px 2px;
     border-radius: 25px;
-    background-image: url(../images/item.png);
+    background-image: url(../images/simbolo-de-data-e-hora-do-evento.png);
     background-repeat: no-repeat;
     background-position: left;
     padding-left: 50px;
@@ -293,10 +277,26 @@ tr:hover {
     border: 1px #13293D solid;
     padding-left: 10px;
     width: 100%;
-    height: 35px;
+    height: 25px;
     margin: 4px 2px;
     border-radius: 25px;
     background-image: url(../images/item.png);
+    background-repeat: no-repeat;
+    background-position: left;
+    padding-left: 50px;
+    background-size: 1.3em;
+    background-position-x: 20px;
+    outline: 0;
+}
+
+.popupAdd .itemVencimentoAdd{
+    border: 1px #13293D solid;
+    padding-left: 10px;
+    width: 100%;
+    height: 25px;
+    margin: 4px 2px;
+    border-radius: 25px;
+    background-image: url(../images/data-de-vencimento.png);
     background-repeat: no-repeat;
     background-position: left;
     padding-left: 50px;
@@ -308,10 +308,10 @@ tr:hover {
     border: 1px #13293D solid;
     padding-left: 10px;
     width: 100%;
-    height: 35px;
+    height: 25px;
     margin: 4px 2px;
     border-radius: 25px;
-    background-image: url(../images/item.png);
+    background-image: url(../images/estragar.png);
     background-repeat: no-repeat;
     background-position: left;
     padding-left: 50px;
@@ -325,7 +325,7 @@ tr:hover {
     border: 1px #13293D solid;
     padding-left: 10px;
     width: 100%;
-    height: 35px;
+    height: 25px;
     margin: 4px 2px;
     border-radius: 25px;
     background-image: url(../images/caixas.png);
@@ -340,10 +340,10 @@ tr:hover {
     border: 1px #13293D solid;
     padding-left: 10px;
     width: 100%;
-    height: 35px;
+    height: 25px;
     margin: 4px 2px;
     border-radius: 25px;
-    background-image: url(../images/caixas.png);
+    background-image: url(../images/transbordar.png);
     background-repeat: no-repeat;
     background-position: left;
     padding-left: 50px;
@@ -355,10 +355,26 @@ tr:hover {
     border: 1px #13293D solid;
     padding-left: 10px;
     width: 100%;
-    height: 35px;
+    height: 25px;
     margin: 4px 2px;
     border-radius: 25px;
     background-image: url(../images/definicao-do-tipo-de-documento.png);
+    background-repeat: no-repeat;
+    background-position: left;
+    padding-left: 50px;
+    background-size: 1.3em;
+    background-position-x: 20px;
+    outline: 0;
+}
+
+.popupAdd .itemTypeTipo{
+    border: 1px #13293D solid;
+    padding-left: 10px;
+    width: 100%;
+    height: 25px;
+    margin: 4px 2px;
+    border-radius: 25px;
+    background-image: url(../images/propriedade.png);
     background-repeat: no-repeat;
     background-position: left;
     padding-left: 50px;
@@ -371,7 +387,7 @@ tr:hover {
     border: 1px #13293D solid;
     padding-left: 10px;
     width: 100%;
-    height: 35px;
+    height: 25px;
     margin: 4px 2px;
     border-radius: 25px;
     background-image: url(../images/fornecedor-de-hoteis.png);
@@ -414,12 +430,12 @@ tr:hover {
 .popupEdit h2{
     font-size: 23px;
     font-weight: 500;
-    margin: 30px 0 10px;
+    margin: 10px 0 10px;
 }
 
 .popupEdit button{
     width: 45%;
-    margin-top: 50px;
+    margin-top: 10px;
     padding: 10px 0;
     background: #fff;
     border: 0;
@@ -427,7 +443,7 @@ tr:hover {
     outline: none;
     cursor: pointer;
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
-    margin-left: 10px;
+    margin-left: 15px;
 }
 
 .popupEdit button:hover{

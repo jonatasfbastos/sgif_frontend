@@ -80,6 +80,20 @@ h1{
     text-decoration: none;
 }
 
+.homescreen{
+    width: 200px;
+    height: 45px;
+    border: 0;
+    border-radius: 25px;
+    background-color: #013b01;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.homescreen:hover{
+    box-shadow: 0 0 5px #009500, 0 0 25px #009500, 0 0 50px #009500, 0 0 200px #009500;
+}
+
 .buttons li a:hover, .buttons li button:hover{
     box-shadow: 0 0 5px #013b01, 0 0 25px #013b01, 0 0 50px #013b01, 0 0 200px #013b01;
 }
