@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terceirizado</title>
+    <link rel="stylesheet" href="terceirizado.css">
+    
+    <!--<script type="text/javascript" src="../js/session.js" onload="validateUser()"></script>-->
+</head>
+<body id="body">
+    <div class="popupRemove" id="popupRemove">
+        <img src="../images/ask.png" alt="question-sign-in-circles">
+        <h2>Você tem certeza que deseja remover?</h2>
+        <button type="button" onclick="remover(), closePopup(), telaEnabled()">Sim</button>
+        <button type="button" onclick="closePopup(), telaEnabled()">Não</button>
+    </div>
+
+    <div class="popupEdit" id="popupEdit">
+        <img src="../images/caneta.png" alt="editar">
+        <h2>Digite as novas informações</h2>
+        <input type="text" name="nomeEdit" placeholder="Nome..." autocomplete="off" class="loginUsuario" id="nomeEdit">
+        <input type="text" name="telefoneEdit" placeholder="Telefone..." autocomplete="off" class="loginUsuario" id="telefoneEdit">
+        <input type="email" name="emailEdit" placeholder="E-mail..." autocomplete="off" class="loginUsuario" id="emailEdit">
+        <input type="text" name="cpfEdit" placeholder="CPF..." autocomplete="off" class="loginUsuario" id="cpfEdit">
+        <input type="date" name="dataNascimentoEdit" placeholder="Data de nascimento..." autocomplete="off" class="loginUsuario" id="dataNascimentoEdit">
+        
+        <br>
+        <button type="button" onclick="closeEditPopup(), editar(), telaEnabled()">Confirmar</button>
+        <button type="button" onclick="closeEditPopup(), telaEnabled()">Cancelar</button>
+    </div>
+
+    <div class="popupAdd" id="popupAdd">
+        <img src="../images/botao-adicionar3.png" alt="adicionar">
+        <h2>Digite as informações do funcionário terceirizado</h2>
+        <input type="text" name="nomeNew" placeholder="Nome..." autocomplete="off" class="loginUsuario" id="nomeNew">
+
+        <input type="phone" name="telefoneNew" placeholder="Telefone..." autocomplete="off" class="loginUsuario" id="telefoneNew">
+
+        <input type="email" name="emailNew" placeholder="E-mail..." autocomplete="off" class="loginUsuario" id="emailNew">
+
+        <input type="text" name="cpfNew" placeholder="CPF..." autocomplete="off" class="loginUsuario" id="cpfNew">
+
+        <input type="date" name="dataNascimentoNew" placeholder="Data de nascimento..." autocomplete="off" class="loginUsuario" id="dataNascimentoNew">
+        
+        <br>
+        <button type="button" onclick="closeAddPopup(), adicionar(), telaEnabled()">Confirmar</button>
+        <button type="button" onclick="closeAddPopup(), telaEnabled()">Cancelar</button>
+    </div>
+
+    <div class="backdrop" id="backdrop" onclick="stopPropagation()"></div>
+
+
+    <div class="tela" id="tela">
+        <div class="search">
+            <input type="text" placeholder="Procurar..." class="loupe" id="loupe" onkeyup="buscar()"> 
+        </div>
+
+        <div class="scroll">
+        <table class="itens-table" id="itens-table">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Telefone</th>
+                    <th>E-Mail</th>
+                    <th>CPF</th>
+                    <th>Data de Nascimento</th>
+                    <th>Excluir</th>
+                    <th>Deletar</th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+            </tbody>
+        </table>
+
+        </div>
+        
+        <button class="homescreen"> <a href="../br.com.ifba.homescreen/homescreen.html"> <img src="../images/homescreen3.png" alt="homescreen"><p>Homescreen</p></a></button>
+
+        <button class="adicionar" type="button" onclick="openAddPopup(), teladisabled()"><img src="../images/botao-adicionar2.png" alt="adicionar" title="Adicionar"></button>
+
+        
+    </div>
+
+    <script type="text/javascript" src="../js/requisitions.js"></script>
+    <script type="text/javascript" src="terceirizado.js"></script>
+</body>
+</html>
