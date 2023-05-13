@@ -250,7 +250,7 @@ main #funcao-descricao-editar {
 }
 
 #table tbody tr:hover {
-    background-color: #e7e5e5;
+    background: #e7e5e5;
 }
 
 #table tbody tr td {
