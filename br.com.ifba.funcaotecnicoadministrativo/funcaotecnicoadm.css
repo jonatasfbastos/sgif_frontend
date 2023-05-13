@@ -249,8 +249,17 @@ main #funcao-descricao-editar {
     height: 6rem;
 }
 
+#table tbody tr:hover {
+    background-color: #e7e5e5;
+}
+
 #table tbody tr td {
     color: #666;
+}
+
+#table td:nth-child(3), 
+#table td:nth-child(4) {
+    cursor: pointer;
 }
 
 #table thead th:first-child {
