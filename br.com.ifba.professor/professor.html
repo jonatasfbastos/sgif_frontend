@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professor</title>
+    <link rel="stylesheet" href="professor.css">
+
+</head>
+<body id="tela">
+    <div class="popupRemove" id="popupRemove">
+        <img src="../images/ask.png" alt="question-sign-in-circles">
+        <h2>Você tem certeza que deseja remover esse Professor?</h2>
+        <button type="button" onclick="remover(), closePopup(), telaEnabled()">Sim</button>
+        <button type="button" onclick="closePopup(), telaEnabled()">Não</button>
+    </div>
+
+    <div class="buttons" id="botoes">
+        <div class="search">
+            <input type="text" placeholder="Procurar..." class="loupe" id="loupe" onkeyup="buscar()"> 
+        </div>
+        <button class="adicionar" type="button" onclick="openAddPopup(), teladisabled()"><img src="../images/botao-adicionar2.png" alt="adicionar" title="Adicionar"></button>
+        <a href="../br.com.ifba.homescreen/homescreen.html"><button class="homescreen"> <img src="../images/casa.png" alt="homescreen"></button></a>
+    </div>
+
+    <div class="popupEdit" id="popupEdit">
+        <img src="../images/caneta.png" alt="editar">
+        <h2>Digite as novas informações</h2>
+        <input type="text" name="professorNomeedit" placeholder="Nome..." autocomplete="off" class="professornomeedit" id="professorNomeedit">
+        <input type="text" name="professorEmailedit" placeholder="Email..." autocomplete="off" class="professoremailedit" id="professorEmailedit">
+        <input type="text" name="professorTelefoneedit" placeholder="Telefone..." autocomplete="off" class="professortelefoneedit" id="professorTelefoneedit">
+        <input type="text" name="professorCpfedit" placeholder="CPF..." autocomplete="off" class="professorcpfedit" id="professorCPFedit">
+        <input type="date" name="professorDataDeNascimentoedit" placeholder="DataDeNascimento..." autocomplete="off" class="professordataDeNascimentoedit" id="professorDataDeNascimentoedit">
+        <input type="text" name="professorSiapeedit" placeholder="Siape..." autocomplete="off" class="professorsiapeedit" id="professorSiapeedit">
+        <button type="button" onclick="closeEditPopup(), editar(), telaEnabled()">Confirmar</button>
+        <button type="button" onclick="closeEditPopup(), telaEnabled()">Cancelar</button>
+    </div>
+
+    <div class="popupAdd" id="popupAdd">
+        <img src="../images/botao-adicionar3.png" alt="editar">
+        <h2>Digite as informações do Professor</h2>
+        <input type="text" name="professorNomeadd" placeholder="Nome..." autocomplete="off" class="professornomeadd" id="professorNomeadd">
+        <input type="text" name="professorEmailadd" placeholder="Email..." autocomplete="off" class="professoremailadd" id="professorEmailadd">
+        <input type="text" name="professorTelefoneadd" placeholder="Telefone..." autocomplete="off" class="professortelefoneadd" id="professorTelefoneadd">
+        <input type="text" name="professorCpfadd" placeholder="CPF..." autocomplete="off" class="professorcpfadd" id="professorCPFadd">
+        <input type="date" name="professorDataDeNascimentoadd" placeholder="DataDeNascimento..." autocomplete="off" class="professordataDeNascimentoadd" id="professorDataDeNascimentoadd">
+        <input type="text" name="professorSiapeadd" placeholder="Siape..." autocomplete="off" class="professorsiapeadd" id="professorSiapeadd">
+        <button type="button" onclick="closeAddPopup(), adicionar(), telaEnabled()">Confirmar</button>
+        <button type="button" onclick="closeAddPopup(), telaEnabled()">Cancelar</button>
+    </div>
+
+    <div class="backdrop" id="backdrop" onclick="stopPropagation()"></div>
+
+    <div id="popup-erro">
+        <img src="../images/alerta-icone.png" alt="Ícone de alerta." class="popup-img">
+        <p id="erro-mensagem">
+        </p>
+        <button type="button" class="popup-button" id="btn-erro-fechar">
+            Fechar
+        </button>
+    </div>
+
+    <div class="tableContain">
+
+        <div class="scroll">
+        <table class="rTable" id="itens-table">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Telefone</th>
+                    <th>CPF</th>
+                    <th>Data de Nascimento</th>
+                    <th>Siape</th>
+                    <th>Remover</th>
+                    <th>Editar</th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+                
+            </tbody>
+        </table>
+
+        </div>
+    
+    </div>
+
+    <script src="../js/requisitions.js"></script>
+    <script src="professor.js"></script>
+       
+
+</body>
+</html>
