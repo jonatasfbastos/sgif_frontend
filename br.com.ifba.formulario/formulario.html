@@ -1,106 +1,72 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="./formulario.css">
-        <title>Formulário</title>
-    </head>
-    <body>
-        <div id="container">
-            <header>
-                <input type="text" placeholder="Procurar..." id="input-buscar"> 
-                <button id="btn-adicionar" type="button">
-                    <img src="../images/botao-adicionar2.png" alt="Ícone do sinal de soma." title="Adicionar">
-                </button>
-                <a href="../br.com.ifba.homescreen/homescreen.html" id="btn-home-screen">
-                    <img src="../images/casa.png" alt="Ícone de uma casa para representar a HomeScreen.">
-                </a>
-            </header>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário</title>
+    <link rel="stylesheet" href="formulario.css">
+</head>
+<body id="tela">
+    <div class="popupRemove" id="popupRemove">
+        <img src="../images/ask.png" alt="question-sign-in-circles">
+        <h2>Você tem certeza que deseja remover esse Formulário?</h2>
+        <button type="button" onclick="remover(), closePopup(), telaEnabled()">Sim</button>
+        <button type="button" onclick="closePopup(), telaEnabled()">Não</button>
+    </div>
 
-            <main>
-                <div id="popup-remover">
-                    <img src="../images/ask.png" alt="Ícone de um balão azul com uma interrogação." class="popup-img">
-                    <h1 class="popup-h1">Você tem certeza que deseja remover esse formulário?</h1>
+    <div class="popupEdit" id="popupEdit">
+        <img src="../images/caneta.png" alt="editar">
+        <h2>Digite as novas informações</h2>
+        <input type="text" name="tituloFormulario" placeholder="Título..." autocomplete="off" class="tituloFormulario" id="tituloFormularioEditar">
+        <input type="text" name="descricaoFormulario" placeholder="Descrição..." autocomplete="off" class="descricaoFormulario" id="descricaoFormularioEditar">
 
-                    <div class="popup-buttons">
-                        <button type="button" id="btn-remover-confirmar" class="popup-button">Sim</button>
-                        <button type="button" id="btn-remover-cancelar" class="popup-button">Não</button>
-                    </div>
-                </div>
-    
-                <div id="popup-editar">
-                    <img src="../images/caneta.png" alt="Ícone de uma lápis." class="popup-img">
+        </select> <br>
+        <button type="button" onclick="closeEditPopup(), editar(), telaEnabled()">Confirmar</button>
+        <button type="button" onclick="closeEditPopup(), telaEnabled()">Cancelar</button>
+    </div>
 
-                    <div class="popup-inputs">
-                        <h1 class="popup-h1">Digite as novas informações</h1>
-                        <input type="text" name="formulario-titulo-editar" placeholder="Título..." autocomplete="off" id="formulario-titulo-editar">
-                        <input type="text" name="formulario-descricao-editar" placeholder="Descrição..." autocomplete="off" id="formulario-descricao-editar">
-                    </div>
-    
-                    <div class="popup-buttons">
-                        <button type="button" class="popup-button" id="btn-editar-confirmar">
-                            Confirmar
-                        </button>
-                        <button type="button" class="popup-button" id="btn-editar-cancelar">
-                            Cancelar
-                        </button>
-                    </div>
-                </div>
-    
-                <div id="popup-adicionar">
-                    <img src="../images/botao-adicionar3.png" alt="Ícone de adição." class="popup-img">
+    <div class="popupAdd" id="popupAdd">
+        <img src="../images/botao-adicionar3.png" alt="adicionar">
+        <h2>Digite as informações do Formulário</h2>
+        <input type="text" name="tituloFormulario" placeholder="Título..." autocomplete="off" class="tituloFormulario" id="tituloFormularioAdd">
+        <input type="text" name="descricaoFormulario" placeholder="Descrição..." autocomplete="off" class="descricaoFormulario" id="descricaoFormularioAdd">
             
-                    <div class="popup-inputs">
-                        <h1 class="popup-h1">Digite as informações do formulário</h1>
-                        <input type="text" name="formulario-titulo-add" placeholder="Título..." autocomplete="off" id="formulario-titulo-add">
-                        <input type="text" name="formulario-descricao-add" placeholder="Descrição..." autocomplete="off" id="formulario-descricao-add">
-                    </div>
-    
-                    <div class="popup-buttons">
-                        <button type="button" class="popup-button" id="btn-add-confirmar">
-                            Confirmar
-                        </button>
-                        <button type="button" class="popup-button" id="btn-add-cancelar">
-                            Cancelar
-                        </button>
-                    </div>
-                </div>
+        </select> <br>
+        <button type="button" onclick="closeAddPopup(), adicionar(), telaEnabled()">Confirmar</button>
+        <button type="button" onclick="closeAddPopup(), telaEnabled()">Cancelar</button>
+    </div>
 
-                <div id="background-efeito">
-                </div>
+    <div class="backdrop" id="backdrop" onclick="stopPropagation()"></div>
 
-                <div id="popup-erro">
-                    <img src="../images/alerta-icone.png" alt="Ícone de alerta." class="popup-img">
-                    <p id="erro-mensagem">
-                    </p>
-                    <button type="button" class="popup-button" id="btn-erro-fechar">
-                        Fechar
-                    </button>
-                </div>
-    
-                <div id="table-container">
-                    <div id="table-scroll">
-                        <table id="table">
-                            <thead>
-                                <tr>
-                                    <th>Título</th>
-                                    <th>Descrição</th>
-                                    <th>Remover</th>
-                                    <th>Editar</th>
-                                </tr>
-                            </thead>
-                        
-                            <tbody id="table-body">
-                            </tbody>
-                        </table>
-                    </div>
-                </div> 
-            </main>
+    <div class="buttons">
+        <div class="search">
+            <input type="text" placeholder="Procurar..." class="loupe" id="loupe" onkeyup="buscar()"> 
         </div>
+        <button class="adicionar" type="button" onclick="openAddPopup(), teladisabled()"><img src="../images/botao-adicionar2.png" alt="adicionar" title="Adicionar"></button>
+        <a href="../br.com.ifba.homescreen/homescreen.html"><button class="homescreen"> <img src="../images/casa.png" alt="homescreen"></button></a>
+    </div>
 
-        <script type="text/javascript" src="../js/requisitions.js"></script>
-        <script type="text/javascript" src="formulario.js"></script> 
-    </body>
+    <div class="tableContain">
+        <div class="scroll">
+            <table class="rTable" id="itens-table">
+                <thead>
+                    <tr>
+                        <th>Título</th>
+                        <th>Descrição</th>
+                        <th>Remover</th>
+                        <th>Editar</th>
+                    </tr>
+                </thead>
+            
+                <tbody id="table-body">
+                        
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="../js/requisitions.js"></script>
+    <script type="text/javascript" src="formulario.js"></script>
+</body>
 </html>

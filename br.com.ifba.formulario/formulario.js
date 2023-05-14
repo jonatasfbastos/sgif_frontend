@@ -1,230 +1,199 @@
-let globalFormularioId = 0;
+var selectedId
+var formulariosList = []
+var formulario = {}
 
-function exibirEfeitoBackGround() {
-    const efeitoBackground = document.getElementById("background-efeito");
-    efeitoBackground.classList.add("mostrar-efeito");
+atualizarTabela()
+
+function atualizarTabela(){
+    get('formularios').then(data=>{
+    console.log('Data ', data)
+    this.formulariosList = data
+    this.tableCreate(this.formulariosList)
+    }).catch(error=>{
+        console.log('Error ', error)
+    })
 }
 
-function ocultarEfeitoBackGround() {
-    const efeitoBackground = document.getElementById("background-efeito");
-    efeitoBackground.classList.remove("mostrar-efeito");
-}
-
-document.getElementById("btn-erro-fechar")
-    .addEventListener("click", ocultarPopUpErro);
-
-function exibirPopUpErro(mensagem) {
-    const popupErro = document.getElementById("popup-erro");
-    popupErro.classList.add("mostrar-popup");
-    document.getElementById("erro-mensagem").innerText = mensagem;
-}
-
-function ocultarPopUpErro() {
-    const popupErro = document.getElementById("popup-erro");
-    popupErro.classList.remove("mostrar-popup");
-    document.getElementById("erro-mensagem").innerText = "";
-}
-
-document.getElementById("btn-adicionar")
-    .addEventListener("click", exibirPopUpAdicionar);
-
-function exibirPopUpAdicionar() {
-    const popupAdicionar = document.getElementById("popup-adicionar");
-    popupAdicionar.classList.add("mostrar-popup");
-
-    exibirEfeitoBackGround();
-}
-
-document.getElementById("btn-add-cancelar")
-    .addEventListener("click", ocultarPopUpAdicionar);
-
-function ocultarPopUpAdicionar() {
-    const popupAdicionar = document.getElementById("popup-adicionar");
-    popupAdicionar.classList.remove("mostrar-popup");
-
-    ocultarEfeitoBackGround();
-}
-
-document.getElementById("btn-add-confirmar")
-    .addEventListener("click", () => {
-        const titulo = document.getElementById("formulario-titulo-add").value;
-        const descricao = document.getElementById("formulario-descricao-add").value;
-
-        if (titulo.trim().length <= 0 || descricao.trim().length <= 0) {
-            return exibirPopUpErro("Não foi possível salvar a função, há campo vazio.");
-        }
-
-        const formulario = {
-            titulo: titulo,
-            descricao: descricao
-        }
-        
-        post("salvarFormulario", formulario)
-        .then(data => {
-            atualizarTabela();
-        })
-        .catch(erro => {
-            erro.text()
-            .then(mensagem => exibirPopUpErro(mensagem)); 
+function tableCreate(data){
+    var tableBody = document.getElementById('table-body');
+    if(tableBody){
+        tableBody.innerHTML = ''
+        data.forEach(element => {
+            var row = document.createElement("tr");
+    
+            var colTitulo = document.createElement("td")
+            colTitulo.appendChild(document.createTextNode(element.titulo))
+            row.appendChild(colTitulo)
+            
+            var colDescricao = document.createElement("td")
+            colDescricao.appendChild(document.createTextNode(element.descricao))
+            row.appendChild(colDescricao)
+            
+            var colRemover = document.createElement("td")
+            colRemover.setAttribute("onclick", "openPopup("+element.id+")")
+            var removerLink = document.createElement("a")
+            var imgRemove = document.createElement("img")
+            imgRemove.setAttribute("src", "../images/excluir2.png")
+            removerLink.appendChild(imgRemove)
+            
+            colRemover.appendChild(removerLink)
+            row.appendChild(colRemover)
+            
+            var colEditar = document.createElement("td")
+            colEditar.setAttribute("onclick", "openEditPopup("+element.id+")")
+            var editarLink = document.createElement("a")
+            var imgEditar = document.createElement("img")
+            imgEditar.setAttribute("src", "../images/botao-editar2.png")
+            editarLink.appendChild(imgEditar)
+            
+            colEditar.appendChild(editarLink)
+            row.appendChild(colEditar)
+            
+    
+            tableBody.appendChild(row)
+            console.log(element)
         });
-
-        ocultarPopUpAdicionar();
-        document.getElementById("formulario-titulo-add").value = "";
-        document.getElementById("formulario-descricao-add").value = "";
     }
-);
+}          
 
-document.getElementById("btn-remover-cancelar")
-    .addEventListener("click", ocultarPopUpRemover);
-
-function ocultarPopUpRemover() {
-    const popupRemover = document.getElementById("popup-remover");
-    popupRemover.classList.remove("mostrar-popup");
-
-    ocultarEfeitoBackGround();
+function stopPropagation(event){
+    event.stopPropagation();
 }
 
-function removerFormulario(formularioId) {
-    globalFormularioId = formularioId;
-    const popupRemover = document.getElementById("popup-remover");
-    popupRemover.classList.add("mostrar-popup");
-
-    exibirEfeitoBackGround();
+function openAddPopup(){
+    popupAdd.classList.add("openAddPopup");
 }
 
-document.getElementById("btn-remover-confirmar")
-    .addEventListener("click", () => {
-        fetchDelete("deletarFormulario/" + globalFormularioId)
-        .then(data => {
-            atualizarTabela();
+function closeAddPopup(){
+    popupAdd.classList.remove("openAddPopup");
+
+}
+
+function openPopup(id){
+    teladisabled()
+    this.selectedId = id
+    popup.classList.add("open_popup");
+}
+
+function teladisabled(){
+    telaDesativada.classList.add("disabled_tela");
+    backdrop.classList.add("disabled_tela");
+}
+
+function getindex(x){
+    globalThis.Index = x.rowIndex;
+}
+
+function telaEnabled(){
+    telaDesativada.classList.remove("disabled_tela");
+    backdrop.classList.remove("disabled_tela");
+}
+
+function closePopup(){
+    popup.classList.remove("open_popup");
+    
+}
+
+function openEditPopup(id){
+    teladisabled()
+    this.selectedId = id
+    popupEdit.classList.add("popupEditOpen");
+    console.log('Id ',id)
+    let formulario = this.formulariosList.find(formulario=>{
+        return formulario.id === id
+    })
+
+    console.log('Formulário achado ', formulario)
+    
+    document.getElementById('tituloFormularioEditar').value = formulario.titulo;
+    document.getElementById('descricaoFormularioEditar').value = formulario.descricao;
+}
+
+var tablee = document.getElementById("itens-table");
+
+function closeEditPopup(){
+    popupEdit.classList.remove("popupEditOpen");
+}
+
+function adicionar(){
+
+    this.formulario.titulo = document.getElementById('tituloFormularioAdd').value;
+    this.formulario.descricao = document.getElementById('descricaoFormularioAdd').value;
+
+    this.formulario.pessoa = null;
+    console.log(this.formulario)
+
+    //se os campos de título ou de descrição estiverem vazios, não serão salvos
+    if(this.formulario.titulo != "" && this.formulario.descricao != ""){
+        post('salvarFormulario', this.formulario).then(result=>{
+            console.log('result', result)
+            atualizarTabela()
+        }).catch(error=>{
+            console.log('error', error)
         })
-        .catch(erro => {
-            erro.text()
-            .then(mensagem => exibirPopUpErro(mensagem)); 
-        });
+    }else{console.log('error')}
+    this.formulario = {}
 
-        ocultarPopUpRemover();
-    }
-);
-
-document.getElementById("btn-editar-cancelar")
-    .addEventListener("click", ocultarPopUpEditar);
-
-function ocultarPopUpEditar() {
-    const popupEditar = document.getElementById("popup-editar");
-    popupEditar.classList.remove("mostrar-popup");
-
-    ocultarEfeitoBackGround();
+    document.getElementById('tituloFormularioAdd').value = '';
+    document.getElementById('descricaoFormularioAdd').value = '';
 }
 
-function exibirPopUpEditar() {
-    const popupEditar = document.getElementById("popup-editar");
-    popupEditar.classList.add("mostrar-popup");
+function remover(){
+    console.log('Deletar ' + this.selectedId)
 
-    exibirEfeitoBackGround();
+    get_params('deletarFormulario', {id:this.selectedId}).then(result=>{
+        atualizarTabela()
+    }).catch(error=>{
+    })
 }
 
-function editarFormulario({id, titulo, descricao}) {
-    globalFormularioId = id;
+function buscar(){
 
-    exibirPopUpEditar();
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("loupe");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("itens-table");
+    tr = table.getElementsByTagName("tr");
 
-    document.getElementById("formulario-titulo-editar").value = titulo;
-    document.getElementById("formulario-descricao-editar").value = descricao;
-}
-
-document.getElementById("btn-editar-confirmar")
-    .addEventListener("click", () => {
-        const titulo = document.getElementById("formulario-titulo-editar").value;
-        const descricao = document.getElementById("formulario-descricao-editar").value;
-
-        if (titulo.trim().length <= 0 || descricao.trim().length <= 0) {
-            return exibirPopUpErro("Não foi possível atualizar o formulário, há campo vazio.");
-        }
-
-        const formulario = {
-            id: globalFormularioId,
-            titulo: titulo,
-            descricao: descricao
-        }
-
-        put("atualizarFormulario", formulario)
-        .then(data => {
-            atualizarTabela();
-        })
-        .catch(erro => {
-            erro.text()
-            .then(mensagem => exibirPopUpErro(mensagem)); 
-        });
-
-        ocultarPopUpEditar();
-        document.getElementById("formulario-titulo-editar").value = "";
-        document.getElementById("formulario-descricao-editar").value = "";
-    }
-);
-
-const inputBuscar = document.getElementById("input-buscar");
-inputBuscar.addEventListener("keyup", () => {
-    const busca = inputBuscar.value.toLowerCase();
-    const corpoTabela = document.getElementById('table-body');
-    const linhas = corpoTabela.getElementsByTagName("tr");
-
-    for(let i = 0; i < linhas.length; i++) {
-        const colunaTexto = linhas[i].getElementsByTagName("td")[0].innerText;
-        if (colunaTexto.toLowerCase().includes(busca)) {
-            linhas[i].style.display = "";
-        } else {
-            linhas[i].style.display = "none";
+            for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[1];
+            if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+            } else {
+            tr[i].style.display = "none";
+            }
         }
     }
-});
-
-function obterColunasTabela() {
-    let colTitulo = document.createElement("td");
-    let colDescricao = document.createElement("td");
-    let colRemover = document.createElement("td");
-    let colEditar = document.createElement("td");
-    return [colTitulo, colDescricao, colRemover, colEditar];
 }
 
-function obterImagens() {
-    let imgRemover = document.createElement("img");
-    imgRemover.setAttribute("src", "../images/excluir2.png");
-    let imgEditar = document.createElement("img");
-    imgEditar.setAttribute("src", "../images/botao-editar2.png");
-    return [imgRemover, imgEditar];
+var table = document.getElementById("itens-table");
+
+function editar(){
+    let newTitulo = document.getElementById('tituloFormularioEditar').value
+    let newDescricao = document.getElementById('descricaoFormularioEditar').value
+
+    this.formulario = this.formulariosList.find(formulario=>{
+        return formulario.id === this.selectedId
+    })
+    
+    this.formulario.titulo = newTitulo;
+    this.formulario.descricao = newDescricao;
+
+    console.log('Novo formulario ', this.formulario)
+    post('atualizarFormulario', this.formulario).then(result=>{
+        console.log('Result ', result)
+        this.atualizarTabela()
+    }).catch(error=>{
+        console.log('Error ', error)
+    })
+    this.formulario = {}
 }
 
-function preencherTabela(formularios) {
-    const corpoTabela = document.getElementById('table-body');
-    corpoTabela.innerHTML = '';
-
-    formularios.forEach(formulario => {
-        const linha = document.createElement("tr");
-        const [colTitulo, colDescricao, colRemover, colEditar] = obterColunasTabela();
-        const [imgRemover, imgEditar] = obterImagens();
-
-        colTitulo.appendChild(document.createTextNode(formulario.titulo));
-        colDescricao.appendChild(document.createTextNode(formulario.descricao));
-        
-        colRemover.setAttribute("onclick", "removerFormulario("+ formulario.id + ")");
-        colRemover.appendChild(imgRemover);
-
-        colEditar.setAttribute("onclick", "editarFormulario(" + JSON.stringify(formulario) + ")");
-        colEditar.appendChild(imgEditar);
-
-        linha.append(colTitulo, colDescricao, colRemover, colEditar);
-        corpoTabela.appendChild(linha);
-    });
-}
-
-function atualizarTabela() {
-    get("listarFormulario")
-    .then(data => preencherTabela(data))
-    .catch(erro => {
-        erro.text()
-        .then(mensagem => exibirPopUpErro(mensagem)); 
-    });
-}
-
-atualizarTabela();
+let popup = document.getElementById("popupRemove");
+let telaDesativada = document.getElementById("tela");
+let backdrop = document.getElementById("backdrop");
+let popupEdit = document.getElementById("popupEdit");
+let popupAdd = document.getElementById("popupAdd");
+var tableInteract = document.getElementById("itens-table");
