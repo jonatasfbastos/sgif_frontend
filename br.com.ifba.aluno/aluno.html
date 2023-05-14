@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aluno</title>
+    <link rel="stylesheet" href="aluno.css">
+
+</head>
+<body id="tela">
+    <div class="popupRemove" id="popupRemove">
+        <img src="../images/ask.png" alt="question-sign-in-circles">
+        <h2>Você tem certeza que deseja remover esse Aluno?</h2>
+        <button type="button" onclick="remover(), closePopup(), telaEnabled()">Sim</button>
+        <button type="button" onclick="closePopup(), telaEnabled()">Não</button>
+    </div>
+
+    <div class="buttons" id="botoes">
+        <div class="search">
+            <input type="text" placeholder="Procurar..." class="loupe" id="loupe" onkeyup="buscar()"> 
+        </div>
+        <button class="adicionar" type="button" onclick="openAddPopup(), teladisabled()"><img src="../images/botao-adicionar2.png" alt="adicionar" title="Adicionar"></button>
+        <a href="../br.com.ifba.homescreen/homescreen.html"><button class="homescreen"> <img src="../images/casa.png" alt="homescreen"></button></a>
+    </div>
+
+    <div class="popupEdit" id="popupEdit">
+        <img src="../images/caneta.png" alt="editar">
+        <h2>Digite as novas informações</h2>
+        <input type="text" name="alunoNomeedit" placeholder="Nome..." autocomplete="off" class="alunonomeedit" id="alunoNomeedit">
+        <input type="text" name="alunoEmailedit" placeholder="Email..." autocomplete="off" class="alunoemailedit" id="alunoEmailedit">
+        <input type="text" name="alunoTelefoneedit" placeholder="Telefone..." autocomplete="off" class="alunotelefoneedit" id="alunoTelefoneedit">
+        <input type="text" name="alunoTelefoneedit" placeholder="CPF..." autocomplete="off" class="alunocpfedit" id="alunoCPFedit">
+        <input type="date" name="alunodataDeNascimentoedit" placeholder="dataDeNascimento..." autocomplete="off" class="alunodataDeNascimentoedit" id="alunoDataDeNascimentoedit">
+        <input type="text" name="alunomatriculaedit" placeholder="matricula..." autocomplete="off" class="alunomatriculaedit" id="alunoMatriculaedit">
+        <label for="turmas">Selecione a turma do Aluno: </label>
+        <select name="Turma do aluno" id="turmaedit"></select><br>
+        <button type="button" onclick="closeEditPopup(), editar(), telaEnabled()">Confirmar</button>
+        <button type="button" onclick="closeEditPopup(), telaEnabled()">Cancelar</button>
+    </div>
+
+    <div class="popupAdd" id="popupAdd">
+        <img src="../images/botao-adicionar3.png" alt="editar">
+        <h2>Digite as informações do Aluno</h2>
+        <input type="text" name="alunoNomeadd" placeholder="Nome..." autocomplete="off" class="alunonomeadd" id="alunoNomeadd">
+        <input type="text" name="alunoEmailadd" placeholder="Email..." autocomplete="off" class="alunoemailadd" id="alunoEmailadd">
+        <input type="text" name="alunoTelefoneadd" placeholder="Telefone..." autocomplete="off" class="alunotelefoneadd" id="alunoTelefoneadd">
+        <input type="text" name="alunoTelefoneadd" placeholder="CPF..." autocomplete="off" class="alunocpfadd" id="alunoCPFadd">
+        <input type="date" name="alunodataDeNascimentoadd" placeholder="dataDeNascimento..." autocomplete="off" class="alunodataDeNascimentoadd" id="alunoDataDeNascimentoadd">
+        <input type="text" name="alunomatriculaadd" placeholder="matricula..." autocomplete="off" class="alunomatriculaadd" id="alunoMatriculaadd">
+        <label for="turmas">Selecione a turma do aluno: </label>
+        <select name="Turma do aluno" id="turmaadd"></select><br>
+        <button type="button" onclick="closeAddPopup(), adicionar(), telaEnabled()">Confirmar</button>
+        <button type="button" onclick="closeAddPopup(), telaEnabled()">Cancelar</button>
+    </div>
+
+    <div class="backdrop" id="backdrop" onclick="stopPropagation()"></div>
+
+    <div id="popup-erro">
+        <img src="../images/alerta-icone.png" alt="Ícone de alerta." class="popup-img">
+        <p id="erro-mensagem">
+        </p>
+        <button type="button" class="popup-button" id="btn-erro-fechar">
+            Fechar
+        </button>
+    </div>
+
+    <div class="tableContain">
+
+        <div class="scroll">
+        <table class="rTable" id="itens-table">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Telefone</th>
+                    <th>CPF</th>
+                    <th>dataDeNascimento</th>
+                    <th>matricula</th>
+                    <th>turma</th>
+                    <th>Remover</th>
+                    <th>Editar</th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+                
+            </tbody>
+        </table>
+
+        </div>
+    
+    </div>
+
+    <script src="../js/requisitions.js"></script>
+    <script src="aluno.js"></script>
+       
+
+</body>
+</html>
