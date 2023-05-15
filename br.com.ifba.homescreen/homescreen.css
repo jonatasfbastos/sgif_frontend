@@ -23,7 +23,7 @@ main{
     height: 100vh;
     background-image: linear-gradient(#009500, #d9dfd9);
     position: fixed;
-    padding: 61px 0;
+    padding: 21px 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -92,39 +92,43 @@ main{
 }
 
 .links-option li:nth-child(2):hover ~ .projector{
-    top: 11.1%;
+    top: 9.9%;
 }
 
 .links-option li:nth-child(3):hover ~ .projector{
-    top: 21.1%;
+    top: 18.9%;
 }
 
 .links-option li:nth-child(4):hover ~ .projector{
-    top: 31.1%;
+    top: 27.9%;
 }
 
 .links-option li:nth-child(5):hover ~ .projector{
-    top: 41.1%;
+    top: 36.9%;
 }
 
 .links-option li:nth-child(6):hover ~ .projector{
-    top: 51.1%;
+    top: 45.9%;
 }
 
 .links-option li:nth-child(7):hover ~ .projector{
-    top: 61.1%;
+    top: 55.3%;
 }
 
 .links-option li:nth-child(8):hover ~ .projector{
-    top: 71.1%;
+    top: 64.4%;
 }
 
 .links-option li:nth-child(9):hover ~ .projector{
-    top: 81.1%;
+    top: 73.6%;
 }
 
 .links-option li:nth-child(10):hover ~ .projector{
-    top: 91.1%;
+    top: 82.6%;
+}
+
+.links-option li:nth-child(11):hover ~ .projector{
+    top: 91.6%;
 }
 
 

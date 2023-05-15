@@ -2,6 +2,7 @@ var selectedId
 var selectedIdEdit
 var ItemList = [] 
 var item = {}
+var relatorio = {}
 
 setFornecedor()
 setTiposItem()
@@ -202,6 +203,25 @@ function adicionar(){
 
 
     this.item.criador = {id:getUser().id}
+
+    quantidadeRelatorioTotal = document.getElementById('itemValorAdd').value;
+    quantidadeRelatorioInicial = document.getElementById("itemQuantidadeAdd").value;
+
+    this.relatorio.nome = document.getElementById("itemNameAdd").value;
+    this.relatorio.qtdInicial = document.getElementById("itemQuantidadeAdd").value;
+    this.relatorio.qtdEntrou = document.getElementById("itemQuantidadeAdd").value;
+    this.relatorio.qtdSaiu = 0;
+    this.relatorio.valorTotal = quantidadeRelatorioTotal*quantidadeRelatorioInicial;
+    this.relatorio.valorTotalSairam = 0;
+
+    console.log("Item de Relatório: ", relatorio)
+
+    post('salvarRelatorio', relatorio ).then(result=>{
+        console.log('Result ', result)
+        atualizarTabela()
+    }).catch(error=>{
+        console.log('Error ', error)
+    })
     
 
     console.log("item ", item)

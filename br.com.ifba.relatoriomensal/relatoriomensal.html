@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório Mensal</title>
+    <link rel="stylesheet" href="relatoriomensal.css">
+</head>
+<body id="tela">
+    <div class="backdrop" id="backdrop" onclick="stopPropagation()"></div>
+
+    <div class="buttons">
+        <div class="search">
+            <input type="text" placeholder="Procurar..." class="loupe" id="loupe" onkeyup="buscar()"> 
+        </div>
+        <button class="adicionar" type="button" onclick="openAddPopup(), teladisabled()"><img src="../images/botao-adicionar2.png" alt="adicionar" title="Adicionar"></button>
+        <a href="../br.com.ifba.homescreen/homescreen.html"><button class="homescreen"> <img src="../images/casa.png" alt="homescreen"></button></a>
+    </div>
+
+    <div class="tableContain">
+
+        <div class="scroll">
+        <table class="rTable" id="itens-table">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Quantidade Inicial</th>
+                    <th>Quantidade Entrou</th>
+                    <th>Quantidade Saiu</th>
+                    <th>Valor Total</th>
+                    <th>Valor Total Saíram</th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+                
+            </tbody>
+        </table>
+
+        </div>
+    
+    </div>
+
+    <script type="text/javascript" src="../js/requisitions.js"></script>
+    <script type="text/javascript" src="relatoriomensal.js"></script>
+    <script src="../js/session.js"></script>    
+
+</body>
+</html>

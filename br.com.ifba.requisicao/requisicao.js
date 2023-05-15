@@ -372,13 +372,6 @@ var codSaida;
 
 function adicionar(){
 
-    // var selectSetor = document.getElementById("Setor");
-    // var opcaoSetor = selectSetor.options[selectSetor.selectedIndex].text;
-    // console.log(opcaoSetor)
-    // var selectItem = document.getElementById("Item");
-    // var opcaoItem = selectItem.options[selectItem.selectedIndex].text;
-    // console.log(opcaoItem)
-
     let characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMOPQRSTUVWXYZ0123456789!@#$&*"
 
     const gerarCodigoSaida = () =>{
@@ -400,15 +393,18 @@ function adicionar(){
         console.log(found)
         this.item.id = found.id
         this.item.nome = found.nome
+        this.item.unidadeMedida = found.unidadeMedida
+        this.item.alerta = found.alerta
+        this.item.criador = found.criador;
         this.item.quantidade = found.quantidade - document.getElementById('qtdReq').value;
         this.item.quantidadeMinima = found.quantidadeMinima
         this.item.descricao = found.descricao
         this.item.fornecedor = found.fornecedor
-        this.item.dataValidade = found.dataValidade
+        this.item.validade = found.validade
         this.item.perecivel = found.perecivel
         this.item.valorItem = found.valorItem
         this.item.tipoDeItem = found.tipoDeItem
-        this.item.codigoItem = "123"
+        this.item.codigoItem = found.codigoItem
 
         post('atualizarItem', this.item).then(result=>{
             console.log('Result ', result)
