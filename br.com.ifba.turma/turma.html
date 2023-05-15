@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turma</title>
+    <link rel="stylesheet" href="turma.css">
+
+</head>
+<body id="tela">
+    <div class="popupRemove" id="popupRemove">
+        <img src="../images/ask.png" alt="question-sign-in-circles">
+        <h2>Você tem certeza que deseja remover essa Turma?</h2>
+        <button type="button" onclick="remover(), closePopup(), telaEnabled()">Sim</button>
+        <button type="button" onclick="closePopup(), telaEnabled()">Não</button>
+    </div>
+
+    <div class="buttons" id="botoes">
+        <div class="search">
+            <input type="text" placeholder="Procurar..." class="loupe" id="loupe" onkeyup="buscar()"> 
+        </div>
+        <button class="adicionar" type="button" onclick="openAddPopup(), teladisabled()"><img src="../images/botao-adicionar2.png" alt="adicionar" title="Adicionar"></button>
+        <a href="../br.com.ifba.homescreen/homescreen.html"><button class="homescreen"> <img src="../images/casa.png" alt="homescreen"></button></a>
+    </div>
+
+    <div class="popupEdit" id="popupEdit">
+        <img src="../images/caneta.png" alt="editar">
+        <h2>Digite as novas informações</h2>
+        <input type="text" name="turmaNomeedit" placeholder="Nome..." autocomplete="off" class="turmanomeedit" id="turmaNomeedit">
+        <input type="text" name="turmaCodigoedit" placeholder="Codigo..." autocomplete="off" class="turmacodigoedit" id="turmaCodigoedit">
+        <input type="text" name="turmaSiglaedit" placeholder="Sigla..." autocomplete="off" class="turmasiglaedit" id="turmaSiglaedit">
+        <input type="checkbox" name="turmaAtivaedit" placeholder="Ativa..." autocomplete="off" class="turmaativaedit" id="turmaAtivaedit">
+        <button type="button" onclick="closeEditPopup(), editar(), telaEnabled()">Confirmar</button>
+        <button type="button" onclick="closeEditPopup(), telaEnabled()">Cancelar</button>
+    </div>
+
+    <div class="popupAdd" id="popupAdd">
+        <img src="../images/botao-adicionar3.png" alt="editar">
+        <h2>Digite as informações da Turma</h2>
+        <input type="text" name="turmaNomeadd" placeholder="Nome..." autocomplete="off" class="turmanomeadd" id="turmaNomeadd">
+        <input type="text" name="turmaCodigoadd" placeholder="Código..." autocomplete="off" class="turmacodigoadd" id="turmaCodigoadd">
+        <input type="text" name="turmaSiglaadd" placeholder="Sigla..." autocomplete="off" class="turmasiglaadd" id="turmaSiglaadd">
+        <h3>Turma ativa</h3>
+        <input type="checkbox" name="turmaAtivaadd" placeholder="Ativa..." autocomplete="off" class="turmaativaadd" id="turmaAtivaadd">
+        <button type="button" onclick="closeAddPopup(), adicionar(), telaEnabled()">Confirmar</button>
+        <button type="button" onclick="closeAddPopup(), telaEnabled()">Cancelar</button>
+    </div>
+
+    <div class="backdrop" id="backdrop" onclick="stopPropagation()"></div>
+
+    <div id="popup-erro">
+        <img src="../images/alerta-icone.png" alt="Ícone de alerta." class="popup-img">
+        <p id="erro-mensagem">
+        </p>
+        <button type="button" class="popup-button" id="btn-erro-fechar">
+            Fechar
+        </button>
+    </div>
+
+    <div class="tableContain">
+
+        <div class="scroll">
+        <table class="rTable" id="itens-table">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Código</th>
+                    <th>SIGLA</th>
+                    <th>Ativa</th>
+                    <th>Remover</th>
+                    <th>Editar</th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+                
+            </tbody>
+        </table>
+
+        </div>
+    
+    </div>
+
+    <script src="../js/requisitions.js"></script>
+    <script src="turma.js"></script>
+       
+   
+</body>
+</html>
