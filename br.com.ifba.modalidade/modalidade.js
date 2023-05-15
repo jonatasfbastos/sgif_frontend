@@ -1,14 +1,16 @@
+//Variveis do script
 var selectedId
-var formulariosList = []
-var formulario = {}
+var modalidadesList = []
+var modalidade = {}
 
+//Funcoes
 atualizarTabela()
 
 function atualizarTabela(){
-    get('formularios').then(data=>{
+    get('modalidades').then(data=>{
     console.log('Data ', data)
-    this.formulariosList = data
-    this.tableCreate(this.formulariosList)
+    this.modalidadesList = data
+    this.tableCreate(this.modalidadesList)
     }).catch(error=>{
         console.log('Error ', error)
     })
@@ -19,12 +21,13 @@ function tableCreate(data){
     if(tableBody){
         tableBody.innerHTML = ''
         data.forEach(element => {
+            //Definindo as variaveis correspondentes as colunas da tabela
             var row = document.createElement("tr");
     
-            var colTitulo = document.createElement("td")
-            colTitulo.appendChild(document.createTextNode(element.titulo))
-            row.appendChild(colTitulo)
-            
+            var colNome = document.createElement("td")
+            colNome.appendChild(document.createTextNode(element.nome))
+            row.appendChild(colNome)
+
             var colDescricao = document.createElement("td")
             colDescricao.appendChild(document.createTextNode(element.descricao))
             row.appendChild(colDescricao)
@@ -49,13 +52,13 @@ function tableCreate(data){
             colEditar.appendChild(editarLink)
             row.appendChild(colEditar)
             
-    
             tableBody.appendChild(row)
             console.log(element)
         });
     }
-}          
+}
 
+//Funcoes padroes do script
 function stopPropagation(event){
     event.stopPropagation();
 }
@@ -66,7 +69,6 @@ function openAddPopup(){
 
 function closeAddPopup(){
     popupAdd.classList.remove("openAddPopup");
-
 }
 
 function openPopup(id){
@@ -91,7 +93,6 @@ function telaEnabled(){
 
 function closePopup(){
     popup.classList.remove("open_popup");
-    
 }
 
 function openEditPopup(id){
@@ -99,14 +100,13 @@ function openEditPopup(id){
     this.selectedId = id
     popupEdit.classList.add("popupEditOpen");
     console.log('Id ',id)
-    let formulario = this.formulariosList.find(formulario=>{
-        return formulario.id === id
+    let usr = this.modalidadesList.find(user=>{
+        return user.id === id
     })
 
-    console.log('Formulário achado ', formulario)
+    console.log('Modalidade encontrada', usr)
     
-    document.getElementById('tituloFormularioEditar').value = formulario.titulo;
-    document.getElementById('descricaoFormularioEditar').value = formulario.descricao;
+    document.getElementById('nomeModalidadeEditar').value = usr.nome
 }
 
 var tablee = document.getElementById("itens-table");
@@ -116,32 +116,33 @@ function closeEditPopup(){
 }
 
 function adicionar(){
+    //Definindo as variaveis de modalidade
+    this.modalidade.nome = document.getElementById('nomeModalidadeAdd').value;
+    this.modalidade.descricao = document.getElementById('descricaoModalidadeAdd').value;
+    console.log(this.modalidade)
 
-    this.formulario.titulo = document.getElementById('tituloFormularioAdd').value;
-    this.formulario.descricao = document.getElementById('descricaoFormularioAdd').value;
-
-    this.formulario.pessoa = null;
-    console.log(this.formulario)
-
-    //se os campos de título ou de descrição estiverem vazios, não serão salvos
-    if(this.formulario.titulo != "" && this.formulario.descricao != ""){
-        post('salvarFormulario', this.formulario).then(result=>{
+    //Verificando se os campos nome e descricao estiverem vazios
+    if(this.modalidade.nome != "" && this.modalidade.descricao != ""){
+        post('salvarModalidade', this.modalidade).then(result=>{
             console.log('result', result)
             atualizarTabela()
         }).catch(error=>{
             console.log('error', error)
         })
-    }else{console.log('error')}
-    this.formulario = {}
+    }
+    else
+        {console.log('error')}
 
-    document.getElementById('tituloFormularioAdd').value = '';
-    document.getElementById('descricaoFormularioAdd').value = '';
+    this.modalidade = {}
+
+    document.getElementById('nomeModalidadeAdd').value = '';
+    document.getElementById('descricaoModalidadeAdd').value = '';
 }
 
 function remover(){
     console.log('Deletar ' + this.selectedId)
 
-    get_params('deletarFormulario', {id:this.selectedId}).then(result=>{
+    get_params('deletarModalidade', {id:this.selectedId}).then(result=>{
         atualizarTabela()
     }).catch(error=>{
     })
@@ -171,24 +172,27 @@ function buscar(){
 var table = document.getElementById("itens-table");
 
 function editar(){
-    let newTitulo = document.getElementById('tituloFormularioEditar').value
-    let newDescricao = document.getElementById('descricaoFormularioEditar').value
+    let newName = document.getElementById('nomeModalidadeEditar').value
+    var newDescricao = document.getElementById('descricaoModalidadeEditar').value
 
-    this.formulario = this.formulariosList.find(formulario=>{
-        return formulario.id === this.selectedId
+    console.log(newName)
+    console.log(newDescricao)
+
+    this.modalidade = this.modalidadesList.find(user=>{
+        return user.id === this.selectedId
     })
     
-    this.formulario.titulo = newTitulo;
-    this.formulario.descricao = newDescricao;
+    this.modalidade.nome = newName;
+    this.modalidade.descricao = newDescricao;
 
-    console.log('Novo formulario ', this.formulario)
-    post('atualizarFormulario', this.formulario).then(result=>{
+    console.log('Nova Modalidade ', this.modalidade)
+    post('atualizarModalidade', this.modalidade).then(result=>{
         console.log('Result ', result)
         this.atualizarTabela()
     }).catch(error=>{
         console.log('Error ', error)
     })
-    this.formulario = {}
+    this.modalidade = {}
 }
 
 let popup = document.getElementById("popupRemove");

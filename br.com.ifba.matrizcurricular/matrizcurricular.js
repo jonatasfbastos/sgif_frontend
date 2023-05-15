@@ -93,7 +93,7 @@ function setCursos() {
 }
           
 function setEtapasCurso() {
-
+    //console.log("Chamando etapa cursos")
     get('etapaCurso').then(etapascursos=>{
         console.log('Etapas do curso ', etapascursos)
 
@@ -189,7 +189,7 @@ function adicionar(){
     /*
         quando tiver o controller de curso e etapa curso descomentar as duas linhas abaixo
     */
-    //this.matriz.curso = {id:document.getElementById('cursoAdd').value};
+    this.matriz.curso = {id:document.getElementById('cursoAdd').value};
     this.matriz.etapacurso = {id:document.getElementById('etapaCursoAdd').value};
     console.log(this.matriz)
 
@@ -197,7 +197,7 @@ function adicionar(){
     //console.log(this.usuario)
 
 
-    //se os campos de login ou de senha estiverem vazios, não serão salvos
+    //se os campos de nome ou de descrição estiverem vazios, não serão salvos
     if(this.matriz.nome != "" && this.matriz.descricao != ""){
         post('salvarMatriz', this.matriz).then(result=>{
             console.log('result', result)
@@ -210,8 +210,8 @@ function adicionar(){
 
     document.getElementById('nomeMatrizAdd').value = '';
     document.getElementById('descricaoMatrizAdd').value = '';
-    //document.getElementById('cursoAdd').value = '';
-    //document.getElementById('etapaCursoAdd').value = '';
+    document.getElementById('cursoAdd').value = '';
+    document.getElementById('etapaCursoAdd').value = '';
 }
 
 function remover(){
@@ -252,7 +252,7 @@ function editar(){
     /*
         quando tiver o controller de curso e etapa curso descomentar as duas linhas abaixo
     */
-    //var newCurso = {id:document.getElementById('cursoMatrizEdit').value}
+    var newCurso = {id:document.getElementById('cursoMatrizEdit').value}
     var newEtapaCurso = {id:document.getElementById('etapaCursoEdit').value}
 
     console.log(newName)
@@ -260,8 +260,8 @@ function editar(){
     /*
         quando tiver o controller de curso e etapa curso descomentar as duas linhas abaixo
     */
-   //console.log(newCurso)
-    //console.log(newEtapaCurso)
+    console.log(newCurso)
+    console.log(newEtapaCurso)
 
     this.matriz = this.matrizesList.find(user=>{
         return user.id === this.selectedId
@@ -272,8 +272,8 @@ function editar(){
     /*
         quando tiver o controller de curso e etapa curso descomentar as duas linhas abaixo
     */
-    //this.matriz.curso = newCurso;
-    //this.matriz.etapacurso = newEtapaCurso;
+    this.matriz.curso = newCurso;
+    this.matriz.etapacurso = newEtapaCurso;
 
     console.log('Nova Matriz Curricular ', this.matriz)
     post('atualizarMatriz', this.matriz).then(result=>{

@@ -1,3 +1,14 @@
+[data-bs-theme=vanilla] {
+    color-scheme: vanilla;
+    --bs-body-font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;/*altered*/
+    --bs-body-color: #000;
+    --bs-body-bg: #fff;
+    --bs-secondary-color: #fafafa;
+    --bs-secondary-bg: #34972f;
+    --bs-tertiary-bg: #c2f5bf;
+    --bs-quarternary-bg: #013b01;
+}
+/*-------*/
 *{
     margin: 0;
     padding: 0;
@@ -7,7 +18,7 @@
 
 body{
     height: 100vh;
-    background-image: linear-gradient(#20631d, #c2f5bf);
+    background-image:  linear-gradient(var(--bs-secondary-bg),var(--bs-tertiary-bg));
     background-repeat: no-repeat;
     background-size: auto;
 }
@@ -23,7 +34,7 @@ body{
 .search .loupe{
     background: url(../images/search-interface-symbol2.png);
     background-repeat: no-repeat;
-    background-color: white;
+    background-color: var(--bs-body-bg);
     background-position-x: 10px;
     background-position-y: center;
     background-size: 1.8em;
@@ -40,7 +51,7 @@ body{
 }
 
 .adicionar{
-    background-color: #013b01;
+    background-color: var(--bs-quarternary-bg);
     cursor: pointer;
     border: 1px solid #666;
     border-radius: 20px;
@@ -57,7 +68,7 @@ body{
     height: 45px;
     border: 0;
     border-radius: 25px;
-    background-color: #013b01;
+    background-color: var(--bs-quarternary-bg);
     font-size: 16px;
     cursor: pointer;
 }
@@ -66,12 +77,20 @@ body{
     box-shadow: 0 0 5px #009500, 0 0 25px #009500, 0 0 50px #009500, 0 0 200px #009500;
 }
 
-.tableContain{
-    width: 100vw;
-    height: 75vh;
+.homescreen img{
+    padding-left: 9px;
+}
+
+.homescreen a{
+    text-decoration: none;
+    color: #e3e6d0;
     display: flex;
     align-items: center;
-    justify-content: center; 
+    padding: 7px;
+}
+
+.homescreen p{
+    padding-left: 13px;
 }
 
 .scroll{
@@ -104,6 +123,14 @@ tr:last-child td:last-child{
     border-bottom-right-radius: 20px;
 }
 
+.tableContain{
+    width: 100vw;
+    height: 75vh;
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+}
+
 .rTable{
     width: 83%;
     text-align: center;
@@ -117,7 +144,7 @@ tr:last-child td:last-child{
     text-transform: uppercase;
     border-bottom: 1px solid #f2f2f2;
     padding: 20px 20px 30px 20px;
-    background-color: #013b01;
+    background-color: var(--bs-quarternary-bg);
 }
 
 .rTable td{
@@ -141,7 +168,7 @@ tr:last-child th:last-child{
     border-top-right-radius: 20px;
 }
 
-td:nth-child(3), td:nth-child(4){
+td:nth-child(5), td:nth-child(4){
     cursor: pointer;
 }
 
@@ -181,6 +208,8 @@ tr:hover {
     .rTable tbody tr td:nth-child(2){width:30%;}
     .rTable tbody tr td:nth-child(3){width:20%;}
     .rTable tbody tr td:nth-child(4){width:10%;}
+    .rTable tbody tr td:nth-child(4){width:30%;}
+
 }
 
 .popupAdd{
@@ -225,7 +254,7 @@ tr:hover {
     margin-left: 10px;
 }
 
-.popupAdd .descricaoFormulario, .tituloFormulario{
+.popupAdd .funcaoServidorName, .funcaoServidorDescricao{
     border: 1px #13293D solid;
     padding-left: 10px;
     width: 100%;
@@ -236,21 +265,22 @@ tr:hover {
     padding-left: 50px;
 }
 
-.tituloFormulario{
-    background-image: url(../images/nome.png);
+.funcaoServidorName{
+    background-image: url(../images/login.png);
     background-repeat: no-repeat;
     background-position: left;
     background-size: 1.3em;
     background-position-x: 20px;
 }
 
-.descricaoFormulario {
-    background-image: url(../images/info.png);
+.funcaoServidorDescricao{
+    background-image: url(../images/procura-de-emprego.png);
     background-repeat: no-repeat;
     background-position: left;
     background-size: 1.3em;
     background-position-x: 20px;
 }
+
 
 .popupAdd button:hover{
     background-color: #666;
@@ -320,36 +350,15 @@ tr:hover {
     color: #e3e6d0;
 }
 
-.popupEdit .tituloFormulario{
+.popupEdit .funcaoServidorDescricao, .funcaoServidorName{
     border: 1px #13293D solid;
     padding-left: 10px;
     width: 100%;
     height: 45px;
     margin: 4px 2px;
     border-radius: 25px;
-    background-image: url(../images/nome.png);
-    background-repeat: no-repeat;
-    background-position: left;
-    padding-left: 50px;
-    background-size: 1.3em;
-    background-position-x: 20px;
     outline: 0;
-}
-
-.popupEdit .descricaoFormulario {
-    border: 1px #13293D solid;
-    padding-left: 10px;
-    width: 100%;
-    height: 45px;
-    margin: 4px 2px;
-    border-radius: 25px;
-    background-image: url(../images/info.png);
-    background-repeat: no-repeat;
-    background-position: left;
     padding-left: 50px;
-    background-size: 1.3em;
-    background-position-x: 20px;
-    outline: 0;
 }
 
 .popupEdit select{
@@ -376,22 +385,6 @@ tr:hover {
     transform: translate(-50%, -50%) scale(1);
     z-index: 10;
 }
-
-.popupRemove{
-    width: 400px;
-    background: #20631d;
-    border-radius: 6px;
-    position: absolute;
-    top: 0%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.1);
-    text-align: center;
-    padding: 0 30px 40px;
-    color: #f5f5f5;
-    visibility: hidden;
-    transition: transform 0.4s, top 0.4s;
-}
-
 .open_popup{
     visibility: visible;
     top: 50%;
@@ -413,6 +406,20 @@ tr:hover {
     pointer-events: none;
 }
 
+.popupRemove{
+    width: 400px;
+    background: #20631d;
+    border-radius: 6px;
+    position: absolute;
+    top: 0%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.1);
+    text-align: center;
+    padding: 0 30px 40px;
+    color: #f5f5f5;
+    visibility: hidden;
+    transition: transform 0.4s, top 0.4s;
+}
 
 .popupRemove img{
     width: 100px;

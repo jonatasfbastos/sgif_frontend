@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário</title>
-    <link rel="stylesheet" href="formulario.css">
+    <title>Modalidade</title>
+    <link rel="stylesheet" href="modalidade.css">
 </head>
 <body id="tela">
+
     <div class="popupRemove" id="popupRemove">
         <img src="../images/ask.png" alt="question-sign-in-circles">
-        <h2>Você tem certeza que deseja remover esse Formulário?</h2>
+        <h2>Você tem certeza que deseja remover essa Modalidade?</h2>
         <button type="button" onclick="remover(), closePopup(), telaEnabled()">Sim</button>
         <button type="button" onclick="closePopup(), telaEnabled()">Não</button>
     </div>
@@ -18,21 +19,17 @@
     <div class="popupEdit" id="popupEdit">
         <img src="../images/caneta.png" alt="editar">
         <h2>Digite as novas informações</h2>
-        <input type="text" name="tituloFormulario" placeholder="Título..." autocomplete="off" class="tituloFormulario" id="tituloFormularioEditar">
-        <input type="text" name="descricaoFormulario" placeholder="Descrição..." autocomplete="off" class="descricaoFormulario" id="descricaoFormularioEditar">
-
-        </select> <br>
+        <input type="text" name="nomeModalidade" placeholder="Nome..." autocomplete="off" class="nomeModalidade" id="nomeModalidadeEditar">
+        <input type="text" name="descricaoModalidade" placeholder="Descrição..." autocomplete="off" class="descricaoModalidade" id="descricaoModalidadeEditar">
         <button type="button" onclick="closeEditPopup(), editar(), telaEnabled()">Confirmar</button>
         <button type="button" onclick="closeEditPopup(), telaEnabled()">Cancelar</button>
     </div>
 
     <div class="popupAdd" id="popupAdd">
         <img src="../images/botao-adicionar3.png" alt="adicionar">
-        <h2>Digite as informações do Formulário</h2>
-        <input type="text" name="tituloFormulario" placeholder="Título..." autocomplete="off" class="tituloFormulario" id="tituloFormularioAdd">
-        <input type="text" name="descricaoFormulario" placeholder="Descrição..." autocomplete="off" class="descricaoFormulario" id="descricaoFormularioAdd">
-            
-        </select> <br>
+        <h2>Digite as informações da Modalidade</h2>
+        <input type="text" name="nomeModalidade" placeholder="Nome..." autocomplete="off" class="nomeModalidade" id="nomeModalidadeAdd" >
+        <input type="text" name="descricaoModalidade" placeholder="Descrição..." autocomplete="off" class="descricaoModalidade" id="descricaoModalidadeAdd" >
         <button type="button" onclick="closeAddPopup(), adicionar(), telaEnabled()">Confirmar</button>
         <button type="button" onclick="closeAddPopup(), telaEnabled()">Cancelar</button>
     </div>
@@ -44,7 +41,7 @@
             <input type="text" placeholder="Procurar..." class="loupe" id="loupe" onkeyup="buscar()"> 
         </div>
         <button class="adicionar" type="button" onclick="openAddPopup(), teladisabled()"><img src="../images/botao-adicionar2.png" alt="adicionar" title="Adicionar"></button>
-        <a href="../br.com.ifba.homescreen/homescreen.html"><button class="homescreen"> <img src="../images/casa.png" alt="homescreen"></button></a>
+        <button class="homescreen"> <a href="../br.com.ifba.homescreen/homescreen.html"> <img src="../images/casa.png" alt="homescreen"></a></button>
     </div>
 
     <div class="tableContain">
@@ -52,7 +49,7 @@
             <table class="rTable" id="itens-table">
                 <thead>
                     <tr>
-                        <th>Título</th>
+                        <th>Nome</th>
                         <th>Descrição</th>
                         <th>Remover</th>
                         <th>Editar</th>
@@ -67,6 +64,6 @@
     </div>
 
     <script type="text/javascript" src="../js/requisitions.js"></script>
-    <script type="text/javascript" src="formulario.js"></script>
+    <script type="text/javascript" src="modalidade.js"></script>
 </body>
 </html>
