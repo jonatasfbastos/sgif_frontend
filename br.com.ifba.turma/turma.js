@@ -28,15 +28,15 @@ function tableCreate(data){
         row.appendChild(colNome)
       
         var colCodigo = document.createElement("td")
-        colCodigo.appendChild(document.createTextNode(element.telefone))
+        colCodigo.appendChild(document.createTextNode(element.codigo))
         row.appendChild(colCodigo)
 
         var colSigla = document.createElement("td")
-        colSigla.appendChild(document.createTextNode(element.cpf))
+        colSigla.appendChild(document.createTextNode(element.sigla))
         row.appendChild(colSigla)
 
         var colAtiva = document.createElement("td")
-        colAtiva.appendChild(document.createTextNode(element.email))
+        colAtiva.appendChild(document.createTextNode(element.ativa))
         row.appendChild(colAtiva)
 
         tableBody.appendChild(row)
@@ -115,9 +115,9 @@ function openEditPopup(id){
     console.log('Turma encontrada ', turmaEditando)
                 
     document.getElementById('turmaNomeedit').value = turmaEditando.nome
-    document.getElementById('turmaCodigoedit').value = turmaEditando.email
-    document.getElementById('turmaSiglaedit').value = turmaEditando.telefone
-    document.getElementById('turmaAtivaedit').value = turmaEditando.cpf
+    document.getElementById('turmaCodigoedit').value = turmaEditando.codigo
+    document.getElementById('turmaSiglaedit').value = turmaEditando.sigla
+    document.getElementById('turmaAtivaedit').value = turmaEditando.ativa
 
     if(turmaEditando.turma){
         document.getElementById('turmaedit').value = turmaEditando.turma ?turmaEditando.turma.id : '';
@@ -130,9 +130,9 @@ function closeEditPopup(){
 
 function adicionar(){
     this.turma.nome = document.getElementById('turmaNomeadd').value;
-    this.turma.email = document.getElementById('turmaCodigoadd').value;
-    this.turma.telefone = document.getElementById('turmaSiglaadd').value;
-    this.turma.cpf = document.getElementById('turmaAtivaadd').value;
+    this.turma.codigo = document.getElementById('turmaCodigoadd').value;
+    this.turma.sigla = document.getElementById('turmaSiglaadd').value;
+    this.turma.ativa = document.getElementById('turmaAtivaadd').value;
 
     if(verificaCampo()){
         return exibirPopUpErro("Não foi possível atualizar a turma, há algum campo vazio.");
@@ -210,9 +210,9 @@ function verificaCampo(){
 function editar(){
 
     var nome = document.getElementById("turmaNomeedit").value;
-    var email = document.getElementById("turmaCodigoedit").value;
-    var telefone = document.getElementById("turmaSiglaedit").value;
-    var cpf = document.getElementById("turmaAtivaedit").value;
+    var codigo = document.getElementById("turmaCodigoedit").value;
+    var sigla = document.getElementById("turmaSiglaedit").value;
+    var ativa = document.getElementById("turmaAtivaedit").value;
 
     this.turma = this.turmaList.find(user=>{
         return user.id === this.selectedId
