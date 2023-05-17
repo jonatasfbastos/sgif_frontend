@@ -140,10 +140,6 @@ tr:last-child th:last-child{
     border-top-right-radius: 20px;
 }
 
-td:nth-child(7), td:nth-child(8){
-    cursor: pointer;
-}
-
 tr:hover {
     background-color: #f5f5f5;
 }
@@ -181,7 +177,8 @@ tr:hover {
     .rTable tbody tr td:nth-child(3){width:20%;}
     .rTable tbody tr td:nth-child(4){width:10%;}
     .rTable tbody tr td:nth-child(5){width:20%;}
-    .rTable tbody tr td:nth-child(6){width:20%;}
+    .rTable tbody tr td:nth-child(6){width:10%;}
+    .rTable tbody tr td:nth-child(7){width:10%;}
 }
 
 .disabled_tela.backdrop{

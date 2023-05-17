@@ -26,18 +26,6 @@ function tableCreate(data){
             colLogin.appendChild(document.createTextNode(element.login))
             row.appendChild(colLogin)
             
-            // var colNome = document.createElement("td")
-            // var userLink = document.createElement("a")
-            // userLink.setAttribute("href", HOST+API+'usuario/'+element.id)
-            // userLink.setAttribute("target", '_blank')
-            // userLink.innerHTML = element.name
-            // colNome.appendChild(userLink)
-            // row.appendChild(colNome)
-            
-            // var colEmail = document.createElement("td")
-            // colEmail.appendChild(document.createTextNode(element.login))
-            // row.appendChild(colEmail)
-            
             var colTipo = document.createElement("td")
             colTipo.appendChild(document.createTextNode(element.perfilUsuario ? element.perfilUsuario.nome : ''))
             row.appendChild(colTipo)

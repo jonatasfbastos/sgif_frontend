@@ -159,6 +159,9 @@ function openEditPopup(id){
         return user.id === id
     })
 
+    quantidadeDeItens = item.quantidade;
+    valorDeItens = item.valorItem;
+
     console.log('Item achado ', item)
     console.log(item.tipoDeItem)
     
@@ -167,12 +170,6 @@ function openEditPopup(id){
     document.getElementById('itemQuantidadeEd').value = item.quantidade;
     document.getElementById('itemQuantidadeMinimaEd').value = item.quantidadeMinima;
     document.getElementById('itemFornecedorEd').value = item.fornecedor ? item.fornecedor.id : '';
-
-    // var now = new Date(item.dataValidade);
-    // var day = ("0" + now.getDate()).slice(-2);
-    // var month = ("0" + (now.getMonth() + 1)).slice(-2);
-
-    // var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
 
     document.getElementById('itemTypeEd').value = item.tipoDeItem ? item.tipoDeItem.id: '';
     document.getElementById('itemPerecivelEd').value = item.perecivel
@@ -198,11 +195,20 @@ function adicionar(){
     this.item.valorItem = document.getElementById('itemValorAdd').value;
     this.item.alerta = document.getElementById('itemAlerta').value;
 
-
     this.item.tipoDeItem = {id:document.getElementById('itemType').value}
 
 
     this.item.criador = {id:getUser().id}
+    
+    console.log("item ", item)
+
+    post('salvarItem', item ).then(result=>{
+
+    var data = new Date();
+    var dia = String(data.getDate()).padStart(2, '0');
+    var mes = String(data.getMonth() + 1).padStart(2, '0');
+    var ano = data.getFullYear();
+    dataAtual = dia + '/' + mes + '/' + ano;
 
     quantidadeRelatorioTotal = document.getElementById('itemValorAdd').value;
     quantidadeRelatorioInicial = document.getElementById("itemQuantidadeAdd").value;
@@ -213,6 +219,8 @@ function adicionar(){
     this.relatorio.qtdSaiu = 0;
     this.relatorio.valorTotal = quantidadeRelatorioTotal*quantidadeRelatorioInicial;
     this.relatorio.valorTotalSairam = 0;
+    this.relatorio.data = dataAtual;
+    this.relatorio.item = {id:result.id};
 
     console.log("Item de Relatório: ", relatorio)
 
@@ -222,11 +230,6 @@ function adicionar(){
     }).catch(error=>{
         console.log('Error ', error)
     })
-    
-
-    console.log("item ", item)
-
-    post('salvarItem', item ).then(result=>{
         console.log('Result ', result)
         atualizarTabela()
     }).catch(error=>{
@@ -295,6 +298,33 @@ function editar(){
     this.item.perecivel = perecivel;
     this.item.valorItem = valorItem;
     this.item.codigoItem = codigoItem;
+
+    get('relatorio').then(relatorios=>{
+        var founder = relatorios.find(element => element.id == this.selectedId)
+        console.log(founder)
+
+        var data = new Date();
+        var dia = String(data.getDate()).padStart(2, '0');
+        var mes = String(data.getMonth() + 1).padStart(2, '0');
+        var ano = data.getFullYear();
+        dataAtual = dia + '/' + mes + '/' + ano;
+
+        this.relatorio.nome = founder.nome
+        this.relatorio.qtdInicial = founder.qtdInicial
+        this.relatorio.qtdEntrou = founder.qtdEntrou - Number(quantidadeDeItens) + Number(document.getElementById('itemQuantidadeEd').value)
+        this.relatorio.qtdSaiu = founder.qtdSaiu;
+        this.relatorio.valorTotal = Number(valorItem) * Number(this.relatorio.qtdEntrou);
+        this.relatorio.valorTotalSairam = founder.valorTotalSairam;
+        this.relatorio.data = dataAtual;
+        this.relatorio.id = founder.id
+        this.relatorio.item = founder.item;
+
+        post('salvarRelatorio', this.relatorio ).then(result=>{
+            console.log('Result ', result)
+        }).catch(error=>{
+            console.log('Error ', error)
+        })
+    })
 
     console.log('Novo Item user ', this.item)
     post('salvarItem', this.item).then(result=>{

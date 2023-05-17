@@ -5,16 +5,8 @@ var requisicao = {}
 var itensList = [] 
 var itens = {}
 var item = {}
-
-// function requisicaoQtdAddChange(){
-//     requisicao.quantidadeItensReq = document.getElementById('qtdReq').value;
-//     console.log(requisicao);
-// }
-
-// function requisicaoUsuAddChange(){
-//     requisicao.usuarioRequisitante = document.getElementById('usuReq').value;
-//     console.log(requisicao);
-// }
+var relatorios = {}
+var relatorio = {}
 
 setItens()
 setItensEdit()
@@ -346,6 +338,50 @@ function editar(){
         this.item.quantidade = found.quantidade + Number(quantidadeItens) - Number(document.getElementById('EditqtdReq').value)
         this.item.descricao = found.descricao
         this.item.fornecedor = found.fornecedor
+        this.item.unidadeMedida = found.unidadeMedida
+        this.item.alerta = found.alerta
+        this.item.criador = found.criador
+        this.item.valorItem = found.valorItem
+        this.item.tipoDeItem = found.tipoDeItem
+        this.item.codigoItem = found.codigoItem
+        this.item.validade = found.validade
+        this.item.perecivel = found.perecivel
+        this.item.quantidadeMinima = found.quantidadeMinima
+
+        post('atualizarItem', this.item).then(result=>{
+            console.log('Result ', result)
+            atualizarTabelaItens()
+        }).catch(error=>{
+            console.log('Error ', error)
+        })
+
+        get('relatorio').then(relatorios=>{
+            var founder = relatorios.find(element => element.id == document.getElementById('EditItem').value)
+            console.log(founder)
+    
+            var data = new Date();
+            var dia = String(data.getDate()).padStart(2, '0');
+            var mes = String(data.getMonth() + 1).padStart(2, '0');
+            var ano = data.getFullYear();
+            dataAtual = dia + '/' + mes + '/' + ano;
+    
+            this.relatorio.nome = founder.nome
+            this.relatorio.qtdInicial = founder.qtdInicial
+            this.relatorio.qtdEntrou = founder.qtdEntrou
+            this.relatorio.qtdSaiu = Number(founder.qtdSaiu) + Number(document.getElementById('EditqtdReq').value - Number(quantidadeItens))
+            this.relatorio.valorTotal = founder.valorTotal;
+            this.relatorio.valorTotalSairam = (found.valorItem*(Number(this.relatorio.qtdSaiu)));
+            this.relatorio.data = dataAtual;
+            this.relatorio.id = founder.id
+            this.relatorio.item = founder.item;
+    
+            post('salvarRelatorio', this.relatorio ).then(result=>{
+                console.log('Result ', result)
+            }).catch(error=>{
+                console.log('Error ', error)
+            })
+        })
+        
 
         post('atualizarItem', this.item).then(result=>{
             console.log('Result ', result)
@@ -417,6 +453,73 @@ function adicionar(){
         console.log('Error ', error)
     })
 
+
+    get('relatorio').then(relatorios=>{
+        var founder = relatorios.find(element => element.id == document.getElementById('Item').value)
+        console.log(founder)
+
+        get('Item').then(itens=>{
+            console.log('Itens ', itens)
+            var found = itens.find(element => element.id == document.getElementById('Item').value)
+            console.log(found)
+            this.item.id = found.id
+            this.item.nome = found.nome
+            this.item.unidadeMedida = found.unidadeMedida
+            this.item.alerta = found.alerta
+            this.item.criador = found.criador;
+            this.item.quantidade = found.quantidade - document.getElementById('qtdReq').value;
+            this.item.quantidadeMinima = found.quantidadeMinima
+            this.item.descricao = found.descricao
+            this.item.fornecedor = found.fornecedor
+            this.item.validade = found.validade
+            this.item.perecivel = found.perecivel
+            this.item.valorItem = found.valorItem
+            this.item.tipoDeItem = found.tipoDeItem
+            this.item.codigoItem = found.codigoItem
+
+            var data = new Date();
+        var dia = String(data.getDate()).padStart(2, '0');
+        var mes = String(data.getMonth() + 1).padStart(2, '0');
+        var ano = data.getFullYear();
+        dataAtual = dia + '/' + mes + '/' + ano;
+
+        var quantidadeSaiu = document.getElementById('qtdReq').value;
+        var qtdSaiuRelatorio = founder.qtdSaiu;
+        var nomeRelatorio = founder.nome;
+
+        console.log(quantidadeSaiu)
+        console.log(founder.qtdInicial)
+        console.log(founder.nome)
+        console.log(founder.valorTotal)
+        console.log(found.valorItem)
+        console.log(Number(quantidadeSaiu))
+
+        this.relatorio.nome = nomeRelatorio
+        this.relatorio.qtdInicial = founder.qtdInicial
+        this.relatorio.qtdEntrou = founder.qtdEntrou
+        this.relatorio.qtdSaiu = Number(quantidadeSaiu) + Number(qtdSaiuRelatorio);
+        this.relatorio.valorTotal = founder.valorTotal;
+        this.relatorio.valorTotalSairam = (found.valorItem*Number(quantidadeSaiu)) + founder.valorTotalSairam;
+        this.relatorio.data = dataAtual;
+        this.relatorio.id = founder.id
+        this.relatorio.item = founder.item;
+    
+            post('atualizarItem', this.item).then(result=>{
+                console.log('Result ', result)
+                atualizarTabelaItens()
+            }).catch(error=>{
+                console.log('Error ', error)
+            })
+            
+
+        post('salvarRelatorio', this.relatorio ).then(result=>{
+            console.log('Result ', result)
+        }).catch(error=>{
+            console.log('Error ', error)
+        })
+    })})  
+
+
     this.requisicao.quantidadeItensReq = document.getElementById('qtdReq').value;
     this.requisicao.requisitante = document.getElementById('usuReq').value;
     this.requisicao.setor = {id:document.getElementById('Setor').value};
@@ -453,6 +556,16 @@ function remover(){
             this.item.quantidade = foundItens.quantidade + returnValueQtd
             this.item.descricao = foundItens.descricao
             this.item.fornecedor = foundItens.fornecedor
+            this.item.validade = foundItens.validade
+            this.item.perecivel = foundItens.perecivel
+            this.item.valorItem = foundItens.valorItem
+            this.item.tipoDeItem = foundItens.tipoDeItem
+            this.item.codigoItem = foundItens.codigoItem
+            this.item.unidadeMedida = foundItens.unidadeMedida
+            this.item.alerta = foundItens.alerta
+            this.item.criador = foundItens.criador;
+            this.item.quantidadeMinima = foundItens.quantidadeMinima
+
     
             post('atualizarItem', this.item).then(result=>{
                 console.log('Result ', result)
@@ -460,12 +573,39 @@ function remover(){
             }).catch(error=>{
                 console.log('Error ', error)
             })
+
+            get('relatorio').then(relatorios=>{
+                var founder = relatorios.find(element => element.id == returnValueId)
+                console.log(founder)
+        
+                var data = new Date();
+                var dia = String(data.getDate()).padStart(2, '0');
+                var mes = String(data.getMonth() + 1).padStart(2, '0');
+                var ano = data.getFullYear();
+                dataAtual = dia + '/' + mes + '/' + ano;
+        
+                this.relatorio.nome = founder.nome
+                this.relatorio.qtdInicial = founder.qtdInicial
+                this.relatorio.qtdEntrou = founder.qtdEntrou
+                this.relatorio.qtdSaiu = Number(founder.qtdSaiu) - Number(returnValueQtd)
+                this.relatorio.valorTotal = founder.valorTotal;
+                this.relatorio.valorTotalSairam = founder.valorTotalSairam - (found.valorItem*(Number(founder.qtdSaiu) - Number(returnValueQtd)));
+                this.relatorio.data = dataAtual;
+                this.relatorio.id = founder.id
+                this.relatorio.item = founder.item;
+        
+                post('salvarRelatorio', this.relatorio ).then(result=>{
+                    console.log('Result ', result)
+                }).catch(error=>{
+                    console.log('Error ', error)
+                })
+            })})  
     
         }).catch(error=>{
             console.log('Error ', error)
         })
         
-    }).catch(error=>{
+    .catch(error=>{
         console.log('Error ', error)
     })
 

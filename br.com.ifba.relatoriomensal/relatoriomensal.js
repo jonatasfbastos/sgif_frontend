@@ -44,6 +44,10 @@ function tableCreate(data){
         colvalorTotalSairam.appendChild(document.createTextNode(element.valorTotalSairam))
         row.appendChild(colvalorTotalSairam)
 
+        var colData = document.createElement("td")
+        colData.appendChild(document.createTextNode(element.data))
+        row.appendChild(colData)
+
         tableBody.appendChild(row)
 
     });
