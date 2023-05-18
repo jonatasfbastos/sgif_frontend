@@ -27,13 +27,13 @@ function tableCreate(data){
         data.forEach(element => {
         var row = document.createElement("tr");
 
+        var colDescription = document.createElement("td")
+        colDescription.appendChild(document.createTextNode(element.nome))
+        row.appendChild(colDescription)
+
         var colCodItem = document.createElement("td")
         colCodItem.appendChild(document.createTextNode(element.codigoItem ? element.codigoItem.nota: ''))
         row.appendChild(colCodItem)
-
-        var colDescription = document.createElement("td")
-        colDescription.appendChild(document.createTextNode(element.unidadeMedida))
-        row.appendChild(colDescription)
         
         console.log(element.fornecedor?.nome)
         var colFornecedor = document.createElement("td")
@@ -135,7 +135,7 @@ function openForm(id) {
 
     console.log('Item achado', usr)
 
-    document.getElementById('nomeItem').innerHTML = usr.nome;
+    document.getElementById('nomeItem').innerHTML = usr.unidadeMedida;
     document.getElementById('QuantiaItem').innerHTML = usr.quantidade;
     document.getElementById('quantidadeMinimaItem').innerHTML = usr.quantidadeMinima;
     document.getElementById('ValidadeItem').innerHTML = usr.validade;
@@ -255,7 +255,7 @@ function buscar(){
     tr = table.getElementsByTagName("tr");
 
             for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[1];
+            td = tr[i].getElementsByTagName("td")[0];
             if (td) {
             txtValue = td.textContent || td.innerText;
             if (txtValue.toUpperCase().indexOf(filter) > -1) {

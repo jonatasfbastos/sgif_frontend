@@ -222,7 +222,7 @@ function buscar(){
     tr = table.getElementsByTagName("tr");
 
             for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[1];
+            td = tr[i].getElementsByTagName("td")[0];
             if (td) {
             txtValue = td.textContent || td.innerText;
             if (txtValue.toUpperCase().indexOf(filter) > -1) {
@@ -238,18 +238,12 @@ var table = document.getElementById("itens-table");
 
 function editar(){
     let newNota = document.getElementById('notaEmpenhoEditar').value
-    // let newValidade = document.getElementById('validadeEmpenhoEditar').value
-    // let newValor = document.getElementById('valorEmpenhoEditar').value
-    //let newItens = document.getElementById('itensEmpenhoEditar').value
 
     this.empenho = this.empenhoList.find(emp=>{
         return emp.id === this.selectedId
     })
     
     this.empenho.nota = newNota
-    // this.empenho.validade = newValidade
-    // this.empenho.valor = newValor
-   // this.empenho.itens = newItens
 
     console.log('Novo empenho ', this.empenho)
     post('salvarEmpenho', this.empenho).then(result=>{
@@ -260,34 +254,6 @@ function editar(){
     })
     this.empenho = {}
 }
-
-// function gerarRelatorio(){
-//     get('empenhosValidos').then(data=>{
-//         this.empenhosValidos = data
-//         console.log('Empenhos validos: ', this.empenhosValidos)
-//         }).catch(error=>{
-//             console.log('Error ', error)
-//         })
-//     _gerarCsv();
-// }
-  
-// var _gerarCsv = function(){
-//     var csv = 'id, nota, validade, valorTotal\n';
-//     this.empenhosValidos.forEach(function(row) {
-//             csv += row.id;
-//             csv += ','+ row.nota;
-//             csv += ','+ row.validade;
-//             csv += ','+ row.valor;
-//             csv += '\n';        
-//     });
-   
-//     var hiddenElement = document.createElement('a');
-//     hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
-//     hiddenElement.target = '_blank';
-//     hiddenElement.download = 'Empenhos Validos.csv';
-//     hiddenElement.click();
-//     //window.location.reload(true);
-// };
 
 let popup = document.getElementById("popupRemove");
 let telaDesativada = document.getElementById("tela");

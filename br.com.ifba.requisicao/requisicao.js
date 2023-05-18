@@ -63,9 +63,9 @@ function tableCreate(data){
         colDescricao.appendChild(document.createTextNode(element.setor ? element.setor.nome : ''))
         row.appendChild(colDescricao)
 
-        var colCriador = document.createElement("td")
-        colCriador.appendChild(document.createTextNode(element.criador ? element.criador.login : ''))
-        row.appendChild(colCriador)
+        var colNomeITem = document.createElement("td")
+        colNomeITem.appendChild(document.createTextNode(element.itens.nome))
+        row.appendChild(colNomeITem)
         
         tableBody.appendChild(row)
 
@@ -271,7 +271,7 @@ function openForm(id) {
 
     console.log('Requisicao achada ', usr)
 
-    document.getElementById('itemDemonstration').innerHTML = usr.itens.nome
+    document.getElementById('itemDemonstration').innerHTML = usr.criador.login
     document.getElementById('itemQuantia').innerHTML = usr.quantidadeItensReq
     teladisabled();
     document.getElementById('itemCodSaida').innerHTML = usr.codigoSaida
@@ -626,7 +626,7 @@ function buscar(){
     tr = table.getElementsByTagName("tr");
 
             for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[1];
+            td = tr[i].getElementsByTagName("td")[3];
             if (td) {
             txtValue = td.textContent || td.innerText;
             if (txtValue.toUpperCase().indexOf(filter) > -1) {
