@@ -233,7 +233,7 @@ tr:hover {
 }
 
 .notaDisciplina{
-    background-image: url(../images/calendario.png);
+    background-image: url(../images/local-na-rede-internet.png);
     background-repeat: no-repeat;
     background-position: left;
     background-size: 1.3em;
@@ -245,16 +245,17 @@ tr:hover {
     color: #e3e6d0;
 }
 
-.popupAdd select{
+.popupAdd select {
     width: 220px;
     background-color: #fff;
     border: 1px solid #165b79;
     outline: 0;
     margin-top: 20px;
     border-radius: 20px;
-    height: 35px;
+    height: 200px; /* Increase the height as desired */
     text-align: center;
-}
+  }
+  
 
 .popupAdd label{
     margin-left: 12px;
@@ -315,7 +316,7 @@ tr:hover {
     height: 45px;
     margin: 4px 2px;
     border-radius: 25px;
-    background-image: url(../images/login.png);
+    background-image: url(../images/local-na-rede-internet.png);
     background-repeat: no-repeat;
     background-position: left;
     padding-left: 50px;
@@ -331,7 +332,7 @@ tr:hover {
     outline: 0;
     margin-top: 20px;
     border-radius: 20px;
-    height: 35px;
+    height: 200px;
     text-align: center;
 }
 

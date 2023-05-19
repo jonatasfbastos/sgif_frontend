@@ -6,7 +6,7 @@ var professor = {}
 atualizarTabela()
 
 function atualizarTabela(){
-    get('professores').then(data=>{
+    get('professor').then(data=>{
     console.log('Data', data)
     this.professorList = data
     this.tableCreate(this.professorList)

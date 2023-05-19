@@ -8,7 +8,7 @@ var ItemList = []
 pegarItens()
 function pegarItens(){
     
-    get('Item').then(data=>{
+    get('disciplina').then(data=>{
     console.log('Data', data)
     this.ItemList = data
     //this.tableCreate(this.ItemList)
@@ -31,6 +31,40 @@ function atualizarTabela(){
     this.disciplinaList = []
 }
 
+setProfessor()
+
+function setProfessor() {
+    return new Promise((resolve, reject) => {
+        get('professor')
+            .then(professores => {
+                console.log("Professores:", professores);
+                var multiCombo = document.querySelector("#professorDisciplinaAdd");
+                var multiComboEdit = document.querySelector("#professorDisciplinaEdit");
+                multiCombo.innerHTML = '';
+                multiComboEdit.innerHTML = '';
+                professores.forEach(professor => {
+                    let option = document.createElement('option');
+                    option.value = professor.id;
+                    option.innerHTML = professor.nome;
+                    multiCombo.appendChild(option);
+
+                    let optionEdit = document.createElement('option');
+                    optionEdit.value = professor.id;
+                    optionEdit.innerHTML = professor.nome;
+                    multiComboEdit.appendChild(optionEdit);
+                });
+
+                resolve(); // Resolvendo a promise após obter os professores
+            })
+            .catch(error => {
+                console.log('Error ', error);
+                reject(error); // Rejeitando a promise em caso de erro
+            });
+    });
+}
+
+
+
 function tableCreate(data){
     var tableBody = document.getElementById('table-body');
     if(tableBody){
@@ -38,32 +72,37 @@ function tableCreate(data){
         data.forEach(element => {
             var row = document.createElement("tr");
     
-            var colNota = document.createElement("td")
-            colNota.appendChild(document.createTextNode(element.nota))
-            row.appendChild(colNota)
+            var colNome = document.createElement("td")
+            colNome.innerHTML = element.nome
+            row.appendChild(colNome)
 
-            var colCriador = document.createElement("td")
-            colCriador.appendChild(document.createTextNode(element.criador ? element.criador.login : ''))
-            row.appendChild(colCriador)
-                    
-            // var colValidade = document.createElement("td")
-            // colValidade.appendChild(document.createTextNode(element.validade))
-            // row.appendChild(colValidade)
-            
-            // var colValor = document.createElement("td")
-            // colValor.appendChild(document.createTextNode(element.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })))
-            // row.appendChild(colValor)
-            
-            // var colInfo = document.createElement("td")
-            // colInfo.setAttribute("onclick", "openInfoItens("+element.id+")")
-            // var infoLink = document.createElement("a")
-            // var imgInfo = document.createElement("img")
-            // imgInfo.setAttribute("src", "../images/simbolo-de-informacao.png")
-            // infoLink.appendChild(imgInfo)
-    
-            // colInfo.appendChild(infoLink)
-            // row.appendChild(colInfo)
-            
+            var colDescricao = document.createElement("td")
+            colDescricao.innerHTML = element.descricao
+            row.appendChild(colDescricao)
+
+            var colCodigo = document.createElement("td")
+            colCodigo.innerHTML = element.codigo
+            row.appendChild(colCodigo)
+
+            var colCargaHoraria = document.createElement("td")
+            colCargaHoraria.innerHTML = element.cargaHoraria
+            row.appendChild(colCargaHoraria)
+
+            var colProfessor = document.createElement("td");
+
+            if (element.professor && element.professor.length > 0) {
+            var professores = element.professor.map(function (professor) {
+                return professor.nome;
+            });
+
+            colProfessor.innerHTML = professores.join(",<br>");
+            } else {
+            colProfessor.innerHTML = "";
+            }
+
+            row.appendChild(colProfessor);
+
+
             
             var colRemover = document.createElement("td")
             colRemover.setAttribute("onclick", "openPopup("+element.id+")")
@@ -98,6 +137,8 @@ function stopPropagation(event){
 
 function openAddPopup(){
     popupAdd.classList.add("openAddPopup");
+    teladisabled();
+    setProfessor();
 }
 
 function closeAddPopup(){
@@ -157,39 +198,61 @@ function closeInfoItens() {
     document.getElementById("infoItensdisciplina").style.display = "none";
 }
 
-function openEditPopup(id){
-    teladisabled()
-    this.selectedId = id
+async function openEditPopup(id) {
+    teladisabled();
+    await setProfessor(); // Aguarda a conclusão da chamada assíncrona para obter os professores
+    this.selectedId = id;
     popupEdit.classList.add("popupEditOpen");
-    console.log('Id ',id)
-    let dcpn = this.disciplinaList.find(disciplina=>{
-        return disciplina.id === id
-    })
+    console.log('Id ', id);
+    let dcpn = this.disciplinaList.find(disciplina => {
+        return disciplina.id === id;
+    });
 
-    console.log('disciplina achado ', dcpn)
-    
-    document.getElementById('notadisciplinaEditar').value = dcpn.nota
-    // document.getElementById('validadedisciplinaEditar').value = dcpn.validade
-    // document.getElementById('valordisciplinaEditar').value = dcpn.valor
-    // document.getElementById('itensdisciplinaEditar').value = dcpn.itens
+    console.log('disciplina achado ', dcpn);
+
+    document.querySelector("#notaDisciplinaEdit").value = dcpn.nome;
+    document.querySelector("#descricaoDisciplinaEdit").value = dcpn.descricao;
+    document.querySelector("#codigoDisciplinaEdit").value = dcpn.codigo;
+    document.querySelector("#cargaHorariaDisciplinaEdit").value = dcpn.cargaHoraria;
+
+    var professoresSelect = document.querySelectorAll("#professorDisciplinaEdit option");
+    var professores = Array.isArray(dcpn.professor) ? dcpn.professor.map(p => p.id.toString()) : [];
+
+    professoresSelect.forEach(option => {
+        option.selected = professores.includes(option.value);
+    });
 }
+
 
 function closeEditPopup(){
     popupEdit.classList.remove("popupEditOpen");
 }
 
 function adicionar(){
-    this.disciplina.nome = document.getElementById('nomedisciplina').value
-    this.disciplina.nota = document.getElementById('notadisciplina').value
-    this.disciplina.codigo = document.getElementById('codigodisciplina').value
-    this.disciplina.cargaHoraria = document.getElementById('cargaHorariadisciplina').value
+    this.disciplina.nome = document.querySelector("#notaDisciplinaAdd").value
+    this.disciplina.descricao = document.querySelector("#descricaoDisciplinaAdd").value
+    this.disciplina.codigo = document.querySelector("#codigoDisciplinaAdd").value
+    this.disciplina.cargaHoraria = document.querySelector("#cargaHorariaDisciplinaAdd").value
+    var professoresSelect = document.querySelectorAll("#professorDisciplinaAdd option:checked");
+    var professores = [];
+
+    professoresSelect.forEach(function (option) {
+    var professor = { id: option.value };
+        professores.push(professor);
+    });
+
+    this.disciplina.professor = professores;
+
+    
+
+    console.log('disciplina', this.disciplina)
     // this.disciplina.validade = document.getElementById('validadedisciplinaAdd').value;
     // this.disciplina.valor = parseFloat(document.getElementById('valordisciplinaAdd').value);
     // this.disciplina.itens = ItemList;
 
     //se os campos de nome, valor(valores negativos não serão aceitos) e itens(quando estiver sendo salvo na tela) estiverem vazios, não serão salvos
     //naturalmente sem a validade não salva, então não colocarei no if 
-    if(this.disciplina == null){
+    if(this.disciplina !== null){
         post('salvarDisciplina', this.disciplina).then(result=>{
             console.log('result', result)
             atualizarTabela()   
@@ -210,6 +273,7 @@ function remover(){
     get_params('deletarDisciplina', {id:this.selectedId}).then(result=>{
         atualizarTabela()
     }).catch(error=>{
+        console.log('error', error)
     })
 }
 
@@ -237,10 +301,11 @@ function buscar(){
 var table = document.getElementById("itens-table");
 
 function editar(){
-    let newNome = document.getElementById('nomedisciplinaEditar').value 
-    let newDescricao = document.getElementById('descricaodisciplinaEditar').value
-    let newCodigo = document.getElementById('codigodisciplinaEditar').value
-    let newCargaHoraria = document.getElementById('cargaHorariadisciplinaEditar').value
+    let newNome = document.querySelector("#notaDisciplinaEdit").value
+    let newDescricao = document.querySelector("#descricaoDisciplinaEdit").value
+    let newCodigo = document.querySelector("#codigoDisciplinaEdit").value
+    let newCargaHoraria = document.querySelector("#cargaHorariaDisciplinaEdit").value
+
 
     // let newValidade = document.getElementById('validadedisciplinaEditar').value
     // let newValor = document.getElementById('valordisciplinaEditar').value
@@ -258,8 +323,18 @@ function editar(){
     // this.disciplina.valor = newValor
    // this.disciplina.itens = newItens
 
+   var professoresSelect = document.querySelectorAll("#professorDisciplinaEdit option:checked");
+    var professores = [];
+
+    professoresSelect.forEach(function (option) {
+    var professor = { id: option.value };
+        professores.push(professor);
+    });
+
+    this.disciplina.professor = professores;
+
     console.log('Novo disciplina ', this.disciplina)
-    post('salvardisciplina', this.disciplina).then(result=>{
+    put('atualizarDisciplina', this.disciplina).then(result=>{
         console.log('Result ', result)
         this.atualizarTabela()
     }).catch(error=>{
@@ -267,6 +342,10 @@ function editar(){
     })
     this.disciplina = {}
 }
+
+
+  
+
 
 // function gerarRelatorio(){
 //     get('disciplinasValidos').then(data=>{
@@ -302,3 +381,5 @@ let backdrop = document.getElementById("backdrop");
 let popupEdit = document.getElementById("popupEdit");
 let popupAdd = document.getElementById("popupAdd");
 var tableInteract = document.getElementById("itens-table");
+
+

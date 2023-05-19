@@ -21,10 +21,14 @@
     <div class="popupEdit" id="popupEdit">
         <img src="../images/caneta.png" alt="editar">
         
-        <h2>Digite as novas informações do Disciplina</h2>
+        <h2>Digite as novas informações da Disciplina</h2>
         
-        <input type="text" name="notaDisciplina" placeholder="Nota Disciplina..." autocomplete="off" 
-        class="notaDisciplina" id="notaDisciplinaEditar">
+        <input type="text" name="nomeDisciplina" placeholder="Nome Disciplina..." autocomplete="off" class="notaDisciplina" id="notaDisciplinaEdit">
+        <input type="text" name="descricaoDisciplina" placeholder="Descrição Disciplina..." autocomplete="off" class="notaDisciplina" id="descricaoDisciplinaEdit">
+        <input type="text" name="codigoDisciplina" placeholder="Codigo Disciplina..." autocomplete="off" class="notaDisciplina" id="codigoDisciplinaEdit">
+        <input type="number" name="cargaHorariaDisciplina" placeholder="Carga Horaria Disciplina..." autocomplete="off" class="notaDisciplina" id="cargaHorariaDisciplinaEdit">
+        <label for="Professores">Selecione o professor da Disciplina: </label>
+        <select name="Professor" id="professorDisciplinaEdit" multiple></select><br>
                 
         <button type="button" onclick="closeEditPopup(), editar(), telaEnabled()">Confirmar</button>
         <button type="button" onclick="closeEditPopup(), telaEnabled()">Cancelar</button>
@@ -32,12 +36,14 @@
 
     <div class="popupAdd" id="popupAdd">
         <img src="../images/botao-adicionar3.png" alt="adicionar">
-        <h2>Digite as novas informações da Disciplina</h2>
+        <h2>Digite as informações da Disciplina</h2>
         
         <input type="text" name="nomeDisciplina" placeholder="Nome Disciplina..." autocomplete="off" class="notaDisciplina" id="notaDisciplinaAdd">
         <input type="text" name="descricaoDisciplina" placeholder="Descrição Disciplina..." autocomplete="off" class="notaDisciplina" id="descricaoDisciplinaAdd">
         <input type="text" name="codigoDisciplina" placeholder="Codigo Disciplina..." autocomplete="off" class="notaDisciplina" id="codigoDisciplinaAdd">
-        <input type="text" name="cargaHorariaDisciplina" placeholder="Carga Horaria Disciplina..." autocomplete="off" class="notaDisciplina" id="cargaHorariaDisciplinaAdd">
+        <input type="number" name="cargaHorariaDisciplina" placeholder="Carga Horaria Disciplina..." autocomplete="off" class="notaDisciplina" id="cargaHorariaDisciplinaAdd">
+        <label for="Professores">Selecione o professor da Disciplina:</label>
+        <select name="Professor" id="professorDisciplinaAdd" multiple></select><br>
                     
         <button type="button" onclick="closeAddPopup(), adicionar(), telaEnabled()">Confirmar</button>
         <button type="button" onclick="closeAddPopup(), telaEnabled()">Cancelar</button>
@@ -62,6 +68,7 @@
                     <th>Descrição</th>
                     <th>Codigo</th>
                     <th>Carga Horaria</th>
+                    <th>Professor</th>
                     <th>Remover</th>
                     <th>Editar</th>
                 </tr>
