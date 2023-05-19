@@ -97,7 +97,6 @@ function openAddPopup(){
 
 function closeAddPopup(){
     popupAdd.classList.remove("openAddPopup");
-
 }
 
 function openPopup(id){
@@ -143,9 +142,11 @@ function openEditPopup(id){
     }
 }
 
-function openErroPopup(){
+function openErroPopup(titulo, motivo){
     teladisabled()
     popupErro.classList.add("popupErroOpen");
+    document.getElementById('tituloErro').innerText = titulo;
+    document.getElementById('infoErro').innerText = motivo;
 }
 
 var tablee = document.getElementById("itens-table");
@@ -174,8 +175,12 @@ function adicionar(){
             atualizarTabela()
         }).catch(error=>{
             console.log('error', error)
+            openErroPopup('Impossível salvar formulário', 'Erro ao adicionar no banco de dados')
         })
-    }else{console.log('error')}
+    }else{
+        console.log('error')
+        openErroPopup('Impossível salvar formulário', 'Preencha os campos')
+    }
     this.formulario = {}
 
     document.getElementById('tituloFormularioAdd').value = '';
@@ -188,7 +193,8 @@ function remover(){
     get_params('deletarFormulario', {id:this.selectedId}).then(result=>{
         atualizarTabela()
     }).catch(error=>{
-        openErroPopup();
+        console.log('error', error)
+        openErroPopup('Impossível remover formulário', 'Erro ao excluir no banco de dados');
     })
 }
 
@@ -230,12 +236,13 @@ function editar(){
     this.formulario.descricao = newDescricao;
     this.formulario.avaliacao = newAvaliacaoId;
 
-    console.log('Novo formulario ', this.formulario)
+    console.log('Editar formulario ', this.formulario)
     post('atualizarFormulario', this.formulario).then(result=>{
         console.log('Result ', result)
         this.atualizarTabela()
     }).catch(error=>{
         console.log('Error ', error)
+        openErroPopup('Impossível atualizar formulário', 'Erro ao editar no banco de dados');
     })
     this.formulario = {}
 }
