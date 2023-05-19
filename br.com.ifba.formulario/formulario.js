@@ -3,6 +3,7 @@ var formulariosList = []
 var formulario = {}
 
 atualizarTabela()
+setAvaliacoes()
 
 function atualizarTabela(){
     get('formularios').then(data=>{
@@ -28,6 +29,10 @@ function tableCreate(data){
             var colDescricao = document.createElement("td")
             colDescricao.appendChild(document.createTextNode(element.descricao))
             row.appendChild(colDescricao)
+
+            var colAvaliacao = document.createElement("td")
+            colAvaliacao.appendChild(document.createTextNode(element.avaliacao ? element.avaliacao.id : ''))
+            row.appendChild(colAvaliacao)
             
             var colRemover = document.createElement("td")
             colRemover.setAttribute("onclick", "openPopup("+element.id+")")
@@ -54,7 +59,33 @@ function tableCreate(data){
             console.log(element)
         });
     }
-}          
+}
+
+function setAvaliacoes() {
+
+    get('avaliacao').then(avaliacoes=>{
+        console.log('Avaliações ', avaliacoes)
+
+        var multiCombo = document.getElementById('avaliacao')
+        var multiComboEdit = document.getElementById('avaliacaoEdit')
+        avaliacoes.forEach(avaliacao=>{
+            let option = document.createElement('option')
+            option.value = avaliacao.id
+            option.innerHTML = avaliacao.id
+
+            multiCombo.appendChild(option)
+
+            let optionEdit = document.createElement('option')
+            optionEdit.value = avaliacao.id
+            optionEdit.innerHTML = avaliacao.id
+
+            multiComboEdit.appendChild(optionEdit)
+            
+        })
+    }).catch(error=>{
+        console.log('Error ', error)
+    })
+}
 
 function stopPropagation(event){
     event.stopPropagation();
@@ -107,6 +138,14 @@ function openEditPopup(id){
     
     document.getElementById('tituloFormularioEditar').value = formulario.titulo;
     document.getElementById('descricaoFormularioEditar').value = formulario.descricao;
+    if(formulario.avaliacao){
+        document.getElementById('avaliacaoEdit').value = formulario.avaliacao ? formulario.avaliacao.id : '';
+    }
+}
+
+function openErroPopup(){
+    teladisabled()
+    popupErro.classList.add("popupErroOpen");
 }
 
 var tablee = document.getElementById("itens-table");
@@ -115,12 +154,17 @@ function closeEditPopup(){
     popupEdit.classList.remove("popupEditOpen");
 }
 
+function closeErroPopup(){
+    popupErro.classList.remove("popupErroOpen");
+}
+
 function adicionar(){
 
     this.formulario.titulo = document.getElementById('tituloFormularioAdd').value;
     this.formulario.descricao = document.getElementById('descricaoFormularioAdd').value;
 
-    this.formulario.pessoa = null;
+    this.formulario.avaliacao = {id:document.getElementById('avaliacao').value};
+
     console.log(this.formulario)
 
     //se os campos de título ou de descrição estiverem vazios, não serão salvos
@@ -144,6 +188,7 @@ function remover(){
     get_params('deletarFormulario', {id:this.selectedId}).then(result=>{
         atualizarTabela()
     }).catch(error=>{
+        openErroPopup();
     })
 }
 
@@ -156,7 +201,7 @@ function buscar(){
     tr = table.getElementsByTagName("tr");
 
             for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[1];
+            td = tr[i].getElementsByTagName("td")[0];
             if (td) {
             txtValue = td.textContent || td.innerText;
             if (txtValue.toUpperCase().indexOf(filter) > -1) {
@@ -173,6 +218,9 @@ var table = document.getElementById("itens-table");
 function editar(){
     let newTitulo = document.getElementById('tituloFormularioEditar').value
     let newDescricao = document.getElementById('descricaoFormularioEditar').value
+    var newAvaliacaoId = {id:document.getElementById('avaliacaoEdit').value}
+
+    console.log(newAvaliacaoId)
 
     this.formulario = this.formulariosList.find(formulario=>{
         return formulario.id === this.selectedId
@@ -180,6 +228,7 @@ function editar(){
     
     this.formulario.titulo = newTitulo;
     this.formulario.descricao = newDescricao;
+    this.formulario.avaliacao = newAvaliacaoId;
 
     console.log('Novo formulario ', this.formulario)
     post('atualizarFormulario', this.formulario).then(result=>{
@@ -196,4 +245,5 @@ let telaDesativada = document.getElementById("tela");
 let backdrop = document.getElementById("backdrop");
 let popupEdit = document.getElementById("popupEdit");
 let popupAdd = document.getElementById("popupAdd");
+let popupErro = document.getElementById("popupErro");
 var tableInteract = document.getElementById("itens-table");

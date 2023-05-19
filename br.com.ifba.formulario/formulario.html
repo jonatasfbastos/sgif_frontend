@@ -20,8 +20,9 @@
         <h2>Digite as novas informações</h2>
         <input type="text" name="tituloFormulario" placeholder="Título..." autocomplete="off" class="tituloFormulario" id="tituloFormularioEditar">
         <input type="text" name="descricaoFormulario" placeholder="Descrição..." autocomplete="off" class="descricaoFormulario" id="descricaoFormularioEditar">
-
-        </select> <br>
+        <label for="avaliacoes">Selecione a avaliação a incluir o formulário:</label>
+        <select name="Avaliação" id="avaliacaoEdit"></select>
+        <br>
         <button type="button" onclick="closeEditPopup(), editar(), telaEnabled()">Confirmar</button>
         <button type="button" onclick="closeEditPopup(), telaEnabled()">Cancelar</button>
     </div>
@@ -31,10 +32,18 @@
         <h2>Digite as informações do Formulário</h2>
         <input type="text" name="tituloFormulario" placeholder="Título..." autocomplete="off" class="tituloFormulario" id="tituloFormularioAdd">
         <input type="text" name="descricaoFormulario" placeholder="Descrição..." autocomplete="off" class="descricaoFormulario" id="descricaoFormularioAdd">
-            
-        </select> <br>
+        <label for="avaliacoes">Selecione a avaliação a incluir o formulário:</label>
+        <select name="Avaliação" id="avaliacao"></select>
+        <br>
         <button type="button" onclick="closeAddPopup(), adicionar(), telaEnabled()">Confirmar</button>
         <button type="button" onclick="closeAddPopup(), telaEnabled()">Cancelar</button>
+    </div>
+
+    <div class="popupErro" id="popupErro">
+        <img src="../images/excluir.png" alt="erro">
+        <h2>Impossível remover formulário</h2>
+        <label for="avaliacoes">Há uma avaliação atrelada a este formulário</label>
+        <button type="button" onclick="closeErroPopup(), telaEnabled()">Fechar</button>
     </div>
 
     <div class="backdrop" id="backdrop" onclick="stopPropagation()"></div>
@@ -54,6 +63,7 @@
                     <tr>
                         <th>Título</th>
                         <th>Descrição</th>
+                        <th>Id da Avaliação</th>
                         <th>Remover</th>
                         <th>Editar</th>
                     </tr>

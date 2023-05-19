@@ -141,7 +141,7 @@ tr:last-child th:last-child{
     border-top-right-radius: 20px;
 }
 
-td:nth-child(3), td:nth-child(4){
+td:nth-child(4), td:nth-child(5){
     cursor: pointer;
 }
 
@@ -178,9 +178,10 @@ tr:hover {
 @media only screen and (min-width: 1200px){
     .content{width:100%;}
     .rTable tbody tr td:nth-child(1){width:10%;}
-    .rTable tbody tr td:nth-child(2){width:30%;}
-    .rTable tbody tr td:nth-child(3){width:20%;}
+    .rTable tbody tr td:nth-child(2){width:20%;}
+    .rTable tbody tr td:nth-child(3){width:10%;}
     .rTable tbody tr td:nth-child(4){width:10%;}
+    .rTable tbody tr td:nth-child(5){width:10%;}
 }
 
 .popupAdd{
@@ -273,7 +274,7 @@ tr:hover {
     font-size: 16px;
 }
 
-.popupEdit{
+.popupEdit, .popupErro{
     width: 400px;
     background-color: #20631d;
     border-radius: 10px;
@@ -296,13 +297,21 @@ tr:hover {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-.popupEdit h2{
+.popupErro img{
+    width: 100px;
+    margin-top: -50px;
+    border-radius: 50%;
+    background-color: #6b1111;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.popupEdit h2, .popupErro h2{
     font-size: 23px;
     font-weight: 500;
     margin: 30px 0 10px;
 }
 
-.popupEdit button{
+.popupEdit button, .popupErro button{
     width: 45%;
     margin-top: 50px;
     padding: 10px 0;
@@ -315,7 +324,7 @@ tr:hover {
     margin-left: 10px;
 }
 
-.popupEdit button:hover{
+.popupEdit button:hover, .popupErro button:hover{
     background-color: #666;
     color: #e3e6d0;
 }
@@ -363,7 +372,7 @@ tr:hover {
     text-align: center;
 }
 
-.popupEditOpen{
+.popupEditOpen, .popupErroOpen{
     visibility: visible;
     top: 50%;
     transform: translate(-50%, -50%) scale(1);
