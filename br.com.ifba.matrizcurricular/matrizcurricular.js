@@ -1,19 +1,79 @@
 var selectedId
 var matrizesList = []
+var etapasList = []
 var matriz = {}
+var etapas = {}
 
 atualizarTabela()
+//atualizarTabelaEtapa()
 setCursos()
 setEtapasCurso()
+
+//função para atualizar tabela de etapa curso
+/*function atualizarTabelaEtapa(){
+    get('etapaCurso').then(dataet=>{
+    console.log('Data ', dataet)
+    this.etapasList = dataet
+    this.tableCreateEtapa(this.etapasList)
+    }).catch(error=>{
+        console.log('Error ', error)
+    })
+}*/
 
 function atualizarTabela(){
     get('matrizes').then(data=>{
     console.log('Data ', data)
     this.matrizesList = data
+    this.etapasList = data
     this.tableCreate(this.matrizesList)
+    this.tableCreateEtapa(this.etapasList)
     }).catch(error=>{
         console.log('Error ', error)
     })
+}
+
+//tabela de etapa cursos
+function tableCreateEtapa(data){
+    var tableBodyEta = document.getElementById('table-body-etapa');
+    if(tableBodyEta){
+        tableBodyEta.innerHTML = ''
+        data.forEach(element => {
+            var row = document.createElement("tr");
+
+            var colID = document.createElement("td")
+            colID.appendChild(document.createTextNode(element.id))
+            row.appendChild(colID)
+    
+            //setando o nome de etapa curso na tabela de etapa cursos
+            get('etapaCurso').then(etapascursos=>{
+                console.log('Etapas do curso ', etapascursos)
+
+                var colNomeEtapa = document.createElement("td")
+                etapascursos.forEach(tipo=>{
+                let option = document.createElement('option')
+                option.value = tipo.id
+                option.innerHTML = tipo.nome
+
+                colNomeEtapa.appendChild(option)
+                row.appendChild(colNomeEtapa)
+
+            })
+            }).catch(error=>{
+                console.log('Error ', error)
+            })
+
+            /*var colNomeEtapa = document.createElement("td")
+            colNomeEtapa.appendChild(document.createTextNode(element.etapacurso ? element.etapacurso.nome : ''))
+            row.appendChild(colNomeEtapa)*/
+
+            /*var colDisciplinaEtapa = document.createElement("td")
+            colDisciplina.appendChild(document.createTextNode(element.etapacurso ? element.etapacurso.disciplina : ''))
+            row.appendChild(colDisciplinaEtapa)*/
+    
+            tableBodyEta.appendChild(row)
+            console.log(element)
+        });
+    }
 }
 
 function tableCreate(data){
@@ -22,6 +82,10 @@ function tableCreate(data){
         tableBody.innerHTML = ''
         data.forEach(element => {
             var row = document.createElement("tr");
+
+            var colID = document.createElement("td")
+            colID.appendChild(document.createTextNode(element.id))
+            row.appendChild(colID)
     
             var colNome = document.createElement("td")
             colNome.appendChild(document.createTextNode(element.nome))
@@ -35,10 +99,21 @@ function tableCreate(data){
             colCurso.appendChild(document.createTextNode(element.curso ? element.curso.nome : ''))
             row.appendChild(colCurso)
             
-            var colEtapa = document.createElement("td")
+            /*var colEtapa = document.createElement("td")
             colEtapa.appendChild(document.createTextNode(element.etapacurso ? element.etapacurso.nome : ''))
-            row.appendChild(colEtapa)
+            row.appendChild(colEtapa)*/
             
+            //botão para exibir lista de etapa curso
+            var colEtapa = document.createElement("td")
+            colEtapa.setAttribute("onclick", "openPopupView("+element.id+")")
+            var etapaLink = document.createElement("a")
+            var imgEye = document.createElement("img")
+            imgEye.setAttribute("src", "../images/botao_ver.png")
+            etapaLink.appendChild(imgEye)
+            
+            colEtapa.appendChild(etapaLink)
+            row.appendChild(colEtapa)
+
             var colRemover = document.createElement("td")
             colRemover.setAttribute("onclick", "openPopup("+element.id+")")
             var removerLink = document.createElement("a")
@@ -66,6 +141,21 @@ function tableCreate(data){
     }
 }
 
+let etapasSelecionadas = []
+
+function getEtapas(){
+    let etapa = document.getElementsByName("etapa")
+
+    for(var i=0; i<etapa.length; i++){
+        if(etapa[i].checked){
+            console.log("etapas: " + etapa[i].value);
+            etapasSelecionadas.push(etapa[i].value);
+        }
+    }
+
+    console.log(etapasSelecionadas)
+}
+
 function setCursos() {
 
     get('curso').then(cursos=>{
@@ -91,26 +181,42 @@ function setCursos() {
         console.log('Error ', error)
     })
 }
-          
+
 function setEtapasCurso() {
     //console.log("Chamando etapa cursos")
     get('etapaCurso').then(etapascursos=>{
         console.log('Etapas do curso ', etapascursos)
 
-        var multiCombo = document.getElementById('etapaCursoAdd')
-        var multiComboEdit = document.getElementById('etapaCursoEdit')
+        var multiCombo = document.getElementById('etapas')
+        var multiComboEdit = document.getElementById('etapasEdit')
         etapascursos.forEach(tipo=>{
-            let option = document.createElement('option')
+            //setando as etapa cursos no checkbox
+            var option = document.createElement("LABEL")
+            var broke = document.createElement("BR")
+            var check = document.createElement("INPUT")
+            check.setAttribute("type", "checkbox");
             option.value = tipo.id
             option.innerHTML = tipo.nome
+            check.value = tipo.id
+            check.innerHTML = tipo.nome
 
+            multiCombo.appendChild(check)
             multiCombo.appendChild(option)
+            multiCombo.appendChild(broke)
+            
 
-            let optionEdit = document.createElement('option')
+            let optionEdit = document.createElement('LABEL')
+            var broke = document.createElement("BR")
+            var check = document.createElement("INPUT")
+            check.setAttribute("type", "checkbox");
             optionEdit.value = tipo.id
             optionEdit.innerHTML = tipo.nome
+            check.value = tipo.id
+            check.innerHTML = tipo.nome
 
+            multiComboEdit.appendChild(check)
             multiComboEdit.appendChild(optionEdit)
+            multiComboEdit.appendChild(broke)
             
         })
     }).catch(error=>{
@@ -131,6 +237,12 @@ function closeAddPopup(){
 
 }
 
+function openPopupView(id){
+    teladisabled()
+    this.selectedId = id
+    popupEye.classList.add("popupEditView");
+}
+
 function openPopup(id){
     teladisabled()
     this.selectedId = id
@@ -149,6 +261,10 @@ function getindex(x){
 function telaEnabled(){
     telaDesativada.classList.remove("disabled_tela");
     backdrop.classList.remove("disabled_tela");
+}
+
+function closePopupView(){
+    popupEye.classList.remove("popupEditView");
 }
 
 function closePopup(){
@@ -189,13 +305,9 @@ function adicionar(){
     /*
         quando tiver o controller de curso e etapa curso descomentar as duas linhas abaixo
     */
-    this.matriz.curso = {id:document.getElementById('cursoAdd').value};
-    this.matriz.etapacurso = {id:document.getElementById('etapaCursoAdd').value};
+    //this.matriz.curso = {id:document.getElementById('cursoAdd').value};
+    this.etapas.etapacurso = {id:document.getElementById('etapaCursoAdd').value};
     console.log(this.matriz)
-
-    //this.matriz.pessoa = null;
-    //console.log(this.usuario)
-
 
     //se os campos de nome ou de descrição estiverem vazios, não serão salvos
     if(this.matriz.nome != "" && this.matriz.descricao != ""){
@@ -207,10 +319,11 @@ function adicionar(){
         })
     }else{console.log('error')}
     this.matriz = {}
+    this.etapas = {}
 
     document.getElementById('nomeMatrizAdd').value = '';
     document.getElementById('descricaoMatrizAdd').value = '';
-    document.getElementById('cursoAdd').value = '';
+    //document.getElementById('cursoAdd').value = '';
     document.getElementById('etapaCursoAdd').value = '';
 }
 
@@ -285,6 +398,7 @@ function editar(){
     this.matriz = {}
 }
 
+let popupEye = document.getElementById("popupView");
 let popup = document.getElementById("popupRemove");
 let telaDesativada = document.getElementById("tela");
 let backdrop = document.getElementById("backdrop");

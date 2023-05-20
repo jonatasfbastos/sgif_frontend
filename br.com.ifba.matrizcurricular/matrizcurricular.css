@@ -95,6 +95,37 @@ tr:hover {
     background-color: #f5f5f5;
 }
 
+.ContainEtapa{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.TableEtapa{
+    width: 83%;
+    text-align: center;
+    background-color: white;
+    /* box-shadow: 1px 1px 8px 1px #000000; */
+}
+
+.TableEtapa thead th{
+    color: #e3e6d0;
+    font-size: 13px;
+    text-transform: uppercase;
+    border-bottom: 1px solid #f2f2f2;
+    padding: 20px 20px 30px 20px;
+    background-color: #013b01;
+}
+
+.TableEtapa td{
+    color: #666;
+}
+    
+.TableEtapa tr{
+    height: 61.39px;
+}
+
+
 @media screen and (max-width: 448px){
     .tableContain{
         width: 94%;
@@ -427,4 +458,69 @@ tr:hover {
 
 .popupRemove button:hover{
     background-color: #666;
+}
+
+.popupView{
+    width: 400px;
+    background-color: #20631d;
+    border-radius: 10px;
+    position: absolute;
+    top: 0%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.1);
+    text-align: center;
+    padding: 0 30px 30px;
+    color: #f5f5f5;
+    visibility: hidden;
+    transition: transform 0.4s, top 0.4s;
+}
+
+.popupView img{
+    width: 100px;
+    margin-top: -50px;
+    border-radius: 50%;
+    background-color: #20631d;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.popupView h2{
+    font-size: 23px;
+    font-weight: 500;
+    margin: 30px 0 10px;
+}
+
+.popupView button{
+    width: 45%;
+    margin-top: 50px;
+    padding: 10px 0;
+    background: #fff;
+    border: 0;
+    border-radius: 16px;
+    outline: none;
+    cursor: pointer;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+    margin-left: 10px;
+}
+
+.popupView button:hover{
+    background-color: #666;
+    color: #e3e6d0;
+}
+
+.popupView select{
+    width: 220px;
+    background-color: #fff;
+    border: 1px solid #165b79;
+    outline: 0;
+    margin-top: 20px;
+    border-radius: 20px;
+    height: 35px;
+    text-align: center;
+}
+
+.popupEditView{
+    visibility: visible;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    z-index: 10;
 }
