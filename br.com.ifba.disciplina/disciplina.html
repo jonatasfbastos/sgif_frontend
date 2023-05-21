@@ -27,8 +27,9 @@
         <input type="text" name="descricaoDisciplina" placeholder="Descrição Disciplina..." autocomplete="off" class="notaDisciplina" id="descricaoDisciplinaEdit">
         <input type="text" name="codigoDisciplina" placeholder="Codigo Disciplina..." autocomplete="off" class="notaDisciplina" id="codigoDisciplinaEdit">
         <input type="number" name="cargaHorariaDisciplina" placeholder="Carga Horaria Disciplina..." autocomplete="off" class="notaDisciplina" id="cargaHorariaDisciplinaEdit">
-        <label for="Professores">Selecione o professor da Disciplina: </label>
-        <select name="Professor" id="professorDisciplinaEdit" multiple></select><br>
+        <br><br>
+        <select class="selectProfessorEdit" name="Professor" id="professorDisciplinaEdit" multiple="multiple"></select>
+        <br><br>
                 
         <button type="button" onclick="closeEditPopup(), editar(), telaEnabled()">Confirmar</button>
         <button type="button" onclick="closeEditPopup(), telaEnabled()">Cancelar</button>
@@ -42,8 +43,9 @@
         <input type="text" name="descricaoDisciplina" placeholder="Descrição Disciplina..." autocomplete="off" class="notaDisciplina" id="descricaoDisciplinaAdd">
         <input type="text" name="codigoDisciplina" placeholder="Codigo Disciplina..." autocomplete="off" class="notaDisciplina" id="codigoDisciplinaAdd">
         <input type="number" name="cargaHorariaDisciplina" placeholder="Carga Horaria Disciplina..." autocomplete="off" class="notaDisciplina" id="cargaHorariaDisciplinaAdd">
-        <label for="Professores">Selecione o professor da Disciplina:</label>
-        <select name="Professor" id="professorDisciplinaAdd" multiple></select><br>
+        <br><br>
+        <select class="selectProfessorAdd" name="Professor" id="professorDisciplinaAdd" multiple="multiple"></select><br>
+        <br><br>
                     
         <button type="button" onclick="closeAddPopup(), adicionar(), telaEnabled()">Confirmar</button>
         <button type="button" onclick="closeAddPopup(), telaEnabled()">Cancelar</button>
@@ -83,8 +85,11 @@
                 
     </div>
     
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>  
     <script type="text/javascript" src="../js/requisitions.js"></script>
-    <script type="text/javascript" src="disciplina.js"></script>
+    <script type="text/javascript" src="disciplina.js"></script>  
     <script src="../js/session.js"></script>  
 
 </body>
