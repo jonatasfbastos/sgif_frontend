@@ -35,6 +35,8 @@
         <input type="text" name="alunomatriculaedit" placeholder="matricula..." autocomplete="off" class="alunomatriculaedit" id="alunoMatriculaedit">
         <label for="turmas">Selecione a turma do Aluno: </label>
         <select name="Turma do aluno" id="turmaedit"></select><br>
+        <label for="status">Selecione o status do Aluno: </label>
+        <select name="Status do aluno" id="statusedit"></select><br>
         <button type="button" onclick="closeEditPopup(), editar(), telaEnabled()">Confirmar</button>
         <button type="button" onclick="closeEditPopup(), telaEnabled()">Cancelar</button>
     </div>
@@ -50,6 +52,8 @@
         <input type="text" name="alunomatriculaadd" placeholder="matricula..." autocomplete="off" class="alunomatriculaadd" id="alunoMatriculaadd">
         <label for="turmas">Selecione a turma do aluno: </label>
         <select name="Turma do aluno" id="turmaadd"></select><br>
+        <label for="status">Selecione o status do aluno: </label>
+        <select name="Status do aluno" id="statusadd"></select><br>
         <button type="button" onclick="closeAddPopup(), adicionar(), telaEnabled()">Confirmar</button>
         <button type="button" onclick="closeAddPopup(), telaEnabled()">Cancelar</button>
     </div>
@@ -78,6 +82,7 @@
                     <th>dataDeNascimento</th>
                     <th>matricula</th>
                     <th>turma</th>
+                    <th>Status</th>
                     <th>Remover</th>
                     <th>Editar</th>
                 </tr>

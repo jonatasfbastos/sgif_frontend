@@ -1,14 +1,3 @@
-[data-bs-theme=vanilla] {
-    color-scheme: vanilla;
-    --bs-body-font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;/*altered*/
-    --bs-body-color: #000;
-    --bs-body-bg: #fff;
-    --bs-secondary-color: #fafafa;
-    --bs-secondary-bg: #34972f;
-    --bs-tertiary-bg: #c2f5bf;
-    --bs-quarternary-bg: #013b01;
-}
-/*-------*/
 *{
     margin: 0;
     padding: 0;
@@ -18,12 +7,12 @@
 
 body{
     height: 100vh;
-    background-image:  linear-gradient(var(--bs-secondary-bg),var(--bs-tertiary-bg));
+    background-image: linear-gradient(#20631d, #c2f5bf);
     background-repeat: no-repeat;
     background-size: auto;
 }
 
-.buttons{
+#botoes{
     width: 100vw;
     height: 20vh;
     display: flex;
@@ -34,7 +23,7 @@ body{
 .search .loupe{
     background: url(../images/search-interface-symbol2.png);
     background-repeat: no-repeat;
-    background-color: var(--bs-body-bg);
+    background-color: white;
     background-position-x: 10px;
     background-position-y: center;
     background-size: 1.8em;
@@ -51,7 +40,7 @@ body{
 }
 
 .adicionar{
-    background-color: var(--bs-quarternary-bg);
+    background-color: #013b01;
     cursor: pointer;
     border: 1px solid #666;
     border-radius: 20px;
@@ -68,7 +57,7 @@ body{
     height: 45px;
     border: 0;
     border-radius: 25px;
-    background-color: var(--bs-quarternary-bg);
+    background-color: #013b01;
     font-size: 16px;
     cursor: pointer;
 }
@@ -77,20 +66,12 @@ body{
     box-shadow: 0 0 5px #009500, 0 0 25px #009500, 0 0 50px #009500, 0 0 200px #009500;
 }
 
-.homescreen img{
-    padding-left: 9px;
-}
-
-.homescreen a{
-    text-decoration: none;
-    color: #e3e6d0;
+.tableContain{
+    width: 100vw;
+    height: 75vh;
     display: flex;
     align-items: center;
-    padding: 7px;
-}
-
-.homescreen p{
-    padding-left: 13px;
+    justify-content: center; 
 }
 
 .scroll{
@@ -99,7 +80,7 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow-y: scroll;
+    overflow: scroll;
 }
 
 .scroll::-webkit-scrollbar{
@@ -123,14 +104,6 @@ tr:last-child td:last-child{
     border-bottom-right-radius: 20px;
 }
 
-.tableContain{
-    width: 100vw;
-    height: 75vh;
-    display: flex;
-    align-items: center;
-    justify-content: center; 
-}
-
 .rTable{
     width: 83%;
     text-align: center;
@@ -144,7 +117,7 @@ tr:last-child td:last-child{
     text-transform: uppercase;
     border-bottom: 1px solid #f2f2f2;
     padding: 20px 20px 30px 20px;
-    background-color: var(--bs-quarternary-bg);
+    background-color: #013b01;
 }
 
 .rTable td{
@@ -152,7 +125,7 @@ tr:last-child td:last-child{
 }
     
 .rTable tr{
-    height: 61.39px;
+    height: 60.39px;
 }
     
 table{
@@ -168,7 +141,7 @@ tr:last-child th:last-child{
     border-top-right-radius: 20px;
 }
 
-td:nth-child(5), td:nth-child(4){
+td:nth-child(7), td:nth-child(8){
     cursor: pointer;
 }
 
@@ -208,8 +181,6 @@ tr:hover {
     .rTable tbody tr td:nth-child(2){width:30%;}
     .rTable tbody tr td:nth-child(3){width:20%;}
     .rTable tbody tr td:nth-child(4){width:10%;}
-    .rTable tbody tr td:nth-child(4){width:30%;}
-
 }
 
 .popupAdd{
@@ -254,7 +225,7 @@ tr:hover {
     margin-left: 10px;
 }
 
-.popupAdd .funcaoServidorName, .funcaoServidorDescricao{
+.popupAdd .nomeadd, .descricaoadd{
     border: 1px #13293D solid;
     padding-left: 10px;
     width: 100%;
@@ -265,7 +236,7 @@ tr:hover {
     padding-left: 50px;
 }
 
-.funcaoServidorName{
+.nomeadd{
     background-image: url(../images/login.png);
     background-repeat: no-repeat;
     background-position: left;
@@ -273,8 +244,8 @@ tr:hover {
     background-position-x: 20px;
 }
 
-.funcaoServidorDescricao{
-    background-image: url(../images/procura-de-emprego.png);
+.descricaoadd{
+    background-image: url(../images/info.png);
     background-repeat: no-repeat;
     background-position: left;
     background-size: 1.3em;
@@ -350,15 +321,20 @@ tr:hover {
     color: #e3e6d0;
 }
 
-.popupEdit .funcaoServidorName{
+.popupEdit .nomeadd{
     border: 1px #13293D solid;
     padding-left: 10px;
     width: 100%;
     height: 45px;
     margin: 4px 2px;
     border-radius: 25px;
-    outline: 0;
+    background-image: url(../images/login.png);
+    background-repeat: no-repeat;
+    background-position: left;
     padding-left: 50px;
+    background-size: 1.3em;
+    background-position-x: 20px;
+    outline: 0;
 }
 
 .popupEdit select{
@@ -385,26 +361,6 @@ tr:hover {
     transform: translate(-50%, -50%) scale(1);
     z-index: 10;
 }
-.open_popup{
-    visibility: visible;
-    top: 50%;
-    transform: translate(-50%, -50%) scale(1);
-    z-index: 10;
-}
-
-.disabled_tela.backdrop{
-    pointer-events: none;
-    opacity: 0.3;
-    position: absolute;
-    width: 100vw;
-    height: 100vh;
-    background-color: #2177a8;
-    z-index: 9;
-}
-
-.tela.disabled_tela{
-    pointer-events: none;
-}
 
 .popupRemove{
     width: 400px;
@@ -420,6 +376,29 @@ tr:hover {
     visibility: hidden;
     transition: transform 0.4s, top 0.4s;
 }
+
+.open_popup{
+    visibility: visible;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    z-index: 10;
+}
+
+.disabled_tela.backdrop{
+    pointer-events: none;
+    opacity: 0.3;
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #2177a8;
+    z-index: 9;
+}
+
+.tela.disabled_tela{
+    pointer-events: none;
+}
+
 
 .popupRemove img{
     width: 100px;
@@ -449,4 +428,97 @@ tr:hover {
 
 .popupRemove button:hover{
     background-color: #666;
+}
+
+#popup-erro{
+    width: 400px;
+    background-color: #359830;
+    border-radius: 10px;
+    position: absolute;
+    top: 0%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.1);
+    text-align: center;
+    padding: 20px 0;
+    color: #f5f5f5;
+    visibility: hidden;
+    transition: transform 0.4s, top 0.4s; 
+    z-index: 2;
+}
+
+#popup-erro.mostrar-popup {
+    visibility: visible;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+#popup-erro img{
+    width: 100px;
+    margin-top: -50px;
+    border-radius: 50%;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    
+}
+
+.popup-button {
+    max-width: 140px;
+    width: 100%;
+    padding: 10px 0;
+    margin: 4px;
+    background: #fff;
+    border: none;
+    border-radius: 16px;
+    outline: none;
+    cursor: pointer;
+    box-shadow: 0 5px 5px #00000033;
+}
+
+.popup-button:hover {
+    color: #FFF;
+    background: #666;
+}
+
+#popup-alunos {
+    max-width: 700px;
+    width: 80%;
+    height: 600px;
+    background: #4a9245;
+    border-radius: 10px;
+    position: absolute;
+    top: 0%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.1);
+    text-align: center;
+    color: #f5f5f5;
+    visibility: hidden;
+    transition: transform 0.4s, top 0.4s; 
+    z-index: 2;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#popup-alunos .tableContain {
+    width: 100vw;
+    height: 75vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#popup-alunos .scroll{
+    max-height: 495px;
+    width: 55vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: scroll;
+}
+
+#popup-alunos.show-popup {
+    visibility: visible;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(1);
 }

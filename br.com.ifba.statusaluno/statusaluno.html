@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Status Aluno</title>
+    <link rel="stylesheet" href="statusaluno.css">
+</head>
+<body id="body">
+    <div class="popupRemove" id="popupRemove">
+        <img src="../images/ask.png" alt="question-sign-in-circles">
+        <h2>Você tem certeza que deseja remover esse Status de aluno?</h2>
+        <button type="button" onclick="remover(), closePopup(), telaEnabled()">Sim</button>
+        <button type="button" onclick="closePopup(), telaEnabled()">Não</button>
+    </div>
+
+    <div class="buttons" id="botoes">
+        <div class="search">
+            <input type="text" placeholder="Procurar..." class="loupe" id="loupe" onkeyup="buscar()"> 
+        </div>
+        <button class="adicionar" type="button" onclick="openAddPopup(), teladisabled()"><img src="../images/botao-adicionar2.png" alt="adicionar" title="Adicionar"></button>
+        <a href="../br.com.ifba.homescreen/homescreen.html"><button class="homescreen"> <img src="../images/casa.png" alt="homescreen"></button></a>
+    </div>
+
+    <div class="popupRemove" id="popupRemove">
+        <img src="../images/botao_ver.png" alt="question-sign-in-circles">
+        <h2>Alunos</h2>
+        <button type="button" onclick="closePopup(), telaEnabled()">Fechar</button>
+    </div>
+
+    <div class="popupEdit" id="popupEdit">
+        <img src="../images/caneta.png" alt="editar">
+        <h2>Digite as novas informações</h2>
+        <input type="text" name="Nomeedit" placeholder="Nome..." autocomplete="off" class="nomeedit" id="Nomeedit">
+        <input type="text" name="Descricaoedit" placeholder="Descrição..." autocomplete="off" class="descricaoedit" id="Descricaoedit">
+
+        <br>
+        <button type="button" onclick="closeEditPopup(), editar(), telaEnabled()">Confirmar</button>
+        <button type="button" onclick="closeEditPopup(), telaEnabled()">Cancelar</button>
+    </div>
+
+    <div class="popupAdd" id="popupAdd">
+        <img src="../images/botao-adicionar3.png" alt="adicionar">
+        <h2>Digite as informações para o Status de Aluno</h2>
+        <input type="text" name="Nomeadd" placeholder="Nome..." autocomplete="off" class="nomeadd" id="Nomeadd">
+
+        <input type="text" name="Descricaoadd" placeholder="Descrição..." autocomplete="off" class="descricaoadd" id="Descricaoadd">
+
+        <br>
+        <button type="button" onclick="closeAddPopup(), adicionar(), telaEnabled()">Confirmar</button>
+        <button type="button" onclick="closeAddPopup(), telaEnabled()">Cancelar</button>
+    </div>
+
+    <div class="backdrop" id="backdrop" onclick="stopPropagation()"></div>
+
+    <div id="popup-erro">
+        <img src="../images/alerta-icone.png" alt="Ícone de alerta." class="popup-img">
+        <p id="erro-mensagem">
+        </p>
+        <button type="button" class="popup-button" id="btn-erro-fechar">
+            Fechar
+        </button>
+    </div>
+
+    <div id="popup-alunos">
+        <h1>Alunos</h1>
+        <div class="tableContain">
+            <div class="scroll">
+                <table class="rTable" id="iten-table">
+                    <thead>
+                        <tr>
+                            <th>Status</th>
+                            <th>Nome</th>
+                            <th>Matricula</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-alunos-body">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <button  type="button" class = "popup-button" onclick="fecharAlunos()">
+            Fechar
+        </button>
+    </div>
+
+    <div class="tableContain">
+        <div class="scroll">
+        <table class="rTable" id="itens-table">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                    <th>Visualizar Alunos</th>
+                    <th>Remover</th>
+                    <th>Editar</th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+                
+            </tbody>
+        </table>
+
+        </div>
+    
+    </div>
+
+    <script type="text/javascript" src="../js/requisitions.js"></script>
+    <script type="text/javascript" src="statusaluno.js"></script>
+</body>
+</html>

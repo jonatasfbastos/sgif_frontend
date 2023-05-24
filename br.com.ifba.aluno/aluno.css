@@ -80,7 +80,7 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow-y: scroll;
+    overflow: scroll;
 }
 
 .scroll::-webkit-scrollbar{
@@ -125,7 +125,7 @@ tr:last-child td:last-child{
 }
     
 .rTable tr{
-    height: 61.39px;
+    height: 60.39px;
 }
     
 table{
