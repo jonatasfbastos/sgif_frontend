@@ -21,19 +21,19 @@ function readCSVFile(file){
     reader.onload = function(event) {
          var csvdata = event.target.result;
          var rowData = csvdata.split('\n');
-         var header = rowData[0].replace('\r', "").split(",");
+         var header = rowData[0].replace('\r', "").split(";");
 
          for (var row = 1; row < rowData.length; row++) {
 
               var obj = {}
 
-              var linhaData = rowData[row].replace('\r', '').split(",")
+              var linhaData = rowData[row].replace('\r', '').split(";")
 
               //pegando dado por dado posição por posição e atribuindo a seu respectivo atributo para enviar
-              obj.nome = linhaData[0];
-              obj.codigoTurma = linhaData[1];
+              obj.nome = linhaData[1];
+              obj.codigoTurma = linhaData[0];
               obj.sigla = linhaData[2];
-              obj.ativa = linhaData[3];
+              //obj.ativa = linhaData[3];
 
                //está comentado para futuros testes caso necessário
                /* for(var j = 0; j < header.length; j++){
