@@ -120,6 +120,20 @@ tr:last-child td:last-child{
     background-color: #013b01;
 }
 
+.rTable th:hover{
+    color: #f0f1e5;
+    background-color: #146414;
+    transition: 0.5s;
+}
+
+.rTable td:hover{
+    background-color: #cbceba;
+    color: #000000;
+    transition: 0.5s;
+    box-sizing: border-box;
+    border-radius: 20px;
+}
+
 .rTable td{
     color: #666;
 }
@@ -143,6 +157,16 @@ tr:last-child th:last-child{
 
 td:nth-child(4), td:nth-child(5){
     cursor: pointer;
+}
+
+td:nth-child(4):hover{
+    filter: invert(100%);
+    background-color: #bfbadd;
+}
+
+td:nth-child(5):hover{
+    filter: invert(100%);
+    background-color: #745e5e;
 }
 
 tr:hover {
