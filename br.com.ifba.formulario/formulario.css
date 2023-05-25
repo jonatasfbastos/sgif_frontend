@@ -161,12 +161,14 @@ td:nth-child(4), td:nth-child(5){
 
 td:nth-child(4):hover{
     filter: invert(100%);
-    background-color: #bfbadd;
+    background-color: #18d4c5;
+    backdrop-filter: invert(0);
 }
 
 td:nth-child(5):hover{
     filter: invert(100%);
-    background-color: #745e5e;
+    background-color: #943737;
+    backdrop-filter: invert(0);
 }
 
 tr:hover {
@@ -298,7 +300,7 @@ tr:hover {
     font-size: 16px;
 }
 
-.popupEdit, .popupErro{
+.popupEdit, .popupErro, .popupConfirma{
     width: 400px;
     background-color: #20631d;
     border-radius: 10px;
@@ -313,7 +315,11 @@ tr:hover {
     transition: transform 0.4s, top 0.4s;
 }
 
-.popupEdit img{
+.popupErro{
+    background-color: #790000;
+}
+
+.popupEdit img, .popupConfirma img{
     width: 100px;
     margin-top: -50px;
     border-radius: 50%;
@@ -321,21 +327,39 @@ tr:hover {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
+.popupConfirma img{
+    filter: invert(100%);
+    background-color: #df9ce2;
+}
+
 .popupErro img{
     width: 100px;
     margin-top: -50px;
     border-radius: 50%;
-    background-color: #6b1111;
+    background-color: #790000;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    animation: imgErro 1.5s linear infinite;
 }
 
-.popupEdit h2, .popupErro h2{
+@keyframes imgErro{
+    0%{
+        filter: contrast(70%);
+    }
+    50%{
+        filter: contrast(100%);
+    }
+    100%{
+        filter: contrast(70%);
+    }
+}
+
+.popupEdit h2, .popupErro h2, .popupConfirma h2{
     font-size: 23px;
     font-weight: 500;
     margin: 30px 0 10px;
 }
 
-.popupEdit button, .popupErro button{
+.popupEdit button, .popupErro button, .popupConfirma button{
     width: 45%;
     margin-top: 50px;
     padding: 10px 0;
@@ -348,7 +372,7 @@ tr:hover {
     margin-left: 10px;
 }
 
-.popupEdit button:hover, .popupErro button:hover{
+.popupEdit button:hover, .popupErro button:hover, .popupConfirma button:hover{
     background-color: #666;
     color: #e3e6d0;
 }
@@ -396,7 +420,7 @@ tr:hover {
     text-align: center;
 }
 
-.popupEditOpen, .popupErroOpen{
+.popupEditOpen, .popupErroOpen, .popupConfirmaOpen{
     visibility: visible;
     top: 50%;
     transform: translate(-50%, -50%) scale(1);
