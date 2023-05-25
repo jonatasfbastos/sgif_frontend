@@ -5,12 +5,28 @@
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
+body{
+    height: 100vh;
+    background-image: linear-gradient(#20631d, #c2f5bf);
+    background-repeat: no-repeat;
+    background-size: auto;
+} 
+main{
+background-color: #013b01;
+width: 450px;
+height: 400px;
+padding: 10px;
+position: fixed;
+top: 150px;
+left: 455px;
+border-radius: 10px;
+}
 button{
     max-width: 255px;
     width: 100%;
     padding: 10px 0;
     margin: 4px;
-    background: #fff;
+    background-color: #f5f5f5;
     border: none;
     border-radius: 14px;
     outline: none;
@@ -23,13 +39,53 @@ button:hover{
     background-color: #666;
 }
 
-body{
-    height: 100vh;
-    background-image: linear-gradient(#20631d, #c2f5bf);
-    background-repeat: no-repeat;
-    background-size: auto;
+button.homescreen{
+    width: 200px;
+    height: 45px;
+    border: 0;
+    border-radius: 25px;
+    background-color: #013b01;
+    font-size: 16px;
+    cursor: pointer;   
+    background-position: center,center;
 }
 
+button.homescreen:hover{
+    color: #fff;
+    background-color: #666;
+}
+
+button.homescreen {
+    position: fixed;
+    top: 40px;
+    right: 100px;
+}
+
+#addsimbol{
+    height: 0px;
+    width: 0px;
+    border: radius 100px;
+    position: fixed;
+    top: 75px;
+    left: 610px;
+}
+#file{
+    position: fixed;
+    top: 300px;
+    left: 550px;
+}
+
+#titulo{
+    position: fixed;
+    top: 250px;
+    left: 490px;
+}
+
+#enviar{
+    position: fixed;
+    top: 420px;
+    left: 550px;
+}
 #file::-webkit-file-upload-button{
     max-width: 255px;
     width: 100%;
@@ -48,9 +104,9 @@ body{
     color: #fff;
 }
 
-#popupImportar{
+#popupConfirmar{
     width: 400px;
-    height: 400px;
+    height: 220px;
     background: #20631d;
     border-radius: 10px;
     position: absolute;
@@ -64,19 +120,16 @@ body{
     transition: transform 0.4s, top 0.4s; 
 }
 
-#popupImportar img{
-    width: 100px;
-    margin-top: -50px;
-}
 
-#popupImportar h2{
+
+#popupConfirmar h2{
     font-size: 23px;
     font-weight: 500;
     margin: 30px 0 10px;
     color: black;
 }
 
-#popupImportar.exibirImportar{
+#popupConfirmar.exibirImportar{
     visibility: visible;
     top: 50%;
     transform: translate(-50%, -50%) scale(1);
@@ -93,14 +146,16 @@ body{
     margin-top: 400px;
 }
 
-#popupImportar button{
+#popupConfirmar button{
     height: 35px;
     width: 250px;
     margin: 20px;
 }
 
-#centralizando{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+h2{
+    color: #f5f5f5;
+}
+
+#popupConfirmar h2{
+    color: #f5f5f5;
 }

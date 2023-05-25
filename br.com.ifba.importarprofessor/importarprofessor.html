@@ -8,20 +8,24 @@
     <title>Importar Professores</title>
 </head>
 <body>
+    <main>
     <div class="buttons" id="botoes">
-        <button class="importarProfessor" type="button" onclick="importarPopupExibir()">Importar Professor</button>
+        <a href="../br.com.ifba.homescreen/homescreen.html"><button class="homescreen"> <img src="../images/casa.png" alt="homescreen"></button></a>
+        <button id="addsimbol"><img src="../images/adicionar-o-popup.png" alt=""></button>
     </div>
+       
+    <h2 id="titulo">Importar arquivo csv de professor</h2>
+    <input type="file" name="file" id="file" accept=".csv" > 
+    <button type="button" id="enviar" value="Enviar" onclick="submit();" >Enviar</button>
 
-    <div id="popupImportar">
-        <img src="../images/Importar.png" alt="imagem de importar">
-        <h2>Importar arquivo csv de professor</h2>
-        <div id="centralizando">
-            <input type="file" name="file" id="file" accept=".csv" > 
-            <button type="button" value="Enviar" onclick="submit();" >Enviar</button>
-            <button type="button" onclick="importarPopupOcultar()">Cancelar</button>
-        </div>
-    </div>
+    <div id="popupConfirmar">
+        <h2>Arquivo .csv importado com sucesso</h2>
+            <button type="button" onclick="importarPopupOcultar()">OK</button>
+        
+    </div> 
 
+   
+    </main>
    <script src="../js/requisitions.js"></script>
    <script src="importarprofessor.js"></script>
 </body>

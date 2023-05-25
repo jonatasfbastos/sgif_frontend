@@ -1,3 +1,6 @@
+const modal = document.querySelector("dialog")
+const close = document.querySelector()
+
 //função para selecionar o arquivo e enviar para ler
 function submit(){
     var files = document.querySelector('#file').files;
@@ -45,23 +48,26 @@ function readCSVFile(file){
 
               //salvando o objeto caso o nome e o cpf sejam diferentes de vazio
                if(obj.nome != "" && obj.cpf != ""){
+                    importarPopupExibir()
                     post('salvarProfessor', obj).then(result=>{
                     }).catch(error=>{
                          console.log('error', error)
                     })
-            }  
+               }  
             
-         }
-
-    };
+          }
+         
+     }
 
 }
 
 function importarPopupExibir(){
-     document.getElementById("popupImportar").classList.add("exibirImportar");
+     document.getElementById("popupConfirmar").classList.add("exibirImportar");
  }
 
  function importarPopupOcultar(){
-     document.getElementById("popupImportar").classList.remove("exibirImportar");
+     document.getElementById("popupConfirmar").classList.remove("exibirImportar");
  }
+ 
+
  

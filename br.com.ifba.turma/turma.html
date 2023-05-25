@@ -28,9 +28,13 @@
         <img src="../images/caneta.png" alt="editar">
         <h2>Digite as novas informações</h2>
         <input type="text" name="turmaNomeedit" placeholder="Nome..." autocomplete="off" class="turmanomeedit" id="turmaNomeedit">
-        <input type="text" name="turmaCodigoedit" placeholder="Codigo..." autocomplete="off" class="turmacodigoedit" id="turmaCodigoedit">
+        <input type="text" name="turmaCodigoTedit" placeholder="Codigo..." autocomplete="off" class="turmacodigoedit" id="turmaCodigoedit">
         <input type="text" name="turmaSiglaedit" placeholder="Sigla..." autocomplete="off" class="turmasiglaedit" id="turmaSiglaedit">
-        <input type="checkbox" name="turmaAtivaedit" placeholder="Ativa..." autocomplete="off" class="turmaativaedit" id="turmaAtivaedit">
+        <h3>Turma ativa</h3>
+        <input type="radio" name="Ativa" id="turmaAtivaTrue" value="TRUE"/>
+        <label for="turmaAtivaTrue">SIM</label>
+        <input type="radio" name="Ativa" id="TurmaAtivaFalse" value="FALSE">       
+        <label for="TurmaAtivaFalse">NÃO</label>
         <button type="button" onclick="closeEditPopup(), editar(), telaEnabled()">Confirmar</button>
         <button type="button" onclick="closeEditPopup(), telaEnabled()">Cancelar</button>
     </div>
@@ -41,8 +45,12 @@
         <input type="text" name="turmaNomeadd" placeholder="Nome..." autocomplete="off" class="turmanomeadd" id="turmaNomeadd">
         <input type="text" name="turmaCodigoadd" placeholder="Código..." autocomplete="off" class="turmacodigoadd" id="turmaCodigoadd">
         <input type="text" name="turmaSiglaadd" placeholder="Sigla..." autocomplete="off" class="turmasiglaadd" id="turmaSiglaadd">
-        <h3>Turma ativa</h3>
-        <input type="checkbox" name="turmaAtivaadd" placeholder="Ativa..." autocomplete="off" class="turmaativaadd" id="turmaAtivaadd">
+        <h3>Turma ativa</h3>     
+        <input type="radio" name="Ativa" id="turmaAtivaTrue" value="TRUE"/>
+        <label for="turmaAtivaTrue">SIM</label>
+        <input type="radio" name="Ativa" id="TurmaAtivaFalse" value="FALSE">       
+        <label for="TurmaAtivaFalse">NÃO</label>
+          
         <button type="button" onclick="closeAddPopup(), adicionar(), telaEnabled()">Confirmar</button>
         <button type="button" onclick="closeAddPopup(), telaEnabled()">Cancelar</button>
     </div>
