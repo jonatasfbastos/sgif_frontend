@@ -166,7 +166,8 @@ function remover(){
 
     get_params('deletarTurma', {id:this.selectedId}).then(result=>{
         atualizarTabela()
-    }).catch(error=>{
+    }).catch(error=> {
+        window.alert("não é possivel remover turma, pois existem alunos matriculados nela")
     })
 }
 

@@ -35,8 +35,8 @@
         <label for="turmaAtivaTrue">SIM</label>
         <input type="radio" name="Ativa" id="TurmaAtivaFalse" value="FALSE">       
         <label for="TurmaAtivaFalse">NÃO</label>
-        <button type="button" onclick="closeEditPopup(), editar(), telaEnabled()">Confirmar</button>
-        <button type="button" onclick="closeEditPopup(), telaEnabled()">Cancelar</button>
+        <button type="button" class="btadicionar" onclick="closeEditPopup(), editar(), telaEnabled()">Confirmar</button>
+        <button type="button" class="btncancelar" onclick="closeEditPopup(), telaEnabled()">Cancelar</button>
     </div>
 
     <div class="popupAdd" id="popupAdd">
@@ -47,12 +47,12 @@
         <input type="text" name="turmaSiglaadd" placeholder="Sigla..." autocomplete="off" class="turmasiglaadd" id="turmaSiglaadd">
         <h3>Turma ativa</h3>     
         <input type="radio" name="Ativa" id="turmaAtivaTrue" value="TRUE"/>
-        <label for="turmaAtivaTrue">SIM</label>
+        <label for="turmaAtivaTrue"> SIM</label>
         <input type="radio" name="Ativa" id="TurmaAtivaFalse" value="FALSE">       
-        <label for="TurmaAtivaFalse">NÃO</label>
+        <label for="TurmaAtivaFalse"> NÃO </label>
           
-        <button type="button" onclick="closeAddPopup(), adicionar(), telaEnabled()">Confirmar</button>
-        <button type="button" onclick="closeAddPopup(), telaEnabled()">Cancelar</button>
+        <button type="button" class="btadicionar" onclick="closeAddPopup(), adicionar(), telaEnabled()">Confirmar</button>
+        <button type="button" class="btncancelar" onclick="closeAddPopup(), telaEnabled()">Cancelar</button>
     </div>
 
     <div class="backdrop" id="backdrop" onclick="stopPropagation()"></div>
