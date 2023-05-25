@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curso</title>
+    <link rel="stylesheet" href="curso.css">
+</head>
+
+<body id="tela">
+
+    <div class="popupView" id="popupView">
+        <img src="../images/caneta.png" alt="ver">
+        <h2>Matrizes Curriculares</h2>
+        <div class="ContainMatriz">
+        <table class="TableMatriz" id="itens-table-matriz">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th id="lin_matriz">Matriz Curricular</th>
+                    <th>Disciplina</th>
+                </tr>
+            </thead>
+
+            <tbody id="table-body-matriz">
+                        
+            </tbody>
+        </table>
+    </div>
+        <button type="button" onclick="closePopupView(), telaEnabled()">Voltar</button>
+    </div>
+
+   <div class="popupRemove" id="popupRemove">
+        <img src="../images/ask.png" alt="question-sign-in-circles">
+        <h2>Você tem certeza que deseja remover esse Curso?</h2>
+        <button type="button" onclick="remover(), closePopup(), telaEnabled()">Sim</button>
+        <button type="button" onclick="closePopup(), telaEnabled()">Não</button>
+    </div>
+
+    <div class="buttons">
+        <div class="search">
+            <input type="text" placeholder="Procurar..." class="loupe" id="loupe" onkeyup="buscar()"> 
+        </div>
+         <button class="adicionar" type="button" onclick="openAddPopup(), teladisabled()"><img src="../images/botao-adicionar2.png" alt="adicionar" title="Adicionar"></button>
+        <button class="homescreen"> <a href="../br.com.ifba.homescreen/homescreen.html"> <img src="../images/casa.png" alt="homescreen"></a></button>
+    </div>
+
+    <div class="popupEdit" id="popupEdit">
+        <img src="../images/caneta.png" alt="editar">
+        <h2>Digite as novas informações</h2>
+        <input type="text" name="cursoNomeedit" placeholder="Nome..." autocomplete="off" class="cursonomeedit" id="cursoNomeedit">
+        <input type="text" name="cursoCodigoedit" placeholder="Código..." autocomplete="off" class="cursocodigoedit" id="cursocodigoedit">
+        <input type="text" name="cursoSiglaedit" placeholder="Sigla..." autocomplete="off" class="cursosiglaedit" id="cursosiglaedit">
+        <input type="text" name="cursoDescricaoedit" placeholder="Descrição..." autocomplete="off" class="cursodescricaoedit" id="cursodescricaoedit">
+        <input type="checkbox" name="cursoAtivoedit" placeholder="Ativo..." autocomplete="off" class="cursoativoedit" id="cursoativoedit">
+        <label for="modalidade" id="modalidadeedit">Selecione a modalidade do Curso: </label>
+        <select name="Modalidade do curso" id="modalidadeedit"></select><br>
+        <button type="button" onclick="closeEditPopup(), editar(), telaEnabled()">Confirmar</button>
+        <button type="button" onclick="closeEditPopup(), telaEnabled()">Cancelar</button>
+    </div>
+
+    <div class="popupAdd" id="popupAdd">
+        <img src="../images/botao-adicionar3.png" alt="adicionar">
+        <h2>Digite as informações do Curso</h2>
+        <input type="text" name="cursoNomeadd" placeholder="Nome..." autocomplete="off" class="cursonomeadd" id="cursonomeadd">
+        <input type="text" name="cursoCodigoadd" placeholder="Código..." autocomplete="off" class="cursocodigoadd" id="cursocodigoadd">
+        <input type="text" name="cursoSiglaadd" placeholder="Sigla..." autocomplete="off" class="cursosiglaadd" id="cursosiglaadd">
+        <h3>Curso Ativo</h3>
+        <input type="text" name="cursoDescricaoadd" placeholder="Descrição..." autocomplete="off" class="cursodescricaoadd" id="cursodescricaoadd">
+        <input type="checkbox" name="cursoAtivoadd" placeholder="Ativo..." autocomplete="off" class="cursoativoadd" id="cursoativoadd">
+        <label for="modalidade" id="modalidadeadd">Selecione a modalidade do Curso: </label>
+        <select name="Modalidade do curso" id="modalidadeadd"></select><br>
+        <button type="button" onclick="closeAddPopup(), adicionar(), telaEnabled()">Confirmar</button>
+        <button type="button" onclick="closeAddPopup(), telaEnabled()">Cancelar</button>
+    </div>
+
+    <div class="backdrop" id="backdrop" onclick="stopPropagation()"></div>
+
+    <div id="popup-erro">
+        <img src="../images/alerta-icone.png" alt="Ícone de alerta." class="popup-img">
+        <p id="erro-mensagem">
+        </p>
+        <button type="button" class="popup-button" id="btn-erro-fechar">
+            Fechar
+        </button>
+    </div>
+
+   
+    <div class="tableContain">
+        <div class="scroll">
+            <table class="rTable" id="itens-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Descrição</th>
+                        <th>Código</th>
+                        <th>Sigla</th>
+                        <th>Ativo</th>
+                        <th>Modalidade</th>
+                        <th>Remover</th>
+                        <th>Editar</th>
+                    </tr>
+                </thead>
+            
+                <tbody id="table-body">
+                        
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="../js/requisitions.js"></script>
+    <script type="text/javascript" src="curso.js"></script>
+</body>
+</html>

@@ -65,6 +65,7 @@ function setProfessor() {
 
 
 
+
 function tableCreate(data){
     var tableBody = document.getElementById('table-body');
     if(tableBody){
@@ -215,12 +216,10 @@ async function openEditPopup(id) {
     document.querySelector("#codigoDisciplinaEdit").value = dcpn.codigo;
     document.querySelector("#cargaHorariaDisciplinaEdit").value = dcpn.cargaHoraria;
 
-    var professoresSelect = document.querySelectorAll("#professorDisciplinaEdit option");
     var professores = Array.isArray(dcpn.professor) ? dcpn.professor.map(p => p.id.toString()) : [];
 
-    professoresSelect.forEach(option => {
-        option.selected = professores.includes(option.value);
-    });
+    $('#professorDisciplinaEdit').val(professores).trigger('change');
+
 }
 
 
@@ -382,4 +381,45 @@ let popupEdit = document.getElementById("popupEdit");
 let popupAdd = document.getElementById("popupAdd");
 var tableInteract = document.getElementById("itens-table");
 
+// select2
+jQuery(document).ready(function($) {
+    $('.selectProfessorAdd').select2(
+        {
+            placeholder: "Selecione um professor",
+            allowClear: true,
+            language: {
+                noResults: function() {
+                    return "Nenhum resultado encontrado.";
+                },
+                searching: function() {
+                    return "Buscando...";
+                }
+            },
+            sorter: function(data) {
+                return data.sort(function(a, b) {
+                  return a.text.localeCompare(b.text);
+                });
+              }
+        }
+    );   
+    $('.selectProfessorEdit').select2(
+        {
+            placeholder: "Selecione um professor",
+            allowClear: true,
+            language: {
+                noResults: function() {
+                    return "Nenhum resultado encontrado.";
+                },
+                searching: function() {
+                    return "Buscando...";
+                }
+            },
+            sorter: function(data) {
+                return data.sort(function(a, b) {
+                  return a.text.localeCompare(b.text);
+                });
+              }
+        }
+    );
+});
 

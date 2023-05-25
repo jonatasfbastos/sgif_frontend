@@ -5,6 +5,7 @@ var aluno = {}
 
 atualizarTabela()
 setTurma()
+setStatus()
 
 function atualizarTabela(){
     get('alunos').then(data=>{
@@ -50,6 +51,10 @@ function tableCreate(data){
         var colTurma = document.createElement("td")
             colTurma.appendChild(document.createTextNode(element.turma ? element.turma.nome : ''))
             row.appendChild(colTurma)
+
+        var colStatus = document.createElement("td")
+        colStatus.appendChild(document.createTextNode(element.statusAluno ? element.statusAluno.nome : ''))
+        row.appendChild(colStatus)
 
         tableBody.appendChild(row)
 
@@ -102,6 +107,33 @@ function setTurma() {
         console.log('Error ', error)
     })
 }
+
+function setStatus() {
+
+    get('status').then(status=>{
+        console.log('Status ', status)
+
+        var multiCombo = document.getElementById('statusadd')
+        var multiComboEdit = document.getElementById('statusedit')
+        status.forEach(statu=>{
+            let option = document.createElement('option')
+            option.value = statu.id
+            option.innerHTML = statu.nome
+
+            multiCombo.appendChild(option)
+
+            let optionEdit = document.createElement('option')
+            optionEdit.value = statu.id
+            optionEdit.innerHTML = statu.nome
+
+            multiComboEdit.appendChild(optionEdit)
+            
+        })
+    }).catch(error=>{
+        console.log('Error ', error)
+    })
+}
+
 
 function stopPropagation(event){
     event.stopPropagation();
@@ -162,6 +194,9 @@ function openEditPopup(id){
     if(alunoEditando.turma){
         document.getElementById('turmaedit').value = alunoEditando.turma ? alunoEditando.turma.id : '';
     }
+    if(alunoEditando.statusAluno){
+        document.getElementById('statusedit').value = alunoEditando.statusAluno ? alunoEditando.statusAluno.id : '';
+    }
 }
 
 function closeEditPopup(){
@@ -177,6 +212,7 @@ function adicionar(){
     this.aluno.matricula = document.getElementById('alunoMatriculaadd').value;
 
     this.aluno.turma = {id:document.getElementById('turmaadd').value};
+    this.aluno.statusAluno = {id:document.getElementById('statusadd').value};
 
     if(verificaCampo()){
         return exibirPopUpErro("Não foi possível atualizar o aluno, há algum campo vazio.");
@@ -268,6 +304,7 @@ function editar(){
     var matricula = document.getElementById("alunoMatriculaedit").value;
 
     var newTipoId = {id:document.getElementById('turmaedit').value}
+    var newId = {id:document.getElementById('statusedit').value}
 
     this.aluno = this.alunoList.find(user=>{
         return user.id === this.selectedId
@@ -280,6 +317,7 @@ function editar(){
     this.aluno.dataDeNascimento = dataDeNascimento
     this.aluno.matricula = matricula
     this.aluno.turma = newTipoId;
+    this.aluno.statusAluno = newId;
 
     if(verificaCampo()){
         return exibirPopUpErro("Não foi possível atualizar o aluno, há algum campo vazio.");

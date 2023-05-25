@@ -350,7 +350,7 @@ tr:hover {
     color: #e3e6d0;
 }
 
-.popupEdit .funcaoServidorDescricao, .funcaoServidorName{
+.popupEdit .funcaoServidorName{
     border: 1px #13293D solid;
     padding-left: 10px;
     width: 100%;

@@ -75,8 +75,8 @@ function tableCreate(data){
 
 function setDisciplina() {
 
-    get('disciplina').then(tiposdeusuarios=>{
-        console.log('Perfis de usuario ', tiposdeusuarios)
+    get('disciplina').then(disciplinas=>{
+        console.log('Disciplina', disciplinas)
 
         var multiCombo = document.getElementById('disciplina')
         var multiComboEdit = document.getElementById('disciplinaEdit')
@@ -163,8 +163,7 @@ function setDisciplina() {
                 this.tipodeusuario.descricao = document.getElementById('avaliacaoDescricaoAdd').value;
                 this.tipodeusuario.dataInicio = document.getElementById('avaliacaoDataInicioAdd').value;
                 this.tipodeusuario.dataFim = document.getElementById('avaliacaoDataFimAdd').value;
-                this.tipodeusuario.disciplina = document.getElementById('disciplinaAdd').value;
-                
+                this.tipodeusuario.disciplina = {id:document.getElementById('disciplinaAdd').value};
 
                 console.log(tipodeusuario)
                 console.log(tipodeusuario.id)
@@ -180,6 +179,7 @@ function setDisciplina() {
                         console.log('error', error)
                     })
                 }else{console.log('error')}
+                this.tipodeusuario = {}
 
                 document.getElementById('avaliacaoDescricaoAdd').value = '';
                 document.getElementById('avaliacaoDataInicioAdd').value = '';

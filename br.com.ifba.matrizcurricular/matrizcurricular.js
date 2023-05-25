@@ -24,7 +24,12 @@ function atualizarTabela(){
     get('matrizes').then(data=>{
     console.log('Data ', data)
     this.matrizesList = data
-    this.etapasList = data
+    //this.etapasList = data
+    //para setar uma ou mais etapa curso da matriz curricular
+    this.etapasList = []
+        if (this.selectedId) {
+            this.etapasList = data.find(data => data.id === this.selectedId).etapacurso
+        }
     this.tableCreate(this.matrizesList)
     this.tableCreateEtapa(this.etapasList)
     }).catch(error=>{
@@ -56,6 +61,23 @@ function tableCreateEtapa(data){
 
                 colNomeEtapa.appendChild(option)
                 row.appendChild(colNomeEtapa)
+
+            })
+            }).catch(error=>{
+                console.log('Error ', error)
+            })
+
+            get('disciplina').then(disciplinas=>{
+                console.log('Disciplinas ', disciplinas)
+
+                var colNomeDisciplina = document.createElement("td")
+                disciplinas.forEach(tipo=>{
+                let option = document.createElement('option')
+                option.value = tipo.id
+                option.innerHTML = tipo.nome
+
+                colNomeDisciplina.appendChild(option)
+                row.appendChild(colNomeDisciplina)
 
             })
             }).catch(error=>{

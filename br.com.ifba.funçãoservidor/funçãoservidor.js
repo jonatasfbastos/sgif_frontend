@@ -4,10 +4,11 @@ var funcaoServidor = {}
 
 
 atualizarTabela()
+
 function atualizarTabela(){   
     get('listarFuncaoServidor').then(data=>{
     console.log('Data', data)
-    this.funcaoServidor = data
+    this.funcaoServidorList = data
     this.tableCreate(this.funcaoServidorList)
         }).catch(error=>{
         console.log('Error ', error)
@@ -102,14 +103,14 @@ function openEditPopup(id){
     this.selectedId = id
     popupEdit.classList.add("popupEditOpen");
     console.log('Id ',id)
-    let usr = this.funcaoServidorList.find(user=>{
-        return user.id === id
+    let funcao = this.funcaoServidorList.find(funcaoServidor=>{
+        return funcaoServidor.id === id
     })
 
-    console.log('Função de servidor encontrada', usr)
+    console.log('Função de servidor encontrada', funcao)
     
-    document.getElementById('funcaoServidorName').value = usr.nome
-    document.getElementById('funcaoServidorDescricao').value = usr.descricao
+    document.getElementById('funcaoServidorNameedit').value = funcao.nome
+    document.getElementById('funcaoServidorDescricaoedit').value = funcao.descricao
 }
 
 function closeEditPopup(){
@@ -122,9 +123,6 @@ function adicionar(){
     this.funcaoServidor.descricao = document.getElementById('funcaoServidorDescricaoAdd').value;
     
 
-    console.log(funcaoServidor)
-    console.log(funcaoServidor.id)
-
     ////se os campos de nome ou de descrição estiverem vazios, não serão salvos 
     if(this.funcaoServidor.nome != "" && this.funcaoServidor.descricao != ""){
         post('salvarFuncaoServidor', funcaoServidor).then(result=>{
@@ -133,7 +131,10 @@ function adicionar(){
         }).catch(error=>{
             console.log('error', error)
         })
-    }else{console.log('error')}
+    }else{}
+
+    this.funcaoServidor = {}
+
 
     document.getElementById('funcaoServidorNameAdd').value = '';
     document.getElementById('funcaoServidorDescricaoAdd').value = '';
@@ -143,7 +144,7 @@ function adicionar(){
 function remover(){
     console.log('Deletar ' + this.selectedId)
 
-    get_params('deletarFuncaoServidor', {id:this.selectedId, p2:'is'}).then(result=>{
+    get_params('deletarFuncaoServidor', {id:this.selectedId}).then(result=>{
         atualizarTabela()
     }).catch(error=>{
     })
@@ -175,11 +176,11 @@ var table = document.getElementById("itens-table");
 
 function editar(){
 
-    var nome = document.getElementById("funcaoServidorName").value;
-    var descricao = document.getElementById("funcaoServidorDescricao").value;
+    var nome = document.getElementById("funcaoServidorNameedit").value;
+    var descricao = document.getElementById("funcaoServidorDescricaoedit").value;
 
-    this.funcaoServidor = this.funcaoServidorList.find(user=>{
-        return user.id === this.selectedId
+    this.funcaoServidor = this.funcaoServidorList.find(funcaoServidor=>{
+        return funcaoServidor.id === this.selectedId
     })
 
     this.funcaoServidor.nome = nome
@@ -202,4 +203,3 @@ let popupEdit = document.getElementById("popupEdit");
 let popupAdd = document.getElementById("popupAdd");
 var tableInteract = document.getElementById("itens-table");
 
-   
