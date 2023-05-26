@@ -12,13 +12,13 @@
     <div class="popupView" id="popupView">
         <img src="../images/caneta.png" alt="ver">
         <h2>Etapas do Curso</h2>
+        <br>
         <div class="ContainEtapa">
             <table class="TableEtapa" id="itens-table-etapa">
                 <thead>
                     <tr>
-                        <th>ID</th>
                         <th id="lin_etapa">Etapa do Curso</th>
-                        <th>Disciplina</th>
+                        <th>Disciplinas</th>
                     </tr>
                 </thead>
 
@@ -37,22 +37,40 @@
         <button type="button" onclick="closePopup(), telaEnabled()">Não</button>
     </div>
 
+    <div id="popup-erro">
+        <img src="../images/alerta-icone.png" alt="Ícone de alerta." class="popup-img">
+        <p id="erro-mensagem">
+        </p>
+        <button type="button" class="popup-button" id="btn-erro-fechar">
+            Fechar
+        </button>
+    </div>
+
     <div class="popupEdit" id="popupEdit">
         <img src="../images/caneta.png" alt="editar">
         <h2>Digite as novas informações</h2>
         <input type="text" name="nomeMatriz" placeholder="Nome..." autocomplete="off" class="nomeMatriz" id="nomeMatrizEditar">
         <input type="text" name="descricaoMatriz" placeholder="Descrição..." autocomplete="off" class="descricaoMatriz" id="descricaoMatrizEditar">
-        <!--<input type="text" name="cursoMatriz" placeholder="Curso..." autocomplete="off" class="cursoMatriz" id="cursoMatrizEditar">-->
-        <label for="cursos">Selecione o Curso: </label>
-        <select name="Curso" id="cursoEdit">
+        <!--<label for="cursos">Selecione o Curso: </label>
+        <select name="Curso" id="cursoEdit">-->
         </select><br>
 
-        <label for="etapas" id="etapasEdit">Selecione a Etapa do Curso:<br><br>
-        </label>
-        <!--<label for="etapas">Selecione a Etapa do Curso: </label>
-        <select name="Etapa Curso" id="etapaCursoEdit">
-        </select>--> <br>
-        <button type="button" onclick="closeEditPopup(), editar(), telaEnabled()">Confirmar</button>
+        <label>Selecione a Etapa do Curso: </label>
+        <form>
+            <div class="multiselect">
+                <div class="selectBox" onclick="showcheckboxesEdit()">
+                    <select>
+                        <option>Etapas do curso</option>
+                    </select>
+                    <div class="overSelect"></div>
+                </div>
+                    <div id="checkboxesEdit">
+
+                    </div>
+            </div>
+        </form>
+        <br>
+        <button type="button" onclick="closeEditPopup(), adicionarEtapasEdit(), editar(), telaEnabled()">Confirmar</button>
         <button type="button" onclick="closeEditPopup(), telaEnabled()">Cancelar</button>
     </div>
 
@@ -61,22 +79,27 @@
         <h2>Digite as informações da Matriz Curricular</h2>
         <input type="text" name="nomeMatriz" placeholder="Nome..." autocomplete="off" class="nomeMatriz" id="nomeMatrizAdd" >
         <input type="text" name="descricaoMatriz" placeholder="Descrição..." autocomplete="off" class="descricaoMatriz" id="descricaoMatrizAdd" >
-        <label for="cursos">Selecione o Curso: </label>
-        <select name="Curso" id="cursoAdd">
+        <!--<label for="cursos">Selecione o Curso: </label>
+        <select name="Curso" id="cursoAdd">-->
 
-        </select><br>
-        
-        
-        <label for="etapas" id="etapas">Selecione a Etapa do Curso:<br><br>
-        </label>
-        
-        
         <br>
-        <!--<label for="etapas">Selecione a Etapa do Curso: </label>
-        <select name="Etapa Curso" id="etapaCursoAdd">-->
-            
+
+        <label>Selecione a Etapa do Curso: </label>
+        <form>
+            <div class="multiselect">
+                <div class="selectBox" onclick="showcheckboxes()">
+                    <select>
+                        <option>Etapas do curso</option>
+                    </select>
+                    <div class="overSelect"></div>
+                </div>
+                    <div id="checkboxes">
+
+                    </div>
+            </div>
+        </form>
         <br>
-        <button type="button" onclick="closeAddPopup(), adicionar(), telaEnabled()">Confirmar</button>
+        <button type="button" onclick="closeAddPopup(), adicionarEtapas(), adicionar(), telaEnabled()">Confirmar</button>
         <button type="button" onclick="closeAddPopup(), telaEnabled()">Cancelar</button>
     </div>
 
