@@ -248,7 +248,7 @@ function editar(){
     }
 
     console.log('Novo professor ', this.professor)
-    post('salvarProfessor', this.professor).then(result=>{
+    put('atualizarProfessor', this.professor).then(result=>{
         console.log('Result ', result)
         this.atualizarTabela()
     }).catch(error=>{

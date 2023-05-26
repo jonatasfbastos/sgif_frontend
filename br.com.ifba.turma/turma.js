@@ -4,7 +4,6 @@ var turma = {}
 
 
 atualizarTabela()
-setTurma()
 
 function atualizarTabela(){
     get('turma').then(data=>{
@@ -28,7 +27,7 @@ function tableCreate(data){
         row.appendChild(colNome)
       
         var colCodigo = document.createElement("td")
-        colCodigo.appendChild(document.createTextNode(element.codigo))
+        colCodigo.appendChild(document.createTextNode(element.codigoTurma))
         row.appendChild(colCodigo)
 
         var colSigla = document.createElement("td")
@@ -115,9 +114,8 @@ function openEditPopup(id){
     console.log('Turma encontrada ', turmaEditando)
                 
     document.getElementById('turmaNomeedit').value = turmaEditando.nome
-    document.getElementById('turmaCodigoedit').value = turmaEditando.codigo
+    document.getElementById('turmaCodigoedit').value = turmaEditando.codigoTurma
     document.getElementById('turmaSiglaedit').value = turmaEditando.sigla
-    document.getElementById('turmaAtivaedit').value = turmaEditando.ativa
 
     if(turmaEditando.turma){
         document.getElementById('turmaedit').value = turmaEditando.turma ?turmaEditando.turma.id : '';
@@ -128,18 +126,26 @@ function closeEditPopup(){
     popupEdit.classList.remove("popupEditOpen");
 }
 
-function adicionar(){
+function adicionar(){    
+    var radios = document.getElementsByName("Ativa");
+   
+    this.turma = {};
     this.turma.nome = document.getElementById('turmaNomeadd').value;
-    this.turma.codigo = document.getElementById('turmaCodigoadd').value;
-    this.turma.sigla = document.getElementById('turmaSiglaadd').value;
-    this.turma.ativa = document.getElementById('turmaAtivaadd').value;
+    this.turma.codigoTurma = document.getElementById('turmaCodigoadd').value;
+    this.turma.sigla = document.getElementById('turmaSiglaadd').value;   
+    for (var i = 0; i < radios.length; i++) {
+        if (radios[i].checked) {
+           this.turma.ativa = radios[i].value;
+           break;
+        }
+     }
 
     if(verificaCampo()){
         return exibirPopUpErro("Não foi possível atualizar a turma, há algum campo vazio.");
     }
 
     //se os campos de nome ou de codigo estiverem vazios, não serão salvos 
-    if(this.turma.nome != "" && this.turma.codigo != ""){
+    if(this.turma.nome != "" && this.turma.codigoTurma != ""){
         post('salvarTurma', this.turma).then(result=>{
             console.log('result', result)
             atualizarTabela()
@@ -153,7 +159,6 @@ function adicionar(){
     document.getElementById('turmaNomeadd').value = '';
     document.getElementById('turmaCodigoadd').value = '';
     document.getElementById('turmaSiglaadd').value = '';
-    document.getElementById('turmaAtivaadd').value = '';
 }
 
 function remover(){
@@ -161,7 +166,8 @@ function remover(){
 
     get_params('deletarTurma', {id:this.selectedId}).then(result=>{
         atualizarTabela()
-    }).catch(error=>{
+    }).catch(error=> {
+        window.alert("não é possivel remover turma, pois existem alunos matriculados nela")
     })
 }
 
@@ -195,7 +201,7 @@ function verificaCampo(){
     if (turma.nome.trim().length <= 0) {
         return true;
     }
-    if (turma.codigo.trim().length <= 0){
+    if (turma.codigoTurma.trim().length <= 0){
         return true;
     }
     if (turma.sigla.trim().length <= 0){
@@ -208,21 +214,26 @@ function verificaCampo(){
 }
 
 function editar(){
+    var radios = document.getElementsByName("Ativa");
 
     var nome = document.getElementById("turmaNomeedit").value;
-    var codigo = document.getElementById("turmaCodigoedit").value;
+    var codigoTurma = document.getElementById("turmaCodigoedit").value;
     var sigla = document.getElementById("turmaSiglaedit").value;
-    var ativa = document.getElementById("turmaAtivaedit").value;
-
+    var ativa 
+    for (var i = 0; i < radios.length; i++) {
+        if (radios[i].checked) {
+            ativa = radios[i].value;
+           break;
+        }
+    }
     this.turma = this.turmaList.find(user=>{
         return user.id === this.selectedId
     })
 
     this.turma.nome = nome
-    this.turma.codigo = codigo
+    this.turma.codigoTurma = codigoTurma
     this.turma.sigla = sigla
     this.turma.ativa = ativa
-
     if(verificaCampo()){
         return exibirPopUpErro("Não foi possível atualizar a turma, há algum campo vazio.");
     }

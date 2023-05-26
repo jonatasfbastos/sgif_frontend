@@ -16,10 +16,22 @@
         <img src="../images/Importar.png" alt="imagem de importar">
         <h2>Importar arquivo csv de professor</h2>
         <div id="centralizando">
-            <input type="file" name="file" id="file" accept=".csv" > 
+            <input type="file" name="file" id="file"> 
             <button type="button" value="Enviar" onclick="submit();" >Enviar</button>
             <button type="button" onclick="importarPopupOcultar()">Cancelar</button>
         </div>
+    </div>
+
+    <div id="popupArquivoVazio">
+        <img src="../images/alerta-icone.png" alt="imagem de erro Arquivo Vazio">
+        <h2>Por Favor selecione o arquivo</h2>
+        <button type="button" onclick="popupArquivoVazioOcultar()">Fechar</button>
+    </div>
+
+    <div id="popupErro">
+        <img src="../images/alerta-icone.png" alt="imagem de erro">
+        <p id="erro"></p>
+        <button type="button" onclick="popupErroOcultar()">Fechar</button>
     </div>
 
    <script src="../js/requisitions.js"></script>

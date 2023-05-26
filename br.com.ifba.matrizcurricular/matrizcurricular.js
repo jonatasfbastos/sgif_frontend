@@ -1,77 +1,55 @@
 var selectedId
 var matrizesList = []
 var etapasList = []
-var matriz = {}
-var etapas = {}
+var mc = {}
 
+//showcheckboxes()
+mostrarEtapas()
 atualizarTabela()
-//atualizarTabelaEtapa()
-setCursos()
-setEtapasCurso()
-
-//função para atualizar tabela de etapa curso
-/*function atualizarTabelaEtapa(){
-    get('etapaCurso').then(dataet=>{
-    console.log('Data ', dataet)
-    this.etapasList = dataet
-    this.tableCreateEtapa(this.etapasList)
-    }).catch(error=>{
-        console.log('Error ', error)
-    })
-}*/
+mostrarEtapasEdit()
+//setEtapasCurso()
+//setDisciplinas()
 
 function atualizarTabela(){
     get('matrizes').then(data=>{
-    console.log('Data ', data)
-    this.matrizesList = data
-    //this.etapasList = data
-    //para setar uma ou mais etapa curso da matriz curricular
-    this.etapasList = []
-        if (this.selectedId) {
-            this.etapasList = data.find(data => data.id === this.selectedId).etapacurso
-        }
-    this.tableCreate(this.matrizesList)
-    this.tableCreateEtapa(this.etapasList)
+        console.log('Data ', data)
+        this.matrizesList = data
+        
+        data.forEach(item=> {
+            console.log("DISC:" + JSON.stringify(item.etapacurso));
+            tableCreateEtapa(item.etapacurso)
+        })
+
+        this.tableCreate(this.matrizesList)
+        
     }).catch(error=>{
         console.log('Error ', error)
     })
 }
 
-//tabela de etapa cursos
+//tabela de etapa cursos - CASO FOR PRECISO USAR, DESCOMENTE
 function tableCreateEtapa(data){
     var tableBodyEta = document.getElementById('table-body-etapa');
+    let etapasdaMatriz = data.etapacurso;
+
     if(tableBodyEta){
         tableBodyEta.innerHTML = ''
-        data.forEach(element => {
-            var row = document.createElement("tr");
 
-            var colID = document.createElement("td")
-            colID.appendChild(document.createTextNode(element.id))
-            row.appendChild(colID)
-    
-            //setando o nome de etapa curso na tabela de etapa cursos
-            get('etapaCurso').then(etapascursos=>{
-                console.log('Etapas do curso ', etapascursos)
+        var row = document.createElement("tr");
 
-                var colNomeEtapa = document.createElement("td")
-                etapascursos.forEach(tipo=>{
-                let option = document.createElement('option')
-                option.value = tipo.id
-                option.innerHTML = tipo.nome
+        for (const chave in etapasdaMatriz) {   
+            var colNomeEtapa = document.createElement("td");
+            colNomeEtapa.appendChild(document.createTextNode(etapasdaMatriz[chave].nome))
+            row.appendChild(colNomeEtapa)
 
-                colNomeEtapa.appendChild(option)
-                row.appendChild(colNomeEtapa)
+            //tableBodyEta.appendChild(row)
+        }
 
-            })
-            }).catch(error=>{
-                console.log('Error ', error)
-            })
+        get('disciplina').then(disciplinas=>{
+            console.log('Disciplinas ', disciplinas)
 
-            get('disciplina').then(disciplinas=>{
-                console.log('Disciplinas ', disciplinas)
-
-                var colNomeDisciplina = document.createElement("td")
-                disciplinas.forEach(tipo=>{
+            var colNomeDisciplina = document.createElement("td")
+            disciplinas.forEach(tipo=>{
                 let option = document.createElement('option')
                 option.value = tipo.id
                 option.innerHTML = tipo.nome
@@ -82,19 +60,10 @@ function tableCreateEtapa(data){
             })
             }).catch(error=>{
                 console.log('Error ', error)
-            })
+        })
 
-            /*var colNomeEtapa = document.createElement("td")
-            colNomeEtapa.appendChild(document.createTextNode(element.etapacurso ? element.etapacurso.nome : ''))
-            row.appendChild(colNomeEtapa)*/
-
-            /*var colDisciplinaEtapa = document.createElement("td")
-            colDisciplina.appendChild(document.createTextNode(element.etapacurso ? element.etapacurso.disciplina : ''))
-            row.appendChild(colDisciplinaEtapa)*/
-    
-            tableBodyEta.appendChild(row)
-            console.log(element)
-        });
+        tableBodyEta.appendChild(row)
+        
     }
 }
 
@@ -117,17 +86,26 @@ function tableCreate(data){
             colDescricao.appendChild(document.createTextNode(element.descricao))
             row.appendChild(colDescricao)
 
-            var colCurso = document.createElement("td")
-            colCurso.appendChild(document.createTextNode(element.curso ? element.curso.nome : ''))
-            row.appendChild(colCurso)
-            
-            /*var colEtapa = document.createElement("td")
-            colEtapa.appendChild(document.createTextNode(element.etapacurso ? element.etapacurso.nome : ''))
-            row.appendChild(colEtapa)*/
+            get('curso').then(cursos=>{
+                console.log('Cursos ', cursos)
+    
+                var colCurso = document.createElement("td")
+                cursos.forEach(tipo=>{
+                    let option = document.createElement('option')
+                    option.value = tipo.id
+                    option.innerHTML = tipo.nome
+    
+                    colCurso.appendChild(option)
+                    row.appendChild(colCurso)
+    
+                })
+                }).catch(error=>{
+                    console.log('Error ', error)
+            })
             
             //botão para exibir lista de etapa curso
             var colEtapa = document.createElement("td")
-            colEtapa.setAttribute("onclick", "openPopupView("+element.id+")")
+            colEtapa.setAttribute("onclick", "openPopupView("+JSON.stringify(element)+")")
             var etapaLink = document.createElement("a")
             var imgEye = document.createElement("img")
             imgEye.setAttribute("src", "../images/botao_ver.png")
@@ -163,21 +141,6 @@ function tableCreate(data){
     }
 }
 
-let etapasSelecionadas = []
-
-function getEtapas(){
-    let etapa = document.getElementsByName("etapa")
-
-    for(var i=0; i<etapa.length; i++){
-        if(etapa[i].checked){
-            console.log("etapas: " + etapa[i].value);
-            etapasSelecionadas.push(etapa[i].value);
-        }
-    }
-
-    console.log(etapasSelecionadas)
-}
-
 function setCursos() {
 
     get('curso').then(cursos=>{
@@ -209,41 +172,108 @@ function setEtapasCurso() {
     get('etapaCurso').then(etapascursos=>{
         console.log('Etapas do curso ', etapascursos)
 
-        var multiCombo = document.getElementById('etapas')
+        var multiCombo = document.getElementById('etapasAdd')
         var multiComboEdit = document.getElementById('etapasEdit')
         etapascursos.forEach(tipo=>{
             //setando as etapa cursos no checkbox
-            var option = document.createElement("LABEL")
-            var broke = document.createElement("BR")
-            var check = document.createElement("INPUT")
-            check.setAttribute("type", "checkbox");
+            var option = document.createElement("option")
             option.value = tipo.id
             option.innerHTML = tipo.nome
-            check.value = tipo.id
-            check.innerHTML = tipo.nome
 
-            multiCombo.appendChild(check)
             multiCombo.appendChild(option)
-            multiCombo.appendChild(broke)
             
-
-            let optionEdit = document.createElement('LABEL')
-            var broke = document.createElement("BR")
-            var check = document.createElement("INPUT")
-            check.setAttribute("type", "checkbox");
+            let optionEdit = document.createElement('option')
             optionEdit.value = tipo.id
             optionEdit.innerHTML = tipo.nome
-            check.value = tipo.id
-            check.innerHTML = tipo.nome
 
-            multiComboEdit.appendChild(check)
             multiComboEdit.appendChild(optionEdit)
-            multiComboEdit.appendChild(broke)
             
         })
     }).catch(error=>{
         console.log('Error ', error)
     })
+}
+
+function mostrarEtapas(){
+    get('etapaCurso').then(data=>{
+        document.getElementById('checkboxes').innerHTML=data.map(item=>`<label ><input type="checkbox" value="${item.id}" class="etapacurso" name="etapacurso" id="etapacurso"/>${item.nome}<label>`).join('');
+    }).catch(error=>{
+        console.log("Error ", error)
+    })
+    
+}
+
+function mostrarEtapasEdit(){
+    get('etapaCurso').then(data=>{
+        document.getElementById('checkboxesEdit').innerHTML=data.map(item=>`<label ><input type="checkbox" value="${item.id}" class="etapacurso" name="etapacurso" id="etapacurso"/>${item.nome}<label>`).join('');
+    }).catch(error=>{
+        console.log("Error ", error)
+    })
+    
+}
+
+function adicionarEtapas(){
+    let etapacurso = document.getElementsByName("etapacurso")
+
+    for(var i=0; i<etapacurso.length; i++){
+        if(etapacurso[i].checked){
+            console.log("as etapas selecionadas sao: " + etapacurso[i].value);
+            etapasList.push({id: Number(etapacurso[i].value)});
+        }
+    }
+
+    console.log(etapasList)
+}
+
+document.getElementById("btn-erro-fechar")
+    .addEventListener("click", ocultarPopUpErro);
+
+function exibirPopUpErro(mensagem) {
+    const popupErro = document.getElementById("popup-erro");
+    popupErro.classList.add("mostrar-popup");
+    document.getElementById("erro-mensagem").innerText = mensagem;
+}
+
+function ocultarPopUpErro() {
+    const popupErro = document.getElementById("popup-erro");
+    popupErro.classList.remove("mostrar-popup");
+    document.getElementById("erro-mensagem").innerText = "";
+}
+
+function verificaCampos(){
+
+    if (mc.nome.trim().length <= 0) {
+        return true;
+    }
+    if (mc.descricao.trim().length <= 0){
+        return true;
+    }
+    
+    return false;
+}
+
+var expanded = false;
+function showcheckboxes(){
+    var checkboxes = document.getElementById("checkboxes");
+    if(!expanded){
+        checkboxes.style.display = "block";
+        expanded = true;
+    }else{
+        checkboxes.style.display = "none";
+        expanded = false;
+    }
+}
+
+var expandedEdit = false;
+function showcheckboxesEdit(){
+    var checkboxes = document.getElementById("checkboxesEdit");
+    if(!expandedEdit){
+        checkboxes.style.display = "block";
+        expandedEdit = true;
+    }else{
+        checkboxes.style.display = "none";
+        expandedEdit = false;
+    }
 }
 
 function stopPropagation(event){
@@ -259,9 +289,10 @@ function closeAddPopup(){
 
 }
 
-function openPopupView(id){
+function openPopupView(matrizes){
     teladisabled()
-    this.selectedId = id
+    //this.selectedId = id
+    tableCreateEtapa(matrizes)
     popupEye.classList.add("popupEditView");
 }
 
@@ -322,31 +353,30 @@ function closeEditPopup(){
 
 function adicionar(){
 
-    this.matriz.nome = document.getElementById('nomeMatrizAdd').value;
-    this.matriz.descricao = document.getElementById('descricaoMatrizAdd').value;
-    /*
-        quando tiver o controller de curso e etapa curso descomentar as duas linhas abaixo
-    */
-    //this.matriz.curso = {id:document.getElementById('cursoAdd').value};
-    this.etapas.etapacurso = {id:document.getElementById('etapaCursoAdd').value};
-    console.log(this.matriz)
+    this.mc.nome = document.getElementById('nomeMatrizAdd').value;
+    this.mc.descricao = document.getElementById('descricaoMatrizAdd').value;
+    
+    //getValoresCheckbox()
+    this.mc.etapacurso = etapasList;
+    console.log(this.mc)
+
+    if(verificaCampos()){
+        return exibirPopUpErro("Não foi possível cadastrar a Matriz, há algum campo vazio.");
+    }
 
     //se os campos de nome ou de descrição estiverem vazios, não serão salvos
-    if(this.matriz.nome != "" && this.matriz.descricao != ""){
-        post('salvarMatriz', this.matriz).then(result=>{
+    if(this.mc.nome != "" && this.mc.descricao != ""){
+        post('salvarMatriz', this.mc).then(result=>{
             console.log('result', result)
             atualizarTabela()
         }).catch(error=>{
             console.log('error', error)
         })
     }else{console.log('error')}
-    this.matriz = {}
-    this.etapas = {}
+    this.mc = {}
 
     document.getElementById('nomeMatrizAdd').value = '';
     document.getElementById('descricaoMatrizAdd').value = '';
-    //document.getElementById('cursoAdd').value = '';
-    document.getElementById('etapaCursoAdd').value = '';
 }
 
 function remover(){
@@ -355,7 +385,10 @@ function remover(){
     get_params('deletarMatriz', {id:this.selectedId}).then(result=>{
         atualizarTabela()
     }).catch(error=>{
-    })
+        error.text()
+        .then(mensagem => exibirPopUpErro("Matriz Curricular não pode ser excluída com Etapa Curso"));
+        }
+    )
 }
 
 function buscar(){
@@ -382,42 +415,40 @@ function buscar(){
 var table = document.getElementById("itens-table");
 
 function editar(){
+
     let newName = document.getElementById('nomeMatrizEditar').value
     var newDescricao = document.getElementById('descricaoMatrizEditar').value
-    /*
-        quando tiver o controller de curso e etapa curso descomentar as duas linhas abaixo
-    */
-    var newCurso = {id:document.getElementById('cursoMatrizEdit').value}
-    var newEtapaCurso = {id:document.getElementById('etapaCursoEdit').value}
+    //var newEtapaCurso = {id:document.getElementById('etapaCursoEdit').value}
+
+    var newEtapaCurso = etapasList;
 
     console.log(newName)
     console.log(newDescricao)
-    /*
-        quando tiver o controller de curso e etapa curso descomentar as duas linhas abaixo
-    */
-    console.log(newCurso)
+    //console.log(newCurso)
     console.log(newEtapaCurso)
 
-    this.matriz = this.matrizesList.find(user=>{
+    this.mc = this.matrizesList.find(user=>{
         return user.id === this.selectedId
     })
     
-    this.matriz.nome = newName;
-    this.matriz.descricao = newDescricao;
-    /*
-        quando tiver o controller de curso e etapa curso descomentar as duas linhas abaixo
-    */
-    this.matriz.curso = newCurso;
-    this.matriz.etapacurso = newEtapaCurso;
+    this.mc.nome = newName;
+    this.mc.descricao = newDescricao;
+    
+    //this.mc.curso = newCurso;
+    this.mc.etapacurso = newEtapaCurso;
 
-    console.log('Nova Matriz Curricular ', this.matriz)
-    post('atualizarMatriz', this.matriz).then(result=>{
+    if(verificaCampos()){
+        return exibirPopUpErro("Não foi possível atualizar a Matriz, há algum campo vazio.");
+    }
+
+    console.log('Nova Matriz Curricular ', this.mc)
+    post('atualizarMatriz', this.mc).then(result=>{
         console.log('Result ', result)
         this.atualizarTabela()
     }).catch(error=>{
         console.log('Error ', error)
     })
-    this.matriz = {}
+    this.mc = {}
 }
 
 let popupEye = document.getElementById("popupView");

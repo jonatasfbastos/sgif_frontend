@@ -8,8 +8,8 @@ atualizarTabela()
 
 function atualizarTabela(){
     get('modalidades').then(data=>{
-    console.log('Data ', data)
     this.modalidadesList = data
+    console.log('List Modalidades', this.modalidadesList)
     this.tableCreate(this.modalidadesList)
     }).catch(error=>{
         console.log('Error ', error)
@@ -72,7 +72,7 @@ function closeAddPopup(){
 }
 
 function openPopup(id){
-    teladisabled()
+    //teladisabled()
     this.selectedId = id
     popup.classList.add("open_popup");
 }
@@ -96,17 +96,18 @@ function closePopup(){
 }
 
 function openEditPopup(id){
-    teladisabled()
+    //teladisabled()
     this.selectedId = id
     popupEdit.classList.add("popupEditOpen");
     console.log('Id ',id)
-    let usr = this.modalidadesList.find(user=>{
-        return user.id === id
+    let mod = this.modalidadesList.find(modalidade=>{
+        return modalidade.id === id
     })
 
-    console.log('Modalidade encontrada', usr)
+    console.log('Modalidade encontrada', mod)
     
-    document.getElementById('nomeModalidadeEditar').value = usr.nome
+    document.getElementById('nomeModalidadeEditar').value = mod.nome
+    document.getElementById('descricaoModalidadeEditar').value = mod.descricao
 }
 
 var tablee = document.getElementById("itens-table");
@@ -119,24 +120,21 @@ function adicionar(){
     //Definindo as variaveis de modalidade
     this.modalidade.nome = document.getElementById('nomeModalidadeAdd').value;
     this.modalidade.descricao = document.getElementById('descricaoModalidadeAdd').value;
-    console.log(this.modalidade)
+    /*console.log(modalidade)
+    console.log(modalidade.id)*/
 
     //Verificando se os campos nome e descricao estiverem vazios
-    if(this.modalidade.nome != "" && this.modalidade.descricao != ""){
-        post('salvarModalidade', this.modalidade).then(result=>{
-            console.log('result', result)
-            atualizarTabela()
-        }).catch(error=>{
-            console.log('error', error)
-        })
-    }
-    else
-        {console.log('error')}
+    post('salvarModalidade', this.modalidade).then(result=>{
+        console.log('result', result)
+        atualizarTabela()
+    }).catch(error=>{
+        console.log('error', error)
+    })
+
+    /*document.getElementById('nomeModalidadeAdd').value = '';
+    document.getElementById('descricaoModalidadeAdd').value = '';*/
 
     this.modalidade = {}
-
-    document.getElementById('nomeModalidadeAdd').value = '';
-    document.getElementById('descricaoModalidadeAdd').value = '';
 }
 
 function remover(){
@@ -178,15 +176,15 @@ function editar(){
     console.log(newName)
     console.log(newDescricao)
 
-    this.modalidade = this.modalidadesList.find(user=>{
-        return user.id === this.selectedId
+    this.modalidade = this.modalidadesList.find(modalidade=>{
+        return modalidade.id === this.selectedId
     })
     
     this.modalidade.nome = newName;
     this.modalidade.descricao = newDescricao;
 
     console.log('Nova Modalidade ', this.modalidade)
-    post('atualizarModalidade', this.modalidade).then(result=>{
+    post('salvarModalidade', this.modalidade).then(result=>{
         console.log('Result ', result)
         this.atualizarTabela()
     }).catch(error=>{
