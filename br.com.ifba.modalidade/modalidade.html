@@ -25,6 +25,12 @@
         <button type="button" onclick="closeEditPopup(), telaEnabled()">Cancelar</button>
     </div>
 
+    <div class="popupRemove" id="popupRemove">
+        <img src="../images/botao_ver.png" alt="question-sign-in-circles">
+        <h2>Cursos</h2>
+        <button type="button" onclick="closePopup(), telaEnabled()">Fechar</button>
+    </div>
+
     <div class="popupAdd" id="popupAdd">
         <img src="../images/botao-adicionar3.png" alt="adicionar">
         <h2>Digite as informações da Modalidade</h2>
@@ -36,12 +42,42 @@
 
     <div class="backdrop" id="backdrop" onclick="stopPropagation()"></div>
 
+    <div id="popup-erro">
+        <img src="../images/alerta-icone.png" alt="Ícone de alerta." class="popup-img">
+        <p id="erro-mensagem">
+        </p>
+        <button type="button" class="popup-button" id="btn-erro-fechar">
+            Fechar
+        </button>
+    </div>
+
+    <div id="popup-cursos">
+        <h1>Cursos</h1>
+        <div class="tableContain">
+            <div class="scroll">
+                <table class="rTable" id="iten-table">
+                    <thead>
+                        <tr>
+                            <th>Codigo</th>
+                            <th>Nome</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-cursos-body">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <button  type="button" class = "popup-button" onclick="fecharCursos()">
+            Fechar
+        </button>
+    </div>
+
     <div class="buttons">
         <div class="search">
             <input type="text" placeholder="Procurar..." class="loupe" id="loupe" onkeyup="buscar()"> 
         </div>
         <button class="adicionar" type="button" onclick="openAddPopup(), teladisabled()"><img src="../images/botao-adicionar2.png" alt="adicionar" title="Adicionar"></button>
-        <button class="homescreen"> <a href="../br.com.ifba.homescreen/homescreen.html"> <img src="../images/casa.png" alt="homescreen"></a></button>
+        <a href="../br.com.ifba.homescreen/homescreen.html"><button class="homescreen"> <img src="../images/casa.png" alt="homescreen"></button></a>
     </div>
 
     <div class="tableContain">
@@ -53,6 +89,7 @@
                         <th>Descrição</th>
                         <th>Remover</th>
                         <th>Editar</th>
+                        <th>Visualizar Cursos</th>
                     </tr>
                 </thead>
             

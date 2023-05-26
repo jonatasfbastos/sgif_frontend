@@ -374,6 +374,19 @@ tr:hover {
     transition: transform 0.4s, top 0.4s;
 }
 
+.popup-button {
+    max-width: 140px;
+    width: 100%;
+    padding: 10px 0;
+    margin: 4px;
+    background: #fff;
+    border: none;
+    border-radius: 16px;
+    outline: none;
+    cursor: pointer;
+    box-shadow: 0 5px 5px #00000033;
+}
+
 .open_popup{
     visibility: visible;
     top: 50%;
@@ -423,4 +436,78 @@ tr:hover {
 
 .popupRemove button:hover{
     background-color: #666;
+}
+
+#popup-erro{
+    width: 400px;
+    background-color: #359830;
+    border-radius: 10px;
+    position: absolute;
+    top: 0%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.1);
+    text-align: center;
+    padding: 20px 0;
+    color: #f5f5f5;
+    visibility: hidden;
+    transition: transform 0.4s, top 0.4s; 
+    z-index: 2;
+}
+
+#popup-erro.mostrar-popup {
+    visibility: visible;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+#popup-erro img{
+    width: 100px;
+    margin-top: -50px;
+    border-radius: 50%;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);   
+}
+
+#popup-cursos {
+    max-width: 700px;
+    width: 80%;
+    height: 600px;
+    background: #4a9245;
+    border-radius: 10px;
+    position: absolute;
+    top: 0%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.1);
+    text-align: center;
+    color: #f5f5f5;
+    visibility: hidden;
+    transition: transform 0.4s, top 0.4s; 
+    z-index: 2;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#popup-cursos .tableContain {
+    width: 100vw;
+    height: 75vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#popup-cursos .scroll{
+    max-height: 495px;
+    width: 55vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: scroll;
+}
+
+#popup-cursos.show-popup {
+    visibility: visible;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(1);
 }

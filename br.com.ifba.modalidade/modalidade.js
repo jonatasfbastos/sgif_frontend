@@ -1,4 +1,4 @@
-//Variveis do script
+//Variaveis do script
 var selectedId
 var modalidadesList = []
 var modalidade = {}
@@ -51,6 +51,16 @@ function tableCreate(data){
             
             colEditar.appendChild(editarLink)
             row.appendChild(colEditar)
+
+            var colVisualizar= document.createElement("td")
+            colVisualizar.setAttribute("onclick", "openVerCursos(" + JSON.stringify(element) + ")")
+            var visualizarLink = document.createElement("a")
+            var imgVisualizar = document.createElement("img")
+            imgVisualizar.setAttribute("src", "../images/botao_ver.png")
+            visualizarLink.appendChild(imgVisualizar)
+            
+            colVisualizar.appendChild(visualizarLink)
+            row.appendChild(colVisualizar)
             
             tableBody.appendChild(row)
             console.log(element)
@@ -58,7 +68,7 @@ function tableCreate(data){
     }
 }
 
-//Funcoes padroes do script
+
 function stopPropagation(event){
     event.stopPropagation();
 }
@@ -147,21 +157,20 @@ function remover(){
 }
 
 function buscar(){
-
     var input, filter, table, tr, td, i, txtValue;
     input = document.getElementById("loupe");
     filter = input.value.toUpperCase();
     table = document.getElementById("itens-table");
     tr = table.getElementsByTagName("tr");
 
-            for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[1];
-            if (td) {
+    for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
             txtValue = td.textContent || td.innerText;
             if (txtValue.toUpperCase().indexOf(filter) > -1) {
-            tr[i].style.display = "";
+                tr[i].style.display = "";
             } else {
-            tr[i].style.display = "none";
+                tr[i].style.display = "none";
             }
         }
     }
@@ -191,6 +200,57 @@ function editar(){
         console.log('Error ', error)
     })
     this.modalidade = {}
+}
+
+document.getElementById("btn-erro-fechar")
+    .addEventListener("click", ocultarPopUpErro);
+
+function exibirPopUpErro(mensagem) {
+    const popupErro = document.getElementById("popup-erro");
+    popupErro.classList.add("mostrar-popup");
+    document.getElementById("erro-mensagem").innerText = mensagem;
+}
+
+function ocultarPopUpErro() {
+    const popupErro = document.getElementById("popup-erro");
+    popupErro.classList.remove("mostrar-popup");
+    document.getElementById("erro-mensagem").innerText = "";
+}
+
+function openVerCursos(curso) {
+    document.getElementById("popup-cursos").classList.add("show-popup");
+    let modalidadesListVer = [];
+
+    get_params('modalidades', {id: modalidades.id})
+    .then(data => {
+        modalidadesListVer = data;
+        console.log("DATA: ", data);
+
+        data.forEach(curso => {
+            var row = document.createElement("tr");
+    
+            var colCodigo = document.createElement("td")
+            colCodigo.appendChild(document.createTextNode(curso.codigo))
+            row.appendChild(colCodigo)
+    
+            var colNome = document.createElement("td")
+            colNome.appendChild(document.createTextNode(curso.nome))
+            row.appendChild(colNome)
+    
+            console.log("ROW:", row);
+            tableCursosBody.appendChild(row)
+        });
+
+    }).catch(error => {
+            console.log('Error ', error)
+    });
+
+    const tableCursosBody = document.getElementById('table-cursos-body');
+    tableCursosBody.innerHTML = '';    
+}
+
+function fecharCursos() {
+    document.getElementById("popup-cursos").classList.remove("show-popup");
 }
 
 let popup = document.getElementById("popupRemove");
