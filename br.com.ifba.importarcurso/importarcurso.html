@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="importarcurso.css">
+    <title>Importar Cursos</title>
+</head>
+<body>
+    <main>
+    <div class="buttons" id="botoes">
+        <a href="../br.com.ifba.homescreen/homescreen.html"><button class="homescreen"> <img src="../images/casa.png" alt="homescreen"></button></a>
+        <button id="addsimbol"><img src="../images/adicionar-o-popup.png" alt=""></button>
+    </div>
+       
+    <h2 id="titulo">Importar arquivo csv </h2>
+    <input type="file" name="file" id="file" accept=".csv" > 
+    <button type="button" id="enviar" value="Enviar" onclick="submit()" >Enviar</button>
+
+    <div id="popupConfirmar">
+        <h2>Arquivo .csv importado com sucesso</h2>
+            <button type="button" onclick="importarPopupOcultar()">OK</button>
+        
+    </div> 
+
+   
+    
+   <script src="../js/requisitions.js"></script>
+   <script src="importarcurso.js"></script>
+</main>
+</body>
+</html>
