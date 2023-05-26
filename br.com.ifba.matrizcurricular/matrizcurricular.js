@@ -86,23 +86,6 @@ function tableCreate(data){
             colDescricao.appendChild(document.createTextNode(element.descricao))
             row.appendChild(colDescricao)
 
-            get('curso').then(cursos=>{
-                console.log('Cursos ', cursos)
-    
-                var colCurso = document.createElement("td")
-                cursos.forEach(tipo=>{
-                    let option = document.createElement('option')
-                    option.value = tipo.id
-                    option.innerHTML = tipo.nome
-    
-                    colCurso.appendChild(option)
-                    row.appendChild(colCurso)
-    
-                })
-                }).catch(error=>{
-                    console.log('Error ', error)
-            })
-            
             //botão para exibir lista de etapa curso
             var colEtapa = document.createElement("td")
             colEtapa.setAttribute("onclick", "openPopupView("+JSON.stringify(element)+")")
@@ -133,6 +116,23 @@ function tableCreate(data){
             
             colEditar.appendChild(editarLink)
             row.appendChild(colEditar)
+
+            get('curso').then(cursos=>{
+                console.log('Cursos ', cursos)
+    
+                var colCurso = document.createElement("td")
+                cursos.forEach(tipo=>{
+                    let option = document.createElement('option')
+                    option.value = tipo.id
+                    option.innerHTML = tipo.nome
+    
+                    colCurso.appendChild(option)
+                    row.appendChild(colCurso)
+    
+                })
+                }).catch(error=>{
+                    console.log('Error ', error)
+            })
             
     
             tableBody.appendChild(row)

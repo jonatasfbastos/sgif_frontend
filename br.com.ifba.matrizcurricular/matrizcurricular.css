@@ -557,6 +557,18 @@ tr:hover {
     background-color: #1e90ff;
 }
 
+#checkboxesEdit{
+    display: none;
+}
+
+#checkboxesEdit label{
+    display: block;
+}
+
+#checkboxesEdit label:hover{
+    background-color: #1e90ff;
+}
+
 #popup-erro{
     width: 400px;
     background-color: #359830;
