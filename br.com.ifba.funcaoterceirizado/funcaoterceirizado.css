@@ -1,32 +1,23 @@
 *{
     margin: 0;
     padding: 0;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     box-sizing: border-box;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 body{
     height: 100vh;
-    background-image: linear-gradient(#20631d, #c2f5bf);
+    background-image: linear-gradient(#20631d,#c2f5bf);
     background-repeat: no-repeat;
     background-size: auto;
 }
 
-.tableContain{
-    width: 100vw;
-    height: 75vh;
-    display: flex;
-    align-items: center;
-    justify-content: center; 
-}
 
 .scroll{
-    max-height: 495px;
-    width: 100vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    max-height: 500px;
     overflow-y: scroll;
+    border-radius: 20px; 
+    margin-top: 100px;
 }
 
 .scroll::-webkit-scrollbar{
@@ -36,6 +27,53 @@ body{
 th{
     position: sticky;
     top: 0;
+}
+
+.tela{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    position: relative;
+}
+
+table.itens-table{
+    border-radius: 20px;
+    width: 1100px;
+    /* max-height: 500px; */
+    text-align: center;
+    /* margin-top: 100px; */
+    background-color: white;
+    box-shadow: 1px 1px 8px 1px #000000;
+    overflow: scroll;
+}
+
+table.itens-table td, table.itens-table th + table.itens-table th{
+    border-top: 1px solid #f2f2f2;
+    padding: 2px 2px;
+}
+
+table.itens-table thead th{
+    color: #e3e6d0;
+    font-size: 16px;
+    text-transform: uppercase;
+    border-bottom: 1px solid #f2f2f2;
+    padding-bottom: 30px;
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+table.itens-table td{
+    color: #666;
+}
+
+table.itens-table tr{
+    height: 61.39px;
+}
+
+table{
+    border-collapse:collapse;
 }
 
 tr:first-child td:first-child{
@@ -50,122 +88,56 @@ tr:last-child td:last-child{
     border-bottom-right-radius: 20px;
 }
 
-.rTable{
-    width: 83%;
-    text-align: center;
-    background-color: white;
-    /* box-shadow: 1px 1px 8px 1px #000000; */
-}
-
-.rTable thead th{
-    color: #e3e6d0;
-    font-size: 16px;
-    text-transform: uppercase;
-    border-bottom: 1px solid #f2f2f2;
-    padding: 20px 20px 30px 20px;
-    background-color: #013b01;
-}
-
-.rTable td{
-    color: #666;
-}
-    
-.rTable tr{
-    height: 61.39px;
-}
-    
-table{
-    border-collapse:collapse;
-    border-radius: 20px;
-}
-
-tr:first-child th:first-child{
-    border-top-left-radius: 20px;
-}
-
-tr:last-child th:last-child{
-    border-top-right-radius: 20px;
-}
-
-td:nth-child(3), td:nth-child(4){
+td:nth-child(5), td:nth-child(6){
     cursor: pointer;
+}
+
+thead th{
+    background-color: #013b01;
 }
 
 tr:hover {
     background-color: #f5f5f5;
 }
 
-.ContainEtapa{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.TableEtapa{
-    width: 83%;
-    text-align: center;
-    background-color: white;
-    /* box-shadow: 1px 1px 8px 1px #000000; */
-}
-
-.TableEtapa thead th{
-    color: #e3e6d0;
-    font-size: 13px;
-    text-transform: uppercase;
-    border-bottom: 1px solid #f2f2f2;
-    padding: 20px 20px 30px 20px;
+.homescreen{
+    width: 200px;
+    height: 45px;
+    border: 0;
+    border-radius: 25px;
     background-color: #013b01;
+    font-size: 16px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    cursor: pointer;
+    position: absolute;
+    top: 50px;
+    left: 1035px;
 }
 
-.TableEtapa td{
-    color: #666;
-}
-    
-.TableEtapa tr{
-    height: 61.39px;
+.homescreen:hover{
+    background-color: #009500;
 }
 
-
-@media screen and (max-width: 448px){
-    .tableContain{
-        width: 94%;
-    }
-
-    
-    .rTable tbody td{
-        display: flex; 
-        flex-direction: column; 
-    }
+.homescreen img{
+    padding-left: 9px;
 }
 
-@media screen and (max-width: 659px){
-    .adicionar{
-        width: 150px;
-    }
-
-    .homescreen{
-        width: 150px;  
-    }
-
-    .search input{
-        width: 150px;
-    }
-}
-
-@media only screen and (min-width: 1200px){
-    .content{width:100%;}
-    .rTable tbody tr td:nth-child(1){width:10%;}
-    .rTable tbody tr td:nth-child(2){width:30%;}
-    .rTable tbody tr td:nth-child(3){width:20%;}
-    .rTable tbody tr td:nth-child(4){width:10%;}
-}
-
-.buttons{
-    width: 100vw;
-    height: 20vh;
+.homescreen a{
+    text-decoration: none;
+    color: #e3e6d0;
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    padding: 7px;
+}
+
+.homescreen p{
+    padding-left: 13px;
+}
+
+.search{
+    position: absolute;
+    top: 50px;
+    left: 125px;
 }
 
 .search .loupe{
@@ -175,6 +147,7 @@ tr:hover {
     background-position-x: 10px;
     background-position-y: center;
     background-size: 1.8em;
+    margin-left: 10px;
 }
 
 .search input{
@@ -185,37 +158,28 @@ tr:hover {
     text-align: center;
     font-size: 16px;
     outline: 0;
+    cursor: auto;
 }
 
 .adicionar{
+    position: absolute;
+    top: 50px;
+    right: 545px; 
+    width: 200px;
+    height: 45px;
     background-color: #013b01;
     cursor: pointer;
     border: 1px solid #666;
     border-radius: 20px;
-    width: 200px;
-    height: 45px;
+    display: block;
 }
 
 .adicionar:hover{
     opacity: 0.8;
 }
 
-.homescreen{
-    width: 200px;
-    height: 45px;
-    border: 0;
-    border-radius: 25px;
-    background-color: #013b01;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-.homescreen:hover{
-    box-shadow: 0 0 5px #009500, 0 0 25px #009500, 0 0 50px #009500, 0 0 200px #009500;
-}
-
 .popupAdd{
-    width: 400px;
+    width: 500px;
     background-color: #20631d;
     border-radius: 10px;
     position: absolute;
@@ -256,33 +220,71 @@ tr:hover {
     margin-left: 10px;
 }
 
-.popupAdd .nomeMatriz, .descricaoMatriz, .cursoMatriz{
+
+.popupAdd .emailUsuario{
     border: 1px #13293D solid;
     padding-left: 10px;
     width: 100%;
     height: 45px;
     margin: 4px 2px;
     border-radius: 25px;
-    outline: 0;
+    background-image: url(../images/o-email2.png);
+    background-repeat: no-repeat;
+    background-position: left;
     padding-left: 50px;
-}
-
-.nomeMatriz{
-    background-image: url(../images/item.png);
-    background-repeat: no-repeat;
-    background-position: left;
     background-size: 1.3em;
     background-position-x: 20px;
+    outline: 0;
 }
 
-.descricaoMatriz{
-    background-image: url(../images/propriedade.png);
+
+.popupAdd .loginUsuario{
+    border: 1px #13293D solid;
+    padding-left: 10px;
+    width: 100%;
+    height: 45px;
+    margin: 4px 2px;
+    border-radius: 25px;
+    background-image: url(../images/login.png);
     background-repeat: no-repeat;
     background-position: left;
+    padding-left: 50px;
     background-size: 1.3em;
     background-position-x: 20px;
+    outline: 0;
 }
 
+.popupAdd .senhaUsuario{
+    border: 1px #13293D solid;
+    padding-left: 10px;
+    width: 100%;
+    height: 45px;
+    margin: 4px 2px;
+    border-radius: 25px;
+    background-image: url(../images/senha.png);
+    background-repeat: no-repeat;
+    background-position: left;
+    padding-left: 50px;
+    background-size: 1.3em;
+    background-position-x: 20px;
+    outline: 0;
+}
+
+.popupAdd .nomeUsuario{
+    border: 1px #13293D solid;
+    padding-left: 10px;
+    width: 100%;
+    height: 45px;
+    margin: 4px 2px;
+    border-radius: 25px;
+    background-image: url(../images/nome.png);
+    background-repeat: no-repeat;
+    background-position: left;
+    padding-left: 50px;
+    background-size: 1.3em;
+    background-position-x: 20px;
+    outline: 0;
+}
 
 .popupAdd button:hover{
     background-color: #666;
@@ -306,7 +308,7 @@ tr:hover {
 }
 
 .popupEdit{
-    width: 400px;
+    width: 500px;
     background-color: #20631d;
     border-radius: 10px;
     position: absolute;
@@ -352,14 +354,62 @@ tr:hover {
     color: #e3e6d0;
 }
 
-.popupEdit .nomeMatriz{
+.popupEdit .loginUsuario{
     border: 1px #13293D solid;
     padding-left: 10px;
     width: 100%;
     height: 45px;
     margin: 4px 2px;
     border-radius: 25px;
-    background-image: url(../images/item.png);
+    background-image: url(../images/login.png);
+    background-repeat: no-repeat;
+    background-position: left;
+    padding-left: 50px;
+    background-size: 1.3em;
+    background-position-x: 20px;
+    outline: 0;
+}
+
+.popupEdit .senhaUsuario{
+    border: 1px #13293D solid;
+    padding-left: 10px;
+    width: 100%;
+    height: 45px;
+    margin: 4px 2px;
+    border-radius: 25px;
+    background-image: url(../images/senha.png);
+    background-repeat: no-repeat;
+    background-position: left;
+    padding-left: 50px;
+    background-size: 1.3em;
+    background-position-x: 20px;
+    outline: 0;
+}
+
+.popupEdit .emailUsuario{
+    border: 1px #13293D solid;
+    padding-left: 10px;
+    width: 100%;
+    height: 45px;
+    margin: 4px 2px;
+    border-radius: 25px;
+    background-image: url(../images/o-email2.png);
+    background-repeat: no-repeat;
+    background-position: left;
+    padding-left: 50px;
+    background-size: 1.3em;
+    background-position-x: 20px;
+    outline: 0;
+}
+
+.popupEdit .nomeUsuario{
+    border: 1px #13293D solid;
+    padding-left: 10px;
+    width: 100%;
+    height: 45px;
+    margin: 4px 2px;
+    border-radius: 25px;
+    background-image: url(../images/nome.png);
     background-repeat: no-repeat;
     background-position: left;
     padding-left: 50px;
@@ -402,7 +452,7 @@ tr:hover {
     left: 50%;
     transform: translate(-50%, -50%) scale(0.1);
     text-align: center;
-    padding: 0 30px 40px;
+    padding: 0 30px 30px;
     color: #f5f5f5;
     visibility: hidden;
     transition: transform 0.4s, top 0.4s;
@@ -459,9 +509,12 @@ tr:hover {
 .popupRemove button:hover{
     background-color: #666;
 }
+@media(max-width: 600px){
 
-.popupView{
-    width: 400px;
+}
+
+.popupFiltrar{
+    width: 500px;
     background-color: #20631d;
     border-radius: 10px;
     position: absolute;
@@ -472,42 +525,49 @@ tr:hover {
     padding: 0 30px 30px;
     color: #f5f5f5;
     visibility: hidden;
-    transition: transform 0.4s, top 0.4s;
+    transition: transform 0.4s, top 0.4s; 
 }
 
-.popupView img{
+#popupFiltrar.show-popup{
+    top: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    visibility: visible;
+    z-index: 10;
+}
+
+.popupFiltrar img{
     width: 100px;
     margin-top: -50px;
     border-radius: 50%;
-    background-color: #20631d;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
 }
 
-.popupView h2{
+.popupFiltrar h2{
     font-size: 23px;
     font-weight: 500;
     margin: 30px 0 10px;
 }
 
-.popupView button{
+.popupFiltrar button{
     width: 45%;
     margin-top: 50px;
     padding: 10px 0;
     background: #fff;
     border: 0;
-    border-radius: 16px;
+    border-radius: 14px;
     outline: none;
     cursor: pointer;
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
     margin-left: 10px;
 }
 
-.popupView button:hover{
+.popupFiltrar button:hover{
     background-color: #666;
     color: #e3e6d0;
 }
 
-.popupView select{
+.popupFiltrar select{
     width: 220px;
     background-color: #fff;
     border: 1px solid #165b79;
@@ -518,102 +578,24 @@ tr:hover {
     text-align: center;
 }
 
-.popupEditView{
-    visibility: visible;
-    top: 50%;
-    transform: translate(-50%, -50%) scale(1);
-    z-index: 10;
+.popupFiltrar label{
+    margin-left: 12px;
+    font-size: 16px;
 }
 
-.multiSelect{
-    width: 84%;
-    padding-left: 10px;
-    padding-left: 50px;
+#popupFiltrar .tableContain {
+    width: 100vw;
+    height: 75vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.selectBox{
-    position: relative;
-}
-
-.selectBox select{
-    width: 100%;
-    font-weight: bold;
-}
-
-.overSelect{
-    position: absolute;
-    left: 0; right: 0; top: 0; bottom: 0;
-}
-
-#checkboxes{
-    display: none;
-}
-
-#checkboxes label{
-    display: block;
-}
-
-#checkboxes label:hover{
-    background-color: #1e90ff;
-}
-
-#checkboxesEdit{
-    display: none;
-}
-
-#checkboxesEdit label{
-    display: block;
-}
-
-#checkboxesEdit label:hover{
-    background-color: #1e90ff;
-}
-
-#popup-erro{
-    width: 400px;
-    background-color: #359830;
-    border-radius: 10px;
-    position: absolute;
-    top: 0%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.1);
-    text-align: center;
-    padding: 20px 0;
-    color: #f5f5f5;
-    visibility: hidden;
-    transition: transform 0.4s, top 0.4s; 
-    z-index: 2;
-}
-
-#popup-erro.mostrar-popup {
-    visibility: visible;
-    top: 50%;
-    transform: translate(-50%, -50%) scale(1);
-}
-
-#popup-erro img{
-    width: 100px;
-    margin-top: -50px;
-    border-radius: 50%;
-    background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    
-}
-
-.popup-button {
-    max-width: 140px;
-    width: 100%;
-    padding: 10px 0;
-    margin: 4px;
-    background: #fff;
-    border: none;
-    border-radius: 16px;
-    outline: none;
-    cursor: pointer;
-    box-shadow: 0 5px 5px #00000033;
-}
-
-.popup-button:hover {
-    color: #FFF;
-    background: #666;
+#popupFiltrar .scroll{
+    max-height: 495px;
+    width: 55vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: scroll;
 }

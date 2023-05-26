@@ -22,6 +22,18 @@
         </div>
     </div>
 
+    <div id="popupArquivoVazio">
+        <img src="../images/alerta-icone.png" alt="imagem Arquivo Vazio">
+        <h2>Selecione um arquivo</h2>
+        <button type="button" onclick="popupArquivoVazioOcultar(), importarPopupExibir()">Voltar</button>
+    </div>
+
+    <div id="popupErro">
+        <img src="../images/alerta-icone.png" alt="imagem Erro">
+        <p id="erro"></p>
+        <button type="button" onclick="popupErroOcultar()">Fechar</button>
+    </div>
+
    <script src="../js/requisitions.js"></script>
    <script src="importardisciplina.js"></script>
 </body>

@@ -6,7 +6,8 @@ function submit(){
          var file = files[0];
          readCSVFile(file);
     }else{
-         alert("Por favor, selecione o arquivo.");
+          popupArquivoVazioExibir();
+          importarPopupOcultar();
     }
 
 }
@@ -54,6 +55,22 @@ function readCSVFile(file){
     };
 
 }
+
+function importarPopupExibir(){
+     document.getElementById("popupImportar").classList.add("exibirImportar");
+ }
+
+ function importarPopupOcultar(){
+     document.getElementById("popupImportar").classList.remove("exibirImportar");
+ }
+
+ function popupArquivoVazioExibir(){
+    document.getElementById("popupArquivoVazio").classList.add("exibirVazio");
+ }
+
+ function popupArquivoVazioOcultar(){
+    document.getElementById("popupArquivoVazio").classList.remove("exibirVazio");
+ }
 
 function importarPopupExibir(){
      document.getElementById("popupImportar").classList.add("exibirImportar");

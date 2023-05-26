@@ -1,4 +1,4 @@
-//Variveis do script
+//Variaveis do script
 var selectedId
 var modalidadesList = []
 var modalidade = {}
@@ -8,8 +8,8 @@ atualizarTabela()
 
 function atualizarTabela(){
     get('modalidades').then(data=>{
-    console.log('Data ', data)
     this.modalidadesList = data
+    console.log('List Modalidades', this.modalidadesList)
     this.tableCreate(this.modalidadesList)
     }).catch(error=>{
         console.log('Error ', error)
@@ -51,6 +51,16 @@ function tableCreate(data){
             
             colEditar.appendChild(editarLink)
             row.appendChild(colEditar)
+
+            var colVisualizar= document.createElement("td")
+            colVisualizar.setAttribute("onclick", "openVerCursos(" + JSON.stringify(element) + ")")
+            var visualizarLink = document.createElement("a")
+            var imgVisualizar = document.createElement("img")
+            imgVisualizar.setAttribute("src", "../images/botao_ver.png")
+            visualizarLink.appendChild(imgVisualizar)
+            
+            colVisualizar.appendChild(visualizarLink)
+            row.appendChild(colVisualizar)
             
             tableBody.appendChild(row)
             console.log(element)
@@ -58,7 +68,7 @@ function tableCreate(data){
     }
 }
 
-//Funcoes padroes do script
+
 function stopPropagation(event){
     event.stopPropagation();
 }
@@ -72,7 +82,7 @@ function closeAddPopup(){
 }
 
 function openPopup(id){
-    teladisabled()
+    //teladisabled()
     this.selectedId = id
     popup.classList.add("open_popup");
 }
@@ -96,17 +106,18 @@ function closePopup(){
 }
 
 function openEditPopup(id){
-    teladisabled()
+    //teladisabled()
     this.selectedId = id
     popupEdit.classList.add("popupEditOpen");
     console.log('Id ',id)
-    let usr = this.modalidadesList.find(user=>{
-        return user.id === id
+    let mod = this.modalidadesList.find(modalidade=>{
+        return modalidade.id === id
     })
 
-    console.log('Modalidade encontrada', usr)
+    console.log('Modalidade encontrada', mod)
     
-    document.getElementById('nomeModalidadeEditar').value = usr.nome
+    document.getElementById('nomeModalidadeEditar').value = mod.nome
+    document.getElementById('descricaoModalidadeEditar').value = mod.descricao
 }
 
 var tablee = document.getElementById("itens-table");
@@ -119,24 +130,21 @@ function adicionar(){
     //Definindo as variaveis de modalidade
     this.modalidade.nome = document.getElementById('nomeModalidadeAdd').value;
     this.modalidade.descricao = document.getElementById('descricaoModalidadeAdd').value;
-    console.log(this.modalidade)
+    /*console.log(modalidade)
+    console.log(modalidade.id)*/
 
     //Verificando se os campos nome e descricao estiverem vazios
-    if(this.modalidade.nome != "" && this.modalidade.descricao != ""){
-        post('salvarModalidade', this.modalidade).then(result=>{
-            console.log('result', result)
-            atualizarTabela()
-        }).catch(error=>{
-            console.log('error', error)
-        })
-    }
-    else
-        {console.log('error')}
+    post('salvarModalidade', this.modalidade).then(result=>{
+        console.log('result', result)
+        atualizarTabela()
+    }).catch(error=>{
+        console.log('error', error)
+    })
+
+    /*document.getElementById('nomeModalidadeAdd').value = '';
+    document.getElementById('descricaoModalidadeAdd').value = '';*/
 
     this.modalidade = {}
-
-    document.getElementById('nomeModalidadeAdd').value = '';
-    document.getElementById('descricaoModalidadeAdd').value = '';
 }
 
 function remover(){
@@ -149,21 +157,20 @@ function remover(){
 }
 
 function buscar(){
-
     var input, filter, table, tr, td, i, txtValue;
     input = document.getElementById("loupe");
     filter = input.value.toUpperCase();
     table = document.getElementById("itens-table");
     tr = table.getElementsByTagName("tr");
 
-            for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[1];
-            if (td) {
+    for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
             txtValue = td.textContent || td.innerText;
             if (txtValue.toUpperCase().indexOf(filter) > -1) {
-            tr[i].style.display = "";
+                tr[i].style.display = "";
             } else {
-            tr[i].style.display = "none";
+                tr[i].style.display = "none";
             }
         }
     }
@@ -178,21 +185,72 @@ function editar(){
     console.log(newName)
     console.log(newDescricao)
 
-    this.modalidade = this.modalidadesList.find(user=>{
-        return user.id === this.selectedId
+    this.modalidade = this.modalidadesList.find(modalidade=>{
+        return modalidade.id === this.selectedId
     })
     
     this.modalidade.nome = newName;
     this.modalidade.descricao = newDescricao;
 
     console.log('Nova Modalidade ', this.modalidade)
-    post('atualizarModalidade', this.modalidade).then(result=>{
+    post('salvarModalidade', this.modalidade).then(result=>{
         console.log('Result ', result)
         this.atualizarTabela()
     }).catch(error=>{
         console.log('Error ', error)
     })
     this.modalidade = {}
+}
+
+document.getElementById("btn-erro-fechar")
+    .addEventListener("click", ocultarPopUpErro);
+
+function exibirPopUpErro(mensagem) {
+    const popupErro = document.getElementById("popup-erro");
+    popupErro.classList.add("mostrar-popup");
+    document.getElementById("erro-mensagem").innerText = mensagem;
+}
+
+function ocultarPopUpErro() {
+    const popupErro = document.getElementById("popup-erro");
+    popupErro.classList.remove("mostrar-popup");
+    document.getElementById("erro-mensagem").innerText = "";
+}
+
+function openVerCursos(curso) {
+    document.getElementById("popup-cursos").classList.add("show-popup");
+    let modalidadesListVer = [];
+
+    get_params('modalidades', {id: modalidades.id})
+    .then(data => {
+        modalidadesListVer = data;
+        console.log("DATA: ", data);
+
+        data.forEach(curso => {
+            var row = document.createElement("tr");
+    
+            var colCodigo = document.createElement("td")
+            colCodigo.appendChild(document.createTextNode(curso.codigo))
+            row.appendChild(colCodigo)
+    
+            var colNome = document.createElement("td")
+            colNome.appendChild(document.createTextNode(curso.nome))
+            row.appendChild(colNome)
+    
+            console.log("ROW:", row);
+            tableCursosBody.appendChild(row)
+        });
+
+    }).catch(error => {
+            console.log('Error ', error)
+    });
+
+    const tableCursosBody = document.getElementById('table-cursos-body');
+    tableCursosBody.innerHTML = '';    
+}
+
+function fecharCursos() {
+    document.getElementById("popup-cursos").classList.remove("show-popup");
 }
 
 let popup = document.getElementById("popupRemove");

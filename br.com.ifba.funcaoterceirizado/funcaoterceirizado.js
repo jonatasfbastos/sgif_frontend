@@ -1,16 +1,15 @@
 var selectedId
-var terceirizadosList = []
-var terceirizado = {}
+var funcaoterceirizadosList = []
+var funcaoterceirizado = {}
 
 atualizarTabela()
-setFuncao()
 
 function atualizarTabela(){
-    get('terceirizado').then(data=>{
-    this.terceirizadosList = data
-    console.log('List terceirizados', this.terceirizadosList)
+    get('listarFuncoesTerceirizado').then(data=>{
+    this.funcaoterceirizadosList = data
+    console.log('List funcaoTerceirizado', this.funcaoterceirizadosList)
 
-    this.tableCreate(this.terceirizadosList)
+    this.tableCreate(data)
     }).catch(error=>{
         console.log('Error ', error)
     })
@@ -27,26 +26,9 @@ function tableCreate(data){
             colnome.appendChild(document.createTextNode(element.nome))
             row.appendChild(colnome)
 
-            var colFuncao = document.createElement("td")
-            colFuncao.appendChild(document.createTextNode(element.funcaoTerceirizado ? element.funcaoTerceirizado.nome : ''))
-            row.appendChild(colFuncao)
-
-            var coltelefone = document.createElement("td")
-            coltelefone.appendChild(document.createTextNode(element.telefone))
-            row.appendChild(coltelefone)
-
-            var colemail = document.createElement("td")
-            colemail.appendChild(document.createTextNode(element.email))
-            row.appendChild(colemail)
-
-            var colcpf = document.createElement("td")
-            colcpf.appendChild(document.createTextNode(element.cpf))
-            row.appendChild(colcpf)
-
-            var coldataDeNascimento = document.createElement("td")
-            coldataDeNascimento.appendChild(document.createTextNode(new Date(element.dataDeNascimento).toLocaleDateString()))
-            row.appendChild(coldataDeNascimento)
-            
+            var coldescricao = document.createElement("td")
+            coldescricao.appendChild(document.createTextNode(element.descricao))
+            row.appendChild(coldescricao) 
             
             var colRemover = document.createElement("td")
             colRemover.setAttribute("onclick", "openPopup("+element.id+")")
@@ -67,38 +49,22 @@ function tableCreate(data){
             
             colEditar.appendChild(editarLink)
             row.appendChild(colEditar)
+
+            var colFiltrar = document.createElement('td')
+            colFiltrar.setAttribute("onclick", "openFiltrarPopup("+JSON.stringify(element)+")")
+            var filtrarLink = document.createElement("a")
+            var imgFiltrar = document.createElement("img")
+            imgFiltrar.setAttribute("src", "../images/botao_ver.png")
+            filtrarLink.appendChild(imgFiltrar)
+            
+            colFiltrar.appendChild(filtrarLink)
+            row.appendChild(colFiltrar)
             
     
             tableBody.appendChild(row)
             console.log(element)
         });
     }
-}
-
-function setFuncao() {
-
-    get('listarFuncoesTerceirizado').then(funcoes=>{
-        console.log('Funcao Terceirizado ', funcoes)
-
-        var multiCombo = document.getElementById('funcaoadd')
-        var multiComboEdit = document.getElementById('funcaoedit')
-        funcoes.forEach(func=>{
-            let option = document.createElement('option')
-            option.value = func.id
-            option.innerHTML = func.nome
-
-            multiCombo.appendChild(option)
-
-            let optionEdit = document.createElement('option')
-            optionEdit.value = func.id
-            optionEdit.innerHTML = func.nome
-
-            multiComboEdit.appendChild(optionEdit)
-            
-        })
-    }).catch(error=>{
-        console.log('Error ', error)
-    })
 }
 
 function stopPropagation(event){
@@ -139,20 +105,18 @@ function closePopup(){
 }
 
 function openEditPopup(id){
+    console.log(this.funcaoterceirizadosList)
     this.selectedId = id
     popupEdit.classList.add("popupEditOpen");
     console.log('Id ',id)
-    let terc = this.terceirizadosList.find(terceirizado=>{
-        return terceirizado.id === id
+    let funcTerc = this.funcaoterceirizadosList.find(funcaoterceirizado=>{
+        return funcaoterceirizado.id === id
     })
 
-    console.log('terceirizado achado ', terc)
+    console.log('funcao terceirizado achado ', funcTerc)
     
-    document.getElementById('nomeEdit').value = terc.nome
-    document.getElementById('telefoneEdit').value = terc.telefone
-    document.getElementById('emailEdit').value = terc.email
-    document.getElementById('cpfEdit').value = terc.cpf
-    document.getElementById('dataNascimentoEdit').value = new Date(terc.dataDeNascimento).toLocaleDateString()
+    document.getElementById('nomeEdit').value = funcTerc.nome
+    document.getElementById('descricaoEdit').value = funcTerc.descricao
 
 }
 
@@ -162,31 +126,62 @@ function closeEditPopup(){
     popupEdit.classList.remove("popupEditOpen");
 }
 
+function openFiltrarPopup(funcao){
+    document.getElementById("popupFiltrar").classList.add("show-popup");
+
+    get_params('filtrarFuncaoTerceirizado', {id: funcao.id})
+    .then(data => {
+        console.log("DATA: ", data);
+
+        data.forEach(terceirizado => {
+            var row = document.createElement("tr");
+    
+            var colNome = document.createElement("td")
+            colNome.appendChild(document.createTextNode(terceirizado.nome))
+            row.appendChild(colNome)
+    
+            var colFuncao = document.createElement("td")
+            colFuncao.appendChild(document.createTextNode(funcao.nome))
+            row.appendChild(colFuncao)
+    
+            console.log("ROW:", row);
+            tableAlunosBody.appendChild(row)
+        });
+
+    }).catch(error => {
+            console.log('Error ', error)
+    });
+
+    const tableAlunosBody = document.getElementById('table-alunos-body');
+    tableAlunosBody.innerHTML = '';
+
+}
+
+var tablee = document.getElementById("itens-table");
+
+function closeFiltrarPopup(){
+    document.getElementById("popupFiltrar").classList.remove("show-popup");
+}
+
 function adicionar(){
 
-    this.terceirizado.nome = document.getElementById('nomeNew').value;
-    this.terceirizado.funcaoTerceirizado = {id:document.getElementById('funcaoadd').value};
-    this.terceirizado.telefone = document.getElementById('telefoneNew').value;
-    this.terceirizado.email = document.getElementById('emailNew').value;
-    this.terceirizado.cpf = document.getElementById('cpfNew').value;
-    this.terceirizado.dataDeNascimento = document.getElementById('dataNascimentoNew').value;
+    this.funcaoterceirizado.nome = document.getElementById('nomeNew').value;
+    this.funcaoterceirizado.descricao = document.getElementById('descricaoNew').value;
 
-    console.log('Jonas', this.terceirizado)
-
-    post('salvarTerceirizado', this.terceirizado).then(result=>{
+    post('salvarFuncaoTerceirizado', this.funcaoterceirizado).then(result=>{
         console.log('result', result)
         atualizarTabela()
     }).catch(error=>{
         console.log('error', error)
     })
     
-    this.terceirizado = {}
+    this.funcaoterceirizado = {}
 }
 
 function remover(){
     console.log('Deletar ' + this.selectedId)
 
-    get_params('deletarterceirizado', {id:this.selectedId}).then(result=>{
+    get_params('deletarFuncaoTerceirizado', {id:this.selectedId}).then(result=>{
         atualizarTabela()
     }).catch(error=>{
     })
@@ -217,25 +212,21 @@ var table = document.getElementById("itens-table");
 
 function editar(){//Editar aqui
 
-    this.terceirizado.nome = document.getElementById('nomeEdit').value;
-    this.terceirizado.funcaoTerceirizado = {id:document.getElementById('funcaoedit').value};
-    this.terceirizado.telefone = document.getElementById('telefoneEdit').value;
-    this.terceirizado.email = document.getElementById('emailEdit').value;
-    this.terceirizado.cpf = document.getElementById('cpfEdit').value;
-    this.terceirizado.dataDeNascimento = document.getElementById('dataNascimentoEdit').value;
+    this.funcaoterceirizado.nome = document.getElementById('nomeEdit').value;
+    this.funcaoterceirizado.descricao = document.getElementById('descricaoEdit').value;
 
-    this.terceirizado = this.terceirizadosList.find(terceirizado=>{
-        return terceirizado.id === this.selectedId
+    this.funcaoterceirizado = this.funcaoterceirizadosList.find(funcaoterceirizado=>{
+        return funcaoterceirizado.id === this.selectedId
     })
-    console.log('Novo user ', this.terceirizado)
+    console.log('Nova funcao de terceirizado ', this.funcaoterceirizado)
 
-    post('salvarTerceirizado', this.terceirizado).then(result=>{
+    post('salvarFuncaoTerceirizado', this.funcaoterceirizado).then(result=>{
         console.log('Result ', result)
         this.atualizarTabela()
     }).catch(error=>{
         console.log('Error ', error)
     })
-    this.terceirizado = {}
+    this.funcaoterceirizado = {}
 }
 
 let popup = document.getElementById("popupRemove");
@@ -243,4 +234,5 @@ let telaDesativada = document.getElementById("tela");
 let backdrop = document.getElementById("backdrop");
 let popupEdit = document.getElementById("popupEdit");
 let popupAdd = document.getElementById("popupAdd");
+let popupFiltrar = document.getElementById("popupFiltrar");
 var tableInteract = document.getElementById("itens-table");

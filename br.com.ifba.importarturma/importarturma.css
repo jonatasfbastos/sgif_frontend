@@ -28,6 +28,7 @@ body{
     background-image: linear-gradient(#20631d, #c2f5bf);
     background-repeat: no-repeat;
     background-size: auto;
+    overflow: hidden;
 }
 
 #file::-webkit-file-upload-button{
@@ -50,7 +51,7 @@ body{
 
 #popupImportar{
     width: 400px;
-    height: 400px;
+    height: 350px;
     background: #20631d;
     border-radius: 10px;
     position: absolute;
@@ -64,15 +65,15 @@ body{
     transition: transform 0.4s, top 0.4s; 
 }
 
-#popupImportar img{
+#popupImportar img, #popupArquivoVazio img, #popupErro img{
     width: 100px;
     margin-top: -50px;
 }
 
 #popupImportar h2{
-    font-size: 23px;
-    font-weight: 500;
-    margin: 30px 0 10px;
+    font-size: 30px;
+    font-size: larger;
+    margin: 30px 0 40px;
     color: white;
 }
 
@@ -82,7 +83,7 @@ body{
     transform: translate(-50%, -50%) scale(1);
 }
 
-.importarTurma{
+.importarProfessor{
     width: 200px;
     height: 35px;
 }
@@ -94,13 +95,70 @@ body{
 }
 
 #popupImportar button{
-    height: 35px;
-    width: 250px;
-    margin: 20px;
+    height: 36px;
+    width: 260x;
+    margin-top: 13px;
 }
 
-#centralizando{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+#popupArquivoVazio{
+    width: 400px;
+    height: 200px;
+    background: #20631d;
+    border-radius: 10px;
+    position: absolute;
+    top: 0%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.1);
+    text-align: center;
+    padding: 0 30px 30px;
+    color: #f5f5f5;
+    visibility: hidden;
+    transition: transform 0.4s, top 0.4s; 
+}
+
+#popupArquivoVazio h2{
+    font-size: 20px;
+    font-weight: 500;
+    margin: 20px 0 25px 0;
+    color: white;
+}
+
+#popupArquivoVazio.exibirVazio{
+    visibility: visible;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+#popupErro{
+    width: 400px;
+    height: 200px;
+    background: #20631d;
+    border-radius: 10px;
+    position: absolute;
+    top: 0%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.1);
+    text-align: center;
+    padding: 0 30px 30px;
+    color: #f5f5f5;
+    visibility: hidden;
+    transition: transform 0.4s, top 0.4s; 
+}
+
+#popupErro h2{
+    font-size: 23px;
+    font-weight: 500;
+    margin: 30px 0 10px;
+    color: white;
+}
+
+#popupErro.exibirErro{
+    visibility: visible;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+#popupErro p{
+    margin: 20px 0;
+    font-weight: bold;
 }

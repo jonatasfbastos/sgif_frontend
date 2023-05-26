@@ -40,11 +40,19 @@
     </div>
 
     <div class="popupErro" id="popupErro">
-        <img src="../images/excluir.png" alt="erro">
+        <img src="../images/alerta-icone.png" alt="erro">
         <h2 id="tituloErro">Erro</h2>
         <label for="avaliacoes" id="infoErro">Erro</label>
         <br>
         <button type="button" onclick="closeErroPopup(), telaEnabled()">Fechar</button>
+    </div>
+
+    <div class="popupConfirma" id="popupConfirma">
+        <img src="../images/icone-confirma.png" alt="confirmado">
+        <h2 id="tituloConfirma">Dados salvos</h2>
+        <label for="avaliacoes" id="infoConfirma">Confirma</label>
+        <br>
+        <button type="button" onclick="closeConfirmaPopup(), telaEnabled()">OK</button>
     </div>
 
     <div class="backdrop" id="backdrop" onclick="stopPropagation()"></div>

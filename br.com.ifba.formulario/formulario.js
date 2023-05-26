@@ -149,6 +149,12 @@ function openErroPopup(titulo, motivo){
     document.getElementById('infoErro').innerText = motivo;
 }
 
+function openConfirmaPopup(motivo){
+    teladisabled()
+    popupConfirma.classList.add("popupConfirmaOpen");
+    document.getElementById('infoConfirma').innerText = motivo;
+}
+
 var tablee = document.getElementById("itens-table");
 
 function closeEditPopup(){
@@ -157,6 +163,10 @@ function closeEditPopup(){
 
 function closeErroPopup(){
     popupErro.classList.remove("popupErroOpen");
+}
+
+function closeConfirmaPopup(){
+    popupConfirma.classList.remove("popupConfirmaOpen");
 }
 
 function adicionar(){
@@ -173,6 +183,7 @@ function adicionar(){
         post('salvarFormulario', this.formulario).then(result=>{
             console.log('result', result)
             atualizarTabela()
+            openConfirmaPopup('As informações foram gravadas com sucesso')
         }).catch(error=>{
             console.log('error', error)
             openErroPopup('Impossível salvar formulário', 'Erro ao adicionar no banco de dados')
@@ -192,6 +203,7 @@ function remover(){
 
     get_params('deletarFormulario', {id:this.selectedId}).then(result=>{
         atualizarTabela()
+        openConfirmaPopup('As informações foram removidas com sucesso')
     }).catch(error=>{
         console.log('error', error)
         openErroPopup('Impossível remover formulário', 'Erro ao excluir no banco de dados');
@@ -240,6 +252,7 @@ function editar(){
     post('atualizarFormulario', this.formulario).then(result=>{
         console.log('Result ', result)
         this.atualizarTabela()
+        openConfirmaPopup('As informações foram editadas com sucesso')
     }).catch(error=>{
         console.log('Error ', error)
         openErroPopup('Impossível atualizar formulário', 'Erro ao editar no banco de dados');
@@ -253,4 +266,5 @@ let backdrop = document.getElementById("backdrop");
 let popupEdit = document.getElementById("popupEdit");
 let popupAdd = document.getElementById("popupAdd");
 let popupErro = document.getElementById("popupErro");
+let popupConfirma = document.getElementById("popupConfirma");
 var tableInteract = document.getElementById("itens-table");

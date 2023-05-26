@@ -24,32 +24,51 @@
         <input type="number" name="etapaCursoPeriodo" placeholder="Periodo..." autocomplete="off" class="etapaCursoPeriodo" id="etapaCursoPeriodo">
         <input type="number" name="etapaCursoCargaHoraria" placeholder="Carga Horaria..." autocomplete="off" class="etapaCursoCargaHoraria" id="etapaCursoCargaHoraria">
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <!--
         <label for="tipos">Selecione a matriz curricular: </label>
         <select name="Matriz curricular" id="matrizCurricularEdit">           
         </select> <br>
 
-        
-        <label for="tipos">Selecione a Disciplina: </label>
-        <select name="Disciplina" id="disciplinaEdit">           
-        </select> <br>
-    -->
-        <button type="button" onclick="closeEditPopup(), editar(), telaEnabled()">Confirmar</button>
+        <label>Selecione as disciplinas: </label>
+        <form>
+            <div class="multiselectEdit">
+                <div class="selectBoxEdit" onclick="showCheckboxesEdit()">
+                    <select>
+                        <option>Disciplinas</option>
+                    </select>
+                    <div class="overSelectEdit"></div>
+                </div>
+                <div id="checkboxesEdit">
+                    
+                </div>
+            </div>
+        </form>
+    
+        <button type="button" onclick="closeEditPopup(), adicionarDisciplinaEdit(), editar(), telaEnabled()">Confirmar</button>
         <button type="button" onclick="closeEditPopup(), telaEnabled()">Cancelar</button>
     </div>
+
+    
+    <div class="popupView" id="popupView">
+        <img src="../images/caneta.png" alt="ver">
+        <h2>Etapa Curso</h2>
+        <div class="ContainEtapa">
+            <table class="TableEtapa" id="itens-table-etapa">
+                <thead>
+                    <tr>
+                        <th id="lin_etapa">Disciplina</th>
+                        
+                    </tr>
+                </thead>
+                
+                <tbody id="table-body-etapa">
+                    
+                </tbody>
+            </table>
+        </div>
+        <button type="button" onclick="closePopupView(), telaEnabled()">Voltar</button>
+    </div>
+    
+
 
     <div class="popupAdd" id="popupAdd">
         <img src="../images/botao-adicionar3.png" alt="editar">
@@ -57,57 +76,44 @@
         <input type="text" name="etapaCursoName" placeholder="Nome..." autocomplete="off" class="etapaCursoName" id="etapaCursoNameAdd">
         <input type="number" name="etapaCursoPeriodo" placeholder="Periodo..." autocomplete="off" class="etapaCursoPeriodo" id="etapaCursoPeriodoAdd">
         <input type="number" name="etapaCursoCargaHoraria" placeholder="Carga Horaria..." autocomplete="off" class="etapaCursoCargaHoraria" id="etapaCursoCargaHorariaAdd">
-        <!--
+        
         <label for="tipos">Selecione a matriz curricular: </label>
-        <select name="Matriz curricular" id="matrizCurricular">           
-        </select> <br>
+        <select name="Matriz curricular" id="matrizCurricular">    
 
-        <label for="tipos">Selecione a Disciplina: </label>
-        <select name="Disciplina" id="disciplina">           
         </select> <br>
+                   
+       <label>Selecione as disciplinas: </label>
+       <form>
+            <div class="multiselect">
+                <div class="selectBox" onclick="showCheckboxes()">
+                    <select>
+                        <option>Disciplinas</option>
+                    </select>
+                    <div class="overSelect"></div>
+                </div>
+                    <div id="checkboxes">
+                        
+                    </div>
+            </div>
+       </form>
         
-        
-        <button class="adicionarDisciplina" type="button" onclick="openAddDisciplinaPopup(), teladisabled()" alt="adicionarDisciplina" title="Adicionar Disciplina">Adicionar disciplinas</button>
-        <br>
-    -->
-    
-        
-        
-        
-        <button type="button" onclick="closeAddPopup(), adicionar(), telaEnabled()">Confirmar</button>
+        <button id="cadastrarDados" type="button" onclick="closeAddPopup(), adicionarDisciplina(), adicionar(), telaEnabled()">Confirmar</button>
         <button type="button" onclick="closeAddPopup(), telaEnabled()">Cancelar</button>
     </div>
     
-    
-    
-    <!--
-
-        
-        <div class="popupAddDisciplina" id="popupAddDisciplina">
-            <img src="../images/botao-adicionar3.png" alt="editar">
-            <h2>Selecione as disciplinas desta etapa</h2>
-            <input type="text" name="etapaCursoName" placeholder="Nome..." autocomplete="off" class="etapaCursoName" id="etapaCursoNameAdd">
-            <input type="number" name="etapaCursoPeriodo" placeholder="Periodo..." autocomplete="off" class="etapaCursoPeriodo" id="etapaCursoPeriodoAdd">
-            <input type="number" name="etapaCursoCargaHoraria" placeholder="Carga Horaria..." autocomplete="off" class="etapaCursoCargaHoraria" id="etapaCursoCargaHorariaAdd">
-            
-            <button type="button" onclick="closeAddDisciplinaPopup(), adicionarDisciplina(), telaEnabled()">Confirmar</button>
-            <button type="button" onclick="closeAddDisciplinaPopup(), telaEnabled()">Cancelar</button>
-            
-        </div>
-    -->
-
-
-
-
-
-
-
-
-
-
-
-
     <div class="backdrop" id="backdrop" onclick="stopPropagation()"></div>
+
+
+    <div id="popup-erro">
+        <img src="../images/alerta-icone.png" alt="Ícone de alerta." class="popup-img">
+        <p id="erro-mensagem">
+        </p>
+        <button type="button" class="popup-button" id="btn-erro-fechar">
+            Fechar
+        </button>
+    </div>
+
+
 
     <div class="buttons">
         <div class="search">
@@ -115,7 +121,7 @@
         </div>
         <button class="adicionar" type="button" onclick="openAddPopup(), teladisabled()"><img src="../images/botao-adicionar2.png" alt="adicionar" title="Adicionar"></button>
 
-        <button class="homescreen"> <a href="../br.com.ifba.homescreen/homescreen.html"> <img src="../images/homescreen3.png" alt="homescreen"><p>Homescreen</p></a></button>
+        <button class="homescreen"> <a href="../br.com.ifba.homescreen/homescreen.html"> <img src="../images/casa.png" alt="homescreen"></a></button>
     </div>
 
     <div class="tableContain">
@@ -127,10 +133,8 @@
                         <th>Nome</th>
                         <th>Periodo</th>
                         <th>Carga Horaria</th>
-<!--
-                        <th>Matriz Curricular</th>
-                        <th>Disciplina</th>
-                    --> 
+                        <th>Matriz Curricular</th>                     
+                        <th>Disciplina</th>                  
                         <th>Remover</th>
                         <th>Editar</th>
                     </tr>

@@ -105,3 +105,76 @@ body{
     flex-direction: column;
     align-items: center;
 }
+
+#popupArquivoVazio{
+    width: 400px;
+    height: 200px;
+    background: #20631d;
+    border-radius: 10px;
+    position: absolute;
+    top: 0%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.1);
+    text-align: center;
+    padding: 0 30px 30px;
+    color: #f5f5f5;
+    visibility: hidden;
+    transition: transform 0.4s, top 0.4s; 
+}
+
+#popupArquivoVazio img{
+    width: 100px;
+    margin-top: -50px;
+}
+
+#popupArquivoVazio h2{
+    font-size: 23px;
+    font-weight: 500;
+    margin: 30px 0 10px;
+    color: white;
+}
+
+#popupArquivoVazio.exibirVazio{
+    visibility: visible;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+#popupErro{
+    width: 400px;
+    height: 250px;
+    background: #20631d;
+    border-radius: 10px;
+    position: absolute;
+    top: 0%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.1);
+    text-align: center;
+    padding: 0 30px 30px;
+    color: #f5f5f5;
+    visibility: hidden;
+    transition: transform 0.4s, top 0.4s; 
+}
+
+#popupErro img{
+    width: 100px;
+    margin-top: -50px;
+}
+
+#popupErro h2{
+    font-size: 23px;
+    font-weight: 500;
+    margin: 30px 0 10px;
+    color: white;
+}
+
+#popupErro.exibirErro{
+    visibility: visible;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+#popupErro p{
+    margin: 20px 0;
+    font-weight: bold;
+}
