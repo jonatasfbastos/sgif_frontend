@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Terceirizado</title>
-    <link rel="stylesheet" href="terceirizado.css">
+    <title>Função de Terceirizado</title>
+    <link rel="stylesheet" href="funcaoterceirizado.css">
     
     <script type="text/javascript" src="../js/session.js" onload="validateUser()"></script>
 </head>
@@ -21,12 +21,7 @@
         <img src="../images/caneta.png" alt="editar">
         <h2>Digite as novas informações</h2>
         <input type="text" name="nomeEdit" placeholder="Nome..." autocomplete="off" class="loginUsuario" id="nomeEdit">
-        <input type="text" name="telefoneEdit" placeholder="Telefone..." autocomplete="off" class="loginUsuario" id="telefoneEdit">
-        <input type="email" name="emailEdit" placeholder="E-mail..." autocomplete="off" class="loginUsuario" id="emailEdit">
-        <input type="text" name="cpfEdit" placeholder="CPF..." autocomplete="off" class="loginUsuario" id="cpfEdit">
-        <input type="date" name="dataNascimentoEdit" placeholder="Data de nascimento..." autocomplete="off" class="loginUsuario" id="dataNascimentoEdit">
-        <label for="funcaoedit">Selecione a função do terceirizado: </label>
-        <select name="Funcao do Terceirizado" id="funcaoedit"></select>
+        <input type="text" name="descricaoEdit" placeholder="Descrição..." autocomplete="off" class="loginUsuario" id="descricaoEdit">
 
         <br>
         <button type="button" onclick="closeEditPopup(), editar(), telaEnabled()">Confirmar</button>
@@ -38,20 +33,33 @@
         <h2>Digite as informações do funcionário terceirizado</h2>
         <input type="text" name="nomeNew" placeholder="Nome..." autocomplete="off" class="loginUsuario" id="nomeNew">
 
-        <input type="phone" name="telefoneNew" placeholder="Telefone..." autocomplete="off" class="loginUsuario" id="telefoneNew">
-
-        <input type="email" name="emailNew" placeholder="E-mail..." autocomplete="off" class="loginUsuario" id="emailNew">
-
-        <input type="text" name="cpfNew" placeholder="CPF..." autocomplete="off" class="loginUsuario" id="cpfNew">
-
-        <input type="date" name="dataNascimentoNew" placeholder="Data de nascimento..." autocomplete="off" class="loginUsuario" id="dataNascimentoNew">
-
-        <label for="funcaoadd">Selecione a função do terceirizado: </label>
-        <select name="Funcao do Terceirizado" id="funcaoadd"></select>
+        <input type="text" name="descricaoNew" placeholder="Descrição..." autocomplete="off" class="loginUsuario" id="descricaoNew">
         
         <br>
         <button type="button" onclick="closeAddPopup(), adicionar(), telaEnabled()">Confirmar</button>
         <button type="button" onclick="closeAddPopup(), telaEnabled()">Cancelar</button>
+    </div>
+
+    <div class="popupFiltrar" id="popupFiltrar">
+        <img src="../images/botao_ver.png" alt="filtrar">
+        <h1>Funcionários terceirizados</h1>
+        <div class="tableContain">
+            <div class="scroll">
+                <table class="rTable" id="iten-table">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Função</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-alunos-body">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <button  type="button" class = "popup-button" onclick="closeFiltrarPopup()">
+            Fechar
+        </button>
     </div>
 
     <div class="backdrop" id="backdrop" onclick="stopPropagation()"></div>
@@ -67,13 +75,10 @@
             <thead>
                 <tr>
                     <th>Nome</th>
-                    <th>Função</th>
-                    <th>Telefone</th>
-                    <th>E-Mail</th>
-                    <th>CPF</th>
-                    <th>Data de Nascimento</th>
+                    <th>Descrição</th>
                     <th>Excluir</th>
                     <th>Editar</th>
+                    <th>Filtrar</th>
                 </tr>
             </thead>
             <tbody id="table-body">
@@ -90,6 +95,6 @@
     </div>
 
     <script type="text/javascript" src="../js/requisitions.js"></script>
-    <script type="text/javascript" src="terceirizado.js"></script>
+    <script type="text/javascript" src="funcaoterceirizado.js"></script>
 </body>
 </html>
