@@ -51,7 +51,7 @@ function submit(){
                if(obj.nome != "" && obj.cpf != ""){
                     post('salvarProfessor', obj).then(result=>{
                     }).catch(error=>{
-                         error.text().then(errorExibir=>popupErroExibir(`${errorExibir} \n\n Nome do professor duplicado: ${obj.nome} \n Siape do Professor duplicado: ${obj.siape} `))
+                         error.text().then(errorExibir=>popupErroExibir(errorExibir))
                          })
                     }else{
                          popupErroExibir("Os campos CPF ou Nome estão vazios!");
