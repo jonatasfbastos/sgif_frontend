@@ -1,4 +1,4 @@
-//função para selecionar o arquivo e enviar para ler
+//Selecionar o arquivo e enviar para ler
 function submit(){
     var files = document.querySelector('#file').files;
 
@@ -6,18 +6,19 @@ function submit(){
          var file = files[0];
          readCSVFile(file);
     }else{
-         alert("Por favor, selecione o arquivo.");
+          popupArquivoVazioExibir();
+          importarPopupOcultar();
     }
 
 }
 
-//função que lê o arquivo
+//Lendo o arquivo
 function readCSVFile(file){
 
     var reader = new FileReader();
 
     reader.readAsText(file);
-
+    importarPopupOcultar();
     reader.onload = function(event) {
          var csvdata = event.target.result;
          var rowData = csvdata.split('\n');
@@ -29,28 +30,24 @@ function readCSVFile(file){
 
               var linhaData = rowData[row].replace('\r', '').split(",")
 
-              //pegando dado por dado posição por posição e atribuindo a seu respectivo atributo para enviar
-              obj.nome = linhaData[0];
-              obj.descricao = linhaData[1];
-              obj.codigo = linhaData[2];
-              obj.cargahoraria = linhaData[3];
-              obj.professor = linhaData[4];
-              obj.etapaCurso = linhaData[5];
-              obj.avaliacao = linhaData[6];
+              //pegando os dados e atribuindo...
+              obj.nome = linhaData[1];
+              obj.descricao = linhaData[3];
+              obj.codigo = linhaData[0];
+              //obj.cargahoraria = linhaData[3];
+              //obj.professor = linhaData[4];
+              //obj.etapaCurso = linhaData[5];
+              //obj.avaliacao = linhaData[6];
 
-               //está comentado para futuros testes caso necessário
-               /* for(var j = 0; j < header.length; j++){
-                   obj[header[j].replace(" ", "")] = linhaData[j];
-                   console.log("Header Row", header[j]);
-              }  */
-
-              //salvando o objeto caso o nome e o cpf sejam diferentes de vazio
-               if(obj.nome != "" && obj.codigo != ""){
+              
+               if(obj.nome != "" && obj.codigo != "" && obj.descricao != ""){
                     post('salvarDisciplina', obj).then(result=>{
                     }).catch(error=>{
-                         console.log('error', error)
-                    })
-            }  
+                         error.text().then(errorExibir=>popupErroExibir(`${errorExibir} \n\n Nome da Disciplina duplicada: ${obj.nome} \n Descrição duplicada: ${obj.descricao} `))
+                         })
+                    }else{
+                         popupErroExibir("Por favor, preencha todos os campus!");
+                    }  
             
          }
 
@@ -60,9 +57,25 @@ function readCSVFile(file){
 
 function importarPopupExibir(){
      document.getElementById("popupImportar").classList.add("exibirImportar");
- }
+}
 
- function importarPopupOcultar(){
+function importarPopupOcultar(){
      document.getElementById("popupImportar").classList.remove("exibirImportar");
- }
+}
  
+function popupArquivoVazioExibir(){
+     document.getElementById("popupArquivoVazio").classList.add("exibirVazio");
+}
+
+function popupArquivoVazioOcultar(){
+     document.getElementById("popupArquivoVazio").classList.remove("exibirVazio");
+}
+
+function popupErroExibir(mensagem){
+     document.getElementById("popupErro").classList.add("exibirErro");
+     document.getElementById("erro").innerText = mensagem;
+}
+
+function popupErroOcultar(){
+     document.getElementById("popupErro").classList.remove("exibirErro");
+}
