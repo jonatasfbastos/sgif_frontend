@@ -1,27 +1,29 @@
 var selectedId
 var EtapaCursoList = [] 
 var etapacurso = {}
+var disciplinasList = []
+var disciplinasListEdit = []
+var etapasList = []
+var disciplinaCadastradas = []
 
-// function etapacursoNameAddChange(){
-//     etapacurso.nome = document.getElementById('etapacursoNameAdd').value;
-//     console.log(etapacurso);
-// }
-
-// function etapacursoDescricaoAddChange(){
-//     etapacurso.descricao = document.getElementById('etapacursoDescricaoAdd').value;
-//     console.log(etapacurso);
-// }
-
+mostrarDisciplina()
+mostrarDisciplinaEdit()
 atualizarTabela()
-//setMatrizCurricular()
-//setDisciplina()
+setMatrizCurricular()
+
 function atualizarTabela(){
     
     get('etapaCurso').then(data=>{
-    console.log('Data', data)
-    this.EtapaCursoList = data
-    this.tableCreate(this.EtapaCursoList)
-        }).catch(error=>{
+        console.log('Data', data)
+        this.EtapaCursoList = data
+        
+        data.forEach(item => {
+            console.log("DISC:" + JSON.stringify(item.disciplinas));
+            tableCreateDisciplina(item.disciplinas)
+            
+        });
+        this.tableCreate(this.EtapaCursoList)
+    }).catch(error=>{
         console.log('Error ', error)
     })
 }
@@ -50,17 +52,22 @@ function tableCreate(data){
         colCargaHoraria.appendChild(document.createTextNode(element.cargaHoraria))
         row.appendChild(colCargaHoraria)
 
-/*
         //matriz curricular
         var colMatriz = document.createElement("td")
         colMatriz.appendChild(document.createTextNode(element.matrizCurricular ? element.matrizCurricular.nome : ''))
         row.appendChild(colMatriz)
+        
+    //disciplina
+        var colEtapa = document.createElement("td")
+        colEtapa.setAttribute("onclick", "openPopupView("+JSON.stringify(element)+")")
+        var etapaLink = document.createElement("a")
+        var imgEye = document.createElement("img")
+        imgEye.setAttribute("src", "../images/botao_ver.png")
+        etapaLink.appendChild(imgEye)
+        
+        colEtapa.appendChild(etapaLink)
+        row.appendChild(colEtapa)
 
-        //disciplina
-        var colDisciplina = document.createElement("td")
-        colDisciplina.appendChild(document.createTextNode(element.disciplina ? element.disciplina.nome : ''))
-        row.appendChild(colDisciplina)
-        */
         tableBody.appendChild(row)
 
         var colRemover = document.createElement("td")
@@ -86,26 +93,47 @@ function tableCreate(data){
     });
     }
 }
-/*
+
+
+//tabela de etapa cursos
+function tableCreateDisciplina(data){
+    var tableBodyEta = document.getElementById('table-body-etapa');
+    let disciplinasDaEtapa = data.disciplinas;
+
+    if(tableBodyEta){
+        tableBodyEta.innerHTML = ''
+
+        for (const chave in disciplinasDaEtapa) {
+            var row = document.createElement("tr");
+            disciplinaCadastradas.push({id: Number(disciplinasDaEtapa[chave].id)});
+
+            var colNomeDisciplina = document.createElement("td")
+            colNomeDisciplina.appendChild(document.createTextNode(disciplinasDaEtapa[chave].nome))
+            row.appendChild(colNomeDisciplina)
+            tableBodyEta.appendChild(row)
+        }
+    }
+}
+
 //matriz curricular
 function setMatrizCurricular() {
-
-    get('matrizCurricular').then(matrizCurriculares=>{
+    
+    get('matrizes').then(matrizCurriculares=>{
         console.log('Matriz curriculares ', matrizCurriculares)
-
+        
         var multiCombo = document.getElementById('matrizCurricular')
         var multiComboEdit = document.getElementById('matrizCurricularEdit')
         matrizCurriculares.forEach(tipo=>{
             let option = document.createElement('option')
             option.value = tipo.id
             option.innerHTML = tipo.nome
-
+            
             multiCombo.appendChild(option)
-
+            
             let optionEdit = document.createElement('option')
             optionEdit.value = tipo.id
             optionEdit.innerHTML = tipo.nome
-
+            
             multiComboEdit.appendChild(optionEdit)
             
         })
@@ -115,34 +143,30 @@ function setMatrizCurricular() {
 }
 
 
-//disciplina
-function setDisciplina() {
-
-    get('disciplina').then(disciplinas=>{
-        console.log('Disciplinas ', disciplinas)
-
-        var multiCombo = document.getElementById('disciplina')
-        var multiComboEdit = document.getElementById('disciplinaEdit')
-        disciplinas.forEach(tipo=>{
-            let option = document.createElement('option')
-            option.value = tipo.id
-            option.innerHTML = tipo.nome
-
-            multiCombo.appendChild(option)
-
-            let optionEdit = document.createElement('option')
-            optionEdit.value = tipo.id
-            optionEdit.innerHTML = tipo.nome
-
-            multiComboEdit.appendChild(optionEdit)
-            
-        })
-    }).catch(error=>{
-        console.log('Error ', error)
-    })
+var expanded =false;
+function showCheckboxes() {
+    let checkboxes = document.getElementById("checkboxes");
+    if(!expanded){
+        checkboxes.style.display = "block";
+        expanded = true;
+    }else{
+     checkboxes.style.display = "none";   
+     expanded = false;
+    }
 }
-*/
 
+
+var expandedEdit =false;
+function showCheckboxesEdit() {
+    let checkboxes = document.getElementById("checkboxesEdit");
+    if(!expandedEdit){
+        checkboxes.style.display = "block";
+        expandedEdit = true;
+    }else{
+     checkboxes.style.display = "none";   
+     expandedEdit = false;
+    }
+}
 
 
             function stopPropagation(event){
@@ -158,20 +182,11 @@ function setDisciplina() {
             }
 
 
-/*
-
-
-            function openAddDisciplinaPopup(){
-                popupAddDisciplina.classList.add("openAddDisciplinaPopup");
+            function openPopupView(etapaCurso){
+                teladisabled()
+                tableCreateDisciplina(etapaCurso)
+                popupEye.classList.add("popupEditView")
             }
-
-            function closeAddDisciplinaPopup(){
-                popupAddDisciplina.classList.remove("openAddDisciplinaPopup");
-            }
-
-
-*/
-
 
 
             function openPopup(id){
@@ -192,6 +207,11 @@ function setDisciplina() {
             function telaEnabled(){
                 telaDesativada.classList.remove("disabled_tela");
                 backdrop.classList.remove("disabled_tela");
+            }
+
+                        
+            function closePopupView(){
+                popupEye.classList.remove("popupEditView");
             }
 
             var tablee = document.getElementById("itens-table");
@@ -224,44 +244,99 @@ function setDisciplina() {
             function adicionar(){
 
                 this.etapacurso.nome = document.getElementById('etapaCursoNameAdd').value;               
-                this.etapacurso.periodo = document.getElementById('etapaCursoPeriodoAdd').value;
-                this.etapacurso.cargaHoraria = document.getElementById('etapaCursoCargaHorariaAdd').value;
+                this.etapacurso.periodo = Number(document.getElementById('etapaCursoPeriodoAdd').value);
+                this.etapacurso.cargaHoraria = Number(document.getElementById('etapaCursoCargaHorariaAdd').value);
+                //parte de matriz curricular
+                this.etapacurso.matrizCurricular = {id: Number(document.getElementById('matrizCurricular').value)};
+                       
+                this.etapacurso.disciplinas = disciplinasList;
 
-/*
-              //parte de matriz curricular
-              this.etapacurso.matrizCurricular = {id:document.getElementById('matrizCurricular').value};
-              console.log(this.etapacurso)
+                console.log("FINAL: ", JSON.stringify(etapacurso));
 
-              //disciplina
-              this.etapacurso.disciplina = {id:document.getElementById('disciplina').value};
-              console.log(this.etapacurso)
-                */
+               if(verificaCampo()){
+                    return exibirPopUpErro("Não foi possível cadastrar etapa, há algum campo vazio ou disciplina selecionada ja esta cadastrada em outra etapa.");
+                }
 
-
-                console.log(etapacurso)
-                console.log(etapacurso.id)
-
-                    post('salvarEtapaCurso', etapacurso).then(result=>{
-                        console.log('result', result)
-                        atualizarTabela()
-                    }).catch(error=>{
-                        console.log('error', error)
-                    })
+                post('salvarEtapaCurso', etapacurso).then(result=>{
+                    console.log('result', result)
+                    atualizarTabela()
+                }).catch(error=>{
+                    console.log('error', error)
+                })
                
 
                 document.getElementById('etapaCursoNameAdd').value = '';
                 document.getElementById('etapaCursoPeriodoAdd').value = '';
                 document.getElementById('etapaCursoCargaHorariaAdd').value = '';
             }
-            
+
+
+            function mostrarDisciplina(){
+
+                get('disciplina').then(data=>{
+                    console.log(data);
+                   // if(data.map(item=> item.id) != disciplinaCadastradas.id){
+                        document.getElementById('checkboxes').innerHTML=data.map(item=>`<label><input type="checkbox" value="${item.id}" class="disciplinas" name="disciplinas" id="disciplinas"/>${item.nome}</label>`).join('');
+                  //  }
+                    }).catch(error=>{
+                    console.log('Error ', error)
+                })
+
+            }
+
+
+            function adicionarDisciplina(){
+                let disciplinas = document.getElementsByName("disciplinas")
+
+                for(var i=0; i<disciplinas.length; i++){
+                    if(disciplinas[i].checked){
+                        console.log("as disciplinas selecionadas são: "+ disciplinas[i].value);
+                        disciplinasList.push({id: Number(disciplinas[i].value)});
+                    }
+                }
+
+                console.log(disciplinasList)
+            }
+
+
+            function mostrarDisciplinaEdit(){
+
+                get('disciplina').then(data=>{
+                document.getElementById('checkboxesEdit').innerHTML=data.map(item=>`<label><input type="checkbox" value="${item.id}" class="disciplinasEdit" name="disciplinasEdit" id="disciplinasEdit"/>${item.nome}</label>`).join('');
+                    }).catch(error=>{
+                    console.log('Error ', error)
+                })
+
+            }
+
+
+            function adicionarDisciplinaEdit(){
+                let disciplinasEdit = document.getElementsByName("disciplinasEdit")
+
+                for(var i=0; i<disciplinasEdit.length; i++){
+                    if(disciplinasEdit[i].checked){
+                        console.log("as disciplinas selecionadas são: "+ disciplinasEdit[i].value);
+                        disciplinasListEdit.push({id: Number(disciplinasEdit[i].value)});
+                    }
+                }
+
+                console.log(disciplinasListEdit)
+            }
+
             
             function remover(){
                 console.log('Deletar ' + this.selectedId)
 
-                get_params('deletarEtapaCurso', {id:this.selectedId, p2:'is'}).then(result=>{
-                    atualizarTabela()
+                fetchDelete('deletarEtapaCurso/' + this.selectedId)
+                .then(result=>{
+                    atualizarTabela();
                 }).catch(error=>{
-                })
+                    error.text()
+                   .then(mensagem => {
+                        exibirPopUpErro(mensagem)
+                        console.log(mensagem)
+                    });
+                 });
             }
 
             function buscar(){
@@ -294,13 +369,9 @@ function setDisciplina() {
                 var periodo = document.getElementById("etapaCursoPeriodo").value;
                 var cargaHoraria = document.getElementById("etapaCursoCargaHoraria").value;
 
-               /*
                 var newMatrizId = {id:document.getElementById('matrizCurricularEdit').value}
                 console.log(newMatrizId)
-
-                var newDisciplinaId = {id:document.getElementById('disciplinaEdit').value}
-                console.log(newDisciplinaId)
-*/
+                
                 this.etapacurso = this.EtapaCursoList.find(user=>{
                     return user.id === this.selectedId
                 })
@@ -308,10 +379,16 @@ function setDisciplina() {
                 this.etapacurso.nome = nome;
                 this.etapacurso.periodo = periodo;
                 this.etapacurso.cargaHoraria = cargaHoraria;
-  /*              
+                
                 this.etapacurso.matrizCurricular = newMatrizId;
-                this.etapacurso.disciplina = newDisciplinaId;
-*/
+
+                this.etapacurso.disciplinas = disciplinasListEdit;
+
+                if(verificaCampo()){
+                    return exibirPopUpErro("Não foi possível atualizar etapa, há algum campo vazio ou disciplina selecionada ja esta cadastrada em outra etapa.");
+                }
+
+
                 console.log('Novo Etapa user ', this.etapacurso)
                 post('salvarEtapaCurso', this.etapacurso).then(result=>{
                     console.log('Result ', result)
@@ -321,13 +398,43 @@ function setDisciplina() {
                 })
                 this.etapacurso = {}
             }
+
+
+            
+function verificaCampo(){
+
+    if (etapacurso.nome.trim().length <= 0) {
+        return true;
+    }
+  /*  if (etapacurso.periodo.trim().length <= 0){
+        return true;
+    }
+    if (etapacurso.cargaHoraria.trim().length <= 0){
+        return true;
+    }
+    */
+    return false;
+}
         
         let popup = document.getElementById("popupRemove");
         let telaDesativada = document.getElementById("tela");
         let backdrop = document.getElementById("backdrop");
         let popupEdit = document.getElementById("popupEdit");
         let popupAdd = document.getElementById("popupAdd");
-   //     let popupAddDisciplina = document.getElementById("popupAddDisciplina");
         var tableInteract = document.getElementById("itens-table");
-
+        let popupEye = document.getElementById("popupView");
         
+document.getElementById("btn-erro-fechar")
+    .addEventListener("click", ocultarPopUpErro);
+
+function exibirPopUpErro(mensagem) {
+    const popupErro = document.getElementById("popup-erro");
+    popupErro.classList.add("mostrar-popup");
+    document.getElementById("erro-mensagem").innerText = mensagem;
+}
+
+function ocultarPopUpErro() {
+    const popupErro = document.getElementById("popup-erro");
+    popupErro.classList.remove("mostrar-popup");
+    document.getElementById("erro-mensagem").innerText = "";
+}

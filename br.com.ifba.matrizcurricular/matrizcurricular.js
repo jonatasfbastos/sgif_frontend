@@ -1,6 +1,7 @@
 var selectedId
 var matrizesList = []
 var etapasList = []
+var etapasListEdit = []
 var mc = {}
 
 //showcheckboxes()
@@ -225,6 +226,19 @@ function adicionarEtapas(){
     console.log(etapasList)
 }
 
+function adicionarEtapasEdit(){
+    let etapacursoEdit = document.getElementsByName("etapacurso")
+
+    for(var i=0; i<etapacursoEdit.length; i++){
+        if(etapacursoEdit[i].checked){
+            console.log("as etapas selecionadas sao: " + etapacursoEdit[i].value);
+            etapasListEdit.push({id: Number(etapacursoEdit[i].value)});
+        }
+    }
+
+    console.log(etapasListEdit)
+}
+
 document.getElementById("btn-erro-fechar")
     .addEventListener("click", ocultarPopUpErro);
 
@@ -420,12 +434,10 @@ function editar(){
     var newDescricao = document.getElementById('descricaoMatrizEditar').value
     //var newEtapaCurso = {id:document.getElementById('etapaCursoEdit').value}
 
-    var newEtapaCurso = etapasList;
-
     console.log(newName)
     console.log(newDescricao)
     //console.log(newCurso)
-    console.log(newEtapaCurso)
+    //console.log(newEtapaCurso)
 
     this.mc = this.matrizesList.find(user=>{
         return user.id === this.selectedId
@@ -433,9 +445,8 @@ function editar(){
     
     this.mc.nome = newName;
     this.mc.descricao = newDescricao;
-    
     //this.mc.curso = newCurso;
-    this.mc.etapacurso = newEtapaCurso;
+    this.mc.etapacurso = etapasListEdit;
 
     if(verificaCampos()){
         return exibirPopUpErro("Não foi possível atualizar a Matriz, há algum campo vazio.");
