@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homescreen</title>
+    <link rel="stylesheet" href="escolhersistema.css">
+    <script type="text/javascript" src="../js/session.js" onload="validateUser()"></script>
+</head>
+<body>
+    <main>
+        <div class="header" id="header">
+            <div class="sidebar" id="sidebar">
+
+                <button class="closeopen" id="closeopen">
+                    <img src="../images/barra-de-menu.png" alt="barra-de-menu" class="barra">
+                    <img src="../images/seta-esquerda.png" alt="fechar" class="sair">
+                </button>
+                <h1>Menu</h1>
+
+                <ul class="links-option">
+                    <section>
+                        <!-- <details>
+                            <summary><img src="../images/seta-baixo.png" alt="">SAVA - Sistema de Avaliação de Alunos</summary>
+                            <li><a href=""><img src="" alt=""><p>Funcionalidade 1</p></a></li>
+                            <li><a href=""><img src="" alt=""><p>Funcionalidade 2</p></a></li>
+                            <li><a href=""><img src="" alt=""><p>Funcionalidade 3</p></a></li>
+                        </details> -->
+
+                        <details>
+                            <summary><img src="../images/seta-baixo.png" alt="">SAD - Sistema de Avaliação de Docentes</summary>
+                            <li><a href="../br.com.ifba.aluno/aluno.html"><img src="../images/aluno.png" alt=""><p>Alunos</p></a></li>
+                            <li><a href="../br.com.ifba.turma/turma.html"><img src="../images/turmas.png" alt=""><p>Turmas</p></a></li>
+                            <li><a href="../br.com.ifba.disciplina/disciplina.html"><img src="../images/disciplina.png" alt=""><p>Disciplinas</p></a></li>
+                            <li><a href="../br.com.ifba.matrizcurricular/matrizcurricular.html"><img src="../images/matrizcurricular.png" alt=""><p>Matriz Curricular</p></a></li>
+                            <li><a href="../br.com.ifba.curso/curso.html"><img src="../images/curso.png" alt=""><p>Curso</p></a></li>
+                            <li><a href="../br.com.ifba.etapacurso/etapacurso.html"><img src="../images/etapacurso.png" alt=""><p>Etapa do Curso</p></a></li>
+                            <li><a href="../br.com.ifba.modalidade/modalidade.html"><img src="../images/modalidade.png" alt=""><p>Modalidade do Curso</p></a></li>
+                            
+                            <li><a href="../br.com.ifba.professor/professor.html"><img src="../images/professor.png" alt=""><p>Professores</p></a></li>
+                            <li><a href="../"><img src="../images/importar2.png" alt=""><p>Importar</p></a></li>
+                            <li><a href="../br.com.ifba.avaliacao/avaliacao.html"><img src="../images/avaliacao.png" alt=""><p>Avaliações</p></a></li>
+                            <li><a href="../br.com.ifba.formulario/formulario.html"><img src="../images/formulario.png" alt=""><p>Formulários</p></a></li>
+                            
+                            <li><a href="../br.com.ifba.tecnicoadministrativo/tecnicoadministrativo.html"><img src="../images/tecnico-administrativo.png" alt=""><p>Tec. Administrativo</p></a></li>
+                            <li><a href=""><img src="../images/terceirizado.png" alt=""><p>Terceirizados</p></a></li>
+                        </details>
+
+                        <!-- <details>
+                            <summary><img src="../images/seta-baixo.png" alt="">SUAP - Sistema Unificado de Administração Publica</summary>
+                            <li><a href=""><img src="" alt=""><p>Funcionalidade 1</p></a></li>
+                            <li><a href=""><img src="" alt=""><p>Funcionalidade 2</p></a></li>
+                            <li><a href=""><img src="" alt=""><p>Funcionalidade 3</p></a></li>
+                        </details> -->
+
+                        <details>
+                            <summary><img src="../images/seta-baixo.png" alt="">SALMOS - Sistema de Almoxarifado</summary>
+                    
+                            <li><a href="../br.com.ifba.usuario/usuario.html"><img src="../images/user.png" alt="Usuario"><p>Usuário</p></a></li>
+
+                            <li><a href="../br.com.ifba.tipodeusuario/tipodeusuario.html"><img src="../images/silhueta-do-grupo-de-usuarios.png" alt="Tipos de Usuario"><p>Tipos de Usuário</p></a></li>
+
+                            <li><a href="../br.com.ifba.item/itens.html"><img src="../images/estoque.png" alt="estoque"><p>Itens</p></a></li>
+
+                            <li><a href="../br.com.ifba.tipodeitem/tipodeitem.html"><img src="../images/boxs.png" alt="Tipo de Item"><p>Tipos De Itens</p></a></li>
+
+                            <li><a href="../br.com.ifba.setores/setores.html"><img src="../images/grafico-de-setores.png" alt="setores"><p>Setor</p></a></li>
+
+                            <li><a href="../br.com.ifba.fornecedor/fornecedor.html"><img src="../images/fornecedor.png" alt="fornecedor"><p>Fornecedor</p></a></li>
+
+                            <li><a href="../br.com.ifba.graficos/graficos.html"><img src="../images/progressao-grafica.png" alt="graficos"><p>Gráficos</p></a></li>
+
+                            <li><a href="../br.com.ifba.requisicao/requisicao.html"><img src="../images/quote-request.png" alt="requisicao"><p>Requisição</p></a></li>
+
+                            <li><a href="../br.com.ifba.empenho/empenho.html"><img src="../images/empenho.png" alt="empenho"><p>Empenho</p></a></li>
+
+                            <li><a href="../br.com.ifba.disciplina/disciplina.html"><img src="../images/nome.png" alt="Disciplina"><p>Disciplina</p></a></li>
+                                    
+                            <li><a href="../br.com.ifba.notificationcenter/notificationcenter.html"><img src="../images/icons8-lembrete-de-compromissos-64.png" alt="notificações" width="22px" height="22px"><p>Central de notificações</p></a></li>
+
+                            <li><a href="../br.com.ifba.relatoriomensal/relatoriomensal.html"><img src="../images/relatorio-de-lucro.png" alt="relatório mensal"><p>Relatório Mensal</p></a></li>
+                        </details>
+
+                        <details>
+                            <summary><img src="../images/seta-baixo.png" alt="">Administrador</summary>
+                            <li><a href=""><img src="" alt=""><p>Funcionalidade 1</p></a></li>
+                            <li><a href=""><img src="" alt=""><p>Funcionalidade 2</p></a></li>
+                            <li><a href=""><img src="" alt=""><p>Funcionalidade 3</p></a></li>
+                        </details>
+
+                    </section>
+                   <!-- <li><a href=""><img src="" alt=""><p>Página 1</p></a></li> -->
+                    <div class="projector"></div>
+                </ul>
+            </div>
+        </div>
+
+        
+
+        <!-- <img src="../images/IFBA_MARCA_vertical-01_Easy-Resize.com.jpg" class="icon-ifba"> --> 
+
+        <div class="complement">
+            <h7><img src="../images/sgif.png" width="150px" height="auto"></h7>
+            <h5>Escolha a plataforma que deseja acessar</h5>
+            <div class="container">
+                <div class="box">
+                    <div class="content">
+                        <img src="../images/testeSALMOS.png">
+                        <h3>Sistema de Almoxarifado</h3>
+                        <a href="/sgif_frontend/br.com.ifba.homescreen/homescreen.html"> ENTRAR</a>
+                    </div>
+                </div>  
+
+                   <!--  <div class="box">
+                        <div class="content">
+                            <img src="../images/testeSUAP.png">
+                            <h3>Sistema unificado de administração publica</h3>
+                            <a href="https://suap.ifba.edu.br/"> ENTRAR</a>
+                        </div>  
+                    </div>
+
+                    <div class="box">
+                        <div class="content">
+                            <img src="../images/testeSAVA.png">
+                            <h3>Sistema de Avaliação de Alunos</h3>
+                            <a href=""> ENTRAR</a>
+                        </div>  
+                    </div> -->
+
+                    <div class="box">
+                        <div class="content">
+                            <img src="../images/teste sad.png">
+                            <h3>Sistema de Avaliação de Docentes</h3>
+                            <a href=""> ENTRAR</a>
+                        </div>  
+                    </div>
+        </div>
+        </div>
+
+
+        <div class="menubar">
+            <div class="notification">
+                <a onclick="showNotifications()">
+                    <div id="not-qty" class="no-not">9</div>
+                    <img src="../images/icons8-lembrete-de-compromissos-64.png" alt="" width="25px">
+                </a>
+
+                <div class="notification-popup-hide" id="notification-popup">
+                </div>
+            </div>
+
+            <div class="menu-user">
+                <a class="user">
+                    <img src="../images/userlogin.png" alt="userlogin" width="40px" height="40px"> 
+                    &nbsp;&nbsp;
+                    <p id="user_name">Brito</p>
+                </a>
+                                
+                <div class="user-options">
+                    <a href="../br.com.ifba.profile/profile.html"> 
+                        <img src="../images/usuario-logado2.png" alt="perfil-de-usuario"> 
+                        &nbsp;&nbsp;
+                        <p>Perfil</p>
+                    </a>
+                    <a href="#"> 
+                        <img src="../images/info-button.png" alt="info"> 
+                        &nbsp;&nbsp;
+                        <p>Sobre</p>
+                    </a>
+                    <a onclick="logOut()" class="logout" href="../br.com.ifba.login/index.html"> 
+                        <img src="../images/logout2.png" alt="logout" >
+                        &nbsp;&nbsp;
+                        <p>Logout</p>
+                    </a>
+                </div>
+            </div>
+          
+        </div>
+    </main>
+
+    <!--padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    colocar em colunas certinho-->
+    <script src="../js/session.js"></script>
+    <script src="../scripts/javascript.js"></script>
+    <script src="../js/requisitions.js"></script>
+    <script src="homescreen.js"></script>
+    <script type="text/javascript" src="../js/notification-home.js" onload="initNot()"></script>
+</body>
+</html>
