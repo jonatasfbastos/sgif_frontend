@@ -3,20 +3,20 @@ var cursoList = []
 var curso = {}
 var matrizesList = []
 var matriz = {}
-var modalidadeList = []
+/*var modalidadeList = []
 var modalidade = {}
-
+*/
 atualizarTabela()
-setModalidade()
+/*setModalidade()
 setMatrizCurricular()
-
+*/
 function atualizarTabela(){
     get('curso').then(data=>{
     console.log('Data', data)
     this.cursoList = data
-    this.matrizesList = data
+    /*this.matrizesList = data*/
     this.tableCreate(this.cursoList)
-    this.tableCreateMatriz(this.matrizesList)
+    /*this.tableCreateMatriz(this.matrizesList)*/
         }).catch(error=>{
         console.log('Error ', error)
     })
@@ -67,19 +67,17 @@ function tableCreate(data){
         colEditar.appendChild(editarLink)
         row.appendChild(colEditar)
 
-        
-        
         //botão para exibir lista de matriz curricular
         var colMatriz = document.createElement("td")
-        colMatriz.setAttribute("onclick", "openPopupView("+element.id+")")
+        colMatriz.setAttribute("onclick", "openPopupView("+JSON.stringify(element)+")")
         var matrizLink = document.createElement("a")
         var imgEye = document.createElement("img")
         imgEye.setAttribute("src", "../images/botao_ver.png")
         matrizLink.appendChild(imgEye)
-                
-        colMatriz.appendChild(matrizLink)
-        row.appendChild(colMatriz)
         
+        colMatriz.appendChild(matrizLink)
+        row.appendChild(colMatriz)  
+
         tableBody.appendChild(row)
         console.log(element)
 
@@ -90,39 +88,126 @@ function tableCreate(data){
 //tabela de matrizes curriculares
 function tableCreateMatriz(data){
     var tableBodyMatriz = document.getElementById('table-body-matriz');
+    let matrizes_curso = data.matrizcurricular;
+
     if(tableBodyMatriz){
         tableBodyMatriz.innerHTML = ''
-        data.forEach(element => {
+        
             var row = document.createElement("tr");
 
-            var colID = document.createElement("td")
-            colID.appendChild(document.createTextNode(element.id))
-            row.appendChild(colID)
+            for (const chave in matrizes_curso) {   
+                var colNomeMatriz = document.createElement("td");
+                colNomeMatriz.appendChild(document.createTextNode(matrizes_curso[chave].nome))
+                row.appendChild(colNomeMatriz)
     
-            //setando o nome da matriz curricular na tabela das matrizes
-            get('matrizCurricular').then(matrizcurricular=>{
-                console.log('Matrizes curriculares', matrizcurricular)
+            }
 
+            get('matrizcurricular').then(matrizcurricular=>{
+                console.log('Matrizes curriculares ', matrizcurricular)
+    
                 var colNomeMatriz = document.createElement("td")
                 matrizcurricular.forEach(tipo=>{
-                let option = document.createElement('option')
-                option.value = tipo.id
-                option.innerHTML = tipo.nome
-
-                colNomeMatriz.appendChild(option)
-                row.appendChild(colNomeMatriz)
-            
-            })
-            }).catch(error=>{
-                console.log('Error ', error)
+                    let option = document.createElement('option')
+                    option.value = tipo.id
+                    option.innerHTML = tipo.nome
+    
+                    colNomeMatriz.appendChild(option)
+                    row.appendChild(colNomeMatriz)
+    
+                })
+                }).catch(error=>{
+                    console.log('Error ', error)
             })
     
             tableBodyMatriz.appendChild(row)
-            console.log(element)
-            
-        });
     }
 }
+
+/*function setModalidade() {
+
+    get('modalidade').then(modalidade=>{
+        console.log('Modalidade ', modalidade)
+
+        var multiCombo = document.getElementById('modalidadeAdd')
+        var multiComboEdit = document.getElementById('modalidadeEdit')
+        modalidade.forEach(tipo=>{
+            let option = document.createElement('option')
+            option.value = tipo.id
+            option.innerHTML = tipo.nome
+
+            multiCombo.appendChild(option)
+
+            let optionEdit = document.createElement('option')
+            optionEdit.value = tipo.id
+            optionEdit.innerHTML = tipo.nome
+
+            multiComboEdit.appendChild(optionEdit)
+            
+        })
+    }).catch(error=>{
+        console.log('Error ', error)
+    })
+}*/
+
+function setMatrizCurricular() {
+    
+    get('matrizCurricular').then(matrizCurricular=>{
+        console.log('Matrizes Curriculares', matrizCurricular)
+
+        var multiCombo = document.getElementById('matrizAdd')
+        var multiComboEdit = document.getElementById('matrizEdit')
+        matrizCurricular.forEach(tipo=>{
+            
+            var option = document.createElement("option")
+            option.value = tipo.id
+            option.innerHTML = tipo.nome
+
+            multiCombo.appendChild(option)
+            
+            let optionEdit = document.createElement('option')
+            optionEdit.value = tipo.id
+            optionEdit.innerHTML = tipo.nome
+
+            multiComboEdit.appendChild(optionEdit)
+            
+        })
+    }).catch(error=>{
+        console.log('Error ', error)
+    })
+}
+
+function mostrarMatrizes(){
+    get('matrizCurricular').then(data=>{
+        document.getElementById('checkboxes').innerHTML=data.map(item=>`<label ><input type="checkbox" value="${item.id}"
+        class="matrizcurricular" name="matrizcurricular" id="matrizcurricular"/>${item.nome}<label>`).join('');
+    }).catch(error=>{
+        console.log("Error ", error)
+    })
+}
+
+function mostrarMatrizesEdit(){
+    get('matrizCurricular').then(data=>{
+        document.getElementById('checkboxesEdit').innerHTML=data.map(item=>`<label ><input type="checkbox" value="${item.id}"
+        class="matrizcurricular" name="matrizcurricular" id="matrizcurricular"/>${item.nome}<label>`).join('');
+    }).catch(error=>{
+        console.log("Error ", error)
+    })  
+}
+
+function adicionarMatrizes(){
+    let matrizcurricular = document.getElementsByName("matrizcurricular")
+
+    for(var i=0; i<matrizcurricular.length; i++){
+        if(matrizcurricular[i].checked){
+            console.log("As matrizes curriculares escolhidas são: " + matrizcurricular[i].value);
+            matrizesList.push({id: Number(matrizcurricular[i].value)});
+        }
+    }
+    console.log(matrizesList)
+}
+
+
+/*
 
 let matrizesSelecionadas = []
 
@@ -164,46 +249,29 @@ function setModalidade() {
         console.log('Error ', error)
     })
 }
+*/
+var expandedAdd = false;
+function showcheckboxesAdd(){
+    var checkboxes = document.getElementById("checkboxesAdd");
+    if(!expandedAdd){
+        checkboxes.style.display = "block";
+        expandedAdd = true;
+    }else{
+        checkboxes.style.display = "none";
+        expandedAdd = false;
+    }
+}
 
-function setMatrizes() {
-    get('matrizCurricular').then(matrizcurricular=>{
-        console.log('Matrizes curriculares', matrizcurricular)
-
-        var multiCombo = document.getElementById('matrizes')
-        var multiComboEdit = document.getElementById('matrizesEdit')
-        matrizcurricular.forEach(tipo=>{
-            //setando as matrizes no checkbox
-            var option = document.createElement("LABEL")
-            var broke = document.createElement("BR")
-            var check = document.createElement("INPUT")
-            check.setAttribute("type", "checkbox");
-            option.value = tipo.id
-            option.innerHTML = tipo.nome
-            check.value = tipo.id
-            check.innerHTML = tipo.nome
-
-            multiCombo.appendChild(check)
-            multiCombo.appendChild(option)
-            multiCombo.appendChild(broke)
-            
-
-            let optionEdit = document.createElement('LABEL')
-            var broke = document.createElement("BR")
-            var check = document.createElement("INPUT")
-            check.setAttribute("type", "checkbox");
-            optionEdit.value = tipo.id
-            optionEdit.innerHTML = tipo.nome
-            check.value = tipo.id
-            check.innerHTML = tipo.nome
-
-            multiComboEdit.appendChild(check)
-            multiComboEdit.appendChild(optionEdit)
-            multiComboEdit.appendChild(broke)
-            
-        })
-    }).catch(error=>{
-        console.log('Error ', error)
-    })
+var expandedEdit = false;
+function showcheckboxesEdit(){
+    var checkboxes = document.getElementById("checkboxesEdit");
+    if(!expandedEdit){
+        checkboxes.style.display = "block";
+        expandedEdit = true;
+    }else{
+        checkboxes.style.display = "none";
+        expandedEdit = false;
+    }
 }
 
 function stopPropagation(event){
@@ -213,31 +281,22 @@ function stopPropagation(event){
 function openAddPopup(){
     popupAdd.classList.add("openAddPopup");
 }
-/*
-function openPopupAdd(){
-    popupAdd.classList.add("openAddPopup");
-}
 
-function openPopupAdd() {
-    const popupAdd = document.getElementById("popupAdd");
-    popupAdd.classList.add("popupView");
-
-}
-*/
 function closeAddPopup(){
     popupAdd.classList.remove("openAddPopup");
+}
+
+function openPopupView(matrizes){
+    teladisabled()
+    //this.selectedId = id
+    tableCreateMatriz(matrizes)
+    popupEye.classList.add("popupEditView");
 }
 
 function openPopup(id){
     teladisabled()
     this.selectedId = id
     popup.classList.add("open_popup");
-}
-
-function openPopupView(id){
-    teladisabled()
-    this.selectedId = id
-    popupEye.classList.add("popupEditView");
 }
 
 function teladisabled(){
@@ -254,18 +313,39 @@ function telaEnabled(){
     backdrop.classList.remove("disabled_tela");
 }
 
-var tablee = document.getElementById("itens-table");
-
-function closePopup(){
-    popup.classList.remove("open_popup");
-}
-
 function closePopupView(){
     popupEye.classList.remove("popupEditView");
 }
 
+function closePopup(){
+    popup.classList.remove("open_popup");
+    
+}
+/*
+function openEditPopup(id){
+    teladisabled()
+    this.selectedId = id
+    popupEdit.classList.add("popupEditOpen");
+    console.log('Id ',id)
+    let usr = this.cursoList.find(user=>{
+        return user.id === id
+    })
 
-function openPopupEdit(id){
+    console.log('Curso encontrado', usr)
+    
+    document.getElementById('nomeCursoEditar').value = usr.nome
+    if(usr.curso){
+        document.getElementById('modalidadeEdit').value = usr.modalidade ? usr.modalidade.id : '';
+    }
+    if(usr.matrizcurricular){
+        document.getElementById('matrizCurricularEdit').value = usr.matrizcurricular ? usr.matrizcurricular.id : '';
+    }
+}
+*/
+var table = document.getElementById("itens-table");
+
+
+function openEditPopup(id){
     teladisabled()
     this.selectedId = id
     popupEdit.classList.add("popupEditOpen");
@@ -279,7 +359,8 @@ function openPopupEdit(id){
     document.getElementById('cursoNomeedit').value = cursoEditando.nome
     document.getElementById('cursoCodigoedit').value = cursoEditando.codigo
     document.getElementById('cursoSiglaedit').value = cursoEditando.sigla
-    document.getElementById('cursoAtivoedit').value = cursoEditando.ativo
+    document.getElementById('cursoAtivoTrue').value = true;
+    document.getElementById('cursoAtivoFalse').value = false;
 
     if(cursoEditando.curso){
         document.getElementById('cursoedit').value = cursoEditando.curso ?cursoEditando.curso.id : '';
@@ -294,13 +375,16 @@ function adicionar(){
     this.curso.nome = document.getElementById('cursoNomeadd').value;
     this.curso.codigo = document.getElementById('cursoCodigoadd').value;
     this.curso.sigla = document.getElementById('cursoSiglaadd').value;
-    this.curso.ativo = document.getElementById('cursoAtivoadd').value;
+    this.curso.ativot = document.getElementById('cursoAtivoTrue').value = true;
+    this.curso.ativot = document.getElementById('cursoAtivoFalse').value = false;
 
-    this.curso.modalidade = {id:document.getElementById('modalidadeadd').value}
+    console.log(this.curso)
+
+    /*this.curso.modalidade = {id:document.getElementById('modalidadeadd').value}
     this.matriz.matrizcurricular = {id:document.getElementById('matrizCurricularadd').value}
-
+*/
     if(verificaCampo()){
-        return exibirPopUpErro("Não foi possível atualizar o curso, há algum campo vazio.");
+        return exibirPopUpErro("Não foi possível salvar o curso, há algum campo vazio.");
     }
 
     //se os campos de nome ou de codigo estiverem vazios, não serão salvos 
@@ -312,15 +396,17 @@ function adicionar(){
             console.log('error', error)
         })
     }else{console.log('error')}
+
     this.curso = {}
-    this.matriz = {}
+    //this.matriz = {}
 
     document.getElementById('cursoNomeadd').value = '';
     document.getElementById('cursoCodigoadd').value = '';
     document.getElementById('cursoSiglaadd').value = '';
-    document.getElementById('cursoAtivoadd').value = '';
-    document.getElementById('matrizCurricularadd').value = '';
-    document.getElementById('modalidadeadd').value = '';
+    document.getElementById('cursoAtivoTrue').value = true;
+    document.getElementById('cursoAtivoFalse').value = false;
+   /* document.getElementById('matrizCurricularadd').value = '';
+    document.getElementById('modalidadeadd').value = '';*/
 }
 
 function remover(){
@@ -354,9 +440,6 @@ function buscar(){
     }
 }
 
-var table = document.getElementById("itens-table");
-
-
 function verificaCampo(){
 
     if (curso.nome.trim().length <= 0) {
@@ -368,8 +451,6 @@ function verificaCampo(){
     if (curso.sigla.trim().length <= 0){
         return true;
     }
-    
-    
 
     return false;
 }
@@ -379,7 +460,8 @@ function editar(){
     var nome = document.getElementById("cursoNomeedit").value;
     var codigo = document.getElementById("cursoCodigoedit").value;
     var sigla = document.getElementById("cursoSiglaedit").value;
-    var ativo = document.getElementById("cursoAtivoedit").value;
+    var ativot =  document.getElementById('cursoAtivoTrue').value = true;
+    var ativof = document.getElementById('cursoAtivoFalse').value = false;
 
     this.curso = this.cursoList.find(user=>{
         return user.id === this.selectedId
@@ -388,7 +470,8 @@ function editar(){
     this.curso.nome = nome
     this.curso.codigo = codigo
     this.curso.sigla = sigla
-    this.curso.ativo = ativo
+    this.curso.ativot = ativot
+    this.curso.ativof = ativof
 
     if(verificaCampo()){
         return exibirPopUpErro("Não foi possível atualizar o curso, há algum campo vazio.");
@@ -411,9 +494,10 @@ let telaDesativada = document.getElementById("tela");
 let backdrop = document.getElementById("backdrop");
 let popupEdit = document.getElementById("popupEdit");
 let popupAdd = document.getElementById("popupAdd");
+let popupEye = document.getElementById("popupView");
 var tableInteract = document.getElementById("itens-table");
 
-/*document.getElementById("btn-erro-fechar")
+document.getElementById("btn-erro-fechar")
     .addEventListener("click", ocultarPopUpErro);
 
 function exibirPopUpErro(mensagem) {
@@ -426,4 +510,4 @@ function ocultarPopUpErro() {
     const popupErro = document.getElementById("popup-erro");
     popupErro.classList.remove("mostrar-popup");
     document.getElementById("erro-mensagem").innerText = "";
-}*/
+}

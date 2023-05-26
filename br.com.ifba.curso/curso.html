@@ -6,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Curso</title>
     <link rel="stylesheet" href="curso.css">
+    
 </head>
 
-<body id="tela">
+<body id="tela" class>
 
     <div class="popupView" id="popupView">
         <img src="../images/caneta.png" alt="ver">
@@ -19,7 +20,6 @@
                 <tr>
                     <th>ID</th>
                     <th id="lin_matriz">Matriz Curricular</th>
-                    <th>Disciplina</th>
                 </tr>
             </thead>
 
@@ -31,6 +31,7 @@
         <button type="button" onclick="closePopupView(), telaEnabled()">Voltar</button>
     </div>
 
+
    <div class="popupRemove" id="popupRemove">
         <img src="../images/ask.png" alt="question-sign-in-circles">
         <h2>Você tem certeza que deseja remover esse Curso?</h2>
@@ -38,7 +39,7 @@
         <button type="button" onclick="closePopup(), telaEnabled()">Não</button>
     </div>
 
-    <div class="buttons">
+    <div class="buttons"  id="botoes">
         <div class="search">
             <input type="text" placeholder="Procurar..." class="loupe" id="loupe" onkeyup="buscar()"> 
         </div>
@@ -46,36 +47,87 @@
         <button class="homescreen"> <a href="../br.com.ifba.homescreen/homescreen.html"> <img src="../images/casa.png" alt="homescreen"></a></button>
     </div>
 
+
     <div class="popupEdit" id="popupEdit">
         <img src="../images/caneta.png" alt="editar">
         <h2>Digite as novas informações</h2>
         <input type="text" name="cursoNomeedit" placeholder="Nome..." autocomplete="off" class="cursonomeedit" id="cursoNomeedit">
-        <input type="text" name="cursoCodigoedit" placeholder="Código..." autocomplete="off" class="cursocodigoedit" id="cursocodigoedit">
-        <input type="text" name="cursoSiglaedit" placeholder="Sigla..." autocomplete="off" class="cursosiglaedit" id="cursosiglaedit">
-        <input type="text" name="cursoDescricaoedit" placeholder="Descrição..." autocomplete="off" class="cursodescricaoedit" id="cursodescricaoedit">
-        <input type="checkbox" name="cursoAtivoedit" placeholder="Ativo..." autocomplete="off" class="cursoativoedit" id="cursoativoedit">
-        <label for="modalidade" id="modalidadeedit">Selecione a modalidade do Curso: </label>
-        <select name="Modalidade do curso" id="modalidadeedit"></select><br>
-        <button type="button" onclick="closeEditPopup(), editar(), telaEnabled()">Confirmar</button>
-        <button type="button" onclick="closeEditPopup(), telaEnabled()">Cancelar</button>
+        <input type="text" name="cursoCodigoedit" placeholder="Código..." autocomplete="off" class="cursocodigoedit" id="cursoCodigoedit">
+        <input type="text" name="cursoSiglaedit" placeholder="Sigla..." autocomplete="off" class="cursosiglaedit" id="cursoSiglaedit">
+        <input type="text" name="cursoDescricaoedit" placeholder="Descrição..." autocomplete="off" class="cursodescricaoedit" id="cursoDescricaoedit">
+        
+        <h3 class="lblativoedit">Curso Ativo</h3>   
+
+        <input type="radio" name="Ativo" id="cursoAtivoTrueEdit" value="VERDADEIRO"/>
+        <label for="cursoAtivoTrueEdit"> SIM </label>
+        <input type="radio" name="Ativo" id="cursoAtivoFalseEdit" value="FALSO"/>       
+        <label for="cursoAtivoFalseEdit"> NÃO </label>
+        </select><br>
+
+       <!-- <label>Selecione a Modalidade do Curso: </label>-->
+        <form>
+            <div class="multiselect">
+                <div class="selectBox" onclick="showcheckboxesEdit()">
+                    <select>
+                        <option>Modalidade do curso</option>
+                    </select>
+                    <div class="overSelect"></div>
+                </div>
+                <br>
+                    <div id="checkboxesEdit">
+
+                    </div>
+            </div>
+        </form>
+        <br>
+       <!-- <label for="modalidade" id="modalidadeedit">Selecione a modalidade do Curso: </label>
+        <select name="Modalidade do curso" id="modalidadeedit"></select><br>-->
+        <button type="button" class="btnconfirmar" onclick="closeEditPopup(), editar(), telaEnabled()">Confirmar</button>
+        <button type="button" class="btncancelaredit" onclick="closeEditPopup(), telaEnabled()">Cancelar</button>
     </div>
+
 
     <div class="popupAdd" id="popupAdd">
         <img src="../images/botao-adicionar3.png" alt="adicionar">
         <h2>Digite as informações do Curso</h2>
-        <input type="text" name="cursoNomeadd" placeholder="Nome..." autocomplete="off" class="cursonomeadd" id="cursonomeadd">
-        <input type="text" name="cursoCodigoadd" placeholder="Código..." autocomplete="off" class="cursocodigoadd" id="cursocodigoadd">
-        <input type="text" name="cursoSiglaadd" placeholder="Sigla..." autocomplete="off" class="cursosiglaadd" id="cursosiglaadd">
-        <h3>Curso Ativo</h3>
-        <input type="text" name="cursoDescricaoadd" placeholder="Descrição..." autocomplete="off" class="cursodescricaoadd" id="cursodescricaoadd">
-        <input type="checkbox" name="cursoAtivoadd" placeholder="Ativo..." autocomplete="off" class="cursoativoadd" id="cursoativoadd">
-        <label for="modalidade" id="modalidadeadd">Selecione a modalidade do Curso: </label>
-        <select name="Modalidade do curso" id="modalidadeadd"></select><br>
-        <button type="button" onclick="closeAddPopup(), adicionar(), telaEnabled()">Confirmar</button>
-        <button type="button" onclick="closeAddPopup(), telaEnabled()">Cancelar</button>
+        <input type="text" name="cursoNomeadd" placeholder="Nome..." autocomplete="off" class="cursonomeadd" id="cursoNomeadd">
+        <input type="text" name="cursoCodigoadd" placeholder="Código..." autocomplete="off" class="cursocodigoadd" id="cursoCodigoadd">
+        <input type="text" name="cursoSiglaadd" placeholder="Sigla..." autocomplete="off" class="cursosiglaadd" id="cursoSiglaadd">
+        <input type="text" name="cursoDescricaoadd" placeholder="Descrição..." autocomplete="off" class="cursodescricaoadd" id="cursoDescricaoadd">
+        
+        <h3 class="lblativo">Curso Ativo</h3>        
+        
+        <input type="radio" name="Ativo" id="cursoAtivoTrue" value="VERDADEIRO"/>
+        <label for="cursoAtivoTrue"> SIM </label>
+        <input type="radio" name="Ativo" id="cursoAtivoFalse" value="FALSO">       
+        <label for="cursoAtivoFalse"> NÃO </label>
+
+        
+       <!--- <label>Selecione a Modalidade do Curso: </label>-->
+        <form>
+            <div class="multiselect">
+                <div class="selectBox" onclick="showcheckboxes()">
+                    <select>
+                        <option>Modalidade do curso</option>
+                    </select>
+                    <div class="overSelect"></div>
+                </div>
+                <br>
+                    <div id="checkboxes">
+
+                    </div>
+            </div>
+        </form>
+        <br>
+        <!--<label for="modalidade" id="modalidadeadd">Selecione a modalidade do Curso: </label>
+        <select name="Modalidade do curso" id="modalidadeadd"></select><br>-->
+        <button type="button" class="btnadicionar" onclick="closeAddPopup(), adicionar(), telaEnabled()">Confirmar</button>
+        <button type="button" class="btncancelar" onclick="closeAddPopup(), telaEnabled()">Cancelar</button>
     </div>
 
+
     <div class="backdrop" id="backdrop" onclick="stopPropagation()"></div>
+
 
     <div id="popup-erro">
         <img src="../images/alerta-icone.png" alt="Ícone de alerta." class="popup-img">
@@ -92,15 +144,14 @@
             <table class="rTable" id="itens-table">
                 <thead>
                     <tr>
-                        <th>ID</th>
                         <th>Nome</th>
-                        <th>Descrição</th>
                         <th>Código</th>
                         <th>Sigla</th>
-                        <th>Ativo</th>
-                        <th>Modalidade</th>
+                        <th>Ativo</th>  
                         <th>Remover</th>
                         <th>Editar</th>
+                        <th>Visualizar</th>
+                      
                     </tr>
                 </thead>
             
@@ -112,6 +163,7 @@
     </div>
 
     <script type="text/javascript" src="../js/requisitions.js"></script>
-    <script type="text/javascript" src="curso.js"></script>
+    <script type="text/javascript" src="curso.js"></script>  
+
 </body>
 </html>

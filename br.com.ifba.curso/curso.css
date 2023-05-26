@@ -12,7 +12,7 @@ body{
     background-size: auto;
 }
 
-.buttons{
+#botoes{
     width: 100vw;
     height: 20vh;
     display: flex;
@@ -219,6 +219,7 @@ tr:hover {
     border-radius: 10px;
     position: absolute;
     top: 0%;
+    bottom: -180px;
     left: 50%;
     transform: translate(-50%, -50%) scale(0.1);
     text-align: center;
@@ -255,7 +256,7 @@ tr:hover {
     margin-left: 10px;
 }
 
-.popupAdd .cursonomeadd, .cursocodigoadd, .cursosiglaadd, .cursoativoadd, .cursodescricaoadd{
+.popupAdd input {
     border: 1px #13293D solid;
     padding-left: 10px;
     width: 100%;
@@ -284,14 +285,6 @@ tr:hover {
 
 .cursosiglaadd{
     background-image: url(../images/login.png);
-    background-repeat: no-repeat;
-    background-position: left;
-    background-size: 1.3em;
-    background-position-x: 20px;
-}
-
-.cursoativoadd{
-    background-image: url(../images/local-na-rede-internet.png);
     background-repeat: no-repeat;
     background-position: left;
     background-size: 1.3em;
@@ -333,6 +326,7 @@ tr:hover {
     border-radius: 10px;
     position: absolute;
     top: 0%;
+    bottom: -170px;
     left: 50%;
     transform: translate(-50%, -50%) scale(0.1);
     text-align: center;
@@ -374,7 +368,7 @@ tr:hover {
     color: #e3e6d0;
 }
 
-.popupEdit .cursonomeadd{
+.popupEdit input{
     border: 1px #13293D solid;
     padding-left: 10px;
     width: 100%;
@@ -403,16 +397,71 @@ tr:hover {
 
 .popupEditOpen{
     visibility: visible;
-    top: 50%;
+    top: 52%;
     transform: translate(-50%, -50%) scale(1);
     z-index: 10;
 }
 
 .popupEditView{
     visibility: visible;
-    top: 50%;
+    top: 52%;
     transform: translate(-50%, -50%) scale(1);
     z-index: 10;
+}
+
+#cursoAtivoTrueEdit {
+    width: 20px;
+    height: 20px;
+    padding-left: 10px;
+    margin: 40px 15px;
+    position: relative;
+    left: 34%;
+    top: -50px;
+}
+
+#cursoAtivoTrueEdit +label {
+    font-size: 20px;   
+    margin: -6px;
+    position: relative;
+    left: 33%;
+    top: -52px;
+}
+
+#cursoAtivoFalseEdit {
+    width: 20px;
+    height: 20px;
+    padding-left: 10px;
+    margin: 40px 10px;
+    position: relative;
+    left: 40%;
+    top: -50px;
+}
+
+#cursoAtivoFalseEdit +label {
+    font-size: 20px;
+    margin: -6px;
+    position: relative;
+    left: 40%;
+    top: -52px;
+    
+}
+
+.btnconfirmar{
+    position: relative;
+    right: 50%;
+    top: 23px;
+}
+
+.btncancelaredit{
+    position: relative;
+    left: 25%;
+    top: -89.8px;
+}
+
+.lblativoedit{
+    position: relative;
+    top: 24px;
+    left: -110px;
 }
 
 .popupView{
@@ -473,7 +522,7 @@ tr:hover {
     text-align: center;
 }
 
-.openPopupAdd{
+.openAddPopup{
     visibility: visible;
     top: 50%;
     transform: translate(-50%, -50%) scale(1);
@@ -516,7 +565,6 @@ tr:hover {
 .tela.disabled_tela{
     pointer-events: none;
 }
-
 
 .popupRemove img{
     width: 100px;
@@ -595,4 +643,106 @@ tr:hover {
 .popup-button:hover {
     color: #FFF;
     background: #666;
+}
+
+#cursoAtivoTrue {
+    width: 20px;
+    height: 20px;
+    padding-left: 10px;
+    margin: 40px 15px;
+    position: relative;
+    left: 14%;
+    top: -50px;
+}
+
+#cursoAtivoTrue +label {
+    font-size: 20px;   
+    margin: -6px;
+    position: relative;
+    left: 13%;
+    top: -52px;
+}
+
+#cursoAtivoFalse {
+    width: 20px;
+    height: 20px;
+    padding-left: 10px;
+    margin: 40px 10px;
+    position: relative;
+    left: 20%;
+    top: -50px;
+}
+
+#cursoAtivoFalse +label {
+    font-size: 20px;
+    margin: -6px;
+    position: relative;
+    left: 20%;
+    top: -52px;
+    
+}
+
+.btnadicionar{
+    position: relative;
+    right: 0%;
+    top: -118.5px;
+}
+
+.btncancelar{
+    position: relative;
+    left: 0%;
+    top: -119.5px;
+}
+
+.lblativo{
+    position: relative;
+    top: 12px;
+    left: -110px;
+}
+
+
+.multiSelect{
+    width: 84%;
+    padding-left: 10px;
+    padding-left: 50px;
+}
+
+.selectBox{
+    position: relative;
+    bottom: 90px;
+}
+
+.selectBox select{
+    width: 100%;
+    font-weight: bold;
+}
+
+.overSelect{
+    position: relative;
+    left: 0; right: 0; top: 0; bottom: 48px;
+}
+
+#checkboxes{
+    display: none;
+}
+
+#checkboxes label{
+    display: block;
+    bottom: 30px;
+}
+
+#checkboxes label:hover{
+    background-color: #1e90ff;
+}
+
+#checkboxesEdit{
+    display: none;
+}
+
+#checkboxesEdit label{
+    display: block;
+}
+
+#checkboxesEdit label:hover{
+    background-color: #1e90ff;
 }
