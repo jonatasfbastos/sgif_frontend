@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mensagem</title>
+    <link rel="stylesheet" href="mensagem.css">
+</head>
+<body id="tela">
+    <div class="popupRemove" id="popupRemove">
+        <img src="../images/ask.png" alt="question-sign-in-circles">
+        <h2>Você tem certeza que deseja remover essa mensagem?</h2>
+        <button type="button" onclick="remover(), closePopup(), telaEnabled()">Sim</button>
+        <button type="button" onclick="closePopup(), telaEnabled()">Não</button>
+    </div>
+
+    <div class="popupEdit" id="popupEdit">
+        <img src="../images/caneta.png" alt="editar">
+        <h2>Digite as novas informações</h2>
+        <input type="text" name="titulo" placeholder="Titulo..." autocomplete="off" class="tituloEdit" id="tituloEdit" >
+        <input type="text" name="descricao" placeholder="Descricao..." autocomplete="off" class="descricaoEdit" id="descricaoEdit" >
+        <p>Data de inicio</p>
+        <input type="date" name="dataInicio" placeholder="Data de Inicio..." autocomplete="off" class="dataInicioEdit" id="dataInicioEdit">
+        <p>Data Final</p>
+        <input type="date" name="dataFim" placeholder="Data final..." autocomplete="off" class="dataFimEdit" id="dataFimEdit">
+        
+        <button type="button" onclick="closeEditPopup(), editar(), telaEnabled()">Confirmar</button>
+        <button type="button" onclick="closeEditPopup(), telaEnabled()">Cancelar</button>
+    </div>
+
+    <div class="popupAdd" id="popupAdd">
+        <img src="../images/botao-adicionar3.png" alt="adicionar">
+        <h2>Digite as informações da mensagem</h2>
+        <input type="text" name="titulo" placeholder="Titulo..." autocomplete="off" class="titulo" id="tituloAdd" >
+        <input type="text" name="descricao" placeholder="Descricao..." autocomplete="off" class="descricao" id="descricaoAdd" >
+        <p>Data de inicio</p>
+        <input type="date" name="dataInicio" placeholder="Data de Inicio..." autocomplete="off" class="dataInicioAdd" id="dataInicioAdd">
+        <p>Data Final</p>
+        <input type="date" name="dataFim" placeholder="Data final..." autocomplete="off" class="dataFimAdd" id="dataFimAdd">
+        
+        <button type="button" onclick="closeAddPopup(), adicionar(), telaEnabled()">Confirmar</button>
+        <button type="button" onclick="closeAddPopup(), telaEnabled()">Cancelar</button>
+    </div>
+
+    <div class="backdrop" id="backdrop" onclick="stopPropagation()"></div>
+
+    <div class="buttons">
+        <div class="search">
+            <input type="text" placeholder="Procurar..." class="loupe" id="loupe" onkeyup="buscar()"> 
+        </div>
+        <button class="adicionar" type="button" onclick="openAddPopup(), teladisabled()"><img src="../images/botao-adicionar2.png" alt="adicionar" title="Adicionar"></button>
+        <a href="../br.com.ifba.homescreen/homescreen.html"><button class="homescreen"> <img src="../images/casa.png" alt="homescreen"></button></a>
+    </div>
+<!--
+
+    <div class="popupView" id="popupView">
+        <img src="../images/caneta.png" alt="ver">
+        <h2>Etapa Curso</h2>
+        <div class="ContainEtapa">
+            <table class="TableEtapa" id="itens-table-etapa">
+                <thead>
+                    <tr>
+                        <th id="lin_etapa">Disciplina</th>
+                        
+                    </tr>
+                </thead>
+                
+                <tbody id="table-body-etapa">
+                    
+                </tbody>
+            </table>
+        </div>
+        <button type="button" onclick="closePopupView(), telaEnabled()">Voltar</button>
+    </div>
+-->
+
+    <div class="tableContain">
+        <div class="scroll">
+            <table class="rTable" id="itens-table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Titulo</th>
+                        <th>Descricao</th>
+                        <th>Data de Inicio</th>
+                        <th>Data Final</th>
+                        <th>Remover</th>
+                        <th>Editar</th>
+                    </tr>
+                </thead>
+            
+                <tbody id="table-body">
+                        
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="../js/requisitions.js"></script>
+    <script type="text/javascript" src="mensagem.js"></script>
+</body>
+</html>
