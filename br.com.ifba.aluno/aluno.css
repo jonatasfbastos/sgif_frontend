@@ -353,20 +353,64 @@ tr:hover {
     color: #e3e6d0;
 }
 
-.popupEdit .alunonomeadd{
+.popupEdit .alunonomeedit, .alunotelefoneedit, .alunoemailedit, .alunocpfedit, .alunodataDeNascimentoedit, .alunomatriculaedit{
     border: 1px #13293D solid;
     padding-left: 10px;
     width: 100%;
     height: 45px;
     margin: 4px 2px;
     border-radius: 25px;
+    outline: 0;
+    padding-left: 50px;
+}
+
+.alunonomeedit{
     background-image: url(../images/login.png);
     background-repeat: no-repeat;
     background-position: left;
-    padding-left: 50px;
     background-size: 1.3em;
     background-position-x: 20px;
-    outline: 0;
+}
+
+.alunotelefoneedit{
+    background-image: url(../images/telefone.png);
+    background-repeat: no-repeat;
+    background-position: left;
+    background-size: 1.3em;
+    background-position-x: 20px;
+}
+
+.alunocpfedit{
+    background-image: url(../images/local-na-rede-internet.png);
+    background-repeat: no-repeat;
+    background-position: left;
+    background-size: 1.3em;
+    background-position-x: 20px;
+}
+
+.alunodataDeNascimentoedit{
+    background-image: url(../images/numerico.png);
+    background-repeat: no-repeat;
+    background-position: left;
+    background-size: 1.3em;
+    background-position-x: 20px;
+}
+
+
+.alunoemailedit{
+    background-image: url(../images/o-email3.png);
+    background-repeat: no-repeat;
+    background-position: left;
+    background-size: 1.3em;
+    background-position-x: 20px;
+}
+
+.alunomatriculaedit{
+    background-image: url(../images/local-na-rede-internet.png);
+    background-repeat: no-repeat;
+    background-position: left;
+    background-size: 1.3em;
+    background-position-x: 20px;
 }
 
 .popupEdit select{
