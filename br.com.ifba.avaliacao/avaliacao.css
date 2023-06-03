@@ -141,7 +141,7 @@ tr:last-child th:last-child{
     border-top-right-radius: 20px;
 }
 
-td:nth-child(5), td:nth-child(4){
+td:nth-child(5), td:nth-child(6){
     cursor: pointer;
 }
 
@@ -158,6 +158,84 @@ tr:hover {
     .rTable tbody td{
         display: flex; 
         flex-direction: column; 
+    }
+}
+
+.painelFiltros {
+    margin-left: 10%;
+    margin-right: 10%;
+    width: 80%;
+    padding: 10px;
+    margin-bottom: -75px;
+    margin-top: 1%;
+}
+
+.painelFiltros h2 {
+    text-transform: uppercase;
+    font-size: 12px;
+    background-color: #013b01;
+    color: #fff;
+    display: inline;
+    padding: 15px 20px 45px 20px;
+    border-radius: 15px;
+}
+
+.painelFiltros div {
+    margin-top: 5px;
+    background-color: #013b01;
+    border-top: none;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    padding: 15px;
+}
+
+.painelFiltros p {
+    text-transform: uppercase;
+    font-size: 10px;
+    color: #fff;
+    margin-top: 7px;
+}
+
+.painelFiltros input, select {
+    border: #fff solid;
+    border-radius: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.painelFiltros button {
+    border: rgba(255, 255, 255, 0.815) solid 1px;
+    background-color: #106d10;
+    color: rgba(255, 255, 255, 0.911);
+    padding: 0 10px 0 10px;
+    border-radius: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.painelFiltros button:hover {
+    transition: 0.5s;
+    background-color: #269e26;
+    color: #fff;
+}
+
+@media screen and (max-height: 520px){
+    .painelFiltros {
+        margin-bottom: -30px;
+    }
+}
+
+@media screen and (max-height: 410px){
+    .painelFiltros {
+        margin-bottom: 30px;
+    }
+}
+
+@media screen and (max-height: 350px){
+    .painelFiltros {
+        margin-top: 20px;
+        margin-bottom: 70px;
     }
 }
 

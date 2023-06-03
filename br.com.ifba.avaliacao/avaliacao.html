@@ -55,6 +55,21 @@
         <a href="../br.com.ifba.homescreen/homescreen.html"><button class="homescreen"> <img src="../images/casa.png" alt="homescreen"></button></a>
     </div>
 
+    <div class="painelFiltros">
+        <h2>Filtros</h2>
+        <div>
+            <p>Data inicial: </p>
+            <input type="date" class="loupe" id="dt_inicial">
+            <p>Data final: </p>
+            <input type="date" class="loupe" id="dt_final">
+            <p>Disciplina: </p>
+            <select id="selec_disc">
+                <option value=0>Todas</option>
+            </select>
+            <button type="button" onclick="filtrar()">Filtrar</button>
+        </div>
+    </div>
+
     <div class="tableContain">
         <div class="scroll">
             <table class="rTable" id="itens-table">
