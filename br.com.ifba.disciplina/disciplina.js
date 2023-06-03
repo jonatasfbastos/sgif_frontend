@@ -14,7 +14,8 @@ function pegarItens(){
     //this.tableCreate(this.ItemList)
     console.log(ItemList)
         }).catch(error=>{
-        console.log('Error ', error)
+        console.log('Error ', error);
+        popupErroExibir(error);
     })
 }
 
@@ -27,6 +28,7 @@ function atualizarTabela(){
     this.tableCreate(this.disciplinaList)
     }).catch(error=>{
         console.log('Error ', error)
+        popupErroExibir(error);
     })
     this.disciplinaList = []
 }
@@ -256,9 +258,13 @@ function adicionar(){
             console.log('result', result)
             atualizarTabela()   
         }).catch(error=>{
-            console.log('error', error)
+            console.log('error', error);
+            popupErroExibir(error);
         })
-    }else{console.log('error')}
+    }else{ 
+        console.log('error');
+        popupErroExibir(error);
+    }
 
     this.disciplina = {}
     // document.getElementById('validadedisciplinaAdd').value = '';
@@ -273,6 +279,7 @@ function remover(){
         atualizarTabela()
     }).catch(error=>{
         console.log('error', error)
+        popupErroExibir(error);
     })
 }
 
@@ -337,7 +344,8 @@ function editar(){
         console.log('Result ', result)
         this.atualizarTabela()
     }).catch(error=>{
-        console.log('Error ', error)
+        console.log('Error ', error);
+        popupErroExibir(error);
     })
     this.disciplina = {}
 }
@@ -380,6 +388,16 @@ let backdrop = document.getElementById("backdrop");
 let popupEdit = document.getElementById("popupEdit");
 let popupAdd = document.getElementById("popupAdd");
 var tableInteract = document.getElementById("itens-table");
+
+
+function popupErroExibir(mensagem){
+    document.getElementById("popupErro").classList.add("exibirErro");
+    document.getElementById("erro").innerText = mensagem;
+ }
+
+ function popupErroOcultar(){
+    document.getElementById("popupErro").classList.remove("exibirErro");
+ }
 
 // select2
 jQuery(document).ready(function($) {

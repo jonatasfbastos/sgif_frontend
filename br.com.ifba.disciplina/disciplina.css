@@ -404,7 +404,7 @@ color: #000;
     margin: 30px 0 10px;
 }
 
-.popupRemove button{
+.popupRemove button, #popupErro button{
     width: 45%;
     margin-top: 50px;
     padding: 10px 0;
@@ -418,4 +418,46 @@ color: #000;
 
 .popupRemove button:hover{
     background-color: #666;
+}
+
+
+#popupErro {
+    width: 400px;
+    height: 250px;
+    background: #20631d;
+    border-radius: 10px;
+    position: absolute;
+    top: 0%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.1);
+    text-align: center;
+    padding: 0 30px 30px;
+    color: #f5f5f5;
+    visibility: hidden;
+    transition: transform 0.4s, top 0.4s;
+    z-index: 9999; /* Valor de z-index maior */
+}
+
+
+#popupErro img {
+    width: 100px;
+    margin-top: -50px;
+}
+
+#popupErro h2 {
+    font-size: 23px;
+    font-weight: 500;
+    margin: 30px 0 10px;
+    color: white;
+}
+
+#popupErro.exibirErro {
+    visibility: visible;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+#popupErro p {
+    margin: 20px 0;
+    font-weight: bold;
 }

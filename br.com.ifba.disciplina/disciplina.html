@@ -42,7 +42,7 @@
         <input type="text" name="nomeDisciplina" placeholder="Nome Disciplina..." autocomplete="off" class="notaDisciplina" id="notaDisciplinaAdd">
         <input type="text" name="descricaoDisciplina" placeholder="Descrição Disciplina..." autocomplete="off" class="notaDisciplina" id="descricaoDisciplinaAdd">
         <input type="text" name="codigoDisciplina" placeholder="Codigo Disciplina..." autocomplete="off" class="notaDisciplina" id="codigoDisciplinaAdd">
-        <input type="number" name="cargaHorariaDisciplina" placeholder="Carga Horaria Disciplina..." autocomplete="off" class="notaDisciplina" id="cargaHorariaDisciplinaAdd">
+        <input type="text" name="cargaHorariaDisciplina" placeholder="Carga Horaria Disciplina..." autocomplete="off" class="notaDisciplina" id="cargaHorariaDisciplinaAdd" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
         <br><br>
         <select class="selectProfessorAdd" name="Professor" id="professorDisciplinaAdd" multiple="multiple"></select><br>
         <br><br>
@@ -52,6 +52,12 @@
     </div>
 
     <div class="backdrop" id="backdrop" onclick="stopPropagation()"></div>
+
+    <div id="popupErro">
+        <img src="../images/alerta-icone.png" alt="imagem de erro">
+        <p id="erro"></p>
+        <button type="button" onclick="popupErroOcultar()">Fechar</button>
+    </div>
 
     <div class="buttons">
         <div class="search">
