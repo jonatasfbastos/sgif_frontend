@@ -5,16 +5,6 @@ var selectedIdDisciplina
 var avaliacaoList = []
 var avaliacao = {}
 
-// function tipoDeUsuarioNameAddChange(){
-//     tipodeusuario.nome = document.getElementById('tipoDeUsuarioNameAdd').value;
-//     console.log(tipodeusuario);
-// }
-
-// function tipoDeUsuarioDescricaoAddChange(){
-//     tipodeusuario.descricao = document.getElementById('tipoDeUsuarioDescricaoAdd').value;
-//     console.log(tipodeusuario);
-// }
-
 atualizarTabela()
 obterDisciplinas()
 setDisciplina()
@@ -231,7 +221,6 @@ function adicionar() {
     document.getElementById('avaliacaoDataFimAdd').value = '';
     document.getElementById('disciplinaAdd').value = '';
 }
-
 
 function remover() {
     console.log('Deletar ' + this.selectedId)
