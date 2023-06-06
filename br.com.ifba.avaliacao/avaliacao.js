@@ -17,6 +17,7 @@ var avaliacao = {}
 
 atualizarTabela()
 obterDisciplinas()
+setDisciplina()
 
 function atualizarTabela() {
     get('avaliacao').then(data => {
@@ -120,18 +121,18 @@ function setDisciplina() {
     get('disciplina').then(disciplinas => {
         console.log('Disciplina', disciplinas)
 
-        var multiCombo = document.getElementById('disciplina')
+        var multiCombo = document.getElementById('disciplinaAdd')
         var multiComboEdit = document.getElementById('disciplinaEdit')
-        tiposdeusuarios.forEach(tipo => {
+        disciplinas.forEach(disciplina => {
             let option = document.createElement('option')
-            option.value = tipo.id
-            option.innerHTML = tipo.nome
+            option.value = disciplina.id
+            option.innerHTML = disciplina.nome
 
             multiCombo.appendChild(option)
 
             let optionEdit = document.createElement('option')
-            optionEdit.value = tipo.id
-            optionEdit.innerHTML = tipo.nome
+            optionEdit.value = disciplina.id
+            optionEdit.innerHTML = disciplina.nome
 
             multiComboEdit.appendChild(optionEdit)
 
@@ -207,12 +208,16 @@ function adicionar() {
     this.avaliacao.dataFim = document.getElementById('avaliacaoDataFimAdd').value;
     this.avaliacao.disciplina = { id: document.getElementById('disciplinaAdd').value };
 
+    this.avaliacao.dataInicio = this.avaliacao.dataInicio.split('-').reverse().join('/');
+    this.avaliacao.dataFim = this.avaliacao.dataFim.split('-').reverse().join('/');
+
     console.log(avaliacao)
     console.log(avaliacao.id)
 
-    //se os campos de nome ou de descrição estiverem vazios, não serão salvos 
-    if (this.avaliacao.nome != "" && this.avaliacao.descricao != "") {
-        post('salvarAvalicao', avaliacao).then(result => {
+    //verificação de campos vazios 
+    if (this.avaliacao.descricao != "" && this.avaliacao.dataInicio != ""
+    && this.avaliacao.dataFim != "") {
+        post('salvarAvaliacao', avaliacao).then(result => {
             console.log('result', result)
             atualizarTabela()
         }).catch(error => {

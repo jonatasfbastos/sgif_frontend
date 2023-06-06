@@ -305,7 +305,7 @@ tr:hover {
     margin-left: 10px;
 }
 
-.popupAdd .tipoDeUsuarioName, .tipoDeUsuarioDescricao{
+.popupAdd .avaliacaoName, .avaliacaoDescricao{
     border: 1px #13293D solid;
     padding-left: 10px;
     width: 100%;
@@ -316,7 +316,56 @@ tr:hover {
     padding-left: 50px;
 }
 
-.tipoDeUsuarioName{
+.campoData {
+    display: flex;
+    align-items: center;
+    justify-content: baseline;
+    padding: 5px;
+}
+
+.campoData p {
+    width: 30%;
+    text-transform: uppercase;
+    font-size: 12px;
+    margin-right: 10px;
+    text-align: left;
+}
+
+.campoData .avaliacaoData {
+    width: 70%;
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid;
+}
+
+.campoDisciplina {
+    display: flex;
+    align-items: center;
+    justify-content: baseline;
+    padding: 5px;
+}
+
+.campoDisciplina label {
+    width: 30%;
+    text-transform: uppercase;
+    font-size: 12px;
+    margin-right: 10px;
+    text-align: left;
+}
+
+.campoDisciplina select {
+    height: 37px;
+    width: 70%;
+    background-color: #fff;
+    border: 1px solid;
+    border-radius: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: center;
+    margin: 0;
+}
+
+.avaliacaoName{
     background-image: url(../images/procura-de-emprego.png);
     background-repeat: no-repeat;
     background-position: left;
@@ -324,7 +373,7 @@ tr:hover {
     background-position-x: 20px;
 }
 
-.tipoDeUsuarioDescricao{
+.avaliacaoDescricao{
     background-image: url(../images/calendariopreto.png);
     background-repeat: no-repeat;
     background-position: left;
@@ -336,22 +385,6 @@ tr:hover {
 .popupAdd button:hover{
     background-color: #666;
     color: #e3e6d0;
-}
-
-.popupAdd select{
-    width: 220px;
-    background-color: #fff;
-    border: 1px solid #165b79;
-    outline: 0;
-    margin-top: 20px;
-    border-radius: 20px;
-    height: 35px;
-    text-align: center;
-}
-
-.popupAdd label{
-    margin-left: 12px;
-    font-size: 16px;
 }
 
 .popupEdit{
@@ -401,7 +434,7 @@ tr:hover {
     color: #e3e6d0;
 }
 
-.popupEdit .tipoDeUsuarioDescricao, .tipoDeUsuarioName{
+.popupEdit .avaliacaoDescricao, .avaliacaoName{
     border: 1px #13293D solid;
     padding-left: 10px;
     width: 100%;

@@ -19,9 +19,9 @@
     <div class="popupEdit" id="popupEdit">
         <img src="../images/caneta.png" alt="editar">
         <h2>Digite as novas informações</h2>
-        <input type="text" name="tipoDeUsuarioName" placeholder="Nome..." autocomplete="off" class="tipoDeUsuarioName" id="avaliacaoDescricao">
-        <input type="text" name="tipoDeUsuarioDescricao" placeholder="Descrição..." autocomplete="off" class="tipoDeUsuarioDescricao" id="avaliacaoDataInicio">
-        <input type="text" name="tipoDeUsuarioDescricao" placeholder="Descrição..." autocomplete="off" class="tipoDeUsuarioDescricao" id="avaliacaoDataFim">
+        <input type="text" name="avaliacaoName" placeholder="Nome..." autocomplete="off" class="avaliacaoName" id="avaliacaoDescricao">
+        <input type="text" name="avaliacaoDescricao" placeholder="Descrição..." autocomplete="off" class="avaliacaoDescricao" id="avaliacaoDataInicio">
+        <input type="text" name="avaliacaoDescricao" placeholder="Descrição..." autocomplete="off" class="avaliacaoDescricao" id="avaliacaoDataFim">
         <label for="cursos">Selecione a Disciplina: </label>
         <select name="Disciplina" id="disciplinaEdit">
         </select><br>
@@ -31,16 +31,21 @@
 
     <div class="popupAdd" id="popupAdd">
         <img src="../images/botao-adicionar3.png" alt="editar">
-        
         <h2>Digite as informações da Avaliação</h2>
-        
-        <input type="text" name="tipoDeUsuarioName" placeholder="Descrição..." autocomplete="off" class="tipoDeUsuarioName" id="avaliacaoDescricaoAdd">
-        <input type="text" name="tipoDeUsuarioDescricao" placeholder="Data Início..." autocomplete="off" class="tipoDeUsuarioDescricao" id="avaliacaoDataInicioAdd">
-        <input type="text" name="tipoDeUsuarioDescricao" placeholder="Data Fim..." autocomplete="off" class="tipoDeUsuarioDescricao" id="avaliacaoDataFimAdd">
-        <label for="cursos">Selecione a Disciplina: </label>
-        <select name="Disciplina" id="disciplinaAdd">
-        </select>
-        
+        <input type="text" name="avaliacaoName" placeholder="Descrição..." autocomplete="off" class="avaliacaoName" id="avaliacaoDescricaoAdd">
+        <div class="campoData">
+            <p>Data inicial:</p>
+            <input type="date" class="avaliacaoData" id="avaliacaoDataInicioAdd">
+        </div>
+        <div class="campoData">
+            <p>Data final:</p>
+            <input type="date" class="avaliacaoData" id="avaliacaoDataFimAdd">
+        </div>
+        <div class="campoDisciplina">
+            <label for="cursos">Selecione a Disciplina:</label>
+            <select name="Disciplina" id="disciplinaAdd">
+            </select><br>
+        </div>
         <button type="button" onclick="closeAddPopup(), adicionar(), telaEnabled()">Confirmar</button>
         <button type="button" onclick="closeAddPopup(), telaEnabled()">Cancelar</button>
     </div>
@@ -83,9 +88,7 @@
                         <th>Editar</th>
                     </tr>
                 </thead>
-            
                 <tbody id="table-body">
-                        
                 </tbody>
             </table>
         </div>
