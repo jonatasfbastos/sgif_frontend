@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title> Ferramentas </title>
     <link rel="stylesheet" href="homescreensad.css">
+    <script type="text/javascript" src="../js/session.js" onload="validateUser()"></script>
     <!-- site pra importar umas logo bala e padronizada-->
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,12 +13,12 @@
 <body>
   <div class="sidebar close">
     <div class="logo-details">
-      <i class='bx bxl-c-plus-plus'></i>
+      <i class='bx bx-sad'></i>
       <span class="logo_name">SAD</span>
     </div>
     <ul class="nav-links">
       <li>
-        <a href="../br.com.ifba.escolhersistema/escolhersistema.html">
+        <a href="homescreensad.html">
           <i class='bx bx-home' ></i>
           <span class="link_name">Início</span>
         </a>
@@ -28,91 +29,101 @@
       <li>
         <div class="iocn-link">
           <a href="#">
-            <i class='bx bx-collection' ></i>
-            <span class="link_name">Category</span>
+            <i class='bx bx-import' ></i>
+            <span class="link_name">Importar</span>
           </a>
           <i class='bx bxs-chevron-down arrow' ></i>
         </div>
         <ul class="sub-menu">
           <li><a class="link_name" href="#">Importar</a></li>
-          <li><a href="#">HTML & CSS</a></li>
-          <li><a href="#">JavaScript</a></li>
-          <li><a href="#">PHP & MySQL</a></li>
+          <li><a href="../br.com.ifba.importarprofessor/importarprofessor.html">Professor</a></li>
+          <li><a href="../br.com.ifba.importardisciplina/importardisciplina.html">Disciplina</a></li>
+          <li><a href="../br.com.ifba.importarturma/importarturma.html">Turma</a></li>
+          <li><a href="../br.com.ifba.importarcurso/importarcurso.html">Curso</a></li>
         </ul>
       </li>
       <li>
         <div class="iocn-link">
           <a href="#">
-            <i class='bx bx-book-alt' ></i>
-            <span class="link_name">Posts</span>
+            <i class='bx bx-group' ></i>
+            <span class="link_name">Servidor</span>
           </a>
           <i class='bx bxs-chevron-down arrow' ></i>
         </div>
         <ul class="sub-menu">
-          <li><a class="link_name" href="#">Posts</a></li>
-          <li><a href="#">Web Design</a></li>
-          <li><a href="#">Login Form</a></li>
-          <li><a href="#">Card Design</a></li>
-        </ul>
-      </li>
-      <li>
-        <a href="#">
-          <i class='bx bx-pie-chart-alt-2' ></i>
-          <span class="link_name">Analytics</span>
-        </a>
-        <ul class="sub-menu blank">
-          <li><a class="link_name" href="#">Analytics</a></li>
-        </ul>
-      </li>
-      <li>
-        <a href="#">
-          <i class='bx bx-line-chart' ></i>
-          <span class="link_name">Chart</span>
-        </a>
-        <ul class="sub-menu blank">
-          <li><a class="link_name" href="#">Chart</a></li>
+          <li><a class="link_name" href="#">Servidor</a></li>
+          <li><a href="../br.com.ifba.professor/professor.html">Professores</a></li>
+          <li><a href="../br.com.ifba.funcaoterceirizado/funcaoterceirizado.html">Terceirizados</a></li>
+          <li><a href="../br.com.ifba.funcaotecnicoadministrativo/funcaotecnicoadm.html">Tec. Administrativo</a></li>
         </ul>
       </li>
       <li>
         <div class="iocn-link">
           <a href="#">
-            <i class='bx bx-plug' ></i>
-            <span class="link_name">Plugins</span>
+            <i class='bx bx-network-chart' ></i>
+            <span class="link_name">Curso</span>
           </a>
           <i class='bx bxs-chevron-down arrow' ></i>
         </div>
         <ul class="sub-menu">
-          <li><a class="link_name" href="#">Plugins</a></li>
-          <li><a href="#">UI Face</a></li>
-          <li><a href="#">Pigments</a></li>
-          <li><a href="#">Box Icons</a></li>
+          <li><a class="link_name" href="#">Graduação</a></li>
+          <li><a href="../br.com.ifba.modalidade/modalidade.html">Modalidade do Curso</a></li>
+          <li><a href="../br.com.ifba.etapacurso/etapacurso.html">Etapa do Curso</a></li>
+          <li><a href="../br.com.ifba.curso/curso.html">Curso</a></li>
         </ul>
       </li>
       <li>
-        <a href="#">
-          <i class='bx bx-compass' ></i>
-          <span class="link_name">Explore</span>
+        <a href="../br.com.ifba.aluno/aluno.html">
+          <i class='bx bx-user-circle' ></i>
+          <span class="link_name">Alunos</span>
         </a>
         <ul class="sub-menu blank">
-          <li><a class="link_name" href="#">Explore</a></li>
+          <li><a class="link_name" href="../br.com.ifba.aluno/aluno.html">Alunos</a></li>
         </ul>
       </li>
       <li>
-        <a href="#">
-          <i class='bx bx-history'></i>
-          <span class="link_name">History</span>
+        <a href="../br.com.ifba.turma/turma.html">
+          <i class='bx bx-layer' ></i>
+          <span class="link_name">Turmas</span>
         </a>
         <ul class="sub-menu blank">
-          <li><a class="link_name" href="#">History</a></li>
+          <li><a class="link_name" href="../br.com.ifba.turma/turma.html">Turmas</a></li>
         </ul>
       </li>
       <li>
-        <a href="#">
-          <i class='bx bx-cog' ></i>
-          <span class="link_name">Setting</span>
+        <a href="../br.com.ifba.disciplina/disciplina.html">
+          <i class='bx bx-book-bookmark' ></i>
+          <span class="link_name">Disciplinas</span>
         </a>
         <ul class="sub-menu blank">
-          <li><a class="link_name" href="#">Setting</a></li>
+          <li><a class="link_name" href="../br.com.ifba.disciplina/disciplina.html">Disciplinas</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="../br.com.ifba.matrizcurricular/matrizcurricular.html">
+          <i class='bx bx-directions'></i>
+          <span class="link_name">Matriz Curricular</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="../br.com.ifba.matrizcurricular/matrizcurricular.html">Matriz Curricular</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="">
+          <i class='bx bx-calendar-check' ></i>
+          <span class="link_name">Avaliações</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="../br.com.ifba.avaliacao/avaliacao.html">Avaliações</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="">
+          <i class='bx bx-news' ></i>
+          <span class="link_name">Formulários</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="../br.com.ifba.formulario/formulario.html">Formulários</a></li>
         </ul>
       </li>
       <li>
@@ -124,7 +135,10 @@
         <div class="profile_name">Brito</div>
         <div class="job">Aluno</div>
       </div>
-      <i class='bx bx-log-out' ></i>
+      <a onclick="logOut()" class="logout" href="../br.com.ifba.login/index.html"> <i class='bx bx-log-out' ></i></a>
+      <!-- <a href="#"><i class="bx bx-info-circle" ></i></a>
+      <a href="../br.com.ifba.profile/profile.html"><i class="bx bx-user-pin"></i></a> -->
+      
     </div>
   </li>
 </ul>
@@ -136,6 +150,11 @@
   </section>
 
   <script src="homescreensad.js"></script>
+  <script src="../js/session.js"></script>
+  <script src="../scripts/javascript.js"></script>
+  <script src="../js/requisitions.js"></script>
+  <script src="homescreen.js"></script>
+  <script type="text/javascript" src="../js/notification-home.js" onload="initNot()"></script>
 
 </body>
 </html>
