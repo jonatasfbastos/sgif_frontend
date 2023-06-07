@@ -20,8 +20,14 @@
         <img src="../images/caneta.png" alt="editar">
         <h2>Digite as novas informações</h2>
         <input type="text" name="avaliacaoName" placeholder="Nome..." autocomplete="off" class="avaliacaoName" id="avaliacaoDescricao">
-        <input type="text" name="avaliacaoDescricao" placeholder="Descrição..." autocomplete="off" class="avaliacaoDescricao" id="avaliacaoDataInicio">
-        <input type="text" name="avaliacaoDescricao" placeholder="Descrição..." autocomplete="off" class="avaliacaoDescricao" id="avaliacaoDataFim">
+        <div class="campoData">
+            <p>Data inicial:</p>
+            <input type="date" class="avaliacaoData" id="avaliacaoDataInicioAdd">
+        </div>
+        <div class="campoData">
+            <p>Data final:</p>
+            <input type="date" class="avaliacaoData" id="avaliacaoDataFimAdd">
+        </div>
         <label for="cursos">Selecione a Disciplina: </label>
         <select name="Disciplina" id="disciplinaEdit">
         </select><br>
