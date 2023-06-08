@@ -19,18 +19,20 @@
     <div class="popupEdit" id="popupEdit">
         <img src="../images/caneta.png" alt="editar">
         <h2>Digite as novas informações</h2>
-        <input type="text" name="avaliacaoName" placeholder="Nome..." autocomplete="off" class="avaliacaoName" id="avaliacaoDescricao">
+        <input type="text" name="avaliacaoName" placeholder="Nome..." autocomplete="off" class="avaliacaoName" id="avaliacaoDescricaoEditar">
         <div class="campoData">
             <p>Data inicial:</p>
-            <input type="date" class="avaliacaoData" id="avaliacaoDataInicioAdd">
+            <input type="date" class="avaliacaoData" id="avaliacaoDataInicioEditar">
         </div>
         <div class="campoData">
             <p>Data final:</p>
-            <input type="date" class="avaliacaoData" id="avaliacaoDataFimAdd">
+            <input type="date" class="avaliacaoData" id="avaliacaoDataFimEditar">
         </div>
-        <label for="cursos">Selecione a Disciplina: </label>
-        <select name="Disciplina" id="disciplinaEdit">
-        </select><br>
+        <div class="campoDisciplina">
+            <label for="cursos">Selecione a Disciplina:</label>
+            <select name="Disciplina" id="disciplinaEditar">
+            </select><br>
+        </div>
         <button type="button" onclick="closeEditPopup(), editar(), telaEnabled()">Confirmar</button>
         <button type="button" onclick="closeEditPopup(), telaEnabled()">Cancelar</button>
     </div>

@@ -112,7 +112,8 @@ function setDisciplina() {
         console.log('Disciplina', disciplinas)
 
         var multiCombo = document.getElementById('disciplinaAdd')
-        var multiComboEdit = document.getElementById('disciplinaEdit')
+        var multiComboEdit = document.getElementById('disciplinaEditar')
+
         disciplinas.forEach(disciplina => {
             let option = document.createElement('option')
             option.value = disciplina.id
@@ -181,10 +182,12 @@ function openEditPopup(id) {
 
     console.log('Avaliação encontrada ', avl)
 
-    document.getElementById('avaliacaoDescricao').value = avl.descricao
-    document.getElementById('avaliacaoDataInicio').value = avl.dataInicio
-    document.getElementById('avaliacaoDataFim').value = avl.dataFim
-    document.getElementById('disciplinaEdit').value = avl.disciplina
+    document.getElementById('avaliacaoDescricaoEditar').value = avl.descricao;
+    document.getElementById('avaliacaoDataInicioEditar').value = avl.dataInicio.split('/').reverse().join('-');
+    document.getElementById('avaliacaoDataFimEditar').value = avl.dataFim.split('/').reverse().join('-');
+    
+    var select = document.getElementById('disciplinaEditar');
+    select.selectedIndex = avl.disciplina.id - 1;
 }
 
 function closeEditPopup() {
@@ -219,7 +222,6 @@ function adicionar() {
     document.getElementById('avaliacaoDescricaoAdd').value = '';
     document.getElementById('avaliacaoDataInicioAdd').value = '';
     document.getElementById('avaliacaoDataFimAdd').value = '';
-    document.getElementById('disciplinaAdd').value = '';
 }
 
 function remover() {
@@ -257,10 +259,13 @@ var table = document.getElementById("itens-table");
 
 function editar() {
 
-    var descricao = document.getElementById("avalicaoName").value;
-    var dataInicio = document.getElementById("avalicaoDescricao").value;
-    var dataFim = document.getElementById('dataFim').value;
-    var disciplina = document.getElementById('disciplina').value;
+    var descricao = document.getElementById("avaliacaoDescricaoEditar").value;
+    var dataInicio = document.getElementById("avaliacaoDataInicioEditar").value;
+    var dataFim = document.getElementById('avaliacaoDataFimEditar').value;
+    var disciplina = { id: document.getElementById('disciplinaEditar').value };
+
+    dataInicio = dataInicio.split('-').reverse().join('/');
+    dataFim = dataFim.split('-').reverse().join('/');
 
     this.avaliacao = this.avaliacaoList.find(aval => {
         return aval.id === this.selectedId
@@ -271,13 +276,18 @@ function editar() {
     this.avaliacao.dataFim = dataFim
     this.avaliacao.disciplina = disciplina
 
-    post('salvarAvalicao', this.avaliacao).then(result => {
-        console.log('Result ', result)
-        this.atualizarTabela()
-    }).catch(error => {
-        console.log('Error ', error)
-    })
+    //verificação de campos vazios 
+    if (this.avaliacao.descricao != "" && this.avaliacao.dataInicio != ""
+    && this.avaliacao.dataFim != "") {
+        post('salvarAvaliacao', this.avaliacao).then(result => {
+            console.log('result', result)
+            this.atualizarTabela()
+        }).catch(error => {
+            console.log('error', error)
+        })
+    } else { console.log('error') }
     this.avaliacao = {}
+
 }
 
 let popup = document.getElementById("popupRemove");
