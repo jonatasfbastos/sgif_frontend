@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./permissao.css">
+        <title>Permissão</title>
+    </head>
+    <body>
+        <div id="container">
+            <header>
+                <input type="text" placeholder="Procurar..." id="input-buscar"> 
+                <button id="btn-adicionar" type="button">
+                    <img src="../images/botao-adicionar2.png" alt="Ícone do sinal de soma." title="Adicionar">
+                </button>
+                <a href="../br.com.ifba.escolhersistema/escolhersistema.html" id="btn-home-screen">
+                    <img src="../images/casa.png" alt="Ícone de uma casa para representar a HomeScreen.">
+                </a>
+            </header>
+
+            <main>
+                <div id="popup-remover">
+                    <img src="../images/ask.png" alt="Ícone de um balão azul com uma interrogação." class="popup-img">
+                    <h1 class="popup-h1">Você tem certeza que deseja remover a permissão?</h1>
+
+                    <div class="popup-buttons">
+                        <button type="button" id="btn-remover-confirmar" class="popup-button">Sim</button>
+                        <button type="button" id="btn-remover-cancelar" class="popup-button">Não</button>
+                    </div>
+                </div>
+    
+                <div id="popup-editar">
+                    <img src="../images/caneta.png" alt="Ícone de uma lápis." class="popup-img">
+
+                    <div class="container-permissao">
+                        <div class="popup-inputs">
+                            <h1 class="popup-h1">Digite as novas informações</h1>
+                            <input type="text" name="permissao-nome-editar" placeholder="Nome..." autocomplete="off" id="permissao-nome-editar">
+                            <input type="text" name="permissao-icone-editar" placeholder="Ícone..." autocomplete="off" id="permissao-icone-editar">
+                            <label for="permissao-grupo-editar">
+                                Agrupar:
+                                <input type="checkbox" name="permissao-grupo-editar" autocomplete="off" id="permissao-grupo-editar">
+                            </label>
+                        </div>
+
+                        <div class="links-dados">
+                            <h1 class="popup-h1">
+                                Selecione os links
+                            </h1>
+                            <div class="links-scroll" id="links-editar">
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="popup-buttons">
+                        <button type="button" class="popup-button" id="btn-editar-confirmar">
+                            Confirmar
+                        </button>
+                        <button type="button" class="popup-button" id="btn-editar-cancelar">
+                            Cancelar
+                        </button>
+                    </div>
+                </div>
+          
+                <div id="popup-adicionar">
+                    <img src="../images/botao-adicionar3.png" alt="Ícone de adição." class="popup-img">   
+                    
+                    <div class="container-permissao">
+                        <div class="popup-inputs">
+                            <h1 class="popup-h1">Digite as informações da permissão</h1>
+                            <input type="text" name="permissao-nome-add" placeholder="Nome..." autocomplete="off" id="permissao-nome-add">
+                            <input type="text" name="permissao-icone-add" placeholder="Ícone..." autocomplete="off" id="permissao-icone-add">
+                            <label for="permissao-grupo-add">
+                                Agrupar:
+                                <input type="checkbox" name="permissao-grupo-add" autocomplete="off" id="permissao-grupo-add">
+                            </label>
+                        </div>
+
+                        <div class="links-dados">
+                            <h1 class="popup-h1">
+                                Selecione os links
+                            </h1>
+                            <div class="links-scroll" id="links-add">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="popup-buttons">
+                        <button type="button" class="popup-button" id="btn-add-confirmar">
+                            Confirmar
+                        </button>
+                        <button type="button" class="popup-button" id="btn-add-cancelar">
+                            Cancelar
+                        </button>
+                    </div>
+                </div>
+
+                <div id="background-efeito">
+                </div>
+
+                <div id="popup-erro">
+                    <img src="../images/alerta-icone.png" alt="Ícone de alerta." class="popup-img">
+                    <p id="erro-mensagem">
+                    </p>
+                    <button type="button" class="popup-button" id="btn-erro-fechar">
+                        Fechar
+                    </button>
+                </div>
+                
+                <div id="table-links">
+                    <h1 id="titulo-tb-links">
+                        Links associados à permissão
+                    </h1>
+                    <div class="table-container">
+                        <div id="table-scroll">
+                            <table id="table">
+                                <thead>
+                                    <tr>
+                                        <th>Nome do link</th>
+                                    </tr>
+                                </thead>
+                    
+                                <tbody id="table-body-links">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <button type="button" class="popup-button" id="btn-fechar-view-links">
+                        Fechar
+                    </button>
+                </div>
+
+                <div id="table-perfis">
+                    <h1 id="titulo-tb-perfis">
+                    </h1>
+                    <div class="table-container">
+                        <div id="table-scroll">
+                            <table id="table">
+                                <thead>
+                                    <tr>
+                                        <th>Nome do perfil</th>
+                                    </tr>
+                                </thead>
+                    
+                                <tbody id="table-body-perfis">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <button type="button" class="popup-button" id="btn-fechar-view-perfis">
+                        Fechar
+                    </button>
+                </div>
+
+                <div class="table-container">
+                    <div id="table-scroll">
+                        <table id="table">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Ícone</th>
+                                    <th>Links Associados</th>
+                                    <th>Perfis Associados</th>
+                                    <th>Remover</th>
+                                    <th>Editar</th>
+                                </tr>
+                            </thead>
+                        
+                            <tbody id="table-body-permissoes">
+                            </tbody>
+                        </table>
+                    </div>
+                </div> 
+            </main>
+        </div>
+
+        <script type="text/javascript" src="../js/requisitions.js"></script>
+        <script type="text/javascript" src="./permissao.js"></script> 
+    </body>
+</html>
