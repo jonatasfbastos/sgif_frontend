@@ -12,29 +12,47 @@
         <button class="importarProfessor" type="button" onclick="importarPopupExibir()">Importar Professor</button>
     </div>
 
+    <!--Popup para selecionar o arquivo e enviar-->
     <div id="popupImportar">
         <img src="../images/adicionar-3.png" alt="imagem de importar">
-        <h2>Importar arquivo csv de professor</h2>
+        <h2>Importar arquivo de professor</h2>
         <div id="centralizando">
-            <input type="file" name="file" id="file"> 
+            <h4>Escolha o tipo de arquivo</h4>
+            <select name="select" id="comboBox">
+                <option value="valor1">.CSV</option>
+                <option value="valor2">.XLS</option>
+            </select>
+            <input type="file" name="file" id="file" accept=".xls, .csv"> 
             <button type="button" value="Enviar" onclick="submit();">Enviar</button>
             <button type="button" onclick="importarPopupOcultar()">Cancelar</button>
+            <p id="arquivoSelecionado"></p>
         </div>
     </div>
 
+    <!--Popup para acusar que o arquivo não foi selecionado-->
     <div id="popupArquivoVazio">
         <img src="../images/alerta-icone.png" alt="imagem de erro Arquivo Vazio">
         <h2>Por Favor selecione o arquivo</h2>
         <button type="button" onclick="popupArquivoVazioOcultar()">Fechar</button>
     </div>
 
+    <!--Popup para a exibição dos erros-->
     <div id="popupErro">
         <img src="../images/alerta-icone.png" alt="imagem de erro">
         <p id="erro"></p>
         <button type="button" onclick="popupErroOcultar()">Fechar</button>
     </div>
 
-   <script src="../js/requisitions.js"></script>
-   <script src="importarprofessor.js"></script>
+    <!--Popup para avisar que o arquivo foi enviado-->
+    <div id="popupEnviar">
+        <img src="../images/enviar.png" alt="imagem de enviado">
+        <h2>Arquivo enviado com sucesso!</h2>
+        <p id="erro"></p>
+        <button type="button" onclick="EnviarPopupOcultar()">Fechar</button>
+    </div>
+
+    <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+    <script src="../js/requisitions.js"></script>
+    <script src="importarprofessor.js"></script>
 </body>
 </html>

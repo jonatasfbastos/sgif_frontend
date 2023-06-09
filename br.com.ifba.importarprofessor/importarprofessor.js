@@ -4,19 +4,41 @@ function submit(){
  
      if(files.length > 0 ){
           var file = files[0];
-          readCSVFile(file);
+          let verificaArquivo = file.name.slice(file.name.lastIndexOf(".") + 1)
+
+          var combobox = document.getElementById("comboBox");
+          var opcaoSelecionada = combobox.value;
+          
+          if(opcaoSelecionada == "valor1" && verificaArquivo == "csv"){
+               readCSVFile(file)
+          }else{
+               if(opcaoSelecionada == "valor2" && verificaArquivo == "xls"){
+                    handleFile(file)
+               }else{
+                    popupErroExibir("O arquivo selecionado não corresponde ao tipo escolhido!")
+                    importarPopupOcultar();
+               }
+          }
+
      }else{
           popupArquivoVazioExibir();
           importarPopupOcultar();
      }
  
  }
- 
- //função que lê o arquivo
- function readCSVFile(file){
+
+ //informando o arquivo selecionado
+document.getElementById('file').addEventListener('change', function(e) {
+     if (e.target.files[0]) {
+          document.getElementById("arquivoSelecionado").innerText =  "Arquivo Selecionado: " + e.target.files[0].name;
+     }
+   });
+
+//função que lê o arquivo .CSV
+function readCSVFile(file){
  
      var reader = new FileReader();
- 
+
      reader.readAsText(file);
      
      importarPopupOcultar();
@@ -40,49 +62,109 @@ function submit(){
                //obj.cpf = linhaData[6];
                //obj.dataDeNascimento = new Date(linhaData[7].replace("/", "-"));
                
- 
-                //está comentado para futuros testes caso necessário
-                /* for(var j = 0; j < header.length; j++){
-                    obj[header[j].replace(" ", "")] = linhaData[j];
-                    console.log("Header Row", header[j]);
-               }  */
- 
                //salvando o objeto caso o nome e o cpf sejam diferentes de vazio
                if(obj.nome != "" && obj.cpf != ""){
                     post('salvarProfessor', obj).then(result=>{
                     }).catch(error=>{
-                         error.text().then(errorExibir=>popupErroExibir(errorExibir))
+                         error.text().then(errorExibir=>{
+                              popupErroExibir(errorExibir)
+                              EnviarPopupOcultar()
                          })
+                    })
                     }else{
                          popupErroExibir("Os campos CPF ou Nome estão vazios!");
+                         EnviarPopupOcultar()
                     }          
           }
- 
+          EnviarPopupExibir();
+          importarPopupOcultar();
      };
  
- }
+}
 
- function importarPopupExibir(){
-      document.getElementById("popupImportar").classList.add("exibirImportar");
+//função que lê o arquivo .XLS
+function handleFile(file) {
+
+     const reader = new FileReader();
+
+     reader.onload = function(e){
+          const data = new Uint8Array(e.target.result);
+          const workbook = XLSX.read(data, { type: 'array' });
+
+          // Seleciona a primeira planilha
+          const sheetName = workbook.SheetNames[0];
+          const worksheet = workbook.Sheets[sheetName];
+     
+          // Converte a planilha em um objeto JSON
+          const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+
+
+          let resultado = jsonData.filter(data => data.length > 0)
+
+          let flag = 0;
+
+          for (var row = 1; row < resultado.length; row++) {
+
+               var obj = {}
+
+               //pegando dado por dado posição por posição e atribuindo a seu respectivo atributo para enviar
+               obj.nome = resultado[row][1];
+               obj.siape = resultado[row][2];
+               //Setor está comentado pois, não existe na tabela
+               //obj.setor = linhaData[row][3]
+               obj.email = resultado[row][4];
+               obj.telefone = resultado[row][5];
+
+               if(obj.nome != "" && obj.cpf != ""){
+                    post('salvarProfessor', obj).then(result=>{
+                    }).catch(error=>{
+                         error.text().then(errorExibir=>{
+                              popupErroExibir(errorExibir)
+                              EnviarPopupOcultar()
+                         })
+                    })
+                    }else{
+                         popupErroExibir("Os campos CPF ou Nome estão vazios!");
+                         EnviarPopupOcultar()
+                    }     
+          } 
+          EnviarPopupExibir();
+          importarPopupOcultar();
+     };
+
+     reader.readAsArrayBuffer(file);
+}
+
+//Funções dos popups para a exibição e o ocultamento
+function importarPopupExibir(){
+     document.getElementById("popupImportar").classList.add("exibirImportar");
   }
  
-  function importarPopupOcultar(){
-      document.getElementById("popupImportar").classList.remove("exibirImportar");
+function importarPopupOcultar(){
+     document.getElementById("popupImportar").classList.remove("exibirImportar");
   }
 
-  function popupArquivoVazioExibir(){
+function popupArquivoVazioExibir(){
      document.getElementById("popupArquivoVazio").classList.add("exibirVazio");
   }
 
-  function popupArquivoVazioOcultar(){
+function popupArquivoVazioOcultar(){
      document.getElementById("popupArquivoVazio").classList.remove("exibirVazio");
   }
 
-  function popupErroExibir(mensagem){
+function popupErroExibir(mensagem){
      document.getElementById("popupErro").classList.add("exibirErro");
      document.getElementById("erro").innerText = mensagem;
   }
 
-  function popupErroOcultar(){
+function popupErroOcultar(){
      document.getElementById("popupErro").classList.remove("exibirErro");
   }
+
+function EnviarPopupExibir(){
+     document.getElementById("popupEnviar").classList.add("exibirEnviar");
+ }
+
+function EnviarPopupOcultar(){
+     document.getElementById("popupEnviar").classList.remove("exibirEnviar");
+ }
