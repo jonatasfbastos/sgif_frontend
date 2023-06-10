@@ -4,6 +4,7 @@ var selectedDtFim
 var selectedIdDisciplina
 var avaliacaoList = []
 var avaliacao = {}
+var size
 
 atualizarTabela()
 obterDisciplinas()
@@ -59,6 +60,9 @@ function obterDisciplinas() {
 
 function tableCreate(data) {
     var tableBody = document.getElementById('table-body');
+    var tela = document.getElementById('tela');
+    var margin = 0;
+    size = 100;
     if (tableBody) {
         tableBody.innerHTML = ''
         data.forEach(element => {
@@ -80,8 +84,6 @@ function tableCreate(data) {
             colDisciplina.appendChild(document.createTextNode(element.disciplina ? element.disciplina.nome : ''))
             row.appendChild(colDisciplina)
 
-            tableBody.appendChild(row)
-
             var colRemover = document.createElement("td")
             colRemover.setAttribute("onclick", "openPopup(" + element.id + ")")
             var removerLink = document.createElement("a")
@@ -102,7 +104,13 @@ function tableCreate(data) {
             colEditar.appendChild(editarLink)
             row.appendChild(colEditar)
 
+            tableBody.appendChild(row);
+
+            margin = margin + 25;
+            size = size + 7;
         });
+        tableBody.parentElement.parentElement.parentElement.style.marginTop = margin + "px";
+        tela.style.backgroundSize = "100% " + size + "%";
     }
 }
 
@@ -139,10 +147,14 @@ function stopPropagation(event) {
 
 function openAddPopup() {
     popupAdd.classList.add("openAddPopup");
+    var body = document.getElementById('tela');
+    body.style = "overflow:hidden";
 }
 
 function closeAddPopup() {
     popupAdd.classList.remove("openAddPopup");
+    var body = document.getElementById('tela');
+    body.style = "overflow:body";
 }
 
 function openPopup(id) {
@@ -152,8 +164,10 @@ function openPopup(id) {
 }
 
 function teladisabled() {
+    var tela = document.getElementById('tela');
     telaDesativada.classList.add("disabled_tela");
     backdrop.classList.add("disabled_tela");
+    tela.style.backgroundSize = "100% " + size + "%";
 }
 
 function getindex(x) {
@@ -161,8 +175,10 @@ function getindex(x) {
 }
 
 function telaEnabled() {
+    var tela = document.getElementById('tela');
     telaDesativada.classList.remove("disabled_tela");
     backdrop.classList.remove("disabled_tela");
+    tela.style.backgroundSize = "100% " + size + "%";
 }
 
 var tablee = document.getElementById("itens-table");
@@ -174,6 +190,7 @@ function closePopup() {
 function openEditPopup(id) {
     teladisabled()
     this.selectedId = id
+
     popupEdit.classList.add("popupEditOpen");
     console.log('Id ', id)
     let avl = this.avaliacaoList.find(aval => {
@@ -182,16 +199,23 @@ function openEditPopup(id) {
 
     console.log('Avaliação encontrada ', avl)
 
+    window.scrollTo(0,0);
+
     document.getElementById('avaliacaoDescricaoEditar').value = avl.descricao;
     document.getElementById('avaliacaoDataInicioEditar').value = avl.dataInicio.split('/').reverse().join('-');
     document.getElementById('avaliacaoDataFimEditar').value = avl.dataFim.split('/').reverse().join('-');
     
+    var body = document.getElementById('tela');
+    body.style = "overflow:hidden";
+
     var select = document.getElementById('disciplinaEditar');
     select.selectedIndex = avl.disciplina.id - 1;
 }
 
 function closeEditPopup() {
     popupEdit.classList.remove("popupEditOpen");
+    var body = document.getElementById('tela');
+    body.style = "overflow:body";
 }
 
 function adicionar() {
@@ -241,17 +265,24 @@ function buscar() {
     table = document.getElementById("itens-table");
     tr = table.getElementsByTagName("tr");
 
+    var tableBody = document.getElementById('table-body');
+    var margin = 0;
+
     for (i = 0; i < tr.length; i++) {
         td = tr[i].getElementsByTagName("td")[0];
         if (td) {
             txtValue = td.textContent || td.innerText;
             if (txtValue.toUpperCase().indexOf(filter) > -1) {
                 tr[i].style.display = "";
+                margin = margin + 25;
+                size = size + 7;
             } else {
                 tr[i].style.display = "none";
             }
         }
     }
+
+    tableBody.parentElement.parentElement.parentElement.style.marginTop = margin + "px";
 }
 
 var table = document.getElementById("itens-table");
@@ -279,7 +310,7 @@ function editar() {
     //verificação de campos vazios 
     if (this.avaliacao.descricao != "" && this.avaliacao.dataInicio != ""
     && this.avaliacao.dataFim != "") {
-        post('salvarAvaliacao', this.avaliacao).then(result => {
+        post('atualizarAvaliacao', this.avaliacao).then(result => {
             console.log('result', result)
             this.atualizarTabela()
         }).catch(error => {

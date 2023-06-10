@@ -67,6 +67,7 @@ body{
 }
 
 .tableContain{
+    position: relative;
     width: 100vw;
     height: 75vh;
     display: flex;
@@ -80,7 +81,7 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow-y: scroll;
+    /*overflow-y: scroll;*/
 }
 
 .scroll::-webkit-scrollbar{
@@ -163,7 +164,7 @@ tr:hover {
 
 .painelFiltros {
     display: block;
-    width: 83%;
+    width: 85%;
     padding: 10px;
     margin-left: 8%;
     margin-bottom: -75px;
