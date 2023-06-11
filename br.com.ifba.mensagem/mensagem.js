@@ -177,6 +177,33 @@ function closeEditPopup(){
     popupEdit.classList.remove("popupEditOpen");
 }
 
+document.getElementById("btn-erro-fechar")
+    .addEventListener("click", ocultarPopUpErro);
+
+function exibirPopUpErro(mensagem) {
+    const popupErro = document.getElementById("popup-erro");
+    popupErro.classList.add("mostrar-popup");
+    document.getElementById("erro-mensagem").innerText = mensagem;
+}
+
+function ocultarPopUpErro() {
+    const popupErro = document.getElementById("popup-erro");
+    popupErro.classList.remove("mostrar-popup");
+    document.getElementById("erro-mensagem").innerText = "";
+}
+
+function verificaCampos(){
+
+    if (mensagem.nome.trim().length <= 0) {
+        return true;
+    }
+    if (mensagem.descricao.trim().length <= 0){
+        return true;
+    }
+    
+    return false;
+}
+
 function adicionar(){
 
     this.mensagem.nome = document.getElementById('tituloAdd').value;
@@ -187,14 +214,21 @@ function adicionar(){
     console.log(this.mensagem)
     console.log(this.mensagem.nome)
 
-
+    if(verificaCampos()){
+        return exibirPopUpErro("Não foi possível cadastrar a mensagem, existe algum campo vazio!");
+    }
     
+    if(this.mensagem.nome != "" && this.mensagem.descricao != ""){
         post('salvarMensagem', this.mensagem).then(result=>{
             console.log('result', result)
             atualizarTabela()
         }).catch(error=>{
             console.log('error', error)
         })
+    }
+    else{
+        console.log('error')
+    }
 
     this.mensagem = {}
 
@@ -252,6 +286,9 @@ function editar(){
     this.mensagem.dataInicio = newDataInicio;
     this.mensagem.dataFim = newDataFim;
 
+    if(verificaCampos()){
+        return exibirPopUpErro("Não foi possível atualizar a mensagem, existe algum campo vazio!");
+    }
 
     console.log('Nova mensagem ', this.mensagem)
     post('salvarMensagem', this.mensagem).then(result=>{
