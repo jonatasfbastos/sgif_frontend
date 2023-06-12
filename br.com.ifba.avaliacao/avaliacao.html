@@ -83,6 +83,21 @@
         </div>
     </div>
 
+    <!-- Popup de erro -->
+    <div id="popupErro">
+        <img src="../images/alerta-icone.png" alt="imagem de erro"> <!-- Imagem de alerta de erro -->
+        <p id="erro"></p> <!-- Local para exibir a mensagem de erro -->
+        <button type="button" onclick="popupErroOcultar()">Fechar</button> <!-- Botão para fechar o popup de erro -->
+    </div>
+
+    <!-- Popup de confirmação -->
+    <div id="popupConfirmacao">
+        <img src="../images/icons8-ok-48.png" alt="imagem de confirmacao"> <!-- Imagem de confirmação -->
+        <p id="msg"></p> <!-- Local para exibir a mensagem de confirmação -->
+        <button type="button" onclick="popupConfirmacaoOcultar()">Fechar</button> <!-- Botão para fechar o popup de confirmação -->
+    </div>
+
+
     <div class="tableContain">
         <div class="scroll">
             <table class="rTable" id="itens-table">
@@ -104,6 +119,7 @@
 
     <script type="text/javascript" src="../js/requisitions.js"></script>
     <script type="text/javascript" src="avaliacao.js"></script>
+    <script src="../js/session.js"></script> 
     
 </body>
 </html>

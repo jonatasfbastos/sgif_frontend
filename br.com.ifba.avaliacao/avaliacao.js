@@ -17,6 +17,7 @@ function atualizarTabela() {
         this.tableCreate(this.avaliacaoList)
     }).catch(error => {
         console.log('Error ', error)
+        popupErroExibir(error)
     })
 }
 
@@ -44,6 +45,7 @@ function filtrar() {
         this.tableCreate(this.avaliacaoList)
     }).catch(error => {
         console.log('Error ', error)
+        popupErroExibir(error)
     })
 }
 
@@ -138,6 +140,7 @@ function setDisciplina() {
         })
     }).catch(error => {
         console.log('Error ', error)
+        popupErroExibir(error)
     })
 }
 
@@ -236,11 +239,16 @@ function adicionar() {
     && this.avaliacao.dataFim != "") {
         post('salvarAvaliacao', avaliacao).then(result => {
             console.log('result', result)
+            popupConfirmacaoExibir("Avaliação adicionada")
             atualizarTabela()
         }).catch(error => {
             console.log('error', error)
+            popupErroExibir(error)
         })
-    } else { console.log('error') }
+    } else { 
+        console.log('error')
+        popupErroExibir(error) 
+    }
     this.avaliacao = {}
 
     document.getElementById('avaliacaoDescricaoAdd').value = '';
@@ -254,6 +262,7 @@ function remover() {
     get_params('deletarAvaliacao', { id: this.selectedId, p2: 'is' }).then(result => {
         atualizarTabela()
     }).catch(error => {
+        popupErroExibir(error)
     })
 }
 
@@ -315,11 +324,37 @@ function editar() {
             this.atualizarTabela()
         }).catch(error => {
             console.log('error', error)
+            popupErroExibir(error)
         })
     } else { console.log('error') }
     this.avaliacao = {}
 
 }
+
+
+// Função para exibir o popup de erro
+function popupErroExibir(mensagem){
+    document.getElementById("popupErro").classList.add("exibirErro"); // Adiciona a classe "exibirErro" ao elemento com o ID "popupErro"
+    document.getElementById("erro").innerText = mensagem; // Define o texto da mensagem de erro no elemento com o ID "erro"
+}
+
+// Função para ocultar o popup de erro
+function popupErroOcultar(){
+    document.getElementById("popupErro").classList.remove("exibirErro"); // Remove a classe "exibirErro" do elemento com o ID "popupErro"
+}
+
+// Função para exibir o popup de confirmação
+function popupConfirmacaoExibir(mensagem){
+    document.getElementById("popupConfirmacao").classList.add("exibirErro"); // Adiciona a classe "exibirErro" ao elemento com o ID "popupConfirmacao"
+    document.getElementById("msg").innerText = mensagem; // Define o texto da mensagem de confirmação no elemento com o ID "msg"
+}
+
+// Função para ocultar o popup de confirmação
+function popupConfirmacaoOcultar(){
+    document.getElementById("popupConfirmacao").classList.remove("exibirErro"); // Remove a classe "exibirErro" do elemento com o ID "popupConfirmacao"
+}
+
+
 
 let popup = document.getElementById("popupRemove");
 let telaDesativada = document.getElementById("tela");
