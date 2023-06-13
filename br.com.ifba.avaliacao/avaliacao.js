@@ -4,7 +4,6 @@ var selectedDtFim
 var selectedIdDisciplina
 var avaliacaoList = []
 var avaliacao = {}
-var size
 
 atualizarTabela()
 obterDisciplinas()
@@ -62,9 +61,8 @@ function obterDisciplinas() {
 
 function tableCreate(data) {
     var tableBody = document.getElementById('table-body');
-    var tela = document.getElementById('tela');
     var margin = 0;
-    size = 100;
+    var avlEncontradas = 0;
     if (tableBody) {
         tableBody.innerHTML = ''
         data.forEach(element => {
@@ -109,10 +107,25 @@ function tableCreate(data) {
             tableBody.appendChild(row);
 
             margin = margin + 25;
-            size = size + 7;
+            avlEncontradas = avlEncontradas + 1;
         });
-        tableBody.parentElement.parentElement.parentElement.style.marginTop = margin + "px";
-        tela.style.backgroundSize = "100% " + size + "%";
+        document.getElementById('tbContain').style.marginTop = margin + "px";
+        resizeHandler();
+        if(avlEncontradas == 0) {
+            var row = document.createElement("tr");
+            for (i = 0; i < 6; i++) {
+                var td = document.createElement("td");
+                if(i === 2) {
+                    td.style.fontSize = "12px";
+                    td.style.textTransform = "uppercase";
+                    td.innerText = "Nenhuma avaliação encontrada.";
+                }
+                row.appendChild(td);
+                td.style.cursor = "default";
+                resizeHandler();
+            }
+            tableBody.appendChild(row);
+        }
     }
 }
 
@@ -150,6 +163,7 @@ function stopPropagation(event) {
 
 function openAddPopup() {
     popupAdd.classList.add("openAddPopup");
+    window.scrollTo(0,0);
     var body = document.getElementById('tela');
     body.style = "overflow:hidden";
 }
@@ -164,13 +178,13 @@ function openPopup(id) {
     teladisabled()
     this.selectedId = id
     popup.classList.add("open_popup");
+    window.scrollTo(0,0);
 }
 
 function teladisabled() {
-    var tela = document.getElementById('tela');
     telaDesativada.classList.add("disabled_tela");
     backdrop.classList.add("disabled_tela");
-    tela.style.backgroundSize = "100% " + size + "%";
+    resizeHandler();
 }
 
 function getindex(x) {
@@ -178,13 +192,10 @@ function getindex(x) {
 }
 
 function telaEnabled() {
-    var tela = document.getElementById('tela');
     telaDesativada.classList.remove("disabled_tela");
     backdrop.classList.remove("disabled_tela");
-    tela.style.backgroundSize = "100% " + size + "%";
+    resizeHandler();
 }
-
-var tablee = document.getElementById("itens-table");
 
 function closePopup() {
     popup.classList.remove("open_popup");
@@ -284,14 +295,45 @@ function buscar() {
             if (txtValue.toUpperCase().indexOf(filter) > -1) {
                 tr[i].style.display = "";
                 margin = margin + 25;
-                size = size + 7;
             } else {
                 tr[i].style.display = "none";
             }
         }
     }
+    document.getElementById('tbContain').style.marginTop = margin + "px";
+    auxiliarBusca();
+}
 
-    tableBody.parentElement.parentElement.parentElement.style.marginTop = margin + "px";
+function auxiliarBusca() {
+    var tableBody = document.getElementById('table-body');
+    var ocultos = 0;
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+        if(tr[i].style.display == "none") {
+            ocultos = ocultos + 1;
+        }
+    }
+    if(ocultos + 1 == tr.length) {
+        var row = document.createElement("tr");
+        row.classList.add('rowRemover');
+        for (i = 0; i < 6; i++) {
+            var td = document.createElement("td");
+            if(i === 2) {
+                td.style.fontSize = "12px";
+                td.style.textTransform = "uppercase";
+                td.innerText = "Nenhuma avaliação encontrada.";
+            }
+            row.appendChild(td);
+            td.style.cursor = "default";
+        }
+        tableBody.appendChild(row);
+    } else {
+        var td = document.getElementById("td");
+        var remover = document.getElementsByClassName('rowRemover');
+        for (var i=remover.length-1; i >= 0; i--) {
+            remover[i].remove();
+        }
+    }
 }
 
 var table = document.getElementById("itens-table");
@@ -354,6 +396,29 @@ function popupConfirmacaoOcultar(){
     document.getElementById("popupConfirmacao").classList.remove("exibirErro"); // Remove a classe "exibirErro" do elemento com o ID "popupConfirmacao"
 }
 
+
+var tela = document.getElementById('tela');
+
+function resizeHandler() {
+    var sw = document.documentElement.scrollWidth;
+    var sh = document.documentElement.scrollHeight;
+    tela.style.backgroundSize = sw + "px " + sh + "px";
+    /*
+    var tr = document.getElementById('trTopo');
+    if(tr.offsetTop == 0
+        && tr.parentElement.offsetTop.offsetTop == 0
+        && tr.parentElement.parentElement.offsetTop == 0
+        && tr.parentElement.parentElement.parentElement.offsetTop == 0
+        && tr.parentElement.parentElement.parentElement.parentElement.offsetTop == 0) {
+        tr.style.borderTopLeftRadius = "0";
+        tr.style.borderTopRightRadius = "0";
+    }
+    */
+}
+
+window.addEventListener('resize', resizeHandler);
+
+resizeHandler();
 
 
 let popup = document.getElementById("popupRemove");

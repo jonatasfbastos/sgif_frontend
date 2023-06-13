@@ -163,6 +163,8 @@ tr:hover {
 }
 
 .painelFiltros {
+    position: relative;
+    z-index: 1;
     display: block;
     width: 85%;
     padding: 10px;
