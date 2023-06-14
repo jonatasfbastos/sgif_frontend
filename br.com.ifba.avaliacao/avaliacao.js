@@ -363,6 +363,7 @@ function editar() {
     && this.avaliacao.dataFim != "") {
         post('atualizarAvaliacao', this.avaliacao).then(result => {
             console.log('result', result)
+            popupConfirmacaoExibir("Avaliação editada")
             this.atualizarTabela()
         }).catch(error => {
             console.log('error', error)
@@ -378,6 +379,9 @@ function editar() {
 function popupErroExibir(mensagem){
     document.getElementById("popupErro").classList.add("exibirErro"); // Adiciona a classe "exibirErro" ao elemento com o ID "popupErro"
     document.getElementById("erro").innerText = mensagem; // Define o texto da mensagem de erro no elemento com o ID "erro"
+    window.scrollTo(0,0);
+    var body = document.getElementById('tela');
+    body.style = "overflow:hidden";
 }
 
 // Função para ocultar o popup de erro
@@ -387,13 +391,18 @@ function popupErroOcultar(){
 
 // Função para exibir o popup de confirmação
 function popupConfirmacaoExibir(mensagem){
+    teladisabled();
     document.getElementById("popupConfirmacao").classList.add("exibirErro"); // Adiciona a classe "exibirErro" ao elemento com o ID "popupConfirmacao"
     document.getElementById("msg").innerText = mensagem; // Define o texto da mensagem de confirmação no elemento com o ID "msg"
+    window.scrollTo(0,0);
+    var body = document.getElementById('tela');
+    body.style = "overflow:hidden";
 }
 
 // Função para ocultar o popup de confirmação
 function popupConfirmacaoOcultar(){
     document.getElementById("popupConfirmacao").classList.remove("exibirErro"); // Remove a classe "exibirErro" do elemento com o ID "popupConfirmacao"
+    body.style = "overflow:body";
 }
 
 
@@ -403,22 +412,28 @@ function resizeHandler() {
     var sw = document.documentElement.scrollWidth;
     var sh = document.documentElement.scrollHeight;
     tela.style.backgroundSize = sw + "px " + sh + "px";
-    /*
+}
+
+function ajustarTr() {
     var tr = document.getElementById('trTopo');
-    if(tr.offsetTop == 0
-        && tr.parentElement.offsetTop.offsetTop == 0
-        && tr.parentElement.parentElement.offsetTop == 0
-        && tr.parentElement.parentElement.parentElement.offsetTop == 0
-        && tr.parentElement.parentElement.parentElement.parentElement.offsetTop == 0) {
-        tr.style.borderTopLeftRadius = "0";
-        tr.style.borderTopRightRadius = "0";
+    var posicao = tr.getBoundingClientRect().top;
+    var primeiroTh = document.getElementById('primeiroTh');
+    var ultimoTh = document.getElementById('ultimoTh');
+    console.log(posicao)
+    if(posicao <= 0) {
+        primeiroTh.style.borderTopLeftRadius = "0px";
+        ultimoTh.style.borderTopRightRadius = "0px";
+    } else {
+        primeiroTh.style.borderTopLeftRadius = "20px";
+        ultimoTh.style.borderTopRightRadius = "20px";
     }
-    */
 }
 
 window.addEventListener('resize', resizeHandler);
+document.addEventListener('scroll', ajustarTr);
 
 resizeHandler();
+ajustarTr();
 
 
 let popup = document.getElementById("popupRemove");

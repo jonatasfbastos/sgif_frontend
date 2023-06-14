@@ -621,8 +621,9 @@ tr:hover {
 #popupConfirmacao img {
     width: 100px;
     margin-top: -50px;
-    background-color: #009500; /* Cor de fundo verde para a imagem */
+    background-color: #df9ce2;
     border-radius: 50%; /* Formato de círculo para a imagem */
+    filter: invert(100%);
 }
 
 #popupConfirmacao h2 {
@@ -654,4 +655,9 @@ tr:hover {
     cursor: pointer;
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
     margin-left: 10px;
+}
+
+#popupConfirmacao button:hover {
+    background-color: #666;
+    color: #e3e6d0;
 }

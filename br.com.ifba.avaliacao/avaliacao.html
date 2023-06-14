@@ -87,14 +87,14 @@
     <div id="popupErro">
         <img src="../images/alerta-icone.png" alt="imagem de erro"> <!-- Imagem de alerta de erro -->
         <p id="erro"></p> <!-- Local para exibir a mensagem de erro -->
-        <button type="button" onclick="popupErroOcultar()">Fechar</button> <!-- Botão para fechar o popup de erro -->
+        <button type="button" onclick="popupErroOcultar(), telaEnabled()">Fechar</button> <!-- Botão para fechar o popup de erro -->
     </div>
 
     <!-- Popup de confirmação -->
     <div id="popupConfirmacao">
-        <img src="../images/icons8-ok-48.png" alt="imagem de confirmacao"> <!-- Imagem de confirmação -->
+        <img src="../images/icone-confirma.png" alt="imagem de confirmacao"> <!-- Imagem de confirmação -->
         <p id="msg"></p> <!-- Local para exibir a mensagem de confirmação -->
-        <button type="button" onclick="popupConfirmacaoOcultar()">Fechar</button> <!-- Botão para fechar o popup de confirmação -->
+        <button type="button" onclick="popupConfirmacaoOcultar(), telaEnabled()">Fechar</button> <!-- Botão para fechar o popup de confirmação -->
     </div>
 
 
@@ -103,12 +103,12 @@
             <table class="rTable" id="itens-table">
                 <thead>
                     <tr id="trTopo">
-                        <th>Descrição</th>
+                        <th id="primeiroTh">Descrição</th>
                         <th>Data Início</th>
                         <th>Data Fim</th>
                         <th>Disciplina</th>
                         <th>Remover</th>
-                        <th>Editar</th>
+                        <th id="ultimoTh">Editar</th>
                     </tr>
                 </thead>
                 <tbody id="table-body">
