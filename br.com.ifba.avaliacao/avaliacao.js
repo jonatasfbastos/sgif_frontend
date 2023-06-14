@@ -258,7 +258,7 @@ function adicionar() {
         })
     } else { 
         console.log('error')
-        popupErroExibir(error) 
+        popupErroExibir("Por favor, preencha todos os campos")
     }
     this.avaliacao = {}
 
@@ -271,6 +271,7 @@ function remover() {
     console.log('Deletar ' + this.selectedId)
 
     get_params('deletarAvaliacao', { id: this.selectedId, p2: 'is' }).then(result => {
+        popupConfirmacaoExibir("Avaliação removida com sucesso")
         atualizarTabela()
     }).catch(error => {
         popupErroExibir(error)
@@ -353,6 +354,16 @@ function editar() {
         return aval.id === this.selectedId
     })
 
+    //verificação se dados estão repetidos
+    if(descricao == this.avaliacao.descricao
+        && dataInicio == this.avaliacao.dataInicio
+        && dataFim == this.avaliacao.dataFim
+        && disciplina.id == this.avaliacao.disciplina.id) {
+        popupErroExibir("Os dados estão repetidos. Por favor, altere os dados necessários");
+        this.avaliacao = {}
+        return
+    }
+
     this.avaliacao.descricao = descricao
     this.avaliacao.dataInicio = dataInicio
     this.avaliacao.dataFim = dataFim
@@ -363,13 +374,16 @@ function editar() {
     && this.avaliacao.dataFim != "") {
         post('atualizarAvaliacao', this.avaliacao).then(result => {
             console.log('result', result)
-            popupConfirmacaoExibir("Avaliação editada")
+            popupConfirmacaoExibir("Avaliação editada com sucesso")
             this.atualizarTabela()
         }).catch(error => {
             console.log('error', error)
             popupErroExibir(error)
         })
-    } else { console.log('error') }
+    } else {
+        console.log('error')
+        popupErroExibir('Por favor, preencha todos os campos')
+    }
     this.avaliacao = {}
 
 }
@@ -377,6 +391,7 @@ function editar() {
 
 // Função para exibir o popup de erro
 function popupErroExibir(mensagem){
+    teladisabled();
     document.getElementById("popupErro").classList.add("exibirErro"); // Adiciona a classe "exibirErro" ao elemento com o ID "popupErro"
     document.getElementById("erro").innerText = mensagem; // Define o texto da mensagem de erro no elemento com o ID "erro"
     window.scrollTo(0,0);
@@ -387,6 +402,7 @@ function popupErroExibir(mensagem){
 // Função para ocultar o popup de erro
 function popupErroOcultar(){
     document.getElementById("popupErro").classList.remove("exibirErro"); // Remove a classe "exibirErro" do elemento com o ID "popupErro"
+    body.style = "overflow:body";
 }
 
 // Função para exibir o popup de confirmação

@@ -598,6 +598,11 @@ tr:hover {
     margin-left: 10px;
 }
 
+#popupErro button:hover {
+    background-color: #666;
+    color: #e3e6d0;
+}
+
 
 /* Estilos para o popup de confirmação */
 
