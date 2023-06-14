@@ -106,7 +106,7 @@ function tableCreate(data) {
 
             tableBody.appendChild(row);
 
-            margin = margin + 25;
+            margin = margin + 31;
             avlEncontradas = avlEncontradas + 1;
         });
         document.getElementById('tbContain').style.marginTop = margin + "px";
@@ -280,6 +280,10 @@ function remover() {
 
 function buscar() {
 
+    if(this.avaliacaoList.length == 0) {
+        return
+    }
+
     var input, filter, table, tr, td, i, txtValue;
     input = document.getElementById("loupe");
     filter = input.value.toUpperCase();
@@ -295,7 +299,7 @@ function buscar() {
             txtValue = td.textContent || td.innerText;
             if (txtValue.toUpperCase().indexOf(filter) > -1) {
                 tr[i].style.display = "";
-                margin = margin + 25;
+                margin = margin + 31;
             } else {
                 tr[i].style.display = "none";
             }
@@ -303,6 +307,10 @@ function buscar() {
     }
     document.getElementById('tbContain').style.marginTop = margin + "px";
     auxiliarBusca();
+
+    if(input.value == "") {
+        resizeHandler();
+    }
 }
 
 function auxiliarBusca() {
