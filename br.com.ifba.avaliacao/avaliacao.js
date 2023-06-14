@@ -12,11 +12,10 @@ setDisciplina()
 function atualizarTabela() {
     window.scrollTo(0,0)
     get('avaliacao').then(data => {
-        console.log('Data', data)
         this.avaliacaoList = data
         this.tableCreate(this.avaliacaoList)
     }).catch(error => {
-        console.log('Error ', error)
+        console.log('Erro: ', error)
         popupErroExibir(error)
     })
 }
@@ -34,8 +33,6 @@ function filtrar() {
     }
     this.selectedDtInicio = this.selectedDtInicio.split('-').reverse().join('/');
     this.selectedDtFim = this.selectedDtFim.split('-').reverse().join('/');
-    console.log(selectedDtInicio)
-    console.log(selectedDtFim)
     window.scrollTo(0,0)
     get_params('filtrarAvaliacao', {
         dtInicio: this.selectedDtInicio,
@@ -45,14 +42,13 @@ function filtrar() {
         this.avaliacaoList = data
         this.tableCreate(this.avaliacaoList)
     }).catch(error => {
-        console.log('Error ', error)
-        popupErroExibir(error)
+        console.log('Erro: ', error)
+        popupErroExibir('Erro ao filtrar avaliações: HTTP Erro ' + error.status)
     })
 }
 
 function obterDisciplinas() {
     get('disciplina').then(disciplinas => {
-        console.log(disciplinas)
         disciplinas.forEach(disciplina => {
             var select = document.getElementById('selec_disc');
             option = new Option(disciplina.nome, disciplina.id)
@@ -135,7 +131,6 @@ function tableCreate(data) {
 function setDisciplina() {
 
     get('disciplina').then(disciplinas => {
-        console.log('Disciplina', disciplinas)
 
         var multiCombo = document.getElementById('disciplinaAdd')
         var multiComboEdit = document.getElementById('disciplinaEditar')
@@ -155,8 +150,8 @@ function setDisciplina() {
 
         })
     }).catch(error => {
-        console.log('Error ', error)
-        popupErroExibir(error)
+        console.log('Erro: ', error)
+        popupErroExibir('Erro ao obter disciplinas: HTTP Erro ' + error.status)
     })
 }
 
@@ -209,12 +204,9 @@ function openEditPopup(id) {
     this.selectedId = id
 
     popupEdit.classList.add("popupEditOpen");
-    console.log('Id ', id)
     let avl = this.avaliacaoList.find(aval => {
         return aval.id === id
     })
-
-    console.log('Avaliação encontrada ', avl)
 
     window.scrollTo(0,0);
 
@@ -245,22 +237,17 @@ function adicionar() {
     this.avaliacao.dataInicio = this.avaliacao.dataInicio.split('-').reverse().join('/');
     this.avaliacao.dataFim = this.avaliacao.dataFim.split('-').reverse().join('/');
 
-    console.log(avaliacao)
-    console.log(avaliacao.id)
-
     //verificação de campos vazios 
     if (this.avaliacao.descricao != "" && this.avaliacao.dataInicio != ""
     && this.avaliacao.dataFim != "") {
         post('salvarAvaliacao', avaliacao).then(result => {
-            console.log('result', result)
             popupConfirmacaoExibir("Avaliação adicionada")
             atualizarTabela()
         }).catch(error => {
-            console.log('error', error)
-            popupErroExibir(error)
+            console.log('Erro: ', error)
+            popupErroExibir('Erro ao salvar avaliação: HTTP Erro ' + error.status)
         })
-    } else { 
-        console.log('error')
+    } else {
         popupErroExibir("Por favor, preencha todos os campos")
     }
     this.avaliacao = {}
@@ -271,8 +258,6 @@ function adicionar() {
 }
 
 function remover() {
-    console.log('Deletar ' + this.selectedId)
-
     get_params('deletarAvaliacao', { id: this.selectedId, p2: 'is' }).then(result => {
         popupConfirmacaoExibir("Avaliação removida com sucesso")
         atualizarTabela()
@@ -384,15 +369,13 @@ function editar() {
     if (this.avaliacao.descricao != "" && this.avaliacao.dataInicio != ""
     && this.avaliacao.dataFim != "") {
         post('atualizarAvaliacao', this.avaliacao).then(result => {
-            console.log('result', result)
             popupConfirmacaoExibir("Avaliação editada com sucesso")
             this.atualizarTabela()
         }).catch(error => {
-            console.log('error', error)
-            popupErroExibir(error)
+            console.log('Erro: ', error)
+            popupErroExibir('Erro ao editar avaliação: HTTP Erro ' + error.status)
         })
     } else {
-        console.log('error')
         popupErroExibir('Por favor, preencha todos os campos')
     }
     this.avaliacao = {}
@@ -446,7 +429,6 @@ function ajustarTr() {
     var posicao = tr.getBoundingClientRect().top;
     var primeiroTh = document.getElementById('primeiroTh');
     var ultimoTh = document.getElementById('ultimoTh');
-    console.log(posicao)
     if(posicao <= 0) {
         primeiroTh.style.borderTopLeftRadius = "0px";
         ultimoTh.style.borderTopRightRadius = "0px";
