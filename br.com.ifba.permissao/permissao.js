@@ -96,6 +96,12 @@ document.getElementById("btn-add-confirmar")
         document.getElementById("permissao-nome-add").value = "";
         document.getElementById("permissao-icone-add").value = "";
         document.getElementById("permissao-grupo-add").checked = false;
+
+        const inputs = document.getElementById("links-add")
+                            .getElementsByTagName("input");
+        for (const input of inputs) {
+            input.checked = false;
+        }
     }
 );
 

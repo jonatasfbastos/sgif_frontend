@@ -67,6 +67,7 @@ body{
 }
 
 .tableContain{
+    position: relative;
     width: 100vw;
     height: 75vh;
     display: flex;
@@ -80,7 +81,7 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow-y: scroll;
+    /*overflow-y: scroll;*/
 }
 
 .scroll::-webkit-scrollbar{
@@ -162,8 +163,10 @@ tr:hover {
 }
 
 .painelFiltros {
+    position: relative;
+    z-index: 1;
     display: block;
-    width: 83%;
+    width: 85%;
     padding: 10px;
     margin-left: 8%;
     margin-bottom: -75px;
@@ -535,4 +538,131 @@ tr:hover {
 
 .popupRemove button:hover{
     background-color: #666;
+}
+
+
+
+
+/* Estilos para o popup de erro */
+
+#popupErro {
+    width: 400px;
+    height: 250px;
+    background: #20631d; /* Cor de fundo verde */
+    border-radius: 10px;
+    position: absolute;
+    top: 0%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.1);
+    text-align: center;
+    padding: 0 30px 30px;
+    color: #f5f5f5; /* Cor do texto */
+    visibility: hidden;
+    transition: transform 0.4s, top 0.4s;
+    z-index: 9999; /* Valor de z-index maior */
+}
+
+#popupErro img {
+    width: 100px;
+    margin-top: -50px;
+}
+
+#popupErro h2 {
+    font-size: 23px;
+    font-weight: 500;
+    margin: 30px 0 10px;
+    color: white; /* Cor do título */
+}
+
+#popupErro.exibirErro {
+    visibility: visible;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+#popupErro p {
+    margin: 20px 0;
+    font-weight: bold;
+}
+
+#popupErro button { 
+    width: 45%;
+    margin-top: 50px;
+    padding: 10px 0;
+    background: #fff; /* Cor de fundo branca */
+    border: 0;
+    border-radius: 14px;
+    outline: none;
+    cursor: pointer;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+    margin-left: 10px;
+}
+
+#popupErro button:hover {
+    background-color: #666;
+    color: #e3e6d0;
+}
+
+
+/* Estilos para o popup de confirmação */
+
+#popupConfirmacao {
+    width: 400px;
+    height: 250px;
+    background: #20631d; /* Cor de fundo verde */
+    border-radius: 10px;
+    position: absolute;
+    top: 0%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.1);
+    text-align: center;
+    padding: 0 30px 30px;
+    color: #f5f5f5; /* Cor do texto */
+    visibility: hidden;
+    transition: transform 0.4s, top 0.4s;
+    z-index: 9999; /* Valor de z-index maior */
+}
+
+#popupConfirmacao img {
+    width: 100px;
+    margin-top: -50px;
+    background-color: #df9ce2;
+    border-radius: 50%; /* Formato de círculo para a imagem */
+    filter: invert(100%);
+}
+
+#popupConfirmacao h2 {
+    font-size: 23px;
+    font-weight: 500;
+    margin: 30px 0 10px;
+    color: white; /* Cor do título */
+}
+
+#popupConfirmacao.exibirErro {
+    visibility: visible;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+#popupConfirmacao p {
+    margin: 20px 0;
+    font-weight: bold;
+}
+
+#popupConfirmacao button { 
+    width: 45%;
+    margin-top: 50px;
+    padding: 10px 0;
+    background: #fff; /* Cor de fundo branca */
+    border: 0;
+    border-radius: 14px;
+    outline: none;
+    cursor: pointer;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+    margin-left: 10px;
+}
+
+#popupConfirmacao button:hover {
+    background-color: #666;
+    color: #e3e6d0;
 }

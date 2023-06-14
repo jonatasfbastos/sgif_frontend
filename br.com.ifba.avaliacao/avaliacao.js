@@ -10,12 +10,14 @@ obterDisciplinas()
 setDisciplina()
 
 function atualizarTabela() {
+    window.scrollTo(0,0)
     get('avaliacao').then(data => {
         console.log('Data', data)
         this.avaliacaoList = data
         this.tableCreate(this.avaliacaoList)
     }).catch(error => {
         console.log('Error ', error)
+        popupErroExibir(error)
     })
 }
 
@@ -34,6 +36,7 @@ function filtrar() {
     this.selectedDtFim = this.selectedDtFim.split('-').reverse().join('/');
     console.log(selectedDtInicio)
     console.log(selectedDtFim)
+    window.scrollTo(0,0)
     get_params('filtrarAvaliacao', {
         dtInicio: this.selectedDtInicio,
         dtFim: this.selectedDtFim,
@@ -43,6 +46,7 @@ function filtrar() {
         this.tableCreate(this.avaliacaoList)
     }).catch(error => {
         console.log('Error ', error)
+        popupErroExibir(error)
     })
 }
 
@@ -58,7 +62,10 @@ function obterDisciplinas() {
 }
 
 function tableCreate(data) {
+    window.scrollTo(0,0)
     var tableBody = document.getElementById('table-body');
+    var margin = 0;
+    var avlEncontradas = 0;
     if (tableBody) {
         tableBody.innerHTML = ''
         data.forEach(element => {
@@ -80,8 +87,6 @@ function tableCreate(data) {
             colDisciplina.appendChild(document.createTextNode(element.disciplina ? element.disciplina.nome : ''))
             row.appendChild(colDisciplina)
 
-            tableBody.appendChild(row)
-
             var colRemover = document.createElement("td")
             colRemover.setAttribute("onclick", "openPopup(" + element.id + ")")
             var removerLink = document.createElement("a")
@@ -102,7 +107,28 @@ function tableCreate(data) {
             colEditar.appendChild(editarLink)
             row.appendChild(colEditar)
 
+            tableBody.appendChild(row);
+
+            margin = margin + 31;
+            avlEncontradas = avlEncontradas + 1;
         });
+        document.getElementById('tbContain').style.marginTop = margin + "px";
+        resizeHandler();
+        if(avlEncontradas == 0) {
+            var row = document.createElement("tr");
+            for (i = 0; i < 6; i++) {
+                var td = document.createElement("td");
+                if(i === 2) {
+                    td.style.fontSize = "12px";
+                    td.style.textTransform = "uppercase";
+                    td.innerText = "Nenhuma avaliação encontrada.";
+                }
+                row.appendChild(td);
+                td.style.cursor = "default";
+                resizeHandler();
+            }
+            tableBody.appendChild(row);
+        }
     }
 }
 
@@ -130,6 +156,7 @@ function setDisciplina() {
         })
     }).catch(error => {
         console.log('Error ', error)
+        popupErroExibir(error)
     })
 }
 
@@ -139,21 +166,28 @@ function stopPropagation(event) {
 
 function openAddPopup() {
     popupAdd.classList.add("openAddPopup");
+    window.scrollTo(0,0);
+    var body = document.getElementById('tela');
+    body.style = "overflow:hidden";
 }
 
 function closeAddPopup() {
     popupAdd.classList.remove("openAddPopup");
+    var body = document.getElementById('tela');
+    body.style = "overflow:body";
 }
 
 function openPopup(id) {
     teladisabled()
     this.selectedId = id
     popup.classList.add("open_popup");
+    window.scrollTo(0,0);
 }
 
 function teladisabled() {
     telaDesativada.classList.add("disabled_tela");
     backdrop.classList.add("disabled_tela");
+    resizeHandler();
 }
 
 function getindex(x) {
@@ -163,9 +197,8 @@ function getindex(x) {
 function telaEnabled() {
     telaDesativada.classList.remove("disabled_tela");
     backdrop.classList.remove("disabled_tela");
+    resizeHandler();
 }
-
-var tablee = document.getElementById("itens-table");
 
 function closePopup() {
     popup.classList.remove("open_popup");
@@ -174,6 +207,7 @@ function closePopup() {
 function openEditPopup(id) {
     teladisabled()
     this.selectedId = id
+
     popupEdit.classList.add("popupEditOpen");
     console.log('Id ', id)
     let avl = this.avaliacaoList.find(aval => {
@@ -182,16 +216,23 @@ function openEditPopup(id) {
 
     console.log('Avaliação encontrada ', avl)
 
+    window.scrollTo(0,0);
+
     document.getElementById('avaliacaoDescricaoEditar').value = avl.descricao;
     document.getElementById('avaliacaoDataInicioEditar').value = avl.dataInicio.split('/').reverse().join('-');
     document.getElementById('avaliacaoDataFimEditar').value = avl.dataFim.split('/').reverse().join('-');
     
+    var body = document.getElementById('tela');
+    body.style = "overflow:hidden";
+
     var select = document.getElementById('disciplinaEditar');
     select.selectedIndex = avl.disciplina.id - 1;
 }
 
 function closeEditPopup() {
     popupEdit.classList.remove("popupEditOpen");
+    var body = document.getElementById('tela');
+    body.style = "overflow:body";
 }
 
 function adicionar() {
@@ -212,11 +253,16 @@ function adicionar() {
     && this.avaliacao.dataFim != "") {
         post('salvarAvaliacao', avaliacao).then(result => {
             console.log('result', result)
+            popupConfirmacaoExibir("Avaliação adicionada")
             atualizarTabela()
         }).catch(error => {
             console.log('error', error)
+            popupErroExibir(error)
         })
-    } else { console.log('error') }
+    } else { 
+        console.log('error')
+        popupErroExibir("Por favor, preencha todos os campos")
+    }
     this.avaliacao = {}
 
     document.getElementById('avaliacaoDescricaoAdd').value = '';
@@ -228,12 +274,18 @@ function remover() {
     console.log('Deletar ' + this.selectedId)
 
     get_params('deletarAvaliacao', { id: this.selectedId, p2: 'is' }).then(result => {
+        popupConfirmacaoExibir("Avaliação removida com sucesso")
         atualizarTabela()
     }).catch(error => {
+        popupErroExibir(error)
     })
 }
 
 function buscar() {
+
+    if(this.avaliacaoList.length == 0) {
+        return
+    }
 
     var input, filter, table, tr, td, i, txtValue;
     input = document.getElementById("loupe");
@@ -241,15 +293,57 @@ function buscar() {
     table = document.getElementById("itens-table");
     tr = table.getElementsByTagName("tr");
 
+    var tableBody = document.getElementById('table-body');
+    var margin = 0;
+
     for (i = 0; i < tr.length; i++) {
         td = tr[i].getElementsByTagName("td")[0];
         if (td) {
             txtValue = td.textContent || td.innerText;
             if (txtValue.toUpperCase().indexOf(filter) > -1) {
                 tr[i].style.display = "";
+                margin = margin + 31;
             } else {
                 tr[i].style.display = "none";
             }
+        }
+    }
+    document.getElementById('tbContain').style.marginTop = margin + "px";
+    auxiliarBusca();
+
+    if(input.value == "") {
+        resizeHandler();
+    }
+}
+
+function auxiliarBusca() {
+    var tableBody = document.getElementById('table-body');
+    var ocultos = 0;
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+        if(tr[i].style.display == "none") {
+            ocultos = ocultos + 1;
+        }
+    }
+    if(ocultos + 1 == tr.length) {
+        var row = document.createElement("tr");
+        row.classList.add('rowRemover');
+        for (i = 0; i < 6; i++) {
+            var td = document.createElement("td");
+            if(i === 2) {
+                td.style.fontSize = "12px";
+                td.style.textTransform = "uppercase";
+                td.innerText = "Nenhuma avaliação encontrada.";
+            }
+            row.appendChild(td);
+            td.style.cursor = "default";
+        }
+        tableBody.appendChild(row);
+    } else {
+        var td = document.getElementById("td");
+        var remover = document.getElementsByClassName('rowRemover');
+        for (var i=remover.length-1; i >= 0; i--) {
+            remover[i].remove();
         }
     }
 }
@@ -271,6 +365,16 @@ function editar() {
         return aval.id === this.selectedId
     })
 
+    //verificação se dados estão repetidos
+    if(descricao == this.avaliacao.descricao
+        && dataInicio == this.avaliacao.dataInicio
+        && dataFim == this.avaliacao.dataFim
+        && disciplina.id == this.avaliacao.disciplina.id) {
+        popupErroExibir("Os dados estão repetidos. Por favor, altere os dados necessários");
+        this.avaliacao = {}
+        return
+    }
+
     this.avaliacao.descricao = descricao
     this.avaliacao.dataInicio = dataInicio
     this.avaliacao.dataFim = dataFim
@@ -279,16 +383,85 @@ function editar() {
     //verificação de campos vazios 
     if (this.avaliacao.descricao != "" && this.avaliacao.dataInicio != ""
     && this.avaliacao.dataFim != "") {
-        post('salvarAvaliacao', this.avaliacao).then(result => {
+        post('atualizarAvaliacao', this.avaliacao).then(result => {
             console.log('result', result)
+            popupConfirmacaoExibir("Avaliação editada com sucesso")
             this.atualizarTabela()
         }).catch(error => {
             console.log('error', error)
+            popupErroExibir(error)
         })
-    } else { console.log('error') }
+    } else {
+        console.log('error')
+        popupErroExibir('Por favor, preencha todos os campos')
+    }
     this.avaliacao = {}
 
 }
+
+
+// Função para exibir o popup de erro
+function popupErroExibir(mensagem){
+    teladisabled();
+    document.getElementById("popupErro").classList.add("exibirErro"); // Adiciona a classe "exibirErro" ao elemento com o ID "popupErro"
+    document.getElementById("erro").innerText = mensagem; // Define o texto da mensagem de erro no elemento com o ID "erro"
+    window.scrollTo(0,0);
+    var body = document.getElementById('tela');
+    body.style = "overflow:hidden";
+}
+
+// Função para ocultar o popup de erro
+function popupErroOcultar(){
+    document.getElementById("popupErro").classList.remove("exibirErro"); // Remove a classe "exibirErro" do elemento com o ID "popupErro"
+    body.style = "overflow:body";
+}
+
+// Função para exibir o popup de confirmação
+function popupConfirmacaoExibir(mensagem){
+    teladisabled();
+    document.getElementById("popupConfirmacao").classList.add("exibirErro"); // Adiciona a classe "exibirErro" ao elemento com o ID "popupConfirmacao"
+    document.getElementById("msg").innerText = mensagem; // Define o texto da mensagem de confirmação no elemento com o ID "msg"
+    window.scrollTo(0,0);
+    var body = document.getElementById('tela');
+    body.style = "overflow:hidden";
+}
+
+// Função para ocultar o popup de confirmação
+function popupConfirmacaoOcultar(){
+    document.getElementById("popupConfirmacao").classList.remove("exibirErro"); // Remove a classe "exibirErro" do elemento com o ID "popupConfirmacao"
+    body.style = "overflow:body";
+}
+
+
+var tela = document.getElementById('tela');
+
+function resizeHandler() {
+    var sw = document.documentElement.scrollWidth;
+    var sh = document.documentElement.scrollHeight;
+    tela.style.backgroundSize = sw + "px " + sh + "px";
+}
+
+function ajustarTr() {
+    var tr = document.getElementById('trTopo');
+    var posicao = tr.getBoundingClientRect().top;
+    var primeiroTh = document.getElementById('primeiroTh');
+    var ultimoTh = document.getElementById('ultimoTh');
+    console.log(posicao)
+    if(posicao <= 0) {
+        primeiroTh.style.borderTopLeftRadius = "0px";
+        ultimoTh.style.borderTopRightRadius = "0px";
+    } else {
+        primeiroTh.style.borderTopLeftRadius = "20px";
+        ultimoTh.style.borderTopRightRadius = "20px";
+    }
+}
+
+window.addEventListener('resize', resizeHandler);
+document.addEventListener('scroll', ajustarTr);
+
+resizeHandler();
+ajustarTr();
+
 
 let popup = document.getElementById("popupRemove");
 let telaDesativada = document.getElementById("tela");

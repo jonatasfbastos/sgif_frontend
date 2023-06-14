@@ -1,215 +1,354 @@
-var selectedId
-var TipoDeUsuarioList = [] 
-var tipodeusuario = {}
+let globalPerfilId = 0;
 
-// function tipoDeUsuarioNameAddChange(){
-//     tipodeusuario.nome = document.getElementById('tipoDeUsuarioNameAdd').value;
-//     console.log(tipodeusuario);
-// }
-
-// function tipoDeUsuarioDescricaoAddChange(){
-//     tipodeusuario.descricao = document.getElementById('tipoDeUsuarioDescricaoAdd').value;
-//     console.log(tipodeusuario);
-// }
-
-atualizarTabela()
-function atualizarTabela(){
-    
-    get('perfilusuario').then(data=>{
-    console.log('Data', data)
-    this.TipoDeUsuarioList = data
-    this.tableCreate(this.TipoDeUsuarioList)
-        }).catch(error=>{
-        console.log('Error ', error)
-    })
+function exibirEfeitoBackGround() {
+    const efeitoBackground = document.getElementById("background-efeito");
+    efeitoBackground.classList.add("mostrar-efeito");
 }
 
-function tableCreate(data){
-    var tableBody = document.getElementById('table-body');
-    if(tableBody){
-        tableBody.innerHTML = ''
-         data.forEach(element => {
-        var row = document.createElement("tr");
-        
-        var colId = document.createElement("td")
-        colId.appendChild(document.createTextNode(element.id))
-        row.appendChild(colId)
+function ocultarEfeitoBackGround() {
+    const efeitoBackground = document.getElementById("background-efeito");
+    efeitoBackground.classList.remove("mostrar-efeito");
+}
 
-        var colNome = document.createElement("td")
-        colNome.appendChild(document.createTextNode(element.nome))
-        row.appendChild(colNome)
+document.getElementById("btn-erro-fechar")
+    .addEventListener("click", ocultarPopUpErro);
 
-        var colDescricao = document.createElement("td")
-        colDescricao.appendChild(document.createTextNode(element.descricao))
-        row.appendChild(colDescricao)
-        
-        
-        tableBody.appendChild(row)
+function exibirPopUpErro(mensagem) {
+    const popupErro = document.getElementById("popup-erro");
+    popupErro.classList.add("mostrar-popup");
+    document.getElementById("erro-mensagem").innerText = mensagem;
+}
 
-        var colRemover = document.createElement("td")
-        colRemover.setAttribute("onclick", "openPopup("+element.id+")")
-        var removerLink = document.createElement("a")
-        var imgRemove = document.createElement("img")
-        imgRemove.setAttribute("src", "../images/excluir2.png")
-        removerLink.appendChild(imgRemove)
-        
-        colRemover.appendChild(removerLink)
-        row.appendChild(colRemover)
-        
-        var colEditar = document.createElement("td")
-        colEditar.setAttribute("onclick", "openEditPopup("+element.id+")")
-        var editarLink = document.createElement("a")
-        var imgEditar = document.createElement("img")
-        imgEditar.setAttribute("src", "../images/botao-editar2.png")
-        editarLink.appendChild(imgEditar)
-        
-        colEditar.appendChild(editarLink)
-        row.appendChild(colEditar)
+function ocultarPopUpErro() {
+    const popupErro = document.getElementById("popup-erro");
+    popupErro.classList.remove("mostrar-popup");
+    document.getElementById("erro-mensagem").innerText = "";
+}
 
-    });
+document.getElementById("btn-adicionar")
+    .addEventListener("click", exibirPopUpAdicionar);
+
+function exibirPopUpAdicionar() {
+    const popupAdicionar = document.getElementById("popup-adicionar");
+    popupAdicionar.classList.add("mostrar-popup");
+
+    exibirEfeitoBackGround();
+}
+
+document.getElementById("btn-add-cancelar")
+    .addEventListener("click", ocultarPopUpAdicionar);
+
+function ocultarPopUpAdicionar() {
+    const popupAdicionar = document.getElementById("popup-adicionar");
+    popupAdicionar.classList.remove("mostrar-popup");
+
+    ocultarEfeitoBackGround();
+}
+
+function getPermissoesSelecionados(inputContainer) {
+    const permissoes = [];
+    const inputs = inputContainer.getElementsByTagName("input");
+
+    for (const input of inputs) {
+        if (input.checked) {
+            const permissao = {
+                id: input.value
+            }
+            permissoes.push(permissao);
+        }
+    }
+    return permissoes;
+}
+
+
+document.getElementById("btn-add-confirmar")
+    .addEventListener("click", () => {
+        const nome = document.getElementById("perfil-nome-add").value;
+        const descricao = document.getElementById("perfil-descricao-add").value;
+
+        if (nome.trim().length <= 0 || descricao.trim().length <= 0) {
+            return exibirPopUpErro("Não foi possível salvar o perfil, há campo vazio.");
+        }
+
+        const permissoes = getPermissoesSelecionados(document.getElementById("permissoes-add"));
+
+        const perfil = {
+            nome: nome,
+            descricao: descricao,
+            permissoes: permissoes
+        }
+        
+        post("salvarPerfilUsuario", perfil)
+        .then(data => {
+            atualizarTabela();
+        })
+        .catch(erro => {
+            erro.text()
+            .then(mensagem => exibirPopUpErro(mensagem)); 
+        });
+
+        ocultarPopUpAdicionar();
+        document.getElementById("perfil-nome-add").value = "";
+        document.getElementById("perfil-descricao-add").value = "";
+
+        const inputs = document.getElementById("permissoes-add")
+                            .getElementsByTagName("input");
+        for (const input of inputs) {
+            input.checked = false;
+        }
+    }
+);
+
+document.getElementById("btn-remover-cancelar")
+    .addEventListener("click", ocultarPopUpRemover);
+
+function ocultarPopUpRemover() {
+    const popupRemover = document.getElementById("popup-remover");
+    popupRemover.classList.remove("mostrar-popup");
+
+    ocultarEfeitoBackGround();
+}
+
+function removerPerfil(perfilId) {
+    globalPerfilId = perfilId;
+    const popupRemover = document.getElementById("popup-remover");
+    popupRemover.classList.add("mostrar-popup");
+
+    exibirEfeitoBackGround();
+}
+
+document.getElementById("btn-remover-confirmar")
+    .addEventListener("click", () => {
+        get_params("deletarPerfilDeUsuario/", {id: globalPerfilId})
+        .then(data => {
+            atualizarTabela();
+        })
+        .catch(erro => {
+            erro.text()
+            .then(mensagem => exibirPopUpErro(mensagem)); 
+        });
+
+        ocultarPopUpRemover();
+    }
+);
+
+document.getElementById("btn-editar-cancelar")
+    .addEventListener("click", ocultarPopUpEditar);
+
+function ocultarPopUpEditar() {
+    const popupEditar = document.getElementById("popup-editar");
+    popupEditar.classList.remove("mostrar-popup");
+
+    ocultarEfeitoBackGround();
+}
+
+function exibirPopUpEditar() {
+    const popupEditar = document.getElementById("popup-editar");
+    popupEditar.classList.add("mostrar-popup");
+
+    exibirEfeitoBackGround();
+}
+
+function editarPerfil({id, nome, descricao, permissoes}) {
+    globalPerfilId = id;
+
+    exibirPopUpEditar();
+
+    document.getElementById("perfil-nome-editar").value = nome;
+    document.getElementById("perfil-descricao-editar").value = descricao;
+
+    const inputs = document.getElementById("permissoes-editar")
+                            .getElementsByTagName("input");
+    for (const input of inputs) {
+        if (permissoes.some(permissao => permissao.id == input.value)) {
+            input.checked = true;
+        } else {
+            input.checked = false;
+        }
     }
 }
-            function stopPropagation(event){
-                event.stopPropagation();
-            }
 
-            function openAddPopup(){
-                popupAdd.classList.add("openAddPopup");
-            }
+document.getElementById("btn-editar-confirmar")
+    .addEventListener("click", () => {
+        const nome = document.getElementById("perfil-nome-editar").value;
+        const descricao = document.getElementById("perfil-descricao-editar").value;
 
-            function closeAddPopup(){
-                popupAdd.classList.remove("openAddPopup");
-            }
+        if (nome.trim().length <= 0 || descricao.trim().length <= 0) {
+            return exibirPopUpErro("Não foi possível atualizar o perfil, há campo vazio.");
+        }
 
-            function openPopup(id){
-                teladisabled()
-                this.selectedId = id
-                popup.classList.add("open_popup");
-            }
+        const permissoes = getPermissoesSelecionados(document.getElementById("permissoes-editar"));
 
-            function teladisabled(){
-                telaDesativada.classList.add("disabled_tela");
-                backdrop.classList.add("disabled_tela");
-            }
+        const perfil = {
+            id: globalPerfilId,
+            nome: nome,
+            descricao: descricao,
+            permissoes: permissoes
+        }
 
-            function getindex(x){
-                globalThis.Index = x.rowIndex;
-            }
+        post("salvarPerfilUsuario", perfil)
+        .then(data => {
+            atualizarTabela();
+        })
+        .catch(erro => {
+            erro.text()
+            .then(mensagem => exibirPopUpErro(mensagem)); 
+        });
 
-            function telaEnabled(){
-                telaDesativada.classList.remove("disabled_tela");
-                backdrop.classList.remove("disabled_tela");
-            }
+        ocultarPopUpEditar();
+        document.getElementById("perfil-nome-editar").value = "";
+        document.getElementById("perfil-descricao-editar").value = "";
+    }
+);
 
-            var tablee = document.getElementById("itens-table");
+const inputBuscar = document.getElementById("input-buscar");
+inputBuscar.addEventListener("keyup", () => {
+    const busca = inputBuscar.value.toLowerCase();
+    const corpoTabela = document.getElementById('table-body-perfis');
+    const linhas = corpoTabela.getElementsByTagName("tr");
 
-            function closePopup(){
-                popup.classList.remove("open_popup");
-            }
+    for(let i = 0; i < linhas.length; i++) {
+        const colunaTexto = linhas[i].getElementsByTagName("td")[0].innerText;
+        if (colunaTexto.toLowerCase().includes(busca)) {
+            linhas[i].style.display = "";
+        } else {
+            linhas[i].style.display = "none";
+        }
+    }
+});
 
-            function openEditPopup(id){
-                teladisabled()
-                this.selectedId = id
-                popupEdit.classList.add("popupEditOpen");
-                console.log('Id ',id)
-                let usr = this.TipoDeUsuarioList.find(user=>{
-                    return user.id === id
-                })
+document.getElementById("btn-fechar-view").addEventListener("click", () => {
+    document.getElementById("table-permissoes").style.display = "none";
+});
 
-                console.log('Tipo de Usuário achado ', usr)
-                
-                document.getElementById('tipoDeUsuarioName').value = usr.nome
-                document.getElementById('tipoDeUsuarioDescricao').value = usr.descricao
-            }
+function visualizarPermissoes(perfil) {
+    document.getElementById("table-permissoes").style.display = "block";
+    get("listarPermissoesPerfil/" + perfil.id)
+    .then(data => preencherTabelaPermissoes(perfil, data))
+    .catch(erro => {
+        erro.text()
+        .then(mensagem => exibirPopUpErro(mensagem)); 
+    });
+}
 
-            function closeEditPopup(){
-                popupEdit.classList.remove("popupEditOpen");
-            }
+function preencherTabelaPermissoes(perfil, permissoes) {
+    document.getElementById("titulo-tb-permissao").innerText = `Permissões associadas com ${perfil.nome}`;
 
-            function adicionar(){
+    const corpoTabela = document.getElementById('table-body-permissoes');
+    corpoTabela.innerHTML = '';
 
-                this.tipodeusuario.nome = document.getElementById('tipoDeUsuarioNameAdd').value;
-                this.tipodeusuario.descricao = document.getElementById('tipoDeUsuarioDescricaoAdd').value;
-                
+    permissoes.forEach(permissao => {
+        const linha = document.createElement("tr");
+        const colPermissao = document.createElement("td");
+        colPermissao.appendChild(document.createTextNode(permissao.nome));
+        linha.append(colPermissao);
+        corpoTabela.appendChild(linha);
+    });
+}
 
-                console.log(tipodeusuario)
-                console.log(tipodeusuario.id)
+function obterColunasTabela() {
+    let colNome = document.createElement("td");
+    let colDescricao = document.createElement("td");
+    let colRemover = document.createElement("td");
+    let colEditar = document.createElement("td");
+    let colView = document.createElement("td");
+    return [colNome, colDescricao, colRemover, colEditar, colView];
+}
 
-                ////se os campos de nome ou de descrição estiverem vazios, não serão salvos 
-                if(this.tipodeusuario.nome != "" && this.tipodeusuario.descricao != ""){
-                    post('salvarPerfilUsuario', tipodeusuario).then(result=>{
-                        console.log('result', result)
-                        atualizarTabela()
-                    }).catch(error=>{
-                        console.log('error', error)
-                    })
-                }else{console.log('error')}
+function obterImagens() {
+    let imgRemover = document.createElement("img");
+    imgRemover.setAttribute("src", "../images/excluir2.png");
+    let imgEditar = document.createElement("img");
+    imgEditar.setAttribute("src", "../images/botao-editar2.png");
+    let imgView = document.createElement("img");
+    imgView.setAttribute("src", "../images/botao_ver.png");
+    return [imgRemover, imgEditar, imgView];
+}
 
-                document.getElementById('tipoDeUsuarioNameAdd').value = '';
-                document.getElementById('tipoDeUsuarioDescricaoAdd').value = '';
-            }
-            
-            
-            function remover(){
-                console.log('Deletar ' + this.selectedId)
+function preencherTabelaPerfis(perfis) {
+    const corpoTabela = document.getElementById('table-body-perfis');
+    corpoTabela.innerHTML = '';
 
-                get_params('deletarPerfilDeUsuario', {id:this.selectedId, p2:'is'}).then(result=>{
-                    atualizarTabela()
-                }).catch(error=>{
-                })
-            }
+    perfis.forEach(perfil => {
+        const linha = document.createElement("tr");
+        const [colNome, colDescricao, colRemover, colEditar, colView] = obterColunasTabela();
+        const [imgRemover, imgEditar, imgView] = obterImagens();
 
-            function buscar(){
-
-                var input, filter, table, tr, td, i, txtValue;
-                input = document.getElementById("loupe");
-                filter = input.value.toUpperCase();
-                table = document.getElementById("itens-table");
-                tr = table.getElementsByTagName("tr");
-
-                        for (i = 0; i < tr.length; i++) {
-                        td = tr[i].getElementsByTagName("td")[1];
-                        if (td) {
-                        txtValue = td.textContent || td.innerText;
-                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        tr[i].style.display = "";
-                        } else {
-                        tr[i].style.display = "none";
-                        }
-                    }
-                }
-            }
-
-            var table = document.getElementById("itens-table");
-
-
-            function editar(){
-
-                var nome = document.getElementById("tipoDeUsuarioName").value;
-                var descricao = document.getElementById("tipoDeUsuarioDescricao").value;
-
-                this.tipodeusuario = this.TipoDeUsuarioList.find(user=>{
-                    return user.id === this.selectedId
-                })
-
-                this.tipodeusuario.nome = nome
-                this.tipodeusuario.descricao = descricao
-
-                console.log('Novo tipo user ', this.tipodeusuario)
-                post('salvarPerfilUsuario', this.tipodeusuario).then(result=>{
-                    console.log('Result ', result)
-                    this.atualizarTabela()
-                }).catch(error=>{
-                    console.log('Error ', error)
-                })
-                this.tipodeusuario = {}
-            }
+        colNome.appendChild(document.createTextNode(perfil.nome));
+        colDescricao.appendChild(document.createTextNode(perfil.descricao));
         
-        let popup = document.getElementById("popupRemove");
-        let telaDesativada = document.getElementById("tela");
-        let backdrop = document.getElementById("backdrop");
-        let popupEdit = document.getElementById("popupEdit");
-        let popupAdd = document.getElementById("popupAdd");
-        var tableInteract = document.getElementById("itens-table");
+        colView.setAttribute("onclick", "visualizarPermissoes(" + JSON.stringify(perfil) + ")");
+        colView.appendChild(imgView);
 
-   
+        colRemover.setAttribute("onclick", "removerPerfil("+ perfil.id + ")");
+        colRemover.appendChild(imgRemover);
+
+        colEditar.setAttribute("onclick", "editarPerfil(" + JSON.stringify(perfil) + ")");
+        colEditar.appendChild(imgEditar);
+
+        linha.append(colNome, colDescricao, colView, colRemover, colEditar);
+        corpoTabela.appendChild(linha);
+    });
+}
+
+function getInputs(nome, id) {
+    let inputAdd = document.createElement("input");
+    inputAdd.setAttribute("id", nome + id);
+    inputAdd.type = "checkbox";
+    inputAdd.value = id;
+
+    let inputEditar = document.createElement("input");
+    inputEditar.setAttribute("id", nome + id);
+    inputEditar.type = "checkbox";
+    inputEditar.value = id;
+
+    return [inputAdd, inputEditar];
+}
+
+function getLabels({id, nome}) {
+    const [inputAdd, inputEditar] = getInputs(nome, id);
+
+    let labelAdd = document.createElement("label");
+    labelAdd.innerText = nome;
+    labelAdd.htmlFor = nome + id;
+    labelAdd.appendChild(inputAdd);
+
+    let labelEditar = document.createElement("label");
+    labelEditar.innerText = nome;
+    labelEditar.htmlFor = nome + id;
+    labelEditar.appendChild(inputEditar);
+
+    return [labelEditar, labelAdd];
+}
+
+function preencherPermissoes(permissoes) {
+    const permissoesContainerAdd = document.getElementById("permissoes-add");
+    const permissoesContainerEditar = document.getElementById("permissoes-editar");
+
+    permissoes.forEach(permissao => {
+        const [labelEditar, labelAdd] = getLabels(permissao);
+        
+        permissoesContainerAdd.appendChild(labelAdd);
+        permissoesContainerEditar.appendChild(labelEditar);
+    });
+}
+
+function getPermissoes() {
+    get("listarPermissoes")
+    .then(data => preencherPermissoes(data))
+    .catch(erro => {
+        erro.text()
+        .then(mensagem => exibirPopUpErro(mensagem)); 
+    });
+}
+
+function atualizarTabela() {
+    get("perfilusuario")
+    .then(data => preencherTabelaPerfis(data))
+    .catch(erro => {
+        console.log(erro);
+    });
+}
+
+getPermissoes();
+atualizarTabela();
