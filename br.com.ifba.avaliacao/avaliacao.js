@@ -10,6 +10,7 @@ obterDisciplinas()
 setDisciplina()
 
 function atualizarTabela() {
+    window.scrollTo(0,0)
     get('avaliacao').then(data => {
         console.log('Data', data)
         this.avaliacaoList = data
@@ -35,6 +36,7 @@ function filtrar() {
     this.selectedDtFim = this.selectedDtFim.split('-').reverse().join('/');
     console.log(selectedDtInicio)
     console.log(selectedDtFim)
+    window.scrollTo(0,0)
     get_params('filtrarAvaliacao', {
         dtInicio: this.selectedDtInicio,
         dtFim: this.selectedDtFim,
@@ -60,6 +62,7 @@ function obterDisciplinas() {
 }
 
 function tableCreate(data) {
+    window.scrollTo(0,0)
     var tableBody = document.getElementById('table-body');
     var margin = 0;
     var avlEncontradas = 0;
