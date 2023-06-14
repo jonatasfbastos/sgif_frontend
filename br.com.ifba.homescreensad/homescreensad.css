@@ -6,15 +6,36 @@
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
 }
+
 body{
   overflow: hidden;
 }
+
+.container{
+  width: 1000px;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+}
+
+.container .card{
+  position: relative;
+  cursor: pointer;
+}
+
+.container .card .face{
+  width: 300px;
+  height: 200px;
+  transition: 0.5s;
+  border-radius: 5px;
+}
+
 .sidebar{
   position: fixed;
   top: 0;
   left: 0;
   height: 100%;
-  width: 260px;
+  width: 300px;
   background: #11101d;
   z-index: 100;
   transition: all 0.5s ease;
@@ -37,7 +58,7 @@ body{
   line-height: 50px;
 }
 .sidebar .logo-details .logo_name{
-  font-size: 22px;
+  font-size: 16px;
   color: #fff;
   font-weight: 600;
   transition: 0.3s ease;
@@ -166,7 +187,7 @@ body{
 .sidebar .profile-details{
   position: fixed;
   bottom: 0;
-  width: 260px;
+  width: 300px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -216,8 +237,8 @@ body{
   position: relative;
   background: #E4E9F7;
   height: 100vh;
-  left: 260px;
-  width: calc(100% - 260px);
+  left: 300px;
+  width: calc(100% - 300px);
   transition: all 0.5s ease;
   padding: 12px;
 }
@@ -246,13 +267,13 @@ body{
 
 @media screen and (max-width: 400px){
   .sidebar{
-    width: 240px;
+    width: 300px;
   }
   .sidebar.close{
     width: 78px;
   }
   .sidebar .profile-details{
-    width: 240px;
+    width: 300px;
   }
   .sidebar.close .profile-details{
     background: none;
@@ -268,4 +289,7 @@ body{
     left: 78px;
     width: calc(100% - 78px);
   }
+ 
+
+
 }
