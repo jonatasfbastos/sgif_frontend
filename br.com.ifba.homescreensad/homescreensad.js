@@ -75,25 +75,20 @@ function preencherMenu(permissoes) {
 }
 
 function setDados() {
-  let usuario = JSON.parse(localStorage.getItem("logged_user"));
+  const usuarioLogged = getUser();
 
-  /*
-    O IDEAL DEVE SER ALGO ASSIM, PORQUE PODE ACONTECER DE AS PERMISSÕES FICAREM DESATUALIZADAS.
+  if (usuarioLogged == null || usuarioLogged == undefined) {
+    return window.location.pathname = "br.com.ifba.login/index.html";
+  }
 
-    get("perfilUsuarioUsuarioId/" + usuario.id)
-    .then(perfilUsuario => {
-      document.querySelector(".profile_name").innerText = usuario.login;
-      document.querySelector(".job").innerText = perfilUsuario.nome;
+  get("usuario/" + usuarioLogged.id)
+  .then(usuario => {
+    document.querySelector(".profile_name").innerText = usuario.login;
+    document.querySelector(".job").innerText = usuario.perfilUsuario.nome;
 
-      preencherMenu(perfilUsuario.permissoes);
-    })
-    .catch(erro => console.log(erro)); 
-  */
-
-  document.querySelector(".profile_name").innerText = usuario.login;
-  document.querySelector(".job").innerText = usuario.perfilUsuario.nome;
-
-  preencherMenu(usuario.perfilUsuario.permissoes);
+    preencherMenu(usuario.perfilUsuario.permissoes);
+  })
+  .catch(erro => console.log(erro));
 }
 
 setDados();
