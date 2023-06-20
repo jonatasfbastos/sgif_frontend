@@ -8,26 +8,51 @@
     <title>Importar Cursos</title>
 </head>
 <body>
-    <main>
     <div class="buttons" id="botoes">
-        <a href="../br.com.ifba.homescreensad/homescreensad.html"><button class="homescreen"> <img src="../images/casa.png" alt="homescreen"></button></a>
-        <button id="addsimbol"><img src="../images/adicionar-o-popup.png" alt=""></button>
+        <button class="importarCurso" type="button" onclick="importarPopupExibir()">Importar Cursos</button>
     </div>
-       
-    <h2 id="titulo">Importar arquivo csv </h2>
-    <input type="file" name="file" id="file" accept=".csv" > 
-    <button type="button" id="enviar" value="Enviar" onclick="submit()" >Enviar</button>
 
-    <div id="popupConfirmar">
-        <h2>Arquivo .csv importado com sucesso</h2>
-            <button type="button" onclick="importarPopupOcultar()">OK</button>
-        
-    </div> 
+    <!--Popup para selecionar o arquivo e enviar-->
+    <div id="popupImportar">
+        <img src="../images/adicionar-3.png" alt="imagem de importar">
+        <h2>Importar arquivo de Curso</h2>
+        <div id="centralizando">
+            <h4>Escolha o tipo de arquivo</h4>
+            <select name="select" id="comboBox">
+                <option value="valor1">.CSV</option>
+                <option value="valor2">.XLS</option>
+            </select>
+            <input type="file" name="file" id="file" accept=".xls, .csv"> 
+            <button type="button" value="Enviar" onclick="submit();">Enviar</button>
+            <button type="button" onclick="importarPopupOcultar()">Cancelar</button>
+            <p id="arquivoSelecionado"></p>
+        </div>
+    </div>
 
-   
-    
-   <script src="../js/requisitions.js"></script>
-   <script src="importarcurso.js"></script>
-</main>
+    <!--Popup para acusar que o arquivo não foi selecionado-->
+    <div id="popupArquivoVazio">
+        <img src="../images/alerta-icone.png" alt="imagem de erro Arquivo Vazio">
+        <h2>Por Favor selecione o arquivo</h2>
+        <button type="button" onclick="popupArquivoVazioOcultar()">Fechar</button>
+    </div>
+
+    <!--Popup para a exibição dos erros-->
+    <div id="popupErro">
+        <img src="../images/alerta-icone.png" alt="imagem de erro">
+        <p id="erro"></p>
+        <button type="button" onclick="popupErroOcultar()">Fechar</button>
+    </div>
+
+    <!--Popup para avisar que o arquivo foi enviado-->
+    <div id="popupEnviar">
+        <img src="../images/enviar.png" alt="imagem de enviado">
+        <h2>Arquivo enviado com sucesso!</h2>
+        <p id="erro"></p>
+        <button type="button" onclick="EnviarPopupOcultar()">Fechar</button>
+    </div>
+
+    <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+    <script src="../js/requisitions.js"></script>
+    <script src="importarcurso.js"></script>
 </body>
 </html>

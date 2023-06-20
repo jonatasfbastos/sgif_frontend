@@ -1,3 +1,4 @@
+/*Geral*/
 *{
     margin: 0;
     padding: 0;
@@ -5,28 +6,12 @@
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
-body{
-    height: 100vh;
-    background-image: linear-gradient(#20631d, #c2f5bf);
-    background-repeat: no-repeat;
-    background-size: auto;
-} 
-main{
-background-color: #013b01;
-width: 450px;
-height: 400px;
-padding: 10px;
-position: fixed;
-top: 150px;
-left: 455px;
-border-radius: 10px;
-}
 button{
     max-width: 255px;
     width: 100%;
     padding: 10px 0;
     margin: 4px;
-    background-color: #f5f5f5;
+    background: #fff;
     border: none;
     border-radius: 14px;
     outline: none;
@@ -39,53 +24,17 @@ button:hover{
     background-color: #666;
 }
 
-button.homescreen{
-    width: 200px;
-    height: 45px;
-    border: 0;
-    border-radius: 25px;
-    background-color: #013b01;
-    font-size: 16px;
-    cursor: pointer;   
-    background-position: center,center;
+/*Corpo*/
+
+body{
+    height: 100vh;
+    background-image: linear-gradient(#20631d, #c2f5bf);
+    background-repeat: no-repeat;
+    background-size: auto;
+    overflow: hidden;
 }
 
-button.homescreen:hover{
-    color: #fff;
-    background-color: #666;
-}
-
-button.homescreen {
-    position: fixed;
-    top: 40px;
-    right: 100px;
-}
-
-#addsimbol{
-    height: 0px;
-    width: 0px;
-    border: radius 100px;
-    position: fixed;
-    top: 75px;
-    left: 610px;
-}
-#file{
-    position: fixed;
-    top: 300px;
-    left: 550px;
-}
-
-#titulo{
-    position: fixed;
-    top: 250px;
-    left: 490px;
-}
-
-#enviar{
-    position: fixed;
-    top: 420px;
-    left: 550px;
-}
+/*Botão de escolher arquivo*/
 #file::-webkit-file-upload-button{
     max-width: 255px;
     width: 100%;
@@ -104,9 +53,10 @@ button.homescreen {
     color: #fff;
 }
 
-#popupConfirmar{
+/*Popup de importar*/
+#popupImportar{
     width: 400px;
-    height: 220px;
+    height: 450px;
     background: #20631d;
     border-radius: 10px;
     position: absolute;
@@ -120,22 +70,26 @@ button.homescreen {
     transition: transform 0.4s, top 0.4s; 
 }
 
-
-
-#popupConfirmar h2{
-    font-size: 23px;
-    font-weight: 500;
-    margin: 30px 0 10px;
-    color: black;
+/*Alterações nas imagens de todos os popups*/
+#popupImportar img, #popupArquivoVazio img, #popupErro img, #popupEnviar img{
+    width: 100px;
+    margin-top: -50px;
 }
 
-#popupConfirmar.exibirImportar{
+#popupImportar h2{
+    font-size: 30px;
+    font-size: larger;
+    margin: 30px 0 40px;
+    color: white;
+}
+
+#popupImportar.exibirImportar{
     visibility: visible;
     top: 50%;
     transform: translate(-50%, -50%) scale(1);
 }
 
-.importarProfessor{
+.importarCurso{
     width: 200px;
     height: 35px;
 }
@@ -146,16 +100,131 @@ button.homescreen {
     margin-top: 400px;
 }
 
-#popupConfirmar button{
-    height: 35px;
-    width: 250px;
-    margin: 20px;
+#popupImportar button{
+    height: 36px;
+    width: 260x;
+    margin-top: 13px;
 }
 
-h2{
-    color: #f5f5f5;
+h4{
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
-#popupConfirmar h2{
+select{
+    display: flex;
+    justify-content: center;
+    max-width: 255px;
+    width: 100%;
+    padding: 10px 0;
+    border-radius: 14px;
+    margin-left: 45px;
+    margin-bottom: 10px;
+}
+
+#arquivoSelecionado{
+    margin-top: 20px;
+}
+
+/*Popup arquivo vazio*/
+
+#popupArquivoVazio{
+    width: 400px;
+    height: 200px;
+    background: #20631d;
+    border-radius: 10px;
+    position: absolute;
+    top: 0%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.1);
+    text-align: center;
+    padding: 0 30px 30px;
     color: #f5f5f5;
+    visibility: hidden;
+    transition: transform 0.4s, top 0.4s; 
+}
+
+#popupArquivoVazio h2{
+    font-size: 20px;
+    font-weight: 500;
+    margin: 20px 0 25px 0;
+    color: white;
+}
+
+#popupArquivoVazio.exibirVazio{
+    visibility: visible;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/*Popup Erro*/
+
+#popupErro{
+    width: 400px;
+    height: 200px;
+    background: #20631d;
+    border-radius: 10px;
+    position: absolute;
+    top: 0%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.1);
+    text-align: center;
+    padding: 0 30px 30px;
+    color: #f5f5f5;
+    visibility: hidden;
+    transition: transform 0.4s, top 0.4s; 
+}
+
+#popupErro h2{
+    font-size: 23px;
+    font-weight: 500;
+    margin: 30px 0 10px;
+    color: white;
+}
+
+#popupErro.exibirErro{
+    visibility: visible;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+#popupErro p{
+    margin: 20px 0;
+    font-weight: bold;
+}
+
+/*Popup Enviar*/
+
+#popupEnviar{
+    width: 400px;
+    height: 200px;
+    background: #20631d;
+    border-radius: 10px;
+    position: absolute;
+    top: 0%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.1);
+    text-align: center;
+    padding: 0 30px 30px;
+    color: #f5f5f5;
+    visibility: hidden;
+    transition: transform 0.4s, top 0.4s; 
+}
+
+#popupEnviar h2{
+    font-size: 23px;
+    font-weight: 500;
+    margin: 30px 0 10px;
+    color: white;
+}
+
+#popupEnviar.exibirEnviar{
+    visibility: visible;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+#popupEnviar p{
+    margin: 20px 0;
+    font-weight: bold;
 }
