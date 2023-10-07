@@ -1,198 +1,184 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
 }
 
-body{
-    width: 100%;
-    height: 100%;
+body {
+  width: 100%;
+  height: 100%;
 }
 
-main{
-    display: flex;
-    border: none;
+main {
+  display: flex;
+  border: none;
 }
 
-.part1{
-    height: 100vh;
-    width: 40vw;
-    background-color: #009500;
-    font-size: 48px;
-    display: flex;
-    align-items: center;
-    color: #fafafa;
+/* =============={header section}==============*/
+.header-section {
+  height: 100vh;
+  width: 40vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: #009500;
+  color: #fafafa;
+
+  position: relative;
+}
+.header-section .content-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+}
+.header-section .content-header .salmos {
+  margin: auto;
+  display: flex;
+  align-items: baseline;
+}
+.header-section .content-header .salmos h1 {
+  font-size: 6.5rem;
+}
+.header-section .content-header .version {
+  font-size: 2rem;
+  font-weight: bold;
+}
+.header-section .content-header .system-type {
+  position: absolute;
+  bottom: 10px;
+}
+.header-section .content-header .system-type h2 {
+  color: #fafafa;
+  font-size: 1.2rem;
+}
+/* =============={END header section}==============*/
+
+
+/* =============={login-container}==============*/
+.login-container {
+  height: 100vh;
+  width: 60vw;
+  background-color: #fafafa;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.part2{
-    height: 100vh;
-    width: 60vw;
-    background-color: #fafafa;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.salmos{
-    padding-left: 30px;
-    padding-bottom: 240px;
-    margin: auto;
-    display: flex;
-    /*text-shadow: 0.01em 0.01em 0.05em black;*/
-}
-
-.version{
-    font-size: 20px;
-    margin-top: 70px;
-    margin-left: 10px;
-}
-
-.img{
-    margin-top: 35px;
-    margin-left: 25px;
-    position: absolute;
-    top: 50%;
-    left: 21%;
-    transform: translate(-50%, -21%);
-}
-
-.img h6{
-    display: block;
-    margin-top: 190px;
-    font-size: 20px;
-    margin-left: -55px;
-    color: #fafafa;
-}
-
-.form{
-    /* position: absolute;
+.form-container {
+  /* position: absolute;
     top: 50%;
     left: 72%;
     transform: translate(-50%, -100%);
     margin-top: 15%; */
-    display: flex;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 400px;
+  height: 600px;
+  box-shadow: 0 7px 30px -10px rgba(150, 170, 180, 0.5);
+  padding: 20px;
+}
+
+.form-container h2 {
+  color: #009500;
+  text-align: center;
+  font-size: 3.125rem;
+  padding-bottom: 10px;
+}
+
+.form-container img {
+  margin-bottom: 25px;
+}
+
+.form-container span {
+  padding-bottom: 20px;
+  font-size: 1rem;
+  color: #666;
+}
+
+form .user {
+  border: none;
+  padding-left: 10px;
+  width: 100%;
+  height: 45px;
+  margin: 4px 2px;
+  background-color: #f1f1f1;
+  background-image: url(../images/o-email.png);
+  background-repeat: no-repeat;
+  background-position: right;
+  padding-left: 50px;
+  background-size: 1.3em;
+  background-position-x: 20px;
+}
+
+form .keyword {
+  border: none;
+  padding-left: 10px;
+  width: 100%;
+  height: 45px;
+  margin: 15px 2px;
+  background-image: url(../images/cadeado.png);
+  background-color: #f1f1f1;
+  background-repeat: no-repeat;
+  background-position: right;
+  padding-left: 50px;
+  background-size: 1.3em;
+  background-position-x: 20px;
+}
+
+form .user:focus,
+form .keyword:focus {
+  background-color: #f1f1f1;
+  outline: none;
+  border-bottom: #08d408 3px solid;
+  transition: 0.1s;
+}
+
+form .button {
+  width: 100%;
+  height: 40px;
+  background-color: #009500;
+  color: white;
+  cursor: pointer;
+  border: 0;
+  font-size: 16px;
+  transition: 1s;
+}
+
+form .button:hover {
+  background-color: #08d408;
+  color: rgb(241, 238, 238);
+  transition: 1s;
+}
+
+form .forgot {
+  text-align: right;
+  color: #009500;
+  padding: 30px 0px;
+  cursor: pointer;
+  transition: 1s;
+}
+
+form .forgot:hover {
+  color: #08d408;
+  transition: 1s;
+}
+/* =============={END login-container}==============*/
+
+
+@media (max-width: 943px) {
+  .login-container {
+    width: 100vw;
+    justify-items: center;
     align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    width: 400px;
-    height: 600px;
-    box-shadow: 0 7px 30px -10px rgba(150,170,180,0.5);
-    padding: 20px;
-}
-
-.form a{
-    align-self: flex-end;
-    justify-self: end;
-}
-
-.form h2{
-    color: #009500;
-    font-size: 30px;
-    text-align: center;
-    font-size: 50px;
-    padding-bottom: 10px;
-}
-
-.form img{
-    margin-bottom: 25px;
-}
-
-.form span{
-    padding-bottom: 20px;
-    font-size: 18px;
-    color: #666;
-}
-
-.user{
-    border: none;
-    padding-left: 10px;
-    width: 100%;
-    height: 45px;
-    margin: 4px 2px;
-    background-color: #f1f1f1;
-    background-image: url(../images/o-email.png);
-    background-repeat: no-repeat;
-    background-position: right;
-    padding-left: 50px;
-    background-size: 1.3em;
-    background-position-x: 20px;
-}
-
-.user:focus{
-    background-color: #f1f1f1;
-    outline: none;
-    border-bottom: #08d408 3px solid;
-    transition: 0.1s;
-}
-
-.keyword{
-    border: none;
-    padding-left: 10px;
-    width: 100%;
-    height: 45px;
-    margin: 15px 2px;
-    background-image: url(../images/cadeado.png);
-    background-color: #f1f1f1;
-    background-repeat: no-repeat;
-    background-position: right;
-    padding-left: 50px;
-    background-size: 1.3em;
-    background-position-x: 20px;
-}
-
-.keyword:focus{
-    outline: none;
-    border-bottom: #08d408 3px solid;
-    transition: 0.1s;
-}
-
-.button{
-    width: 100%;
-    height: 40px;
-    background-color: #009500;
-    color: white;
-    cursor: pointer;
-    border: 0;
-    font-size: 16px;
-    transition: 1s;
-}
-
-.button:hover{
-    background-color: #08d408;
-    color: rgb(241, 238, 238);
-    transition: 1s;
-}
-
-.system-type{
-    color: #0a0a0a;
-}
-
-.forgot{
-    text-align: right;
-    color: #009500;
-    padding: 30px 0px;
-    cursor: pointer;
-    margin-right: -180px;
-    transition: 1s;
-}
-
-.forgot:hover{
-    color: #08d408;
-    transition: 1s;
-}
-
-@media(max-width: 943px){
-    .part2{
-        width: 100vw;
-        justify-items: center;
-        align-items: center;
-    }
-    .part1{
-        display: none;
-    }
-
-    .img{
-        display: none;
-    }
+  }
+  .header-section {
+    display: none;
+  }
 }
