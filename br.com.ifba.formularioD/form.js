@@ -5,20 +5,20 @@
 const html = {
   /**
    * Obtém o primeiro elemento HTML que corresponde ao seletor especificado.
-   * @param {string} element - O seletor do elemento a ser obtido.
+   * @param {string} selector - O seletor do elemento a ser obtido.
    * @returns {Element|null} O elemento HTML correspondente ou null se não for encontrado.
    */
-  getElement(element) {
-    return document.querySelector(element);
+  get(selector) {
+    return document.querySelector(selector);
   },
 
   /**
    * Obtém todos os elementos HTML que correspondem ao seletor especificado.
-   * @param {string} element - O seletor dos elementos a serem obtidos.
+   * @param {string} selector - O seletor dos elementos a serem obtidos.
    * @returns {NodeList} Uma lista de elementos HTML correspondentes.
    */
-  getElements(element) {
-    return document.querySelectorAll(element);
+  getAll(selector) {
+    return document.querySelectorAll(selector);
   },
 
   /**
@@ -26,22 +26,30 @@ const html = {
    * @param {string} element - O nome do elemento HTML a ser criado.
    * @returns {Element} O novo elemento HTML criado.
    */
-  createElement(element) {
+  create(element) {
     return document.createElement(element);
   },
 
   /**
-   * Adiciona uma classe CSS a um elemento HTML.
-   * @param {Element} element - O elemento HTML ao qual a classe será adicionada.
-   * @param {string} nameClass - O nome da classe CSS a ser adicionada.
+   * Cria um novo elemento HTML com o nome especificado e adiciona classes a ele.
+   * @param {string} element - O nome do elemento HTML a ser criado.
+   * @param {...string} classes - Uma ou mais classes CSS a serem adicionadas ao elemento.
+   * @returns {Element} O novo elemento HTML criado com as classes especificadas.
    */
-  addClass(element, nameClass) {
-    element.classList.add(nameClass);
+  createElementAndClass(element, ...classes) {
+    if (element) {
+      const genericElement = document.createElement(element);
+      if (classes.length > 0) {
+        genericElement.classList.add(...classes);
+      }
+      return genericElement;
+    }
+    return;
   },
 };
 
 // Elemento de destino
-const targetElement = html.getElement("#evaluation-form");
+const targetElement = html.get("#evaluation-form");
 
 // Similuando o back-end
 const form = {
@@ -117,13 +125,33 @@ const form = {
 
 (function (params) {
   // Desestruturação do objeto params
-  const { titulo, descricao } = params.form;
+  const { titulo, descricao, ...resto } = params.form;
 
-  // Renderizadas título e descrição do enuciado (class -> form-header)
-  const tituloForm = html.getElement(".form-header .form-title");
+  // Renderizar título e descrição do enuciado (class -> form-header)
+  const tituloForm = html.get(".form-header .form-title");
   tituloForm.textContent = titulo;
 
-  const descricaoForm = html.getElement(".form-header .form-description");
+  const descricaoForm = html.get(".form-header .form-description");
   descricaoForm.textContent = descricao;
 
+  // Renderizar questões e btn do formulário (class -> form-content)
+  const form = html.get("#evaluation-form");
+
+  resto.questoes.map((el) => {
+    form.innerHTML += `
+    <div>
+      <label for="${el.id}">${el.enunciado}</label>
+      <input type="text" id="${el.id}" name="teacher-feedback" required autofocus />
+    </div>
+    `;
+  });
+
+  // Criar botão de enviar formulário
+  const containerBtn = html.createElementAndClass("div", "container-button");
+  const btnEnviarForm = html.createElementAndClass("button", "form-button");
+  btnEnviarForm.textContent = "Enviar";
+
+  containerBtn.appendChild(btnEnviarForm);
+
+  form.appendChild(containerBtn);
 })({ form, targetElement }, html);
