@@ -116,6 +116,14 @@ const form = {
  */
 
 (function (params) {
-  // Criar título e descrição do enuciado (class -> form-header)
-  
+  // Desestruturação do objeto params
+  const { titulo, descricao } = params.form;
+
+  // Renderizadas título e descrição do enuciado (class -> form-header)
+  const tituloForm = html.getElement(".form-header .form-title");
+  tituloForm.textContent = titulo;
+
+  const descricaoForm = html.getElement(".form-header .form-description");
+  descricaoForm.textContent = descricao;
+
 })({ form, targetElement }, html);
