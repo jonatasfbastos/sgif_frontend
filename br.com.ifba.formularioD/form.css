@@ -184,11 +184,12 @@ main .form-header .form-description {
   outline-offset: -2px;
 }
 
-#evaluation-form .container-button{
+#evaluation-form .container-button {
   display: flex;
   align-items: end;
 }
-#evaluation-form  .form-button {
+
+#evaluation-form .form-button {
   background-color: #13aa52;
   border-radius: var(--largura-borda);
   box-shadow: rgba(0, 0, 0, 0.1) 0 2px 4px 0;
@@ -207,5 +208,14 @@ main .form-header .form-description {
 .form-button:hover {
   box-shadow: rgba(0, 0, 0, 0.15) 0 3px 9px 0;
   opacity: 0.8;
+}
+
+.input-field .error {
+  display: flex;
+  align-items: center;
+  margin-top: 6px;
+  font-size: var(--tamanho-fonte-base);
+  font-weight: 400;
+  color: #d93025;
 }
 /* ========{END FORM}======== */

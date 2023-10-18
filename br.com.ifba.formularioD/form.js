@@ -139,10 +139,13 @@ const form = {
 
   resto.questoes.map((el) => {
     form.innerHTML += `
-    <div>
+    <div class="input-field">
       <label for="${el.id}">${el.enunciado}</label>
       <input type="text" id="${el.id}" name="teacher-feedback" required autofocus />
+      <span class="error">
+      </span>
     </div>
+    
     `;
   });
 
@@ -155,3 +158,57 @@ const form = {
 
   form.appendChild(containerBtn);
 })({ form, targetElement }, html);
+
+/**
+ * Valida um formulário verificando se os campos de entrada estão vazios.
+ * Define mensagens de erro e estilos apropriados para cada campo.
+ */
+const validarFormulario = () => {
+  const inputs = html.getAll(".input-field input");
+  const btnSendForm = html.get(".container-button .form-button");
+
+  btnSendForm.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    inputs.forEach((input) => {
+      if (input.value.trim() === "") {
+        setError(input, "Esse campo não pode está vazio");
+        return false;
+      } else{
+        setSuccess(input);
+        return true;
+      } 
+    });
+  });
+};
+
+/**
+ * Define uma mensagem de erro e estilo para um elemento de entrada.
+ * @param {HTMLElement} element - O elemento de entrada a ser marcado como erro.
+ * @param {string} message - A mensagem de erro a ser exibida.
+ */
+const setError = (element, message) => {
+  const inputControl = element.parentElement;
+  const errorDisplay = inputControl.querySelector(".error");
+  const input = inputControl.querySelector("input");
+
+  errorDisplay.innerText = message;
+  input.classList.add("input-invalid");
+  inputControl.classList.add("error", "invalid");
+  inputControl.classList.remove("success");
+};
+
+/**
+ * Remove uma mensagem de erro e define estilo de sucesso para um elemento de entrada.
+ * @param {HTMLElement} element - O elemento de entrada a ser marcado como sucesso.
+ */
+const setSuccess = (element) => {
+  const inputControl = element.parentElement;
+  const errorDisplay = inputControl.querySelector(".error");
+
+  errorDisplay.innerText = "";
+  inputControl.classList.add("success");
+  inputControl.classList.remove("error");
+};
+
+validarFormulario();
