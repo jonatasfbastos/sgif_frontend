@@ -115,7 +115,6 @@ const form = {
  *
  * @param {Object} params - Parâmetros da função.
  * @param {Object} params.form - Um objeto contendo os dados do formulário.
- * @param {Element} params.targetElement - O elemento HTML de destino onde as questões serão renderizadas.
  * @param {Object} htmlUtil - Um objeto contendo utilitários para manipulação de elementos HTML.
  * @returns {void}
  */
@@ -193,6 +192,7 @@ const form = {
 
   const nextQuestion = () => {
     const btnNext = html.get(".form-button-next");
+    const input = stateQuestions.inputField.querySelector("input");
 
     if (!btnNext) {
       return;
@@ -205,6 +205,10 @@ const form = {
         return;
       }
 
+      if (!validateField(input)) {
+        return;
+      }
+
       stateQuestions.currentQuestion++;
       renderizarQuestao(stateQuestions);
     });
@@ -213,26 +217,18 @@ const form = {
 })({ form }, html);
 
 /**
- * Valida um formulário verificando se os campos de entrada estão vazios.
- * Define mensagens de erro e estilos apropriados para cada campo.
+ * Valida um campo de entrada, verificando se está vazio.
+ * Define uma mensagem de erro e um estilo apropriado para o campo.
+ * @param {HTMLElement} input - O campo de entrada a ser validado.
  */
-const validarFormulario = () => {
-  const inputs = html.getAll(".input-field input");
-  const btnSendForm = html.get(".container-button .form-button");
-
-  btnSendForm.addEventListener("click", (e) => {
-    e.preventDefault();
-
-    inputs.forEach((input) => {
-      if (input.value.trim() === "") {
-        setError(input, "Por favor, preencha este campo");
-        return false;
-      } else {
-        setSuccess(input);
-        return true;
-      }
-    });
-  });
+const validateField = (input) => {
+  if (input.value.trim() === "") {
+    setError(input, "Por favor, preencha este campo");
+    return false;
+  } else {
+    setSuccess(input);
+    return true;
+  }
 };
 
 /**
@@ -241,14 +237,14 @@ const validarFormulario = () => {
  * @param {string} message - A mensagem de erro a ser exibida.
  */
 const setError = (element, message) => {
+  element.value = "";
+  const input = element;
   const inputControl = element.parentElement;
   const errorDisplay = inputControl.querySelector(".error");
-  const input = inputControl.querySelector("input");
 
   errorDisplay.innerText = message;
   input.classList.add("input-invalid");
   inputControl.classList.add("error", "invalid");
-  inputControl.classList.remove("success");
 };
 
 /**
@@ -256,12 +252,11 @@ const setError = (element, message) => {
  * @param {HTMLElement} element - O elemento de entrada a ser marcado como sucesso.
  */
 const setSuccess = (element) => {
+  element.value = "";
   const inputControl = element.parentElement;
   const errorDisplay = inputControl.querySelector(".error");
 
   errorDisplay.innerText = "";
   inputControl.classList.add("success");
-  inputControl.classList.remove("error");
+  inputControl.classList.remove("error", "invalid");
 };
-
-validarFormulario();
