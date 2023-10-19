@@ -48,9 +48,6 @@ const html = {
   },
 };
 
-// Elemento de destino
-const targetElement = html.get("#evaluation-form");
-
 // Similuando o back-end
 const form = {
   id: 1,
@@ -124,40 +121,72 @@ const form = {
  */
 
 (function (params) {
-  // Desestruturação do objeto params
-  const { titulo, descricao, ...resto } = params.form;
+  const { titulo, descricao, ...rest } = params.form;
 
-  // Renderizar título e descrição do enuciado (class -> form-header)
   const tituloForm = html.get(".form-header .form-title");
   tituloForm.textContent = titulo;
 
   const descricaoForm = html.get(".form-header .form-description");
   descricaoForm.textContent = descricao;
 
-  // Renderizar questões e btn do formulário (class -> form-content)
   const form = html.get("#evaluation-form");
 
-  resto.questoes.map((el) => {
-    form.innerHTML += `
-    <div class="input-field">
-      <label for="${el.id}">${el.enunciado}</label>
-      <input type="text" id="${el.id}" name="teacher-feedback" required autofocus />
-      <span class="error">
-      </span>
-    </div>
-    
-    `;
-  });
+  const stateQuestions = {
+    currentQuestion: 0,
+    maxQuestions: rest.questoes.length,
+    isEmpty: true,
+    allQuestions: rest,
+    inputField: "",
+  };
 
-  // Criar botão de enviar formulário
+  const renderizarQuestao = ({ currentQuestion, allQuestions, inputField }) => {
+    const idQuestion = allQuestions.questoes[currentQuestion].id;
+    const statementQuestion = allQuestions.questoes[currentQuestion].enunciado;
+    console.log(idQuestion, statementQuestion);
+
+    if (inputField) {
+      inputField.querySelector("label").textContent = statementQuestion;
+      inputField.querySelector("input").id = idQuestion;
+    } else {
+      // Crie o campo de entrada se for o primeiro
+      const inputField = html.createElementAndClass("div", "input-field");
+
+      inputField.innerHTML = `
+        <label for="${idQuestion}">${statementQuestion}</label>
+        <input type="text" id="${idQuestion}" name="teacher-feedback" required autofocus autocomplete="off">
+        <span class="error"></span>
+      `;
+      form.appendChild(inputField);
+
+      stateQuestions.inputField = inputField;
+    }
+  };
+  renderizarQuestao(stateQuestions);
+
   const containerBtn = html.createElementAndClass("div", "container-button");
   const btnEnviarForm = html.createElementAndClass("button", "form-button");
-  btnEnviarForm.textContent = "Enviar";
+  btnEnviarForm.textContent = "Proximo";
 
   containerBtn.appendChild(btnEnviarForm);
 
   form.appendChild(containerBtn);
-})({ form, targetElement }, html);
+
+  const nextQuestion = () => {
+    const btnNext = html.get(".form-button");
+
+    btnNext.addEventListener("click", (e) => {
+      e.preventDefault();
+
+      if (stateQuestions.currentQuestion >= stateQuestions.maxQuestions - 1) {
+        return;
+      }
+
+      stateQuestions.currentQuestion++;
+      renderizarQuestao(stateQuestions);
+    });
+  };
+  nextQuestion();
+})({ form }, html);
 
 /**
  * Valida um formulário verificando se os campos de entrada estão vazios.
@@ -172,12 +201,12 @@ const validarFormulario = () => {
 
     inputs.forEach((input) => {
       if (input.value.trim() === "") {
-        setError(input, "Esse campo não pode está vazio");
+        setError(input, "Por favor, preencha este campo");
         return false;
-      } else{
+      } else {
         setSuccess(input);
         return true;
-      } 
+      }
     });
   });
 };
