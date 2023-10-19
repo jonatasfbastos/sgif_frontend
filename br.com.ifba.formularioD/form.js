@@ -130,19 +130,32 @@ const form = {
   descricaoForm.textContent = descricao;
 
   const form = html.get("#evaluation-form");
+  const containerBtn = html.createElementAndClass("div", "container-button");
 
   const stateQuestions = {
     currentQuestion: 0,
-    maxQuestions: rest.questoes.length,
+    maxQuestions: rest.questoes.length - 1,
     isEmpty: true,
     allQuestions: rest,
     inputField: "",
   };
 
-  const renderizarQuestao = ({ currentQuestion, allQuestions, inputField }) => {
+  const createButton = (content, ...elementClass) => {
+    const button = html.createElementAndClass("button", ...elementClass);
+    button.textContent = content;
+
+    containerBtn.appendChild(button);
+    form.appendChild(containerBtn);
+  };
+
+  const renderizarQuestao = ({
+    currentQuestion,
+    allQuestions,
+    inputField,
+    ...rest
+  }) => {
     const idQuestion = allQuestions.questoes[currentQuestion].id;
     const statementQuestion = allQuestions.questoes[currentQuestion].enunciado;
-    console.log(idQuestion, statementQuestion);
 
     if (inputField) {
       inputField.querySelector("label").textContent = statementQuestion;
@@ -156,28 +169,39 @@ const form = {
         <input type="text" id="${idQuestion}" name="teacher-feedback" required autofocus autocomplete="off">
         <span class="error"></span>
       `;
-      form.appendChild(inputField);
 
+      form.appendChild(inputField);
       stateQuestions.inputField = inputField;
+
+      if (currentQuestion <= rest.maxQuestions) {
+        createButton("Anterior", "form-button", "form-button-prev");
+        createButton("Próximo", "form-button", "form-button-next");
+      }
+    }
+
+    if (currentQuestion == rest.maxQuestions) {
+      [".form-button-next", ".form-button-prev"].forEach((btnClass) => {
+        const button = html.get(btnClass);
+        if (button) {
+          button.remove();
+        }
+      });
+      createButton("Enviar", "form-button", "form-button-send");
     }
   };
   renderizarQuestao(stateQuestions);
 
-  const containerBtn = html.createElementAndClass("div", "container-button");
-  const btnEnviarForm = html.createElementAndClass("button", "form-button");
-  btnEnviarForm.textContent = "Proximo";
-
-  containerBtn.appendChild(btnEnviarForm);
-
-  form.appendChild(containerBtn);
-
   const nextQuestion = () => {
-    const btnNext = html.get(".form-button");
+    const btnNext = html.get(".form-button-next");
+
+    if (!btnNext) {
+      return;
+    }
 
     btnNext.addEventListener("click", (e) => {
       e.preventDefault();
 
-      if (stateQuestions.currentQuestion >= stateQuestions.maxQuestions - 1) {
+      if (stateQuestions.currentQuestion >= stateQuestions.maxQuestions) {
         return;
       }
 
