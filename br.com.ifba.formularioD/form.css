@@ -152,6 +152,19 @@ main .form-header .form-description {
   color: var(--cor-texto);
 }
 
+#evaluation-form{
+  width: 100%; 
+  overflow: hidden;
+  position: relative;
+}
+
+.input-field {
+  width: 100%; 
+  animation-duration: 0.9s; 
+  animation-timing-function: ease;
+}
+
+
 #evaluation-form div {
   display: flex;
   flex-direction: column;
@@ -221,3 +234,16 @@ main .form-header .form-description {
   color: #d93025;
 }
 /* ========{END FORM}======== */
+
+/* ========{ANIMAÇÕES}======== */
+@keyframes slideIn {
+  from {
+    transform: translateX(100%); /* Comece da direita */
+  }
+  to {
+    transform: translateX(0); /* Deslize para a esquerda */
+  }
+}
+.slide {
+  animation-name: slideIn;
+}
