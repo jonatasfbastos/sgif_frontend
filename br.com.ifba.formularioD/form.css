@@ -15,14 +15,6 @@
   --cor-texto-black: #000;
   --cor-fundo: #fff;
 
-  --cor-verde-azulado: #20639e;
-  --cor-laranja: #ffaa77;
-  --cor-roxo: #8a4baf;
-  --cor-cinza-escuro: #333;
-  --cor-amarelo-ouro: #ffcc33;
-  --cor-rosa: #ff6699;
-  --cor-azul-claro: #8ab6d6;
-
   /* Tamanhos de fonte em rem */
   --tamanho-fonte-base: 1rem;
   --tamanho-fonte-titulo: 1.5rem;
@@ -41,6 +33,10 @@
   --bd-dev: 1px solid red;
 }
 
+html {
+  font-size: 105%;
+}
+
 body {
   height: 100vh;
   position: relative;
@@ -51,6 +47,7 @@ button {
   background: none;
   border: none;
 }
+
 a {
   text-decoration: none;
 }
@@ -95,7 +92,7 @@ header .container-header {
 
 .container-header .user-info .user-details {
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
   color: var(--cor-fundo);
 }
 
@@ -152,18 +149,17 @@ main .form-header .form-description {
   color: var(--cor-texto);
 }
 
-#evaluation-form{
-  width: 100%; 
+#evaluation-form {
+  width: 100%;
   overflow: hidden;
   position: relative;
 }
 
 .input-field {
-  width: 100%; 
-  animation-duration: 0.9s; 
+  width: 100%;
+  animation-duration: 0.9s;
   animation-timing-function: ease;
 }
-
 
 #evaluation-form div {
   display: flex;
@@ -213,7 +209,7 @@ main .form-header .form-description {
   font-size: var(--tamanho-fonte-corpo);
   font-weight: 400;
   outline: 0;
-  padding: 10px 25px;
+  padding: 1rem 2rem;
   text-align: center;
   user-select: none;
   -webkit-user-select: none;
@@ -234,6 +230,25 @@ main .form-header .form-description {
   color: #d93025;
 }
 /* ========{END FORM}======== */
+
+/* ========{RESPONSIVIDADE}======== */
+
+@media (max-width: 500px) {
+  html {
+    font-size: 82%;
+  }
+
+  #evaluation-form .form-button {
+    padding: 0.4rem 0.8rem;
+  }
+
+  .back-home {
+    display: none;
+  }
+}
+
+@media (max-width: 375px) {
+}
 
 /* ========{ANIMAÇÕES}======== */
 @keyframes slideIn {
