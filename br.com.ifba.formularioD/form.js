@@ -165,7 +165,7 @@ const form = {
 
       inputField.innerHTML = `
         <label for="${idQuestion}">${statementQuestion}</label>
-        <input type="text" id="${idQuestion}" name="teacher-feedback" required autofocus autocomplete="off">
+        <input type="text" id="${idQuestion}" name="teacher-feedback" autofocus autocomplete="off">
         <span class="error"></span>
       `;
 
@@ -188,8 +188,8 @@ const form = {
       createButton("Enviar", "form-button", "form-button-send");
     }
   };
-  renderizarQuestao(stateQuestions);
 
+  /***/
   const nextQuestion = () => {
     const btnNext = html.get(".form-button-next");
     const input = stateQuestions.inputField.querySelector("input");
@@ -198,9 +198,7 @@ const form = {
       return;
     }
 
-    btnNext.addEventListener("click", (e) => {
-      e.preventDefault();
-
+    const toGoNext = () => {
       if (stateQuestions.currentQuestion >= stateQuestions.maxQuestions) {
         return;
       }
@@ -211,9 +209,33 @@ const form = {
 
       stateQuestions.currentQuestion++;
       renderizarQuestao(stateQuestions);
+    };
+
+    input.addEventListener("keydown", (e) => {
+      if (e.key == "Enter") {
+        toGoNext();
+      }
+      return;
+    });
+
+    btnNext.addEventListener("click", (e) => {
+      e.preventDefault();
+      toGoNext();
     });
   };
-  nextQuestion();
+
+
+  /***/
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+  });
+
+  /***/
+  function init() {
+    renderizarQuestao(stateQuestions);
+    nextQuestion();
+  }
+  init();
 })({ form }, html);
 
 /**
