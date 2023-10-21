@@ -124,12 +124,55 @@ const createButton = (content, ...elementClass) => {
   button.textContent = content;
 
   containerButton.appendChild(button);
+  eventListenerButtonsForm(button);
 };
 
 /***/
 const toggleButton = (button) => {
+  console.log(button);
   if (!button) return null;
   button.classList.toggle("hide");
+};
+
+/***/
+const eventListenerButtonsForm = (button) => {
+  const start = (button) => {
+    console.log("aui  ")
+    toggleButton(button);
+  };
+
+  const next = (button) => {
+  };
+
+  const prev = (button) => {
+  };
+
+  const send = (button) => {
+  };
+
+  const allButtons = [
+    "form-button button-start",
+    "form-button button-next",
+    "form-button button-prev",
+    "form-button button-send",
+  ];
+
+  const buttonActions = {
+    [allButtons[0]]: start,
+    [allButtons[1]]: next,
+    [allButtons[2]]: prev,
+    [allButtons[3]]: send,
+  };
+
+  document.addEventListener("click", (e) => {
+    e.preventDefault();
+    const button = e.target;
+    const buttonClass = button.getAttribute("class");
+    if (buttonActions[buttonClass]) {
+      buttonActions[buttonClass](button);
+    }
+  });
+
 };
 
 /***/
