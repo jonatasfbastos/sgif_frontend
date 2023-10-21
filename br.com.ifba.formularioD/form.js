@@ -1,50 +1,27 @@
 /**
- * Um objeto contendo utilitários para manipulação de elementos HTML.
+ * Um objeto utilitário para manipulação de elementos HTML.
  * @namespace
+ * @description Este objeto fornece métodos para interagir com elementos HTML de forma simplificada.
  */
 const html = {
-  /**
-   * Obtém o primeiro elemento HTML que corresponde ao seletor especificado.
-   * @param {string} selector - O seletor do elemento a ser obtido.
-   * @returns {Element|null} O elemento HTML correspondente ou null se não for encontrado.
-   */
   get(selector) {
     return document.querySelector(selector);
   },
-
-  /**
-   * Obtém todos os elementos HTML que correspondem ao seletor especificado.
-   * @param {string} selector - O seletor dos elementos a serem obtidos.
-   * @returns {NodeList} Uma lista de elementos HTML correspondentes.
-   */
   getAll(selector) {
     return document.querySelectorAll(selector);
   },
-
-  /**
-   * Cria um novo elemento HTML com o nome especificado.
-   * @param {string} element - O nome do elemento HTML a ser criado.
-   * @returns {Element} O novo elemento HTML criado.
-   */
   create(element) {
     return document.createElement(element);
   },
+  createElementWithClasses(element, ...classes) {
+    if (!element) return null;
 
-  /**
-   * Cria um novo elemento HTML com o nome especificado e adiciona classes a ele.
-   * @param {string} element - O nome do elemento HTML a ser criado.
-   * @param {...string} classes - Uma ou mais classes CSS a serem adicionadas ao elemento.
-   * @returns {Element} O novo elemento HTML criado com as classes especificadas.
-   */
-  createElementAndClass(element, ...classes) {
-    if (element) {
-      const genericElement = document.createElement(element);
-      if (classes.length > 0) {
-        genericElement.classList.add(...classes);
-      }
-      return genericElement;
+    const elementWithClasses = document.createElement(element);
+    if (classes.length > 0) {
+      elementWithClasses.classList.add(...classes);
     }
-    return;
+
+    return elementWithClasses;
   },
 };
 
@@ -129,7 +106,7 @@ const form = {
   descricaoForm.textContent = descricao;
 
   const form = html.get("#evaluation-form");
-  const containerBtn = html.createElementAndClass("div", "container-button");
+  const containerBtn = html.createElementWithClasses("div", "container-button");
 
   const stateQuestions = {
     currentQuestion: 0,
@@ -141,7 +118,7 @@ const form = {
 
   /***/
   const createButton = (content, ...elementClass) => {
-    const button = html.createElementAndClass("button", ...elementClass);
+    const button = html.createElementWithClasses("button", ...elementClass);
     button.textContent = content;
 
     containerBtn.appendChild(button);
@@ -172,7 +149,7 @@ const form = {
       }
     } else {
       // Crie o campo de entrada se for o primeiro
-      const inputField = html.createElementAndClass("div", "input-field");
+      const inputField = html.createElementWithClasses("div", "input-field");
 
       inputField.innerHTML = `
         <label for="${idQuestion}">${statementQuestion}</label>
@@ -197,9 +174,8 @@ const form = {
       }
       createButton("Enviar", "form-button", "form-button-send");
     } else {
-      
       const btnSend = html.get(".form-button-send");
-      if(btnSend){
+      if (btnSend) {
         btnSend.remove();
       }
     }
