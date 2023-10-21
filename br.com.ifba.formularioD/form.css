@@ -136,7 +136,7 @@ header .container-header {
   padding: var(--espacamento-grande);
   display: flex;
   flex-direction: column;
-  gap: 3.5rem;
+  gap: 2.5rem;
 }
 
 main .form-header {
@@ -157,6 +157,8 @@ main .form-header .form-description {
   width: 100%;
   overflow: hidden;
   position: relative;
+  display: flex;
+  flex-direction: column-reverse;
 }
 
 .input-field {

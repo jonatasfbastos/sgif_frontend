@@ -118,6 +118,37 @@ const renderForm = (data) => {
 };
 
 /***/
+const renderQuestion = () => {
+  const { currentQuestionIndex, allQuestions, inputField, ...rest } =
+    stateQuestions;
+
+  const idQuestion = allQuestions[currentQuestionIndex].id;
+  const statementQuestion = allQuestions[currentQuestionIndex].enunciado;
+  const form = html.get("#evaluation-form");
+
+  if (!inputField) {
+    const newInputField = html.createElementWithClasses("div", "input-field");
+    console.log(newInputField);
+
+    newInputField.innerHTML = `
+        <label for="${idQuestion}">${statementQuestion}</label>
+        <input type="text" id="${idQuestion}" name="teacher-feedback" autofocus autocomplete="off">
+        <span class="error"></span>
+      `;
+
+    form.appendChild(newInputField);
+    statementQuestion.inputField = newInputField;
+
+    createButton("Próximo", "form-button", "button-next");
+    return;
+  }
+
+  // inputField.querySelector("label").textContent = statementQuestion;
+  // inputField.querySelector("input").id = idQuestion;
+  // createButton("Anterior", "form-button", "form-button-prev");
+};
+
+/***/
 const createButton = (content, ...elementClass) => {
   const button = html.createElementWithClasses("button", ...elementClass);
   const containerButton = html.get(".container-button");
@@ -129,7 +160,6 @@ const createButton = (content, ...elementClass) => {
 
 /***/
 const toggleButton = (button) => {
-  console.log(button);
   if (!button) return null;
   button.classList.toggle("hide");
 };
@@ -137,18 +167,15 @@ const toggleButton = (button) => {
 /***/
 const eventListenerButtonsForm = (button) => {
   const start = (button) => {
-    console.log("aui  ")
     toggleButton(button);
+    renderQuestion();
   };
 
-  const next = (button) => {
-  };
+  const next = (button) => {};
 
-  const prev = (button) => {
-  };
+  const prev = (button) => {};
 
-  const send = (button) => {
-  };
+  const send = (button) => {};
 
   const allButtons = [
     "form-button button-start",
@@ -172,7 +199,6 @@ const eventListenerButtonsForm = (button) => {
       buttonActions[buttonClass](button);
     }
   });
-
 };
 
 /***/
