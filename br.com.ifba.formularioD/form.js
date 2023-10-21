@@ -125,7 +125,6 @@ const renderQuestion = () => {
   const idQuestion = allQuestions[currentQuestionIndex].id;
   const statementQuestion = allQuestions[currentQuestionIndex].enunciado;
   const form = html.get("#evaluation-form");
-  console.log("Current Question Index: ", currentQuestionIndex);
 
   if (!inputField) {
     const newInputField = html.createElementWithClasses("div", "input-field");
@@ -166,6 +165,36 @@ const toggleButton = (button) => {
 };
 
 /***/
+const showMessageSuccess = () => {
+  const formContent = html.get(".form-content");
+
+
+  (html.get(".form-description").textContent =
+    "Recebemos a sua avaliação, caro aluno; seus comentários são muito importantes para nós.");
+
+  (html.get(".form-title").textContent =
+    "Sua Opinião Faz a Diferença");
+
+  formContent.innerHTML = "";
+
+  const messageSuccess = html.createElementWithClasses(
+    "div",
+    "container-success-form"
+  );
+
+  messageSuccess.innerHTML = `
+  <div class="card">
+  <div class="container-checkmark" >
+    <i class="checkmark">✓</i>
+  </div>
+    <h1>Sucesso</h1> 
+  </div>
+  `;
+
+  formContent.appendChild(messageSuccess);
+};
+
+/***/
 const eventListenerButtonsForm = (button) => {
   const { currentQuestionIndex, allQuestions, inputField, ...rest } =
     stateQuestions;
@@ -178,18 +207,41 @@ const eventListenerButtonsForm = (button) => {
   const next = (button) => {
     if (stateQuestions.currentQuestionIndex < stateQuestions.maxQuestionIndex) {
       stateQuestions.currentQuestionIndex++;
+      updateSendButton();
       renderQuestion();
     }
   };
 
   const prev = (button) => {
-    stateQuestions.currentQuestionIndex--;
-    if (stateQuestions.currentQuestionIndex >= 0) {
+    if (stateQuestions.currentQuestionIndex > 0) {
+      stateQuestions.currentQuestionIndex--;
+      updateSendButton();
       renderQuestion();
     }
   };
 
-  const send = (button) => {};
+  const send = (button) => {
+    console.log("Enviou");
+    showMessageSuccess();
+  };
+
+  const updateSendButton = () => {
+    const buttonSend = html.get(".button-send");
+    const buttonNext = html.get(".button-next");
+
+    if (
+      stateQuestions.currentQuestionIndex !== stateQuestions.maxQuestionIndex
+    ) {
+      if (buttonSend) {
+        buttonSend.remove();
+        toggleButton(buttonNext);
+      }
+      return;
+    }
+    // ==
+    toggleButton(buttonNext);
+    createButton("Enviar", "form-button", "button-send");
+  };
 
   const allButtons = [
     "form-button button-start",

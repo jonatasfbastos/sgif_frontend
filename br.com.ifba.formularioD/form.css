@@ -201,7 +201,7 @@ main .form-header .form-description {
 
 #evaluation-form .container-button {
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: row;
   gap: 1rem;
   justify-content: end;
 }
@@ -227,6 +227,16 @@ main .form-header .form-description {
   opacity: 0.8;
 }
 
+#evaluation-form .button-prev {
+  order: 1;
+}
+#evaluation-form .button-next {
+  order: 2;
+}
+#evaluation-form .button-send {
+  order: 3;
+}
+
 .input-field .error {
   display: flex;
   align-items: center;
@@ -235,7 +245,48 @@ main .form-header .form-description {
   font-weight: 400;
   color: #d93025;
 }
+
+/* Success form */
+.container-success-form {
+  margin-top: -1rem;
+}
+.container-success-form,
+.container-checkmark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container-success-form .container-checkmark {
+  border-radius: 200px;
+  height: 200px;
+  width: 200px;
+  background: #f8faf5;
+  margin: 0 auto;
+}
+
+.container-success-form h1 {
+  color: #88b04b;
+  font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+  font-weight: 900;
+  font-size: 2rem;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.container-success-form i {
+  color: #9abc66;
+  font-size: 100px;
+  line-height: 200px;
+  margin-left: -15px;
+}
+
+.container-success-form .card {
+  padding: 21px;
+  display: inline-block;
+}
 /* ========{END FORM}======== */
+
 
 /* ========{RESPONSIVIDADE}======== */
 
