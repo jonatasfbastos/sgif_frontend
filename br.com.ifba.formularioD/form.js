@@ -125,10 +125,10 @@ const renderQuestion = () => {
   const idQuestion = allQuestions[currentQuestionIndex].id;
   const statementQuestion = allQuestions[currentQuestionIndex].enunciado;
   const form = html.get("#evaluation-form");
+  console.log("Current Question Index: ", currentQuestionIndex);
 
   if (!inputField) {
     const newInputField = html.createElementWithClasses("div", "input-field");
-    console.log(newInputField);
 
     newInputField.innerHTML = `
         <label for="${idQuestion}">${statementQuestion}</label>
@@ -137,15 +137,17 @@ const renderQuestion = () => {
       `;
 
     form.appendChild(newInputField);
-    statementQuestion.inputField = newInputField;
-
+    stateQuestions.inputField = newInputField;
     createButton("Próximo", "form-button", "button-next");
+
     return;
   }
 
-  // inputField.querySelector("label").textContent = statementQuestion;
-  // inputField.querySelector("input").id = idQuestion;
-  // createButton("Anterior", "form-button", "form-button-prev");
+  inputField.querySelector("label").textContent = statementQuestion;
+  inputField.querySelector("input").id = idQuestion;
+  html.get(".button-prev")
+    ? null
+    : createButton("Anterior", "form-button", "button-prev");
 };
 
 /***/
@@ -155,7 +157,6 @@ const createButton = (content, ...elementClass) => {
   button.textContent = content;
 
   containerButton.appendChild(button);
-  eventListenerButtonsForm(button);
 };
 
 /***/
@@ -166,14 +167,27 @@ const toggleButton = (button) => {
 
 /***/
 const eventListenerButtonsForm = (button) => {
+  const { currentQuestionIndex, allQuestions, inputField, ...rest } =
+    stateQuestions;
+
   const start = (button) => {
     toggleButton(button);
     renderQuestion();
   };
 
-  const next = (button) => {};
+  const next = (button) => {
+    if (stateQuestions.currentQuestionIndex < stateQuestions.maxQuestionIndex) {
+      stateQuestions.currentQuestionIndex++;
+      renderQuestion();
+    }
+  };
 
-  const prev = (button) => {};
+  const prev = (button) => {
+    stateQuestions.currentQuestionIndex--;
+    if (stateQuestions.currentQuestionIndex >= 0) {
+      renderQuestion();
+    }
+  };
 
   const send = (button) => {};
 
@@ -195,6 +209,7 @@ const eventListenerButtonsForm = (button) => {
     e.preventDefault();
     const button = e.target;
     const buttonClass = button.getAttribute("class");
+
     if (buttonActions[buttonClass]) {
       buttonActions[buttonClass](button);
     }
@@ -204,199 +219,6 @@ const eventListenerButtonsForm = (button) => {
 /***/
 function init() {
   renderForm(form);
+  eventListenerButtonsForm();
 }
 init();
-
-// // ********************************************************
-// (function (params) {
-//   const { titulo, descricao, ...rest } = params.form;
-
-//   const tituloForm = html.get(".form-header .form-title");
-//   tituloForm.textContent = titulo;
-
-//   const descricaoForm = html.get(".form-header .form-description");
-//   descricaoForm.textContent = descricao;
-
-//   const containerBtn = html.createElementWithClasses("div", "container-button");
-
-//   const stateQuestions = {
-//     currentQuestion: 0,
-//     maxQuestions: rest.questoes.length - 1,
-//     isEmpty: true,
-//     allQuestions: rest,
-//     inputField: "",
-//   };
-
-//   /***/
-//   const renderizarQuestao = ({
-//     currentQuestion,
-//     allQuestions,
-//     inputField,
-//     ...rest
-//   }) => {
-//     const idQuestion = allQuestions.questoes[currentQuestion].id;
-//     const statementQuestion = allQuestions.questoes[currentQuestion].enunciado;
-
-//     const btnPrev = html.get(".form-button-prev");
-
-//     /***/
-
-//     if (inputField) {
-//       inputField.querySelector("label").textContent = statementQuestion;
-//       inputField.querySelector("input").id = idQuestion;
-
-//       if (!btnPrev) {
-//         createButton("Anterior", "form-button", "form-button-prev");
-//         prevQuestion();
-//       }
-//     } else {
-//       // Crie o campo de entrada se for o primeiro
-//       const inputField = html.createElementWithClasses("div", "input-field");
-
-//       inputField.innerHTML = `
-//         <label for="${idQuestion}">${statementQuestion}</label>
-//         <input type="text" id="${idQuestion}" name="teacher-feedback" autofocus autocomplete="off">
-//         <span class="error"></span>
-//       `;
-
-//       form.appendChild(inputField);
-//       stateQuestions.inputField = inputField;
-
-//       if (currentQuestion <= rest.maxQuestions) {
-//         createButton("Próximo", "form-button", "form-button-next");
-//       }
-//     }
-
-//     /***/
-//     if (currentQuestion == rest.maxQuestions) {
-//       const button = html.get(".form-button-next");
-
-//       if (button) {
-//         button.remove();
-//       }
-//       createButton("Enviar", "form-button", "form-button-send");
-//     } else {
-//       const btnSend = html.get(".form-button-send");
-//       if (btnSend) {
-//         btnSend.remove();
-//       }
-//     }
-//   };
-
-//   /***/
-//   const nextQuestion = () => {
-//     const btnNext = html.get(".form-button-next");
-//     const input = stateQuestions.inputField.querySelector("input");
-
-//     if (!btnNext) {
-//       return;
-//     }
-
-//     const toGoNext = () => {
-//       if (stateQuestions.currentQuestion >= stateQuestions.maxQuestions) {
-//         return;
-//       }
-
-//       if (!validateField(input)) {
-//         return;
-//       }
-
-//       stateQuestions.currentQuestion++;
-//       renderizarQuestao(stateQuestions);
-//     };
-
-//     input.addEventListener("keydown", (e) => {
-//       if (e.key === "Enter") {
-//         console.log("entrou");
-//         toGoNext();
-//       }
-//     });
-
-//     btnNext.addEventListener("click", (e) => {
-//       e.preventDefault();
-//       toGoNext();
-//     });
-//   };
-
-//   /***/
-//   const prevQuestion = () => {
-//     const btnPrev = html.get(".form-button-prev");
-//     const input = stateQuestions.inputField.querySelector("input");
-
-//     if (!btnPrev) {
-//       return;
-//     }
-
-//     const toGoPrev = () => {
-//       if (stateQuestions.currentQuestion <= 0) {
-//         console.log("prev");
-//         return;
-//       }
-
-//       stateQuestions.currentQuestion--;
-//       renderizarQuestao(stateQuestions);
-//     };
-
-//     btnPrev.addEventListener("click", (e) => {
-//       e.preventDefault();
-//       toGoPrev();
-//     });
-//   };
-
-//   /***/
-//   form.addEventListener("submit", (e) => {
-//     e.preventDefault();
-//   });
-
-//   /***/
-//   function init() {
-//     renderizarQuestao(stateQuestions);
-//     nextQuestion();
-//   }
-//   init();
-// })({ form }, html);
-
-// /**
-//  * Valida um campo de entrada, verificando se está vazio.
-//  * Define uma mensagem de erro e um estilo apropriado para o campo.
-//  * @param {HTMLElement} input - O campo de entrada a ser validado.
-//  */
-// const validateField = (input) => {
-//   if (input.value.trim() === "") {
-//     setError(input, "Por favor, preencha este campo");
-//     return false;
-//   } else {
-//     setSuccess(input);
-//     return true;
-//   }
-// };
-
-// /**
-//  * Define uma mensagem de erro e estilo para um elemento de entrada.
-//  * @param {HTMLElement} element - O elemento de entrada a ser marcado como erro.
-//  * @param {string} message - A mensagem de erro a ser exibida.
-//  */
-// const setError = (element, message) => {
-//   element.value = "";
-//   const input = element;
-//   const inputControl = element.parentElement;
-//   const errorDisplay = inputControl.querySelector(".error");
-
-//   errorDisplay.innerText = message;
-//   input.classList.add("input-invalid");
-//   inputControl.classList.add("error", "invalid");
-// };
-
-// /**
-//  * Remove uma mensagem de erro e define estilo de sucesso para um elemento de entrada.
-//  * @param {HTMLElement} element - O elemento de entrada a ser marcado como sucesso.
-//  */
-// const setSuccess = (element) => {
-//   element.value = "";
-//   const inputControl = element.parentElement;
-//   const errorDisplay = inputControl.querySelector(".error");
-
-//   errorDisplay.innerText = "";
-//   inputControl.classList.add("success");
-//   inputControl.classList.remove("error", "invalid");
-// };
