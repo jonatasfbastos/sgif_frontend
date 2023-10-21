@@ -195,7 +195,7 @@ main .form-header .form-description {
 
 #evaluation-form .container-button {
   display: flex;
-  flex-direction: row;
+  flex-direction: row-reverse;
   gap: 1rem;
   justify-content: end;
 }

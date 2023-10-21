@@ -139,6 +139,7 @@ const form = {
     inputField: "",
   };
 
+  /***/
   const createButton = (content, ...elementClass) => {
     const button = html.createElementAndClass("button", ...elementClass);
     button.textContent = content;
@@ -147,6 +148,7 @@ const form = {
     form.appendChild(containerBtn);
   };
 
+  /***/
   const renderizarQuestao = ({
     currentQuestion,
     allQuestions,
@@ -156,9 +158,18 @@ const form = {
     const idQuestion = allQuestions.questoes[currentQuestion].id;
     const statementQuestion = allQuestions.questoes[currentQuestion].enunciado;
 
+    const btnPrev = html.get(".form-button-prev");
+
+    /***/
+
     if (inputField) {
       inputField.querySelector("label").textContent = statementQuestion;
       inputField.querySelector("input").id = idQuestion;
+
+      if (!btnPrev) {
+        createButton("Anterior", "form-button", "form-button-prev");
+        prevQuestion();
+      }
     } else {
       // Crie o campo de entrada se for o primeiro
       const inputField = html.createElementAndClass("div", "input-field");
@@ -173,19 +184,24 @@ const form = {
       stateQuestions.inputField = inputField;
 
       if (currentQuestion <= rest.maxQuestions) {
-        createButton("Anterior", "form-button", "form-button-prev");
         createButton("Próximo", "form-button", "form-button-next");
       }
     }
 
+    /***/
     if (currentQuestion == rest.maxQuestions) {
-      [".form-button-next", ".form-button-prev"].forEach((btnClass) => {
-        const button = html.get(btnClass);
-        if (button) {
-          button.remove();
-        }
-      });
+      const button = html.get(".form-button-next");
+
+      if (button) {
+        button.remove();
+      }
       createButton("Enviar", "form-button", "form-button-send");
+    } else {
+      
+      const btnSend = html.get(".form-button-send");
+      if(btnSend){
+        btnSend.remove();
+      }
     }
   };
 
@@ -212,10 +228,10 @@ const form = {
     };
 
     input.addEventListener("keydown", (e) => {
-      if (e.key == "Enter") {
+      if (e.key === "Enter") {
+        console.log("entrou");
         toGoNext();
       }
-      return;
     });
 
     btnNext.addEventListener("click", (e) => {
@@ -224,6 +240,30 @@ const form = {
     });
   };
 
+  /***/
+  const prevQuestion = () => {
+    const btnPrev = html.get(".form-button-prev");
+    const input = stateQuestions.inputField.querySelector("input");
+
+    if (!btnPrev) {
+      return;
+    }
+
+    const toGoPrev = () => {
+      if (stateQuestions.currentQuestion <= 0) {
+        console.log("prev");
+        return;
+      }
+
+      stateQuestions.currentQuestion--;
+      renderizarQuestao(stateQuestions);
+    };
+
+    btnPrev.addEventListener("click", (e) => {
+      e.preventDefault();
+      toGoPrev();
+    });
+  };
 
   /***/
   form.addEventListener("submit", (e) => {
