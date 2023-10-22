@@ -255,6 +255,12 @@ const eventListenerButtonsForm = (button) => {
     createButton("Enviar", "form-button", "button-send");
   };
 
+  const enableEnterNavigation = (input) => {
+    input.addEventListener("keypress", (e) => {
+      e.key === "Enter" ? next() : null;
+    });
+  };
+
   const allButtons = [
     "form-button button-start",
     "form-button button-next",
@@ -278,8 +284,13 @@ const eventListenerButtonsForm = (button) => {
       return;
     }
 
+    if (stateQuestions.inputField) {
+      const input = stateQuestions.inputField.querySelector("input");
+      enableEnterNavigation(input);
+    }
+
     e.preventDefault();
-    console.log(e);
+
     if (buttonActions[buttonClass]) {
       buttonActions[buttonClass](button);
     }
