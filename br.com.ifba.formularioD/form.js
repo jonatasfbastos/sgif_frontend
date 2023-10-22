@@ -25,7 +25,7 @@ const html = {
   },
 };
 
-// Similuando o back-end
+// Simluando o back-end
 const form = {
   id: 1,
   titulo: "Bem-vindo à Avaliação Docente",
@@ -176,7 +176,6 @@ const showMessageSuccess = () => {
 
   html.get(".form-description").textContent =
     "Recebemos a sua avaliação, caro aluno; seus comentários são muito importantes para nós.";
-
   html.get(".form-title").textContent = "Sua Opinião Faz a Diferença";
 
   formContent.innerHTML = "";
@@ -191,7 +190,7 @@ const showMessageSuccess = () => {
   <div class="container-checkmark" >
     <i class="checkmark">✓</i>
   </div>
-    <h1>Sucesso</h1> 
+    <h1>Sucesso</h1>
   </div>
   `;
 
@@ -205,6 +204,7 @@ const eventListenerButtonsForm = (button) => {
 
   const start = (button) => {
     toggleButton(button);
+    toggleButton(html.get(".form-illustration-img"));
     renderQuestion();
   };
 
