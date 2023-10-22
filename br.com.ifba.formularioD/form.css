@@ -75,6 +75,7 @@ header .container-header {
   display: flex;
   align-items: center;
   gap: 1rem;
+  padding: .8rem;
 }
 
 .container-header .home-action .link-back-home i {

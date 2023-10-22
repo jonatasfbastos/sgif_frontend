@@ -270,10 +270,16 @@ const eventListenerButtonsForm = (button) => {
   };
 
   document.addEventListener("click", (e) => {
-    e.preventDefault();
     const button = e.target;
     const buttonClass = button.getAttribute("class");
 
+    if (buttonClass === "link-back-home" || button.closest(".link-back-home")) {
+      // Permitir que o link de "link-back-home" siga o comportamento padrão
+      return;
+    }
+
+    e.preventDefault();
+    console.log(e);
     if (buttonActions[buttonClass]) {
       buttonActions[buttonClass](button);
     }
