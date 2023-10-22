@@ -132,7 +132,7 @@ const renderQuestion = () => {
     newInputField.innerHTML = `
         <label for="${idQuestion}">${statementQuestion}</label>
         <input type="text" id="${idQuestion}" name="teacher-feedback" autofocus autocomplete="off">
-        <span class="error"></span>
+        <span class="error hide"></span>
       `;
 
     form.appendChild(newInputField);
@@ -209,14 +209,18 @@ const eventListenerButtonsForm = (button) => {
   };
 
   const next = (button) => {
-    if (stateQuestions.currentQuestionIndex < stateQuestions.maxQuestionIndex) {
+    if (
+      validateInput() &&
+      stateQuestions.currentQuestionIndex < stateQuestions.maxQuestionIndex
+    ) {
       stateQuestions.currentQuestionIndex++;
+
       updateSendButton();
       renderQuestion();
+
       const currentInput = stateQuestions.inputField.querySelector("input");
       currentInput.value =
         stateQuestions.answers[stateQuestions.currentQuestionIndex].value;
-      // console.log(stateQuestions.answers)
     }
   };
 
@@ -295,6 +299,23 @@ const eventListenerButtonsForm = (button) => {
       buttonActions[buttonClass](button);
     }
   });
+};
+
+/***/
+const validateInput = () => {
+  if (stateQuestions.inputField) {
+    const input = stateQuestions.inputField.querySelector("input");
+    const error = stateQuestions.inputField.querySelector(".error");
+    error.textContent = "";
+
+    if (input.value.trim() === "") {
+      input.value = "";
+      error.textContent = "Por favor, preeencha este campo!";
+      return false;
+    }
+
+    return true;
+  }
 };
 
 /***/
