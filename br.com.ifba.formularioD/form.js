@@ -100,7 +100,7 @@ const stateQuestions = {
   maxQuestionIndex: form.questoes.length - 1, // Índice máximo da última questão
   isFormEmpty: true, // Indica se o formulário está vazio
   allQuestions: form.questoes, // Todas as questões do formulário
-  answers: [], // Armazena as respostas do usuário
+  answers: [{}], // Armazena as respostas do usuário
   inputField: null, // Referência ao campo de entrada atual
 };
 
@@ -139,11 +139,17 @@ const renderQuestion = () => {
     stateQuestions.inputField = newInputField;
     createButton("Próximo", "form-button", "button-next");
 
+    const input = newInputField.querySelector("input");
+    input.addEventListener("input", saveAnswers);
+
     return;
   }
 
+  const input = inputField.querySelector("input");
   inputField.querySelector("label").textContent = statementQuestion;
-  inputField.querySelector("input").id = idQuestion;
+  input.id = idQuestion;
+  input.value = "";
+
   html.get(".button-prev")
     ? null
     : createButton("Anterior", "form-button", "button-prev");
@@ -168,12 +174,10 @@ const toggleButton = (button) => {
 const showMessageSuccess = () => {
   const formContent = html.get(".form-content");
 
+  html.get(".form-description").textContent =
+    "Recebemos a sua avaliação, caro aluno; seus comentários são muito importantes para nós.";
 
-  (html.get(".form-description").textContent =
-    "Recebemos a sua avaliação, caro aluno; seus comentários são muito importantes para nós.");
-
-  (html.get(".form-title").textContent =
-    "Sua Opinião Faz a Diferença");
+  html.get(".form-title").textContent = "Sua Opinião Faz a Diferença";
 
   formContent.innerHTML = "";
 
@@ -209,6 +213,10 @@ const eventListenerButtonsForm = (button) => {
       stateQuestions.currentQuestionIndex++;
       updateSendButton();
       renderQuestion();
+      const currentInput = stateQuestions.inputField.querySelector("input");
+      currentInput.value =
+        stateQuestions.answers[stateQuestions.currentQuestionIndex].value;
+      // console.log(stateQuestions.answers)
     }
   };
 
@@ -217,12 +225,16 @@ const eventListenerButtonsForm = (button) => {
       stateQuestions.currentQuestionIndex--;
       updateSendButton();
       renderQuestion();
+
+      const currentInput = stateQuestions.inputField.querySelector("input");
+      currentInput.value =
+        stateQuestions.answers[stateQuestions.currentQuestionIndex].value;
     }
   };
 
   const send = (button) => {
-    console.log("Enviou");
     showMessageSuccess();
+    console.log(stateQuestions.answers);
   };
 
   const updateSendButton = () => {
@@ -266,6 +278,20 @@ const eventListenerButtonsForm = (button) => {
       buttonActions[buttonClass](button);
     }
   });
+};
+
+/***/
+const saveAnswers = () => {
+  const currentInput = stateQuestions.inputField.querySelector("input");
+  const currentInputId = currentInput.id;
+  const currentInputValue = currentInput.value;
+
+  const answerCurrent = {
+    id: currentInputId,
+    value: currentInputValue,
+  };
+
+  stateQuestions.answers[stateQuestions.currentQuestionIndex] = answerCurrent;
 };
 
 /***/
