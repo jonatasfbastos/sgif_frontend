@@ -227,18 +227,22 @@ const eventListenerButtonsForm = (button) => {
   const prev = (button) => {
     if (stateQuestions.currentQuestionIndex > 0) {
       stateQuestions.currentQuestionIndex--;
+
       updateSendButton();
       renderQuestion();
 
       const currentInput = stateQuestions.inputField.querySelector("input");
-      currentInput.value =
-        stateQuestions.answers[stateQuestions.currentQuestionIndex].value;
+      stateQuestions.inputField.querySelector(".error").textContent = "";
+
+      currentInput.value =stateQuestions.answers[stateQuestions.currentQuestionIndex].value;
+
     }
   };
 
   const send = (button) => {
-    showMessageSuccess();
-    console.log(stateQuestions.answers);
+    if (validateInput()) {
+      showMessageSuccess();
+    }
   };
 
   const updateSendButton = () => {
