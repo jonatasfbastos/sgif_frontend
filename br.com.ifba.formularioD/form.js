@@ -94,17 +94,33 @@ const getForm = async () => {
   return data;
 };
 
-/***/
+/**
+ * Um objeto que mantém o estado do formulário de avaliação.
+ * @typedef {Object} StateQuestions
+ * @property {number} currentQuestionIndex - O índice da questão atual no formulário.
+ * @property {number} maxQuestionIndex - O índice máximo da última questão no formulário.
+ * @property {boolean} isFormEmpty - Indica se o formulário está vazio (inicialmente definido como verdadeiro).
+ * @property {Array} allQuestions - Um array que contém todas as questões do formulário.
+ * @property {Array} answers - Um array que armazena as respostas do usuário para cada questão.
+ * @property {HTMLElement|null} inputField - Uma referência ao campo de entrada atual no formulário.
+ */
 const stateQuestions = {
-  currentQuestionIndex: 0, // Índice da questão atual
-  maxQuestionIndex: form.questoes.length - 1, // Índice máximo da última questão
-  isFormEmpty: true, // Indica se o formulário está vazio
-  allQuestions: form.questoes, // Todas as questões do formulário
-  answers: [{}], // Armazena as respostas do usuário
-  inputField: null, // Referência ao campo de entrada atual
+  currentQuestionIndex: 0,
+  maxQuestionIndex: form.questoes.length - 1,
+  isFormEmpty: true,
+  allQuestions: form.questoes,
+  answers: [{}],
+  inputField: null,
 };
 
-/***/
+/**
+ * Renderiza o formulário de avaliação com base nos dados fornecidos.
+ *
+ * @param {Object} data - Os dados do formulário de avaliação.
+ * @property {string} data.titulo - O título do formulário.
+ * @property {string} data.descricao - A descrição do formulário.
+ * @property {any} ...rest - Outros dados que podem estar presentes, mas não são utilizados nesta função.
+ */
 const renderForm = (data) => {
   const { titulo: title, descricao: description, ...rest } = data;
 
@@ -117,7 +133,11 @@ const renderForm = (data) => {
   createButton("Começar", "form-button", "button-start");
 };
 
-/***/
+/**
+ * Renderiza uma pergunta do formulário de avaliação com base no estado atual.
+ * Esta função é responsável por exibir a pergunta atual, criar o campo de entrada
+ * e gerenciar os botões de navegação.
+ */
 const renderQuestion = () => {
   const { currentQuestionIndex, allQuestions, inputField, ...rest } =
     stateQuestions;
@@ -155,7 +175,12 @@ const renderQuestion = () => {
     : createButton("Anterior", "form-button", "button-prev");
 };
 
-/***/
+/**
+ * Cria e insere um botão no formulário de avaliação.
+ *
+ * @param {string} content - O texto exibido no botão.
+ * @param {...string} elementClass - As classes CSS a serem atribuídas ao botão.
+ */
 const createButton = (content, ...elementClass) => {
   const button = html.createElementWithClasses("button", ...elementClass);
   const containerButton = html.get(".container-button");
@@ -164,13 +189,20 @@ const createButton = (content, ...elementClass) => {
   containerButton.appendChild(button);
 };
 
-/***/
+/**
+ * Alternar a visibilidade de um botão no formulário de avaliação.
+ *
+ * @param {HTMLElement} button - O elemento de botão a ser alternado.
+ */
 const toggleButton = (button) => {
   if (!button) return null;
   button.classList.toggle("hide");
 };
 
-/***/
+/**
+ * Exibe uma mensagem de sucesso no formulário de avaliação após o envio.
+ * Esta função substitui o conteúdo do formulário com uma mensagem de sucesso.
+ */
 const showMessageSuccess = () => {
   const formContent = html.get(".form-content");
 
@@ -197,7 +229,12 @@ const showMessageSuccess = () => {
   formContent.appendChild(messageSuccess);
 };
 
-/***/
+/**
+ * Configura os ouvintes de eventos para os botões no formulário de avaliação e
+ * gerencia as ações correspondentes quando os botões são clicados.
+ *
+ * @param {HTMLElement} button - O botão que desencadeou o evento.
+ */
 const eventListenerButtonsForm = (button) => {
   const { currentQuestionIndex, allQuestions, inputField, ...rest } =
     stateQuestions;
@@ -234,8 +271,8 @@ const eventListenerButtonsForm = (button) => {
       const currentInput = stateQuestions.inputField.querySelector("input");
       stateQuestions.inputField.querySelector(".error").textContent = "";
 
-      currentInput.value =stateQuestions.answers[stateQuestions.currentQuestionIndex].value;
-
+      currentInput.value =
+        stateQuestions.answers[stateQuestions.currentQuestionIndex].value;
     }
   };
 
@@ -305,7 +342,12 @@ const eventListenerButtonsForm = (button) => {
   });
 };
 
-/***/
+/**
+ * Valida o campo de entrada no formulário de avaliação.
+ * Esta função verifica se o campo está preenchido e exibe uma mensagem de erro, se necessário.
+ *
+ * @returns {boolean} - `true` se o campo estiver preenchido corretamente, `false` se estiver vazio.
+ */
 const validateInput = () => {
   if (stateQuestions.inputField) {
     const input = stateQuestions.inputField.querySelector("input");
@@ -322,7 +364,10 @@ const validateInput = () => {
   }
 };
 
-/***/
+/**
+ * Salva a resposta do usuário para a pergunta atual no formulário de avaliação.
+ * Esta função extrai o valor do campo de entrada e armazena a resposta no estado.
+ */
 const saveAnswers = () => {
   const currentInput = stateQuestions.inputField.querySelector("input");
   const currentInputId = currentInput.id;
@@ -336,7 +381,10 @@ const saveAnswers = () => {
   stateQuestions.answers[stateQuestions.currentQuestionIndex] = answerCurrent;
 };
 
-/***/
+/**
+ * Inicializa o formulário de avaliação.
+ * Esta função chama a função de renderização do formulário e configura ouvintes de eventos para os botões.
+ */
 function init() {
   renderForm(form);
   eventListenerButtonsForm();

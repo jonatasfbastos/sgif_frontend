@@ -175,7 +175,10 @@ main .form-header .form-description {
 
 .input-field {
   width: 100%;
-  animation-duration: 0.9s;
+}
+
+.input-field label {  
+  animation-duration: .7s;
   animation-timing-function: ease;
 }
 
