@@ -25,6 +25,7 @@ const html = {
   },
 };
 
+
 // Simluando o back-end
 const form = {
   id: 1,
@@ -87,12 +88,14 @@ const form = {
   ],
 };
 
+
 /***/
 const getForm = async () => {
   const response = await fetch("./data.json");
   const data = await response.json(response);
   return data;
 };
+
 
 /**
  * Um objeto que mantém o estado do formulário de avaliação.
@@ -113,6 +116,7 @@ const stateQuestions = {
   inputField: null,
 };
 
+
 /**
  * Renderiza o formulário de avaliação com base nos dados fornecidos.
  *
@@ -132,6 +136,7 @@ const renderForm = (data) => {
 
   createButton("Começar", "form-button", "button-start");
 };
+
 
 /**
  * Renderiza uma pergunta do formulário de avaliação com base no estado atual.
@@ -175,6 +180,7 @@ const renderQuestion = () => {
     : createButton("Anterior", "form-button", "button-prev");
 };
 
+
 /**
  * Cria e insere um botão no formulário de avaliação.
  *
@@ -198,6 +204,7 @@ const toggleButton = (button) => {
   if (!button) return null;
   button.classList.toggle("hide");
 };
+
 
 /**
  * Exibe uma mensagem de sucesso no formulário de avaliação após o envio.
@@ -228,6 +235,7 @@ const showMessageSuccess = () => {
 
   formContent.appendChild(messageSuccess);
 };
+
 
 /**
  * Configura os ouvintes de eventos para os botões no formulário de avaliação e
@@ -306,6 +314,7 @@ const eventListenerButtonsForm = (button) => {
     });
   };
 
+
   const allButtons = [
     "form-button button-start",
     "form-button button-next",
@@ -342,6 +351,7 @@ const eventListenerButtonsForm = (button) => {
   });
 };
 
+
 /**
  * Valida o campo de entrada no formulário de avaliação.
  * Esta função verifica se o campo está preenchido e exibe uma mensagem de erro, se necessário.
@@ -356,13 +366,14 @@ const validateInput = () => {
 
     if (input.value.trim() === "") {
       input.value = "";
-      error.textContent = "Por favor, preeencha este campo!";
+      error.textContent = "Por favor, preencha este campo!";
       return false;
     }
 
     return true;
   }
 };
+
 
 /**
  * Salva a resposta do usuário para a pergunta atual no formulário de avaliação.
@@ -380,6 +391,7 @@ const saveAnswers = () => {
 
   stateQuestions.answers[stateQuestions.currentQuestionIndex] = answerCurrent;
 };
+
 
 /**
  * Inicializa o formulário de avaliação.
