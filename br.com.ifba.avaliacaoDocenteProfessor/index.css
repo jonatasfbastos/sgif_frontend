@@ -1,0 +1,71 @@
+.containe-teacher {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.teacher-details {
+  flex: 1;
+}
+
+.teacher-assessments {
+  flex: 2;
+  background-color: rebeccapurple;
+}
+
+
+
+/* ----{teacher-details}---- */
+.teacher-details .teacher-infos {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.teacher-details .teacher-infos .photo {
+  background-color: var(--cor-texto);
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.teacher-details .teacher-infos .photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.teacher-details .teacher-infos .name {
+  font-size: var(--tamanho-fonte-base);
+}
+
+.teacher-details .teacher-infos .office {
+  font-size: 0.8rem;
+  color: #2f2f2fce;
+}
+
+.container-courses h2 {
+  font-size: 1rem;
+}
+
+.container-courses .list-courses {
+  margin: 1rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.container-courses .list-courses li {
+  list-style: none;
+  margin-top: 0.5rem 0;
+  padding: 0.5rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.3);
+  color: var(--cor-texto);
+}
+/* ----{END teacher-details}---- */
+
+
+
+/* ----{teacher-assessments}---- */
+/* ----{END teacher-assessments}---- */
