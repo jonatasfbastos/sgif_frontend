@@ -1,5 +1,5 @@
-const HOST = 'http://localhost:8081/'
-const API = 'api/v1/app/'
+const HOST = 'http://localhost:8080/'
+const API = 'api/v1/'
 
 addErrorOnStart()
 
