@@ -25,18 +25,106 @@ const html = {
   },
 };
 
-const assessmentsDetails = html.getAll(".box-assessments");
-
-assessmentsDetails.forEach((assessment) => {
-  assessment.addEventListener("click", () => {
-    const description = assessment.querySelector(".description");
-    description.classList.toggle("active");
-  });
-});
-
-const container = html.get(".container main");
+//Simular back-end : Professores
+const professores = [
+  {
+    id: "550e8400-e29b-41d4-a716-446655440000",
+    nome: "Matheus Souza",
+    email: "matheus@ifba.edu.br",
+    siape: "11514488",
+    funcaoServidor: {
+      nome: "Professor",
+    },
+    disciplinas: {
+      etapaCurso: {},
+      professor: "Matheus Souza",
+      avaliacao: {
+        id: "550e8400-e29b-584d-a716-446655441111",
+        descricao: "",
+        dataFim: "",
+        dataInicio: "",
+        formulario: {},
+        disciplina: [
+          {
+            id: "550e8400-e29b-584d-a716-446655442222",
+            nome: "Desenho Técnico",
+            descricao:
+              "Um guia prático para aprender os conceitos essenciais do Desenho Técnico, adequado para estudantes e profissionais em busca de precisão na representação gráfica. Explore princípios fundamentais, ferramentas, normas e exemplos práticos. Domine a arte do Desenho Técnico hoje!",
+            codigo: "1020",
+            cargaHoraria: "40",
+          },
+          {
+            id: "550e8400-e29b-584d-a716-4466554450505",
+            nome: "Iformática",
+            descricao:
+              "Um guia prático para aprender os conceitos essenciais do Desenho Técnico, adequado para estudantes e profissionais em busca de precisão na representação gráfica. Explore princípios fundamentais, ferramentas, normas e exemplos práticos. Domine a arte do Desenho Técnico hoje!",
+            codigo: "1021",
+            cargaHoraria: "40",
+          },
+        ],
+      },
+    },
+  },
+  {
+    id: "550e8400-e29b-41d4-a716-446655440001",
+    nome: "Maria Silva",
+    email: "maria@ifba.edu.br",
+    siape: "11514489",
+    funcaoServidor: {
+      nome: "Professor",
+    },
+    disciplinas: {
+      etapaCurso: {},
+      professor: "Maria Silva",
+      avaliacao: {
+        id: "550e8400-e29b-584d-a716-446655441112",
+        descricao: "",
+        dataFim: "",
+        dataInicio: "",
+        formulario: {},
+        disciplina: {
+          id: "550e8400-e29b-584d-a716-446655442223",
+          nome: "Matemática Avançada",
+          descricao:
+            "Um curso avançado de matemática para estudantes e profissionais interessados em aprofundar seus conhecimentos em áreas como cálculo, álgebra linear e geometria analítica.",
+          codigo: "1030",
+          cargaHoraria: "60",
+        },
+      },
+    },
+  },
+  {
+    id: "550e8400-e29b-41d4-a716-446655440002",
+    nome: "João Santos",
+    email: "joao@ifba.edu.br",
+    siape: "11514490",
+    funcaoServidor: {
+      nome: "Professor",
+    },
+    disciplinas: {
+      etapaCurso: {},
+      professor: "João Santos",
+      avaliacao: {
+        id: "550e8400-e29b-584d-a716-446655441113",
+        descricao: "",
+        dataFim: "",
+        dataInicio: "",
+        formulario: {},
+        disciplina: {
+          id: "550e8400-e29b-584d-a716-446655442224",
+          nome: "Programação Avançada",
+          descricao:
+            "Um curso avançado de programação para estudantes e profissionais que desejam aprimorar suas habilidades em programação orientada a objetos, estruturas de dados e algoritmos avançados.",
+          codigo: "1040",
+          cargaHoraria: "50",
+        },
+      },
+    },
+  },
+];
 
 /**---------{Limpar Container}----------**/
+const container = html.get(".container main");
 const cleanBox = () => {
   container.innerHTML = "";
 };
@@ -61,29 +149,208 @@ const generateSectionListTeachers = (data) => {
   `;
 
   const teacherList = html.createElementWithClasses("section", "teacher-list");
-  teacherList.innerHTML = `
-      <form>
-        <label for="teacher">Escolha um Professor:</label>
-        <select id="teacher" name="teacher">
-          <option value="professor1">Professores</option>
-          <option value="professor2">Professor 2</option>
-          <option value="professor3">Professor 3</option>
-        </select>
-        <button class="btn-site">Analisar</button>
-      </form>
-  `;
+
+  const form = html.create("form");
+
+  const label = html.create("label");
+  label.setAttribute("for", "teacher");
+  label.textContent = "Escolha um Professor:";
+
+  const select = html.create("select");
+  select.setAttribute("id", "teacher");
+  select.setAttribute("name", "teacher");
+
+  professores.forEach((professor, index) => {
+    const option = html.create("option");
+    option.setAttribute("value", professor.id);
+    option.textContent = professor.nome;
+    select.appendChild(option);
+  });
+
+  const button = html.create("button");
+  button.classList.add("btn-site");
+  button.textContent = "Analisar";
+  button.addEventListener("click", (e) => {
+    e.preventDefault();
+    const selectElement = html.get("#teacher");
+    const selectedProfessor = selectElement.value;
+    toGoSectionListAssessments(selectedProfessor);
+  });
+
+  form.appendChild(label);
+  form.appendChild(select);
+  form.appendChild(button);
+
+  teacherList.appendChild(form);
 
   containerTeacherList.appendChild(teacherSelection);
   containerTeacherList.appendChild(teacherList);
   container.appendChild(containerTeacherList);
 };
 
+/**---------{Search}----------**/
+function setupSearch() {
+  const searchInput = html.get("#search");
+  const assessmentsDetails = html.getAll(".box-assessments");
 
+  searchInput.addEventListener("input", function () {
+    const searchTerm = searchInput.value.trim().toLowerCase();
 
+    assessmentsDetails.forEach((assessment) => {
+      const name = assessment.querySelector(".name").textContent.toLowerCase();
+      const shouldShow = !!name.includes(searchTerm);
 
+      // Defina a visibilidade com base no valor de shouldShow
+      assessment.style.display = shouldShow ? "block" : "none";
+    });
+  });
+}
 
+const toGoSectionListAssessments = (professor) => {
+  if (!professor) {
+    return;
+  }
 
-/**---------{Chamadas a API}----------**/
+  const teacher = professores.filter((teacher) => teacher.id === professor);
+  if (teacher) {
+    cleanBox();
+    generateSectionListAssessmentsTeacher(teacher);
+  }
+};
+
+/**---------{Seção para mostra as avaliações do professor}----------**/
+const generateSectionListAssessmentsTeacher = (data) => {
+  const teacher = data[0];
+  console.log(teacher);
+
+  const containerTeacher = html.createElementWithClasses(
+    "div",
+    "container-teacher"
+  );
+
+  const teacherDetails = html.createElementWithClasses(
+    "div",
+    "teacher-details"
+  );
+
+  const teacherInfos = html.createElementWithClasses("div", "teacher-infos");
+
+  const photo = html.createElementWithClasses("div", "photo");
+  photo.innerHTML = `<img src="../images/user-default.png" alt="Foto do ${teacher.nome}" />`;
+
+  const name = html.createElementWithClasses("div", "name");
+  name.textContent = teacher.nome;
+
+  const office = html.createElementWithClasses("div", "office");
+  office.textContent = teacher.funcaoServidor.nome + "(a)";
+
+  teacherInfos.appendChild(photo);
+  teacherInfos.appendChild(name);
+  teacherInfos.appendChild(office);
+
+  const containerCourses = html.createElementWithClasses(
+    "div",
+    "container-courses"
+  );
+
+  const h2 = html.createElementWithClasses("h2");
+  h2.textContent = `As disciplinas que ${teacher.nome} ministra`;
+
+  const ul = html.createElementWithClasses("ul", "list-courses");
+  const disciplinas = teacher.disciplinas.avaliacao.disciplina;
+
+  if (disciplinas.length > 0) {
+    disciplinas.map((disciplina) => {
+      ul.innerHTML += `<li>${disciplina.nome}</li>`;
+    });
+  } else {
+    ul.innerHTML += `<li>${disciplinas.nome}</li>`;
+  }
+
+  containerCourses.appendChild(h2);
+  containerCourses.appendChild(ul);
+
+  teacherDetails.appendChild(teacherInfos);
+  teacherDetails.appendChild(containerCourses);
+
+  const teacherAssessments = html.createElementWithClasses(
+    "div",
+    "teacher-assessments"
+  );
+
+  const assessmentsControl = html.createElementWithClasses(
+    "div",
+    "assessments-control"
+  );
+  assessmentsControl.innerHTML = `
+    <form>
+      <input
+        type="search"
+        name="search"
+        id="search"
+        placeholder="Buscar Disciplina"
+      />
+      <input type="date" name="start-date" />
+      <input type="date" name="end-date" />
+      <input type="submit" class="btn-site" value="Buscar" />
+    </form>
+  `;
+  teacherAssessments.appendChild(assessmentsControl);
+
+  const assessmentsContent = html.createElementWithClasses(
+    "div",
+    "assessments-content"
+  );
+
+  if (disciplinas.length > 0) {
+    console.log("ois");
+    disciplinas.map((assessment) => {
+      const boxAssessments = generatetAssessments(assessment);
+      assessmentsContent.appendChild(boxAssessments);
+    });
+  } else {
+    const boxAssessments = generatetAssessments(disciplinas);
+    assessmentsContent.appendChild(boxAssessments);
+  }
+
+  teacherAssessments.appendChild(assessmentsContent);
+
+  containerTeacher.appendChild(teacherDetails);
+  containerTeacher.appendChild(teacherAssessments);
+  container.appendChild(containerTeacher);
+  setupSearch();
+  effcectDownBox();
+};
+
+const generatetAssessments = (assessment) => {
+  const boxAssessments = html.createElementWithClasses(
+    "div",
+    "box-assessments"
+  );
+
+  boxAssessments.innerHTML = `
+        <div class="assessments-details">
+          <span class="name">${assessment.nome}</span>
+          <div>
+            <span class="workload" title="Carga Horária">${
+              assessment.cargaHoraria + " Horas"
+            }</span>
+            <span class="code" title="código">${"#" + assessment.codigo}</span>
+            <span class="arrow-down">
+              <i class="bi bi-arrow-down-short"></i>
+            </span>
+          </div>
+        </div>
+
+        <div class="description">
+        ${assessment.descricao}
+        </div>
+    `;
+
+  return boxAssessments;
+};
+
+/**---------{Chamadas a API professores}----------**/
 const endpoint = "professores";
 
 const getAllTeachers = () => {
@@ -98,7 +365,19 @@ const getAllTeachers = () => {
     });
 };
 
+function effcectDownBox() {
+  const assessmentsDetails = html.getAll(".box-assessments");
+  assessmentsDetails.forEach((assessment) => {
+    assessment.addEventListener("click", () => {
+      const description = assessment.querySelector(".description");
+      description.classList.toggle("active");
+    });
+  });
+}
+
+/**---------{Iniciar}----------**/
 function init() {
   getAllTeachers();
+  generateSectionListTeachers();
 }
 init();
