@@ -34,14 +34,23 @@ assessmentsDetails.forEach((assessment) => {
   });
 });
 
-/**---------{}----------**/
-const endpoint = "professor";
+const container = html.get(".containe-teacher");
+
+/**---------{Limpar Container}----------**/
+const cleanBox = () => {
+  container.innerHTML = "";
+};
+
+/**---------{Seção para escolha do professor }----------**/
+
+const listTeachers = () => {};
+
+const endpoint = "professores";
 
 const getAllTeachers = () => {
   get(endpoint)
     .then((data) => {
       console.log("Data ", data);
-      //renderizar todos os professores
       return data;
     })
     .catch((error) => {
