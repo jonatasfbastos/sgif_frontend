@@ -28,18 +28,54 @@ const html = {
 /**---------{Variaveis globais}----------**/
 const container = html.get(".container main");
 
-
 /**---------{Chamadas a API professores}----------**/
 const endpoint = "professores";
 const endpointTest =
   "../assets/data/data_teste/data_professores/professores.json";
-
 
 const getAllTeachers = async () => {
   const response = await fetch(endpointTest);
   const data = await response.json();
   generateSectionListTeachers(data);
 };
+
+/**
+ * PageEffects - Biblioteca de Efeitos de Página
+ *
+ * Esta biblioteca fornece funções para aplicar efeitos de página a elementos HTML.
+ *
+ * @namespace PageEffects
+ */
+const PageEffects = {
+  /**
+   * toggleDescription - Adiciona um evento de clique a elementos para alternar a classe "active" em elementos de descrição.
+   *
+   * @param {string} classElement - A classe dos elementos que terão eventos de clique.
+   */
+  toggleDescription: (classElement) => {
+    const assessmentsDetails = html.getAll(classElement);
+    assessmentsDetails.forEach((assessment) => {
+      assessment.addEventListener("click", () => {
+        const description = assessment.querySelector(".description");
+        description.classList.toggle("active");
+      });
+    });
+  },
+
+  /**
+   * applyEntryAnimation - Aplica uma classe de animação a elementos com base em uma classe específica.
+   *
+   * @param {string} classElement - A classe dos elementos que receberão a animação.
+   * @param {string} animationClass - A classe de animação a ser aplicada aos elementos.
+   */
+  applyEntryAnimation: (classElement, animationClass) => {
+    const elements = html.getAll(classElement);
+    elements.forEach((element) => {
+      element.classList.add(animationClass);
+    });
+  },
+};
+
 
 /**---------{Limpar Container}----------**/
 const cleanBox = () => {
@@ -91,7 +127,7 @@ const generateSectionListTeachers = (professores) => {
     e.preventDefault();
     const selectElement = html.get("#teacher");
     const selectedProfessor = selectElement.value;
-    toGoSectionListAssessments(professores,selectedProfessor);
+    toGoSectionListAssessments(professores, selectedProfessor);
   });
 
   form.appendChild(label);
@@ -236,7 +272,10 @@ const generateSectionListAssessmentsTeacher = (data) => {
   containerTeacher.appendChild(teacherAssessments);
   container.appendChild(containerTeacher);
   setupSearch();
-  effcectDownBox();
+
+  PageEffects.applyEntryAnimation(".box-assessments", "entry");
+  PageEffects.applyEntryAnimation(".list-courses li", "entry");
+  PageEffects.toggleDescription(".box-assessments");
 };
 
 const generatetAssessments = (assessment) => {
@@ -266,16 +305,6 @@ const generatetAssessments = (assessment) => {
 
   return boxAssessments;
 };
-
-function effcectDownBox() {
-  const assessmentsDetails = html.getAll(".box-assessments");
-  assessmentsDetails.forEach((assessment) => {
-    assessment.addEventListener("click", () => {
-      const description = assessment.querySelector(".description");
-      description.classList.toggle("active");
-    });
-  });
-}
 
 /**---------{Iniciar}----------**/
 function init() {

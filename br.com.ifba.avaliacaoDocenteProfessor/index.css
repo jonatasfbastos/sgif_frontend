@@ -134,10 +134,10 @@
 /* ----{END teacher-assessments}---- */
 
 /* ----{professor-selection}---- */
-.container-teacher-list{
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
+.container-teacher-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
 .teacher-selection .title {
@@ -148,13 +148,29 @@
   font-size: 0.9rem;
 }
 
-.teacher-list form{
-    display: flex;
-    gap: 1rem;
-    flex-direction: column;
+.teacher-list form {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
 }
 
-.teacher-list form select{
-    height: 40px;
+.teacher-list form select {
+  height: 40px;
 }
 /* ----{END professor-selection}---- */
+
+
+/* Animações */
+@keyframes entryAnimation {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.entry {
+  animation: entryAnimation .8s ease-in-out; /* Duração: 1 segundo, animação suave */
+  animation-fill-mode: forwards; /* Mantém o elemento no estado final após a animação */
+}
