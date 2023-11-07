@@ -25,112 +25,29 @@ const html = {
   },
 };
 
-//Simular back-end : Professores
-const professores = [
-  {
-    id: "550e8400-e29b-41d4-a716-446655440000",
-    nome: "Matheus Souza",
-    email: "matheus@ifba.edu.br",
-    siape: "11514488",
-    funcaoServidor: {
-      nome: "Professor",
-    },
-    disciplinas: {
-      etapaCurso: {},
-      professor: "Matheus Souza",
-      avaliacao: {
-        id: "550e8400-e29b-584d-a716-446655441111",
-        descricao: "",
-        dataFim: "",
-        dataInicio: "",
-        formulario: {},
-        disciplina: [
-          {
-            id: "550e8400-e29b-584d-a716-446655442222",
-            nome: "Desenho Técnico",
-            descricao:
-              "Um guia prático para aprender os conceitos essenciais do Desenho Técnico, adequado para estudantes e profissionais em busca de precisão na representação gráfica. Explore princípios fundamentais, ferramentas, normas e exemplos práticos. Domine a arte do Desenho Técnico hoje!",
-            codigo: "1020",
-            cargaHoraria: "40",
-          },
-          {
-            id: "550e8400-e29b-584d-a716-4466554450505",
-            nome: "Iformática",
-            descricao:
-              "Um guia prático para aprender os conceitos essenciais do Desenho Técnico, adequado para estudantes e profissionais em busca de precisão na representação gráfica. Explore princípios fundamentais, ferramentas, normas e exemplos práticos. Domine a arte do Desenho Técnico hoje!",
-            codigo: "1021",
-            cargaHoraria: "40",
-          },
-        ],
-      },
-    },
-  },
-  {
-    id: "550e8400-e29b-41d4-a716-446655440001",
-    nome: "Maria Silva",
-    email: "maria@ifba.edu.br",
-    siape: "11514489",
-    funcaoServidor: {
-      nome: "Professor",
-    },
-    disciplinas: {
-      etapaCurso: {},
-      professor: "Maria Silva",
-      avaliacao: {
-        id: "550e8400-e29b-584d-a716-446655441112",
-        descricao: "",
-        dataFim: "",
-        dataInicio: "",
-        formulario: {},
-        disciplina: {
-          id: "550e8400-e29b-584d-a716-446655442223",
-          nome: "Matemática Avançada",
-          descricao:
-            "Um curso avançado de matemática para estudantes e profissionais interessados em aprofundar seus conhecimentos em áreas como cálculo, álgebra linear e geometria analítica.",
-          codigo: "1030",
-          cargaHoraria: "60",
-        },
-      },
-    },
-  },
-  {
-    id: "550e8400-e29b-41d4-a716-446655440002",
-    nome: "João Santos",
-    email: "joao@ifba.edu.br",
-    siape: "11514490",
-    funcaoServidor: {
-      nome: "Professor",
-    },
-    disciplinas: {
-      etapaCurso: {},
-      professor: "João Santos",
-      avaliacao: {
-        id: "550e8400-e29b-584d-a716-446655441113",
-        descricao: "",
-        dataFim: "",
-        dataInicio: "",
-        formulario: {},
-        disciplina: {
-          id: "550e8400-e29b-584d-a716-446655442224",
-          nome: "Programação Avançada",
-          descricao:
-            "Um curso avançado de programação para estudantes e profissionais que desejam aprimorar suas habilidades em programação orientada a objetos, estruturas de dados e algoritmos avançados.",
-          codigo: "1040",
-          cargaHoraria: "50",
-        },
-      },
-    },
-  },
-];
+/**---------{Variaveis globais}----------**/
+const container = html.get(".container main");
+
+
+/**---------{Chamadas a API professores}----------**/
+const endpoint = "professores";
+const endpointTest =
+  "../assets/data/data_teste/data_professores/professores.json";
+
+
+const getAllTeachers = async () => {
+  const response = await fetch(endpointTest);
+  const data = await response.json();
+  generateSectionListTeachers(data);
+};
 
 /**---------{Limpar Container}----------**/
-const container = html.get(".container main");
 const cleanBox = () => {
   container.innerHTML = "";
 };
 
 /**---------{Seção para escolha do professor }----------**/
-const generateSectionListTeachers = (data) => {
+const generateSectionListTeachers = (professores) => {
   const containerTeacherList = html.createElementWithClasses(
     "div",
     "container-teacher-list"
@@ -174,7 +91,7 @@ const generateSectionListTeachers = (data) => {
     e.preventDefault();
     const selectElement = html.get("#teacher");
     const selectedProfessor = selectElement.value;
-    toGoSectionListAssessments(selectedProfessor);
+    toGoSectionListAssessments(professores,selectedProfessor);
   });
 
   form.appendChild(label);
@@ -206,7 +123,7 @@ function setupSearch() {
   });
 }
 
-const toGoSectionListAssessments = (professor) => {
+const toGoSectionListAssessments = (professores, professor) => {
   if (!professor) {
     return;
   }
@@ -348,21 +265,6 @@ const generatetAssessments = (assessment) => {
     `;
 
   return boxAssessments;
-};
-
-/**---------{Chamadas a API professores}----------**/
-const endpoint = "professores";
-
-const getAllTeachers = () => {
-  get(endpoint)
-    .then((data) => {
-      generateSectionListTeachers(data);
-      console.log("Data ", data);
-      return data;
-    })
-    .catch((error) => {
-      console.log("Error ", error);
-    });
 };
 
 function effcectDownBox() {

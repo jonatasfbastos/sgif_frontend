@@ -1,0 +1,204 @@
+[
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440004",
+    "nome": "Fernanda Oliveira",
+    "email": "fernanda@ifba.edu.br",
+    "siape": "20230004",
+    "funcaoServidor": {
+      "nome": "Professor"
+    },
+    "disciplinas": {
+      "etapaCurso": {},
+      "professor": "Fernanda Oliveira",
+      "avaliacao": {
+        "id": "660e8400-e29b-41d4-a716-446655440004",
+        "descricao": "",
+        "dataInicio": "2023-03-25",
+        "dataFim": "2023-06-01",
+        "formulario": {},
+        "disciplina": [
+          {
+            "id": "550e8400-e29b-584d-a716-446655442225",
+            "nome": "Programação Avançada em Java",
+            "descricao": "Aprofundamento nos conceitos de programação orientada a objetos em Java, incluindo estruturas de dados avançadas e algoritmos.",
+            "codigo": "1050",
+            "cargaHoraria": "80"
+          },
+          {
+            "id": "550e8400-e29b-584d-a716-446655442226",
+            "nome": "Engenharia de Software",
+            "descricao": "Estudo das metodologias e práticas de engenharia de software, incluindo desenvolvimento de sistemas, testes e gerenciamento de projetos.",
+            "codigo": "1060",
+            "cargaHoraria": "70"
+          },
+          {
+            "id": "550e8400-e29b-584d-a716-446655442227",
+            "nome": "Redes de Computadores Avançadas",
+            "descricao": "Exploração aprofundada dos princípios de redes de computadores, incluindo protocolos, segurança e gerenciamento de redes.",
+            "codigo": "1070",
+            "cargaHoraria": "65"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440005",
+    "nome": "Ricardo Almeida",
+    "email": "ricardo@ifba.edu.br",
+    "siape": "20230005",
+    "funcaoServidor": {
+      "nome": "Professor"
+    },
+    "disciplinas": {
+      "etapaCurso": {},
+      "professor": "Ricardo Almeida",
+      "avaliacao": {
+        "id": "660e8400-e29b-41d4-a716-446655440005",
+        "descricao": "",
+        "dataInicio": "2023-01-15",
+        "dataFim": "2023-03-30",
+        "formulario": {},
+        "disciplina": [
+          {
+            "id": "550e8400-e29b-584d-a716-446655442228",
+            "nome": "Desenvolvimento Web Avançado",
+            "descricao": "Desenvolvimento web avançado, incluindo tecnologias front-end e back-end, frameworks e práticas recomendadas.",
+            "codigo": "1080",
+            "cargaHoraria": "75"
+          },
+          {
+            "id": "550e8400-e29b-584d-a716-446655442229",
+            "nome": "Inteligência Artificial",
+            "descricao": "Estudo das técnicas de inteligência artificial, aprendizado de máquina e aplicações em reconhecimento de padrões e processamento de linguagem natural.",
+            "codigo": "1090",
+            "cargaHoraria": "85"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440006",
+    "nome": "Carla Sousa",
+    "email": "carla@ifba.edu.br",
+    "siape": "20230006",
+    "funcaoServidor": {
+      "nome": "Professor"
+    },
+    "disciplinas": {
+      "etapaCurso": {},
+      "professor": "Carla Sousa",
+      "avaliacao": {
+        "id": "660e8400-e29b-41d4-a716-446655440006",
+        "descricao": "",
+        "dataInicio": "2023-03-15",
+        "dataFim": "2023-06-30",
+        "formulario": {},
+        "disciplina": [
+          {
+            "id": "550e8400-e29b-584d-a716-446655442230",
+            "nome": "Filosofia Contemporânea",
+            "descricao": "Exploração das correntes filosóficas mais recentes, incluindo pós-modernismo, filosofia da mente e ética contemporânea.",
+            "codigo": "1100",
+            "cargaHoraria": "70"
+          },
+          {
+            "id": "550e8400-e29b-584d-a716-446655442231",
+            "nome": "Sociologia Avançada",
+            "descricao": "Análise aprofundada dos principais temas sociais e teorias sociológicas contemporâneas, incluindo estratificação social, globalização e mudança social.",
+            "codigo": "1110",
+            "cargaHoraria": "80"
+          },
+          {
+            "id": "550e8400-e29b-584d-a716-446655442232",
+            "nome": "Psicologia Moderna",
+            "descricao": "Estudo dos principais temas em psicologia, incluindo comportamento humano, processos mentais e aplicações práticas em contextos diversos.",
+            "codigo": "1120",
+            "cargaHoraria": "65"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440007",
+    "nome": "Lucas Pereira",
+    "email": "lucas@ifba.edu.br",
+    "siape": "20230007",
+    "funcaoServidor": {
+      "nome": "Professor"
+    },
+    "disciplinas": {
+      "etapaCurso": {},
+      "professor": "Lucas Pereira",
+      "avaliacao": {
+        "id": "660e8400-e29b-41d4-a716-446655440007",
+        "descricao": "",
+        "dataFim": "2023-05-15",
+        "dataInicio": "2023-03-01",
+        "formulario": {},
+        "disciplina": [
+          {
+            "id": "550e8400-e29b-584d-a716-446655442233",
+            "nome": "Introdução à Programação",
+            "descricao": "Introdução aos conceitos básicos de programação, incluindo algoritmos, estruturas de controle e linguagens de programação.",
+            "codigo": "1130",
+            "cargaHoraria": "60",
+            "dataFim": "2023-06-30",
+            "dataInicio": "2023-03-15"
+          },
+          {
+            "id": "550e8400-e29b-584d-a716-446655442234",
+            "nome": "Sistemas Operacionais",
+            "descricao": "Estudo dos princípios dos sistemas operacionais, incluindo gerenciamento de processos, memória e sistemas de arquivos.",
+            "codigo": "1140",
+            "cargaHoraria": "70",
+            "dataFim": "2023-07-31",
+            "dataInicio": "2023-04-01"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440008",
+    "nome": "Mariana Santos",
+    "email": "mariana@ifba.edu.br",
+    "siape": "20230008",
+    "funcaoServidor": {
+      "nome": "Professor"
+    },
+    "disciplinas": {
+      "etapaCurso": {},
+      "professor": "Mariana Santos",
+      "avaliacao": {
+        "id": "660e8400-e29b-41d4-a716-446655440008",
+        "descricao": "",
+        "dataFim": "2023-06-30",
+        "dataInicio": "2023-02-15",
+        "formulario": {},
+        "disciplina": [
+          {
+            "id": "550e8400-e29b-584d-a716-446655442235",
+            "nome": "Banco de Dados Avançados",
+            "descricao": "Estudo avançado de sistemas de gerenciamento de banco de dados, modelagem de dados e otimização de consultas.",
+            "codigo": "1150",
+            "cargaHoraria": "75",
+            "dataFim": "2023-09-30",
+            "dataInicio": "2023-03-01"
+          },
+          {
+            "id": "550e8400-e29b-584d-a716-446655442236",
+            "nome": "Engenharia de Redes",
+            "descricao": "Projeto e implementação avançados de redes de computadores, incluindo segurança e administração de redes empresariais.",
+            "codigo": "1160",
+            "cargaHoraria": "80",
+            "dataFim": "2023-10-31",
+            "dataInicio": "2023-03-15"
+          }
+        ]
+      }
+    }
+  }
+]
