@@ -1,0 +1,79 @@
+.container-assessment {
+}
+
+.container-assessment .assessment-text {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--cor-primaria);
+}
+
+/* ----{filter-assessment}---- */
+.filter-assessment form {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+  gap: 1rem;
+}
+
+.filter-assessment form input {
+  border: 1px solid rgb(0, 0, 0, 0.1);
+}
+
+.filter-assessment form input[type="search"],
+.filter-assessment form #filter {
+  height: 30px;
+}
+
+.filter-assessment form input[type="search"] {
+  padding-left: 10px;
+  width: 30%;
+  margin: 10px 0;
+}
+
+.filter-assessment form #filter {
+  padding: 0 5px;
+}
+/* ----{END - filter-assessment}---- */
+
+/* ----{ container-list-assessment}---- */
+.container-list-assessment {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: start;
+  gap: 1rem;
+}
+
+.box-assessments {
+  background-color: #fff;
+  border-radius: 0.5rem;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  width: 271px;
+  min-height: 210px;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  cursor: pointer;
+  position: relative;
+}
+
+.box-assessments button {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+}
+
+.box-assessments button.btn-assess,
+.box-assessments button.btn-evaluated {
+  border-radius: 4px;
+  font-family: "Roboto", sans-serif;
+  padding: .25rem .5rem;
+  font-size: 1rem;
+}
+.box-assessments button.btn-evaluated {
+  background: none;
+  color: #008000;
+  font-weight: bold;
+  border: 1px solid #4caf50;
+}
+/* ----{END - container-list-assessment}---- */
