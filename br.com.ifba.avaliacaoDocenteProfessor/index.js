@@ -76,9 +76,137 @@ const PageEffects = {
   },
 };
 
+const SetupSearch = {
+  searchName: () => {
+    const searchInput = html.get("#search");
+    const assessmentsDetails = html.getAll(".box-assessments");
 
-/**---------{Limpar Container}----------**/
-const cleanBox = () => {
+    const notFoundMessage = html.get("#not-found-message");
+
+    
+
+    searchInput.addEventListener("input", function () {
+      const searchTerm = searchInput.value.trim().toLowerCase();
+
+      assessmentsDetails.forEach((assessment) => {
+        const name = assessment
+          .querySelector(".name")
+          .textContent.toLowerCase();
+        const shouldShow = !!name.includes(searchTerm);
+
+        // Defina a visibilidade com base no valor de shouldShow
+        assessment.style.display = shouldShow ? "block" : "none";
+      });
+
+      if (notFoundMessage) {
+        notFoundMessage.style.display = "none";
+      }
+    });
+  },
+  searchDate: (dateStart, dateEnd) => {
+    const assessmentsDetails = html.getAll(".box-assessments");
+    const notFoundMessage = html.get("#not-found-message");
+
+    // Refatora: mensagens de erros. Criar Função
+    if (dateStart > dateEnd) {
+      assessmentsDetails.forEach((assessment) => {
+        assessment.style.display = "none";
+      });
+
+      notFoundMessage.innerHTML = `
+      ❌ A data de início deve ser anterior à data de término.
+      `;
+      notFoundMessage.style.display = "block"; // Exibe a mensagem
+
+      return;
+    }
+
+    if (!dateStart || !dateEnd) {
+      notFoundMessage.innerHTML = `
+    ❌ Por favor, preencha ambas as datas.
+    `;
+      notFoundMessage.style.display = "block"; // Exibe a mensagem
+      assessmentsDetails.forEach((assessment) => {
+        assessment.style.display = "none";
+      });
+      return;
+    }
+
+    let flag = false;
+
+    assessmentsDetails.forEach((assessment) => {
+      const startDateElement = assessment.querySelector(".date-start");
+      const endDateElement = assessment.querySelector(".date-end");
+
+      if (!startDateElement || !endDateElement) {
+        return;
+      }
+
+      const startDate = moment(startDateElement.textContent, "YYYY-M-D");
+      const endDate = moment(endDateElement.textContent, "YYYY-M-D");
+      console.log(startDate, endDate);
+
+      const dataStartForm = moment(dateStart, "YYYY-M-D");
+      const dataEndForm = moment(dateEnd, "YYYY-M-D");
+
+      if (
+        dataStartForm.isSameOrAfter(startDate) &&
+        dataEndForm.isSameOrBefore(endDate)
+      ) {
+        flag = true;
+        assessment.style.display = "block";
+      } else {
+        assessment.style.display = "none";
+      }
+    });
+
+    if (!flag) {
+      notFoundMessage.innerHTML = `
+      ❌Avaliações não encontradas!
+      `;
+      notFoundMessage.style.display = "block"; // Exibe a mensagem
+    }
+  },
+};
+
+function filterDate() {
+  const form = html.get("form");
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const dateStart = form.querySelector("#start-date").value;
+    const dateEnd = form.querySelector("#end-date").value;
+    const notFoundMessage = html.get("#not-found-message");
+    if (notFoundMessage.style.display === "block") {
+      notFoundMessage.style.display = "none";
+    }
+    SetupSearch.searchDate(dateStart, dateEnd);
+  });
+
+  const buttonReset = html.get(".btn-reset");
+  buttonReset.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    const dateStart = form.querySelector("#start-date");
+    const dateEnd = form.querySelector("#end-date");
+
+    dateStart.value = dateStart.defaultValue;
+    dateEnd.value = dateEnd.defaultValue;
+
+    const notFoundMessage = html.get("#not-found-message");
+    notFoundMessage.style.display = "none";
+
+    const assessmentsDetails = html.getAll(".box-assessments");
+    assessmentsDetails.forEach((assessment) => {
+      assessment.style.display = "block";
+    });
+  });
+}
+
+/**
+ * Limpa o conteúdo do container.
+ */
+const cleanContainer = () => {
   container.innerHTML = "";
 };
 
@@ -141,24 +269,6 @@ const generateSectionListTeachers = (professores) => {
   container.appendChild(containerTeacherList);
 };
 
-/**---------{Search}----------**/
-function setupSearch() {
-  const searchInput = html.get("#search");
-  const assessmentsDetails = html.getAll(".box-assessments");
-
-  searchInput.addEventListener("input", function () {
-    const searchTerm = searchInput.value.trim().toLowerCase();
-
-    assessmentsDetails.forEach((assessment) => {
-      const name = assessment.querySelector(".name").textContent.toLowerCase();
-      const shouldShow = !!name.includes(searchTerm);
-
-      // Defina a visibilidade com base no valor de shouldShow
-      assessment.style.display = shouldShow ? "block" : "none";
-    });
-  });
-}
-
 const toGoSectionListAssessments = (professores, professor) => {
   if (!professor) {
     return;
@@ -166,7 +276,7 @@ const toGoSectionListAssessments = (professores, professor) => {
 
   const teacher = professores.filter((teacher) => teacher.id === professor);
   if (teacher) {
-    cleanBox();
+    cleanContainer();
     generateSectionListAssessmentsTeacher(teacher);
   }
 };
@@ -241,10 +351,12 @@ const generateSectionListAssessmentsTeacher = (data) => {
         type="search"
         name="search"
         id="search"
+        autocomplete="off"
         placeholder="Buscar Disciplina"
       />
-      <input type="date" name="start-date" />
-      <input type="date" name="end-date" />
+      <input type="date" id="start-date" name="start-date" />
+      <input type="date" id="end-date" name="end-date" />
+      <input type="submit" class="btn-site btn-reset" value="Resetar" />
       <input type="submit" class="btn-site" value="Buscar" />
     </form>
   `;
@@ -255,8 +367,17 @@ const generateSectionListAssessmentsTeacher = (data) => {
     "assessments-content"
   );
 
+  const notFoundMessage = html.createElementWithClasses(
+    "div",
+    "container-not-found-message"
+  );
+
+  notFoundMessage.innerHTML = `
+  <div id="not-found-message" style="display: none;"></div>
+  `;
+  assessmentsContent.appendChild(notFoundMessage);
+
   if (disciplinas.length > 0) {
-    console.log("ois");
     disciplinas.map((assessment) => {
       const boxAssessments = generatetAssessments(assessment);
       assessmentsContent.appendChild(boxAssessments);
@@ -271,11 +392,12 @@ const generateSectionListAssessmentsTeacher = (data) => {
   containerTeacher.appendChild(teacherDetails);
   containerTeacher.appendChild(teacherAssessments);
   container.appendChild(containerTeacher);
-  setupSearch();
 
+  SetupSearch.searchName();
   PageEffects.applyEntryAnimation(".box-assessments", "entry");
   PageEffects.applyEntryAnimation(".list-courses li", "entry");
   PageEffects.toggleDescription(".box-assessments");
+  filterDate();
 };
 
 const generatetAssessments = (assessment) => {
@@ -300,6 +422,10 @@ const generatetAssessments = (assessment) => {
 
         <div class="description">
         ${assessment.descricao}
+        </div>
+        <div class="dates">
+          <span class="date-start">${assessment.dataInicio}</span>
+          <span class="date-end">${assessment.dataFim}</span>
         </div>
     `;
 

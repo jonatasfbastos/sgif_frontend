@@ -122,6 +122,14 @@
   transition: max-height 0.7s ease;
 }
 
+.box-assessments .dates {
+  margin-top: .8rem;
+  font-size: 0.7rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
 .box-assessments .assessments-details .name {
   color: var(--cor-texto);
   font-size: 1.2rem;
@@ -130,6 +138,12 @@
 
 .description.active {
   max-height: 150px;
+}
+#not-found-message{
+  display: none;
+  font-style: italic;
+  color: #333333a6;
+  text-align: center;
 }
 /* ----{END teacher-assessments}---- */
 
@@ -159,7 +173,6 @@
 }
 /* ----{END professor-selection}---- */
 
-
 /* Animações */
 @keyframes entryAnimation {
   from {
@@ -171,6 +184,6 @@
 }
 
 .entry {
-  animation: entryAnimation .8s ease-in-out; /* Duração: 1 segundo, animação suave */
+  animation: entryAnimation 0.8s ease-in-out; /* Duração: 1 segundo, animação suave */
   animation-fill-mode: forwards; /* Mantém o elemento no estado final após a animação */
 }

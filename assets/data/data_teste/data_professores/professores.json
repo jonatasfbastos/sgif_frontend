@@ -13,8 +13,6 @@
       "avaliacao": {
         "id": "660e8400-e29b-41d4-a716-446655440004",
         "descricao": "",
-        "dataInicio": "2023-03-25",
-        "dataFim": "2023-06-01",
         "formulario": {},
         "disciplina": [
           {
@@ -22,21 +20,27 @@
             "nome": "Programação Avançada em Java",
             "descricao": "Aprofundamento nos conceitos de programação orientada a objetos em Java, incluindo estruturas de dados avançadas e algoritmos.",
             "codigo": "1050",
-            "cargaHoraria": "80"
+            "cargaHoraria": "80",
+            "dataInicio": "2023-03-25",
+            "dataFim": "2023-06-01"
           },
           {
             "id": "550e8400-e29b-584d-a716-446655442226",
             "nome": "Engenharia de Software",
             "descricao": "Estudo das metodologias e práticas de engenharia de software, incluindo desenvolvimento de sistemas, testes e gerenciamento de projetos.",
             "codigo": "1060",
-            "cargaHoraria": "70"
+            "cargaHoraria": "70",
+            "dataInicio": "2023-11-08",
+            "dataFim": "2023-11-12"
           },
           {
             "id": "550e8400-e29b-584d-a716-446655442227",
             "nome": "Redes de Computadores Avançadas",
             "descricao": "Exploração aprofundada dos princípios de redes de computadores, incluindo protocolos, segurança e gerenciamento de redes.",
             "codigo": "1070",
-            "cargaHoraria": "65"
+            "cargaHoraria": "65",
+            "dataInicio": "2023-11-15",
+            "dataFim": "2023-11-30"
           }
         ]
       }
@@ -65,14 +69,18 @@
             "nome": "Desenvolvimento Web Avançado",
             "descricao": "Desenvolvimento web avançado, incluindo tecnologias front-end e back-end, frameworks e práticas recomendadas.",
             "codigo": "1080",
-            "cargaHoraria": "75"
+            "cargaHoraria": "75",
+            "dataInicio": "2023-03-25",
+            "dataFim": "2023-06-01"
           },
           {
             "id": "550e8400-e29b-584d-a716-446655442229",
             "nome": "Inteligência Artificial",
             "descricao": "Estudo das técnicas de inteligência artificial, aprendizado de máquina e aplicações em reconhecimento de padrões e processamento de linguagem natural.",
             "codigo": "1090",
-            "cargaHoraria": "85"
+            "cargaHoraria": "85",
+            "dataInicio": "2023-03-25",
+            "dataFim": "2023-06-01"
           }
         ]
       }
@@ -101,21 +109,27 @@
             "nome": "Filosofia Contemporânea",
             "descricao": "Exploração das correntes filosóficas mais recentes, incluindo pós-modernismo, filosofia da mente e ética contemporânea.",
             "codigo": "1100",
-            "cargaHoraria": "70"
+            "cargaHoraria": "70",
+            "dataInicio": "2023-03-25",
+            "dataFim": "2023-06-01"
           },
           {
             "id": "550e8400-e29b-584d-a716-446655442231",
             "nome": "Sociologia Avançada",
             "descricao": "Análise aprofundada dos principais temas sociais e teorias sociológicas contemporâneas, incluindo estratificação social, globalização e mudança social.",
             "codigo": "1110",
-            "cargaHoraria": "80"
+            "cargaHoraria": "80",
+            "dataInicio": "2023-03-25",
+            "dataFim": "2023-06-01"
           },
           {
             "id": "550e8400-e29b-584d-a716-446655442232",
             "nome": "Psicologia Moderna",
             "descricao": "Estudo dos principais temas em psicologia, incluindo comportamento humano, processos mentais e aplicações práticas em contextos diversos.",
             "codigo": "1120",
-            "cargaHoraria": "65"
+            "cargaHoraria": "65",
+            "dataInicio": "2023-03-25",
+            "dataFim": "2023-06-01"
           }
         ]
       }
