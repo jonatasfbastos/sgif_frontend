@@ -354,10 +354,12 @@ const generateSectionListAssessmentsTeacher = (data) => {
         autocomplete="off"
         placeholder="Buscar Disciplina"
       />
-      <input type="date" id="start-date" name="start-date" />
-      <input type="date" id="end-date" name="end-date" />
-      <input type="submit" class="btn-site btn-reset" value="Resetar" />
-      <input type="submit" class="btn-site" value="Buscar" />
+      <div>
+        <input type="date" id="start-date" name="start-date" />
+        <input type="date" id="end-date" name="end-date" />
+        <input type="submit" class="btn-site btn-reset" value="Resetar" />
+        <input type="submit" class="btn-site" value="Buscar" />
+      </div>
     </form>
   `;
   teacherAssessments.appendChild(assessmentsControl);

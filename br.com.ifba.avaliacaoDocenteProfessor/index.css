@@ -63,7 +63,7 @@
 /* ----{END teacher-details}---- */
 
 /* ----{teacher-assessments}---- */
-.assessments-control form {
+.assessments-control form div {
   display: flex;
   justify-content: space-between;
   margin-bottom: 2rem;
@@ -75,6 +75,10 @@
 
 .assessments-control form input[type="search"] {
   padding-left: 10px;
+  width: 100%;
+  height: 40px;
+  margin-bottom: 1rem;
+  border-radius: 0.5rem;
 }
 
 .assessments-control form input[type="date"] {
@@ -123,7 +127,7 @@
 }
 
 .box-assessments .dates {
-  margin-top: .8rem;
+  margin-top: 0.8rem;
   font-size: 0.7rem;
   display: flex;
   gap: 1rem;
@@ -139,7 +143,7 @@
 .description.active {
   max-height: 150px;
 }
-#not-found-message{
+#not-found-message {
   display: none;
   font-style: italic;
   color: #333333a6;
@@ -186,4 +190,24 @@
 .entry {
   animation: entryAnimation 0.8s ease-in-out; /* Duração: 1 segundo, animação suave */
   animation-fill-mode: forwards; /* Mantém o elemento no estado final após a animação */
+}
+
+/* Responsividade */
+
+@media (max-width: 1000px) {
+  .container-teacher {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 700px) {
+  .box-assessments .assessments-details {
+    display: block;
+  }
+}
+
+@media (max-width: 550px) {
+  .assessments-control form div input{
+    display: grid;
+  }
 }
