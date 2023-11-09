@@ -22,13 +22,22 @@
 
 .filter-assessment form input[type="search"],
 .filter-assessment form #filter {
-  height: 30px;
+  height: 40px;
+  border-radius: 0.2rem;
+  box-shadow: none !important;
+  outline: none !important;
 }
 
 .filter-assessment form input[type="search"] {
   padding-left: 10px;
   width: 30%;
   margin: 10px 0;
+}
+
+.filter-assessment form input[type="search"]:focus,
+.filter-assessment form #filter {
+  border-color: var(--cor-primaria);
+  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
 }
 
 .filter-assessment form #filter {
@@ -39,9 +48,7 @@
 /* ----{ container-list-assessment}---- */
 .container-list-assessment {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: start;
+  flex-direction: column;
   gap: 1rem;
 }
 
@@ -49,12 +56,34 @@
   background-color: #fff;
   border-radius: 0.5rem;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  width: 271px;
-  min-height: 210px;
-  margin-bottom: 1.5rem;
+  width: 100%;
+  max-height: 210px;
   padding: 1rem;
   cursor: pointer;
   position: relative;
+}
+
+.box-assessments .box-assessments-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.box-assessments-details .title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.box-assessments-details .teacher span:first-child,
+.box-assessments-details .date span:first-child {
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.box-assessments-details .teacher,
+.box-assessments-details .date {
+  font-size: 0.9rem;
 }
 
 .box-assessments button {
@@ -65,13 +94,20 @@
 
 .box-assessments button.btn-assess,
 .box-assessments button.btn-evaluated {
-  border-radius: 4px;
   font-family: "Roboto", sans-serif;
-  padding: .25rem .5rem;
+  border-radius: 4px;
+  padding: 0.35rem 0;
+  min-width: 150px;
   font-size: 1rem;
 }
+
+.box-assessments button.btn-assess{
+  background-color: #2cbb6b;
+  color: #fff;
+}
+
 .box-assessments button.btn-evaluated {
-  background: none;
+  background-color: hsla(146, 62%, 45%, 0.1);
   color: #008000;
   font-weight: bold;
   border: 1px solid #4caf50;
