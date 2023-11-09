@@ -265,6 +265,17 @@ const generateSectionListTeachers = (professores) => {
   container.appendChild(containerTeacherList);
 };
 
+//
+const toGoSectionListTeachers = () => {
+  const buttonBack = html.get(".btn-back");
+
+  buttonBack.addEventListener("click", (e) => {
+    e.preventDefault();
+    cleanContainer();
+    getAllTeachers();
+  });
+};
+
 const toGoSectionListAssessments = (professores, professor) => {
   if (!professor) {
     return;
@@ -365,6 +376,17 @@ const generateSectionListAssessmentsTeacher = (data) => {
     "assessments-content"
   );
 
+  const buttonBack = html.createElementWithClasses(
+    "button",
+    "btn-site",
+    "btn-back"
+  );
+  buttonBack.innerHTML = `
+  <i class="bi bi-arrow-left"></i>
+  `;
+
+  container.appendChild(buttonBack);
+
   const notFoundMessage = html.createElementWithClasses(
     "div",
     "container-not-found-message"
@@ -395,6 +417,7 @@ const generateSectionListAssessmentsTeacher = (data) => {
   PageEffects.applyEntryAnimation(".box-assessments", "entry");
   PageEffects.applyEntryAnimation(".list-courses li", "entry");
   PageEffects.toggleDescription(".box-assessments");
+  toGoSectionListTeachers();
   filterDate();
 };
 

@@ -1,3 +1,6 @@
+.container {
+  position: relative;
+}
 .container-teacher {
   display: flex;
   justify-content: space-between;
@@ -175,6 +178,23 @@
 .teacher-list form select {
   height: 40px;
 }
+
+.btn-back {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: none;
+  border: none;
+  box-shadow: none;
+}
+
+.btn-back:hover {
+  box-shadow: none;
+}
+
+.btn-back i {
+  color: #000;
+}
 /* ----{END professor-selection}---- */
 
 /* Animações */
@@ -207,7 +227,7 @@
 }
 
 @media (max-width: 550px) {
-  .assessments-control form div input{
+  .assessments-control form div input {
     display: grid;
   }
 }
