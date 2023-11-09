@@ -53,8 +53,8 @@ const PageEffects = {
    * @param {string} classElement - A classe dos elementos que terão eventos de clique.
    */
   toggleDescription: (classElement) => {
-    const assessmentsDetails = html.getAll(classElement);
-    assessmentsDetails.forEach((assessment) => {
+    const assessments = html.getAll(classElement);
+    assessments.forEach((assessment) => {
       assessment.addEventListener("click", () => {
         const description = assessment.querySelector(".description");
         description.classList.toggle("active");
@@ -79,16 +79,14 @@ const PageEffects = {
 const SetupSearch = {
   searchName: () => {
     const searchInput = html.get("#search");
-    const assessmentsDetails = html.getAll(".box-assessments");
+    const assessments = html.getAll(".box-assessments");
 
     const notFoundMessage = html.get("#not-found-message");
-
-    
 
     searchInput.addEventListener("input", function () {
       const searchTerm = searchInput.value.trim().toLowerCase();
 
-      assessmentsDetails.forEach((assessment) => {
+      assessments.forEach((assessment) => {
         const name = assessment
           .querySelector(".name")
           .textContent.toLowerCase();
@@ -104,37 +102,28 @@ const SetupSearch = {
     });
   },
   searchDate: (dateStart, dateEnd) => {
-    const assessmentsDetails = html.getAll(".box-assessments");
+    const assessments = html.getAll(".box-assessments");
     const notFoundMessage = html.get("#not-found-message");
 
-    // Refatora: mensagens de erros. Criar Função
     if (dateStart > dateEnd) {
-      assessmentsDetails.forEach((assessment) => {
-        assessment.style.display = "none";
-      });
-
-      notFoundMessage.innerHTML = `
-      ❌ A data de início deve ser anterior à data de término.
-      `;
-      notFoundMessage.style.display = "block"; // Exibe a mensagem
-
+      displayErrorMessage(
+        notFoundMessage,
+        "❌ A data de início deve ser anterior à data de término."
+      );
       return;
     }
 
     if (!dateStart || !dateEnd) {
-      notFoundMessage.innerHTML = `
-    ❌ Por favor, preencha ambas as datas.
-    `;
-      notFoundMessage.style.display = "block"; // Exibe a mensagem
-      assessmentsDetails.forEach((assessment) => {
-        assessment.style.display = "none";
-      });
+      displayErrorMessage(
+        notFoundMessage,
+        "❌ Por favor, preencha ambas as datas."
+      );
       return;
     }
 
-    let flag = false;
+    notFoundMessage.style.display = "none";
 
-    assessmentsDetails.forEach((assessment) => {
+    assessments.forEach((assessment) => {
       const startDateElement = assessment.querySelector(".date-start");
       const endDateElement = assessment.querySelector(".date-end");
 
@@ -144,51 +133,58 @@ const SetupSearch = {
 
       const startDate = moment(startDateElement.textContent, "YYYY-M-D");
       const endDate = moment(endDateElement.textContent, "YYYY-M-D");
-      console.log(startDate, endDate);
 
       const dataStartForm = moment(dateStart, "YYYY-M-D");
       const dataEndForm = moment(dateEnd, "YYYY-M-D");
 
-      if (
+      const isInRange =
         dataStartForm.isSameOrAfter(startDate) &&
-        dataEndForm.isSameOrBefore(endDate)
-      ) {
-        flag = true;
-        assessment.style.display = "block";
-      } else {
-        assessment.style.display = "none";
-      }
+        dataEndForm.isSameOrBefore(endDate);
+
+      assessment.style.display = isInRange ? "block" : "none";
     });
 
-    if (!flag) {
-      notFoundMessage.innerHTML = `
-      ❌Avaliações não encontradas!
-      `;
-      notFoundMessage.style.display = "block"; // Exibe a mensagem
+    if (
+      !assessments.some((assessment) => assessment.style.display === "block")
+    ) {
+      displayErrorMessage(notFoundMessage, "❌ Avaliações não encontradas!");
     }
   },
 };
 
-function filterDate() {
+const displayErrorMessage = (element, message) => {
+  const assessments = html.getAll(".box-assessments");
+
+  if (!element || !message) return;
+
+  if (element.classList.contains("hide")) {
+    assessments.forEach((assessment) => {
+      console.log(assessment);
+      assessment.style.display = "none";
+    });
+
+    element.textContent = message;
+    element.classList.remove("hide");
+    return;
+  }
+};
+
+const filterDate = () => {
   const form = html.get("form");
+  const buttonReset = html.get(".btn-reset");
+  const dateStart = form.querySelector("#start-date");
+  const dateEnd = form.querySelector("#end-date");
+  const notFoundMessage = html.get("#not-found-message");
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
-    const dateStart = form.querySelector("#start-date").value;
-    const dateEnd = form.querySelector("#end-date").value;
-    const notFoundMessage = html.get("#not-found-message");
-    if (notFoundMessage.style.display === "block") {
-      notFoundMessage.style.display = "none";
-    }
-    SetupSearch.searchDate(dateStart, dateEnd);
+
+    displayErrorMessage(notFoundMessage, "");
+    SetupSearch.searchDate(dateStart.value, dateEnd.value);
   });
 
-  const buttonReset = html.get(".btn-reset");
   buttonReset.addEventListener("click", (e) => {
     e.preventDefault();
-
-    const dateStart = form.querySelector("#start-date");
-    const dateEnd = form.querySelector("#end-date");
 
     dateStart.value = dateStart.defaultValue;
     dateEnd.value = dateEnd.defaultValue;
@@ -196,12 +192,12 @@ function filterDate() {
     const notFoundMessage = html.get("#not-found-message");
     notFoundMessage.style.display = "none";
 
-    const assessmentsDetails = html.getAll(".box-assessments");
-    assessmentsDetails.forEach((assessment) => {
+    const assessments = html.getAll(".box-assessments");
+    assessments.forEach((assessment) => {
       assessment.style.display = "block";
     });
   });
-}
+};
 
 /**
  * Limpa o conteúdo do container.
@@ -375,7 +371,7 @@ const generateSectionListAssessmentsTeacher = (data) => {
   );
 
   notFoundMessage.innerHTML = `
-  <div id="not-found-message" style="display: none;"></div>
+  <div id="not-found-message" class="hide"></div>
   `;
   assessmentsContent.appendChild(notFoundMessage);
 

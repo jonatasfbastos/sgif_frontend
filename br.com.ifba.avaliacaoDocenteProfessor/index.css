@@ -143,8 +143,8 @@
 .description.active {
   max-height: 150px;
 }
+
 #not-found-message {
-  display: none;
   font-style: italic;
   color: #333333a6;
   text-align: center;
