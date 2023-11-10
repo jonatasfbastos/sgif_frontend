@@ -97,11 +97,11 @@
   font-family: "Roboto", sans-serif;
   border-radius: 4px;
   padding: 0.35rem 0;
-  min-width: 150px;
-  font-size: 1rem;
+  min-width: 115px;
+  font-size: 0.9rem;
 }
 
-.box-assessments button.btn-assess{
+.box-assessments button.btn-assess {
   background-color: #2cbb6b;
   color: #fff;
 }
@@ -109,7 +109,23 @@
 .box-assessments button.btn-evaluated {
   background-color: hsla(146, 62%, 45%, 0.1);
   color: #008000;
+  border: none;
   font-weight: bold;
   border: 1px solid #4caf50;
 }
 /* ----{END - container-list-assessment}---- */
+
+/* Animações */
+@keyframes entryAnimation {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.entry {
+  animation: entryAnimation 0.8s ease-in-out; /* Duração: 1 segundo, animação suave */
+  animation-fill-mode: forwards; /* Mantém o elemento no estado final após a animação */
+}

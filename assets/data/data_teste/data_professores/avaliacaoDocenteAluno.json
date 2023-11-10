@@ -1,0 +1,38 @@
+[
+  {
+    "nome": "Matemática",
+    "professor": {
+      "nome": "José Alves",
+      "departamento": "Matemática"
+    },
+    "dataFim": "11/08/2023",
+    "status": true
+  },
+  {
+    "nome": "Português",
+    "professor": {
+      "nome": "Maria Silva",
+      "departamento": "Português"
+    },
+    "dataFim": "15/08/2023",
+    "status": false
+  },
+  {
+    "nome": "História",
+    "professor": {
+      "nome": "Carlos Oliveira",
+      "departamento": "História"
+    },
+    "dataFim": "20/08/2023",
+    "status": true
+  },
+  {
+    "nome": "Ciências",
+    "professor": {
+      "nome": "Ana Santos",
+      "departamento": "Ciências"
+    },
+    "dataFim": "25/08/2023",
+    "status": false
+  }
+]
