@@ -182,7 +182,59 @@ const monitorSelect = () => {
 // Exemplo de uso
 monitorSelect();
 
+
+const Modal = {
+  createModal: (title, message) => {
+    const fade = html.createElementWithClasses("div", "hide");
+    fade.setAttribute("id", "fade");
+
+    const modal = html.createElementWithClasses("div", "hide");
+    modal.setAttribute("id", "modal");
+
+    const modalHeader = html.createElementWithClasses("div", "modal-header");
+    const modalTitle = html.createElementWithClasses("h2", "modal-title");
+    modalTitle.textContent = title;
+
+    const buttonCloseModal = html.createElementWithClasses(
+      "button",
+      "btn-site"
+    );
+    buttonCloseModal.setAttribute("id", "close-modal");
+    buttonCloseModal.textContent = "fechar";
+
+    [modalTitle, buttonCloseModal].forEach((el) => modalHeader.appendChild(el));
+
+    const modalBody = html.createElementWithClasses("div", "modal-body");
+    const messageInfo = html.createElementWithClasses("p", "message-info");
+    messageInfo.textContent = message;
+    modalBody.appendChild(messageInfo);
+
+    console.log(modalHeader, modalBody);
+
+    [modalHeader, modalBody].forEach((el) => modal.appendChild(el));
+
+    container.appendChild(fade);
+    container.appendChild(modal);
+    Modal.handleModal();
+  },
+  handleModal: () => {
+    const openModalButton = html.get("#open-modal");
+    const closeModalButton = html.get("#close-modal");
+    const modal = html.get("#modal");
+    const fade = html.get("#fade");
+
+    const toggleModal = () => {
+      [modal, fade].forEach((el) => el.classList.toggle("hide"));
+    };
+
+    [openModalButton, closeModalButton, fade].forEach((el) => {
+      el.addEventListener("click", () => toggleModal());
+    });
+  },
+};
+
 function init() {
   getAssessments();
+  Modal.createModal("Teste", "teste");
 }
 init();
