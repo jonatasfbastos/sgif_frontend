@@ -24,7 +24,11 @@ const html = {
     return elementWithClasses;
   },
 };
+
 const container = html.get(".container-list-assessment");
+const title = "Avaliação Pendente";
+const message =
+  "Olá! Parece que você ainda não avaliou todas as disciplinas. Sua contribuição é valiosa para nós. Por favor, lembre-se de avaliar todas as disciplinas antes de prosseguir. Obrigado pela sua colaboração!";
 
 /**---------{CHAMADA A API}---------*/
 const endpointTest =
@@ -37,6 +41,8 @@ const getAssessments = async () => {
   data.forEach((element) => {
     generateAssessments(element);
   });
+
+  return data;
 };
 
 /**
@@ -178,10 +184,7 @@ const monitorSelect = () => {
   // Adiciona um ouvinte de evento de input ao select
   filterSelect.addEventListener("input", handleSelectChange);
 };
-
-// Exemplo de uso
 monitorSelect();
-
 
 const Modal = {
   createModal: (title, message) => {
@@ -215,26 +218,42 @@ const Modal = {
 
     container.appendChild(fade);
     container.appendChild(modal);
-    Modal.handleModal();
   },
   handleModal: () => {
-    const openModalButton = html.get("#open-modal");
     const closeModalButton = html.get("#close-modal");
     const modal = html.get("#modal");
     const fade = html.get("#fade");
+    const body = html.get("body");
+
+    body.style.overflow = "hidden";
+    body.style.height = "100vh";
+
+    [modal, fade].forEach((el) => el.classList.toggle("hide"));
 
     const toggleModal = () => {
-      [modal, fade].forEach((el) => el.classList.toggle("hide"));
+      [modal, fade].forEach((el) => {
+        el.classList.toggle("hide");
+        body.style.overflow = "auto";
+        body.style.height = "auto";
+      });
     };
 
-    [openModalButton, closeModalButton, fade].forEach((el) => {
+    [closeModalButton, fade].forEach((el) => {
       el.addEventListener("click", () => toggleModal());
+    });
+  },
+  showModal: (data, title, message) => {
+    Modal.createModal(title, message);
+
+    data.forEach((element) => {
+      if (!element.status) {
+        Modal.handleModal();
+      }
     });
   },
 };
 
 function init() {
-  getAssessments();
-  Modal.createModal("Teste", "teste");
+  getAssessments().then((data) => Modal.showModal(data, title, message));
 }
 init();

@@ -162,7 +162,6 @@ header .container-header {
 }
 
 /* ========{MODAL & FADE}======== */
-
 #fade,
 #modal {
   transition: 0.5s;
@@ -204,6 +203,8 @@ header .container-header {
 }
 
 #modal .modal-body p {
+  font-size: .9rem;
+  line-height: 1.5rem;
   margin-bottom: 1rem;
 }
 
