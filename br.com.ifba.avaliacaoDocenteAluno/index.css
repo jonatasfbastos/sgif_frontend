@@ -107,11 +107,13 @@
 }
 
 .box-assessments button.btn-evaluated {
-  background-color: hsla(146, 62%, 45%, 0.1);
+  background-color: hsla(146, 97%, 49%, 0.1);
   color: #008000;
   border: none;
   font-weight: bold;
   border: 1px solid #4caf50;
+  border: none;
+  box-shadow: none;
 }
 /* ----{END - container-list-assessment}---- */
 
