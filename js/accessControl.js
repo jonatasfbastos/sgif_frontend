@@ -1,4 +1,3 @@
-// Suponha que você tenha obtido as permissões do usuário durante o login.
 var userPermissions = ['read_user']; // Pode conter várias permissões.
 
 

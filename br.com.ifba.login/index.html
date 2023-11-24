@@ -49,6 +49,7 @@
               autofocus
               onkeyup="handleChangeField()"
               required
+              value="eneias"
             />
             <input
               id="senha"
@@ -59,6 +60,7 @@
               autocomplete="off"
               onkeyup="handleChangeField()"
               required
+              value="meunomeeneias"
             />
             <input
               id="botao-login"
@@ -74,24 +76,28 @@
       </div>
       <!-- =========={END login-container}========== -->
     </main>
+
     <script src="../js/requisitions.js"></script>
-    <script src="../js/accessControl.js"></script>
+
     <script>
       function getDatas(e) {
         e.preventDefault();
         var usuario = document.getElementById("usuario").value;
         var senha = document.getElementById("senha").value;
-        get_params("login", { login: usuario, senha: senha })
+
+        post("login", { login: usuario, senha: senha })
           .then((usuario) => {
-            console.log(usuario);
-            setUser(usuario);
+
+            if (!usuario) return;
+
+            setUser(usuario);     
             window.location.replace(
               "../br.com.ifba.homescreensad/homescreensad.html"
             );
+
           })
           .catch((erro) => {
             console.log(erro);
-
             showMessage({
               type: "warning",
               message: "Verifique o login e a senha e tente novamente",
