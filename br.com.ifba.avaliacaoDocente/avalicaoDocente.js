@@ -25,77 +25,24 @@ const html = {
   },
 };
 
+let form;
 
-// Simluando o back-end
-const form = {
-  id: 1,
-  titulo: "Bem-vindo à Avaliação Docente",
-  descricao:
-    "Por favor, forneça seu feedback sobre o desempenho do seu professor abaixo. Sua contribuição é valiosa para nós.",
-  questoes: [
-    {
-      id: 1,
-      enunciado:
-        "O professor atendeu às suas expectativas em relação ao curso?",
-      respostas: [
-        {
-          texto: "",
-          usuario: { login: "" },
-        },
-      ],
-    },
-    {
-      id: 2,
-      enunciado: "O professor demonstrou entusiasmo pelo assunto?",
-      respostas: [
-        {
-          texto: "",
-          usuario: { login: "" },
-        },
-      ],
-    },
-    {
-      id: 3,
-      enunciado: "Você recomendaria este professor a outros alunos?",
-      respostas: [
-        {
-          texto: "",
-          usuario: { login: "" },
-        },
-      ],
-    },
-    {
-      id: 4,
-      enunciado: "O professor utilizou uma variedade de métodos de ensino?",
-      respostas: [
-        {
-          texto: "",
-          usuario: { login: "" },
-        },
-      ],
-    },
-    {
-      id: 5,
-      enunciado:
-        "O professor comunicou as informações de forma clara e compreensível?",
-      respostas: [
-        {
-          texto: "",
-          usuario: { login: "" },
-        },
-      ],
-    },
-  ],
-};
+const endpointTest =
+  "../assets/data/data_teste/data_professores/avaliacaoDocenteAluno.json";
 
+/**---------{CHAMADA A API}---------*/
+function getForm() {
+  get(endpointTest)
+    .then((data) => {
+      console.log("Data", data);
+      form = data;
+    })
+    .catch((error) => {
+      console.log("Error ", error);
+    });
+}
 
-/***/
-const getForm = async () => {
-  const response = await fetch("./data.json");
-  const data = await response.json(response);
-  return data;
-};
-
+getForm();
 
 /**
  * Um objeto que mantém o estado do formulário de avaliação.
@@ -116,7 +63,6 @@ const stateQuestions = {
   inputField: null,
 };
 
-
 /**
  * Renderiza o formulário de avaliação com base nos dados fornecidos.
  *
@@ -136,7 +82,6 @@ const renderForm = (data) => {
 
   createButton("Começar", "form-button", "button-start");
 };
-
 
 /**
  * Renderiza uma pergunta do formulário de avaliação com base no estado atual.
@@ -180,7 +125,6 @@ const renderQuestion = () => {
     : createButton("Anterior", "form-button", "button-prev");
 };
 
-
 /**
  * Cria e insere um botão no formulário de avaliação.
  *
@@ -204,7 +148,6 @@ const toggleButton = (button) => {
   if (!button) return null;
   button.classList.toggle("hide");
 };
-
 
 /**
  * Exibe uma mensagem de sucesso no formulário de avaliação após o envio.
@@ -235,7 +178,6 @@ const showMessageSuccess = () => {
 
   formContent.appendChild(messageSuccess);
 };
-
 
 /**
  * Configura os ouvintes de eventos para os botões no formulário de avaliação e
@@ -314,7 +256,6 @@ const eventListenerButtonsForm = (button) => {
     });
   };
 
-
   const allButtons = [
     "form-button button-start",
     "form-button button-next",
@@ -351,7 +292,6 @@ const eventListenerButtonsForm = (button) => {
   });
 };
 
-
 /**
  * Valida o campo de entrada no formulário de avaliação.
  * Esta função verifica se o campo está preenchido e exibe uma mensagem de erro, se necessário.
@@ -374,7 +314,6 @@ const validateInput = () => {
   }
 };
 
-
 /**
  * Salva a resposta do usuário para a pergunta atual no formulário de avaliação.
  * Esta função extrai o valor do campo de entrada e armazena a resposta no estado.
@@ -391,7 +330,6 @@ const saveAnswers = () => {
 
   stateQuestions.answers[stateQuestions.currentQuestionIndex] = answerCurrent;
 };
-
 
 /**
  * Inicializa o formulário de avaliação.

@@ -6,14 +6,20 @@ addErrorOnStart();
 async function get(endpoint) {
   loadingStart();
   try {
-    const fetched = await fetch(HOST + API + endpoint);
+    // para teste: Quando o back-end estiver funcionando remover
+    const isLocale = endpoint.includes("../assets");
+    url = isLocale ? endpoint : HOST + API + endpoint;
+
+    const fetched = await fetch(url);
 
     if (fetched.ok) {
       const result = await fetched.json();
       loadingEnd();
       return result;
     }
+
     throw fetched;
+    
   } catch (error) {
     loadingEnd();
     // showMessage({message:error.type + ' - ' + error.status, type:'error'})
@@ -142,7 +148,7 @@ async function post(endpoint, body) {
   loadingStart();
   try {
     let token;
-    
+
     const urlPost =
       endpoint === "login" ? HOST + endpoint : HOST + API + endpoint;
 
@@ -150,7 +156,7 @@ async function post(endpoint, body) {
       method: "POST",
       headers: {
         "Content-type": "application/json",
-        "Authorization": `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(body),
     });

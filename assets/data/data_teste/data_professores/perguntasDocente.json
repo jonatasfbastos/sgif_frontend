@@ -1,0 +1,57 @@
+{
+  "id": 1,
+  "titulo": "Bem-vindo à Avaliação Docente",
+  "descricao": "Por favor, forneça seu feedback sobre o desempenho da sua disciplina abaixo. Sua contribuição é valiosa para nós.",
+  "questoes": [
+    {
+      "id": 1,
+      "enunciado": "Esta disciplina atendeu às suas expectativas?",
+      "respostas": [
+        {
+          "texto": "",
+          "usuario": { "login": "" }
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "enunciado": "Você percebeu entusiasmo no conteúdo apresentado na disciplina?",
+      "respostas": [
+        {
+          "texto": "",
+          "usuario": { "login": "" }
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "enunciado": "Recomendaria esta disciplina a outros alunos?",
+      "respostas": [
+        {
+          "texto": "",
+          "usuario": { "login": "" }
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "enunciado": "Houve uma variedade de abordagens e métodos de ensino aplicados nesta disciplina?",
+      "respostas": [
+        {
+          "texto": "",
+          "usuario": { "login": "" }
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "enunciado": "As informações relacionadas à disciplina foram comunicadas de forma clara e compreensível?",
+      "respostas": [
+        {
+          "texto": "",
+          "usuario": { "login": "" }
+        }
+      ]
+    }
+  ]
+}
