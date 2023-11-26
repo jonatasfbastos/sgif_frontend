@@ -84,17 +84,15 @@
         e.preventDefault();
         var usuario = document.getElementById("usuario").value;
         var senha = document.getElementById("senha").value;
-
+        
         post("login", { login: usuario, senha: senha })
           .then((usuario) => {
-
             if (!usuario) return;
 
-            setUser(usuario);     
+            setUser(usuario);
             window.location.replace(
               "../br.com.ifba.homescreensad/homescreensad.html"
             );
-
           })
           .catch((erro) => {
             console.log(erro);

@@ -141,13 +141,17 @@ async function get_params(endpoint, paramsMap) {
 async function post(endpoint, body) {
   loadingStart();
   try {
-
+    let token;
+    
     const urlPost =
       endpoint === "login" ? HOST + endpoint : HOST + API + endpoint;
 
     const fetched = await fetch(urlPost, {
       method: "POST",
-      headers: { "Content-type": "application/json" },
+      headers: {
+        "Content-type": "application/json",
+        "Authorization": `Bearer ${token}`,
+      },
       body: JSON.stringify(body),
     });
 

@@ -6,7 +6,7 @@ var professor = {}
 atualizarTabela()
 
 function atualizarTabela(){
-    get('professor').then(data=>{
+    get('professores').then(data=>{
     console.log('Data', data)
     this.professorList = data
     this.tableCreate(this.professorList)
@@ -148,7 +148,7 @@ function adicionar(){
 
     //se os campos de nome ou de cpf estiverem vazios, não serão salvos 
     if(this.professor.nome != "" && this.professor.cpf != ""){
-        post('salvarProfessor', this.professor).then(result=>{
+        post('professores/professor', this.professor).then(result=>{
             console.log('result', result)
             atualizarTabela()
         }).catch(error=>{

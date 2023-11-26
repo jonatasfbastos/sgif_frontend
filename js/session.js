@@ -1,5 +1,3 @@
-
-
 function validateUser(){
     let user = localStorage.getItem('logged_user')
     if(user == null || user == undefined){
