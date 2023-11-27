@@ -224,6 +224,14 @@
   .box-assessments .assessments-details {
     display: block;
   }
+  .assessments-control form div {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .assessments-control form div input{
+    height: 45px;
+  }
 }
 
 @media (max-width: 550px) {
