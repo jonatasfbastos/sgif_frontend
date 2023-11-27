@@ -1,0 +1,241 @@
+.container {
+  position: relative;
+}
+.container-teacher {
+  display: flex;
+  justify-content: space-between;
+  gap: 3rem;
+}
+
+.teacher-details {
+  flex: 1;
+}
+
+.teacher-assessments {
+  flex: 2;
+}
+/* ----{teacher-details}---- */
+
+.teacher-details .teacher-infos {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.teacher-details .teacher-infos .photo {
+  background-color: var(--cor-texto);
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.teacher-details .teacher-infos .photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.teacher-details .teacher-infos .name {
+  font-size: var(--tamanho-fonte-base);
+}
+
+.teacher-details .teacher-infos .office {
+  font-size: 0.8rem;
+  color: #2f2f2fce;
+}
+
+.container-courses h2 {
+  font-size: 1rem;
+}
+
+.container-courses .list-courses {
+  margin: 1rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.container-courses .list-courses li {
+  list-style: none;
+  margin-top: 0.5rem 0;
+  padding: 0.5rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.3);
+  color: var(--cor-texto);
+}
+/* ----{END teacher-details}---- */
+
+/* ----{teacher-assessments}---- */
+.assessments-control form div {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.assessments-control form input {
+  border: 1px solid rgb(0, 0, 0, 0.1);
+}
+
+.assessments-control form input[type="search"] {
+  padding-left: 10px;
+  width: 100%;
+  height: 40px;
+  margin-bottom: 1rem;
+  border-radius: 0.5rem;
+}
+
+.assessments-control form input[type="date"] {
+  padding: 0 5px;
+}
+
+.box-assessments {
+  background-color: #fff;
+  border-radius: 0.5rem;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  width: 100%;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.box-assessments .assessments-details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.9rem;
+}
+
+.box-assessments .assessments-details .code {
+  margin-left: 0.7rem;
+}
+
+.box-assessments .assessments-details .arrow-down {
+  cursor: pointer;
+  padding: 0.2rem;
+}
+
+.box-assessments .assessments-details i {
+  font-size: 1.5rem;
+}
+
+.box-assessments .description {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  line-height: 1.5rem;
+  color: #333;
+
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.7s ease;
+}
+
+.box-assessments .dates {
+  margin-top: 0.8rem;
+  font-size: 0.7rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
+.box-assessments .assessments-details .name {
+  color: var(--cor-texto);
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.description.active {
+  max-height: 150px;
+}
+
+#not-found-message {
+  font-style: italic;
+  color: #333333a6;
+  text-align: center;
+}
+/* ----{END teacher-assessments}---- */
+
+/* ----{professor-selection}---- */
+.container-teacher-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.teacher-selection .title {
+  margin-bottom: 1rem;
+}
+
+.teacher-selection .description {
+  font-size: 0.9rem;
+}
+
+.teacher-list form {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+}
+
+.teacher-list form select {
+  height: 40px;
+}
+
+.btn-back {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: none;
+  border: none;
+  box-shadow: none;
+}
+
+.btn-back:hover {
+  box-shadow: none;
+}
+
+.btn-back i {
+  color: #000;
+}
+/* ----{END professor-selection}---- */
+
+/* Animações */
+@keyframes entryAnimation {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.entry {
+  animation: entryAnimation 0.8s ease-in-out; /* Duração: 1 segundo, animação suave */
+  animation-fill-mode: forwards; /* Mantém o elemento no estado final após a animação */
+}
+
+/* Responsividade */
+
+@media (max-width: 1000px) {
+  .container-teacher {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 700px) {
+  .box-assessments .assessments-details {
+    display: block;
+  }
+  .assessments-control form div {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .assessments-control form div input {
+    height: 45px;
+  }
+}
+
+@media (max-width: 550px) {
+  .assessments-control form div input {
+    display: grid;
+  }
+}

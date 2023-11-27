@@ -19,7 +19,6 @@ async function get(endpoint) {
     }
 
     throw fetched;
-    
   } catch (error) {
     loadingEnd();
     // showMessage({message:error.type + ' - ' + error.status, type:'error'})
@@ -149,16 +148,22 @@ async function post(endpoint, body) {
   try {
     let token;
 
+    
+    const data = {
+      login: "zedamanga",
+      senha: "zedamanga",
+    };
+
     const urlPost =
       endpoint === "login" ? HOST + endpoint : HOST + API + endpoint;
 
+    console.log(urlPost);
     const fetched = await fetch(urlPost, {
       method: "POST",
       headers: {
-        "Content-type": "application/json",
-        Authorization: `Bearer ${token}`,
+        "Content-type": "application/json"
       },
-      body: JSON.stringify(body),
+      body: JSON.stringify(data),
     });
 
     if (fetched.ok) {

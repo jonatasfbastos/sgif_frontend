@@ -49,7 +49,7 @@
               autofocus
               onkeyup="handleChangeField()"
               required
-              value="eneias"
+              value="zedamanga"
             />
             <input
               id="senha"
@@ -60,7 +60,7 @@
               autocomplete="off"
               onkeyup="handleChangeField()"
               required
-              value="meunomeeneias"
+              value="zedamanga"
             />
             <input
               id="botao-login"
@@ -84,7 +84,7 @@
         e.preventDefault();
         var usuario = document.getElementById("usuario").value;
         var senha = document.getElementById("senha").value;
-        
+
         post("login", { login: usuario, senha: senha })
           .then((usuario) => {
             if (!usuario) return;
