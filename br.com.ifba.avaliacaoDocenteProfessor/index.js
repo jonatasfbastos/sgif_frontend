@@ -25,7 +25,7 @@ const html = {
   },
 };
 
-/**---------{Variaveis globais}----------**/
+
 const container = html.get(".container main");
 
 /**---------{Chamadas a API professores}----------**/
@@ -34,9 +34,8 @@ const endpointTest =
   "../assets/data/data_teste/data_professores/professores.json";
 
 const getAllTeachers = async () => {
-  const response = await fetch(endpointTest);
-  const data = await response.json();
-  generateSectionListTeachers(data);
+  const response = await get(endpointTest);
+  generateSectionListTeachers(response);
 };
 
 /**
