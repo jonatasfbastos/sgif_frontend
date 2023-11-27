@@ -25,24 +25,7 @@ const html = {
   },
 };
 
-let form;
-
-const endpointTest =
-  "../assets/data/data_teste/data_professores/avaliacaoDocenteAluno.json";
-
-/**---------{CHAMADA A API}---------*/
-function getForm() {
-  get(endpointTest)
-    .then((data) => {
-      console.log("Data", data);
-      form = data;
-    })
-    .catch((error) => {
-      console.log("Error ", error);
-    });
-}
-
-getForm();
+let form = [];
 
 /**
  * Um objeto que mantém o estado do formulário de avaliação.
@@ -54,14 +37,51 @@ getForm();
  * @property {Array} answers - Um array que armazena as respostas do usuário para cada questão.
  * @property {HTMLElement|null} inputField - Uma referência ao campo de entrada atual no formulário.
  */
-const stateQuestions = {
+let stateQuestions = {
   currentQuestionIndex: 0,
-  maxQuestionIndex: form.questoes.length - 1,
+  maxQuestionIndex: 0,
   isFormEmpty: true,
-  allQuestions: form.questoes,
+  allQuestions: [],
   answers: [{}],
   inputField: null,
 };
+
+const endpointTest =
+  "../assets/data/data_teste/data_professores/perguntasDocente.json";
+
+// Quando o back-end estiver funcionando mudar a lógica de avaliação feita
+// Ao carregar a página do formulário de avaliação
+document.addEventListener("DOMContentLoaded", () => {
+  const evaluationCompleted = localStorage.getItem("avaliacaoRealizada");
+
+  if (evaluationCompleted === "true") {
+    showMessageSuccess(); // Mostra a mensagem de sucesso se a avaliação já foi realizada
+  } else {
+    fetchData(); // Se a avaliação ainda não foi realizada, busca os dados e inicia o formulário
+  }
+});
+
+/**---------{CHAMADA A API}---------*/
+async function getForm() {
+  try {
+    const data = await get(endpointTest);
+    console.log("Data", data);
+    return data;
+  } catch (error) {
+    console.log("Error ", error);
+    return null;
+  }
+}
+
+async function fetchData() {
+  try {
+    form = await getForm();
+    console.log("Form", form);
+    init();
+  } catch (error) {
+    console.error("Failed to fetch data:", error);
+  }
+}
 
 /**
  * Renderiza o formulário de avaliação com base nos dados fornecidos.
@@ -71,7 +91,7 @@ const stateQuestions = {
  * @property {string} data.descricao - A descrição do formulário.
  * @property {any} ...rest - Outros dados que podem estar presentes, mas não são utilizados nesta função.
  */
-const renderForm = (data) => {
+const renderForm = async (data) => {
   const { titulo: title, descricao: description, ...rest } = data;
 
   const titleForm = html.get(".form-title");
@@ -155,12 +175,14 @@ const toggleButton = (button) => {
  */
 const showMessageSuccess = () => {
   const formContent = html.get(".form-content");
+  const imgContent = html.get(".form-illustration-img");
 
   html.get(".form-description").textContent =
     "Recebemos a sua avaliação, caro aluno; seus comentários são muito importantes para nós.";
   html.get(".form-title").textContent = "Sua Opinião Faz a Diferença";
 
   formContent.innerHTML = "";
+  imgContent.innerHTML = "";
 
   const messageSuccess = html.createElementWithClasses(
     "div",
@@ -229,6 +251,7 @@ const eventListenerButtonsForm = (button) => {
   const send = (button) => {
     if (validateInput()) {
       showMessageSuccess();
+      localStorage.setItem("avaliacaoRealizada", true);
     }
   };
 
@@ -336,7 +359,9 @@ const saveAnswers = () => {
  * Esta função chama a função de renderização do formulário e configura ouvintes de eventos para os botões.
  */
 function init() {
+  stateQuestions.maxQuestionIndex = form.questoes.length - 1;
+  stateQuestions.allQuestions = form.questoes;
+
   renderForm(form);
   eventListenerButtonsForm();
 }
-init();

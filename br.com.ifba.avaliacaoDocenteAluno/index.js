@@ -29,6 +29,7 @@ const container = html.get(".container-list-assessment");
 const title = "Avaliação Pendente";
 const message =
   "Olá! Parece que você ainda não avaliou todas as disciplinas. Sua contribuição é valiosa para nós. Por favor, lembre-se de avaliar todas as disciplinas antes de prosseguir. Obrigado pela sua colaboração!";
+localStorage.setItem("avaliacaoRealizada", false);
 
 /**---------{CHAMADA A API}---------*/
 const endpointTest =
