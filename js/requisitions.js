@@ -146,13 +146,7 @@ async function get_params(endpoint, paramsMap) {
 async function post(endpoint, body) {
   loadingStart();
   try {
-    let token;
-
-    
-    const data = {
-      login: "zedamanga",
-      senha: "zedamanga",
-    };
+    let jwt;
 
     const urlPost =
       endpoint === "login" ? HOST + endpoint : HOST + API + endpoint;
@@ -163,7 +157,7 @@ async function post(endpoint, body) {
       headers: {
         "Content-type": "application/json"
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(body),
     });
 
     if (fetched.ok) {
