@@ -5,7 +5,7 @@ var descricaoCa = []
 atualizarTabela()
 
 function atualizarTabela(){
-    get('mensagem').then(data=>{
+    get('mensagens/mensagem').then(data=>{
     console.log('Data ', data)
     this.mensagemList = data
     this.tableCreate(this.mensagemList)

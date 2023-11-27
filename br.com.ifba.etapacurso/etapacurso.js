@@ -13,7 +13,7 @@ setMatrizCurricular()
 
 function atualizarTabela(){
     
-    get('etapaCurso').then(data=>{
+    get('etapascurso').then(data=>{
         console.log('Data', data)
         this.EtapaCursoList = data
         
@@ -118,7 +118,7 @@ function tableCreateDisciplina(data){
 //matriz curricular
 function setMatrizCurricular() {
     
-    get('matrizes').then(matrizCurriculares=>{
+    get('matrizesCurriculares').then(matrizCurriculares=>{
         console.log('Matriz curriculares ', matrizCurriculares)
         
         var multiCombo = document.getElementById('matrizCurricular')
@@ -273,7 +273,7 @@ function showCheckboxesEdit() {
 
             function mostrarDisciplina(){
 
-                get('disciplina').then(data=>{
+                get('disciplinas').then(data=>{
                     console.log(data);
                    // if(data.map(item=> item.id) != disciplinaCadastradas.id){
                         document.getElementById('checkboxes').innerHTML=data.map(item=>`<label><input type="checkbox" value="${item.id}" class="disciplinas" name="disciplinas" id="disciplinas"/>${item.nome}</label>`).join('');
@@ -301,7 +301,7 @@ function showCheckboxesEdit() {
 
             function mostrarDisciplinaEdit(){
 
-                get('disciplina').then(data=>{
+                get('disciplinas').then(data=>{
                 document.getElementById('checkboxesEdit').innerHTML=data.map(item=>`<label><input type="checkbox" value="${item.id}" class="disciplinasEdit" name="disciplinasEdit" id="disciplinasEdit"/>${item.nome}</label>`).join('');
                     }).catch(error=>{
                     console.log('Error ', error)

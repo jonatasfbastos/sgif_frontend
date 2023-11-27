@@ -63,7 +63,7 @@ function tableCreate(data){
 
 function setAvaliacoes() {
 
-    get('avaliacao').then(avaliacoes=>{
+    get('avaliacoes').then(avaliacoes=>{
         console.log('Avaliações ', avaliacoes)
 
         var multiCombo = document.getElementById('avaliacao')

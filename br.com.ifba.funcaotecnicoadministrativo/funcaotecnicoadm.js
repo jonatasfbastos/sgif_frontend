@@ -59,7 +59,7 @@ document.getElementById("btn-add-confirmar")
             descricao: descricao
         }
         
-        post("salvarFuncaoTecnicoAdm", funcaoTecnicoAdm)
+        post("funcoes-tecnico-administrativo", funcaoTecnicoAdm)
         .then(data => {
             atualizarTabela();
         })

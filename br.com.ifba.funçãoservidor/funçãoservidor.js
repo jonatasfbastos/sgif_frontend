@@ -6,7 +6,7 @@ var funcaoServidor = {}
 atualizarTabela()
 
 function atualizarTabela(){   
-    get('listarFuncaoServidor').then(data=>{
+    get('funcoesServidor').then(data=>{
     console.log('Data', data)
     this.funcaoServidorList = data
     this.tableCreate(this.funcaoServidorList)

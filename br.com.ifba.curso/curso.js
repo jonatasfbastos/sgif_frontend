@@ -11,7 +11,7 @@ atualizarTabela()
 setMatrizCurricular()
 */
 function atualizarTabela(){
-    get('curso').then(data=>{
+    get('cursos').then(data=>{
     console.log('Data', data)
     this.cursoList = data
     /*this.matrizesList = data*/
@@ -102,7 +102,7 @@ function tableCreateMatriz(data){
     
             }
 
-            get('matrizcurricular').then(matrizcurricular=>{
+            get('matrizesCurriculares').then(matrizcurricular=>{
                 console.log('Matrizes curriculares ', matrizcurricular)
     
                 var colNomeMatriz = document.createElement("td")
@@ -151,7 +151,7 @@ function tableCreateMatriz(data){
 
 function setMatrizCurricular() {
     
-    get('matrizCurricular').then(matrizCurricular=>{
+    get('matrizesCurriculares').then(matrizCurricular=>{
         console.log('Matrizes Curriculares', matrizCurricular)
 
         var multiCombo = document.getElementById('matrizAdd')
@@ -177,7 +177,7 @@ function setMatrizCurricular() {
 }
 
 function mostrarMatrizes(){
-    get('matrizCurricular').then(data=>{
+    get('matrizesCurriculares').then(data=>{
         document.getElementById('checkboxes').innerHTML=data.map(item=>`<label ><input type="checkbox" value="${item.id}"
         class="matrizcurricular" name="matrizcurricular" id="matrizcurricular"/>${item.nome}<label>`).join('');
     }).catch(error=>{
@@ -186,7 +186,7 @@ function mostrarMatrizes(){
 }
 
 function mostrarMatrizesEdit(){
-    get('matrizCurricular').then(data=>{
+    get('matrizesCurriculares').then(data=>{
         document.getElementById('checkboxesEdit').innerHTML=data.map(item=>`<label ><input type="checkbox" value="${item.id}"
         class="matrizcurricular" name="matrizcurricular" id="matrizcurricular"/>${item.nome}<label>`).join('');
     }).catch(error=>{

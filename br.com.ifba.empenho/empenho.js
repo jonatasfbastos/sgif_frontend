@@ -8,7 +8,7 @@ var ItemList = []
 pegarItens()
 function pegarItens(){
     
-    get('Item').then(data=>{
+    get('itens').then(data=>{
     console.log('Data', data)
     this.ItemList = data
     //this.tableCreate(this.ItemList)
@@ -21,7 +21,7 @@ function pegarItens(){
 atualizarTabela()
 
 function atualizarTabela(){
-    get('empenho').then(data=>{
+    get('empenhos').then(data=>{
     console.log('Data ', data)
     this.empenhoList = data
     this.tableCreate(this.empenhoList)

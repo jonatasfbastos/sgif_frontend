@@ -5,7 +5,7 @@ var fornecedor = {}
 
 atualizarTabela()
 function atualizarTabela(){
-    get('fornecedor').then(data=>{
+    get('fornecedores').then(data=>{
     console.log('Data', data)
     this.fornecedorList = data
     this.tableCreate(this.fornecedorList)

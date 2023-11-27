@@ -8,7 +8,7 @@ var ItemList = []
 pegarItens()
 function pegarItens(){
     
-    get('disciplina').then(data=>{
+    get('disciplinas').then(data=>{
     console.log('Data', data)
     this.ItemList = data
     //this.tableCreate(this.ItemList)
@@ -22,7 +22,7 @@ function pegarItens(){
 atualizarTabela()
 
 function atualizarTabela(){
-    get('disciplina').then(data=>{
+    get('disciplinas').then(data=>{
     console.log('Data ', data)
     this.disciplinaList = data
     this.tableCreate(this.disciplinaList)
@@ -37,7 +37,7 @@ setProfessor()
 
 function setProfessor() {
     return new Promise((resolve, reject) => {
-        get('professor')
+        get('professores')
             .then(professores => {
                 console.log("Professores:", professores);
                 var multiCombo = document.querySelector("#professorDisciplinaAdd");
