@@ -4,13 +4,30 @@ var ItemList = []
 var item = {}
 var relatorio = {}
 
+const endpoints = {
+    getAllItems: "itens",
+    getItemById: "item/",
+    getItemByName: "itens/item",
+    getItemsNotBeforeDate: "itens/dataNotBefore",
+    getItemsValidAfterDate: "itens/validadeAfter",
+    getMonthlyReports: "relatorios-mensais",
+    getItemType:"tiposdeitem",
+    getAllCommitments: "empenhos",
+    getAllSuppliers: "fornecedores",
+    updateItem: "itens/item",
+    saveItem: "itens/item",
+    deleteItemById: "Itens/Item/",
+    saveMonthlyReports: "relatorios-mensais/relatorio-mensal",
+};
+
+
 setFornecedor()
 setTiposItem()
 setEmpenhosItem()
 atualizarTabela()
 function atualizarTabela(){
     
-    get('Item').then(data=>{
+    get(endpoints.getAllItems).then(data=>{
     console.log('Data', data)
     this.ItemList = data
     this.tableCreate(this.ItemList)
@@ -202,7 +219,7 @@ function adicionar(){
     
     console.log("item ", item)
 
-    post('salvarItem', item ).then(result=>{
+    post(endpoints.saveItem, item ).then(result=>{
 
     var data = new Date();
     var dia = String(data.getDate()).padStart(2, '0');
@@ -224,7 +241,7 @@ function adicionar(){
 
     console.log("Item de Relatório: ", relatorio)
 
-    post('salvarRelatorio', relatorio ).then(result=>{
+    post(endpoints.saveMonthlyReports, relatorio ).then(result=>{
         console.log('Result ', result)
         atualizarTabela()
     }).catch(error=>{
@@ -240,10 +257,14 @@ function adicionar(){
 function remover(){
     console.log('Deletar ' + this.selectedId)
 
-    get_params('deletarItem', {id:this.selectedId, p2:'is'}).then(result=>{
-        atualizarTabela()
-    }).catch(error=>{
-    })
+
+    fecthDelete(`${endpoints.deleteItemById}${this.selectedId}`).then((result) => {
+        atualizarTabela();
+    }).catch((error)=>{
+        console.log(error);
+    });
+    
+
 }
 
 function buscar(){
@@ -299,7 +320,7 @@ function editar(){
     this.item.valorItem = valorItem;
     this.item.codigoItem = codigoItem;
 
-    get('relatorio').then(relatorios=>{
+    get(endpoints.getMonthlyReports).then(relatorios=>{
         var founder = relatorios.find(element => element.id == this.selectedId)
         console.log(founder)
 
@@ -319,7 +340,7 @@ function editar(){
         this.relatorio.id = founder.id
         this.relatorio.item = founder.item;
 
-        post('salvarRelatorio', this.relatorio ).then(result=>{
+        post(endpoints.saveMonthlyReports, this.relatorio ).then(result=>{
             console.log('Result ', result)
         }).catch(error=>{
             console.log('Error ', error)
@@ -327,7 +348,7 @@ function editar(){
     })
 
     console.log('Novo Item user ', this.item)
-    post('salvarItem', this.item).then(result=>{
+    post(endpoints.saveItem, this.item).then(result=>{
         console.log('Result ', result)
         this.atualizarTabela()
     }).catch(error=>{
@@ -338,7 +359,7 @@ function editar(){
 
 function setTiposItem(){
     
-    get('tipoDeItem').then(tipoitem=>{
+    get(endpoints.getItemType).then(tipoitem=>{
         console.log('Tipos de item ', tipoitem)
         var multiCombo = document.getElementById('itemType')
         tipoitem.forEach(tipo=>{
@@ -366,7 +387,7 @@ function setTiposItem(){
 
 function setEmpenhosItem(){
     
-    get('empenho').then(tipoitem=>{
+    get(endpoints.getAllCommitments).then(tipoitem=>{
         console.log('Códigos de empenho ', tipoitem)
         var multiCombo = document.getElementById('itemEmpenho')
         tipoitem.forEach(tipo=>{
@@ -393,7 +414,7 @@ function setEmpenhosItem(){
 }
 
 function setFornecedor(){
-    get('fornecedor').then(fornecedores=>{
+    get(endpoints.getAllSuppliers).then(fornecedores=>{
         console.log('Fornecedores ', fornecedores)
         var multiCombo = document.getElementById('itemFornecedor')
         fornecedores.forEach(forn=>{

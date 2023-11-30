@@ -1,5 +1,12 @@
 let globalFuncaoId = 0;
 
+const endpoints = {
+    getAllFunctionsTechnicalAdministrative: "funcoes-tecnico-administrativo/funcao-tecnico-administrativo",
+    postFunctionTechnicalAdministrative: "funcoes-tecnico-administrativo/funcao-tecnico-administrativo",
+    deleteFunctionTechnicalAdministrative: "funcoes-tecnico-administrativo/funcao-tecnico-administrativo/"
+};
+
+
 function exibirEfeitoBackGround() {
     const efeitoBackground = document.getElementById("background-efeito");
     efeitoBackground.classList.add("mostrar-efeito");
@@ -59,7 +66,7 @@ document.getElementById("btn-add-confirmar")
             descricao: descricao
         }
         
-        post("funcoes-tecnico-administrativo", funcaoTecnicoAdm)
+        post(endpoints.postFunctionTechnicalAdministrative, funcaoTecnicoAdm)
         .then(data => {
             atualizarTabela();
         })
@@ -94,7 +101,7 @@ function removerFuncao(funcaoId) {
 
 document.getElementById("btn-remover-confirmar")
     .addEventListener("click", () => {
-        fetchDelete("deletarFuncaoTecnicoAdm/" + globalFuncaoId)
+        fetchDelete(endpoints.deleteFunctionTechnicalAdministrative + globalFuncaoId)
         .then(data => {
             atualizarTabela();
         })
@@ -148,7 +155,7 @@ document.getElementById("btn-editar-confirmar")
             descricao: descricao
         }
 
-        put("atualizarFuncaoTecnicoAdm", funcaoTecnicoAdm)
+        put(endpoints.postFunctionTechnicalAdministrative, funcaoTecnicoAdm)
         .then(data => {
             atualizarTabela();
         })
@@ -219,7 +226,7 @@ function preencherTabela(funcoesTecnicoAdm) {
 }
 
 function atualizarTabela() {
-    get("listarFuncoesTecnicoAdm")
+    get(endpoints.getAllFunctionsTechnicalAdministrative)
     .then(data => preencherTabela(data))
     .catch(erro => {
         erro.text()

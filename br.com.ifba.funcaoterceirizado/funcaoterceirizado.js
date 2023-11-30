@@ -2,10 +2,17 @@ var selectedId
 var funcaoterceirizadosList = []
 var funcaoterceirizado = {}
 
+const endpoints = {
+    getAllThirdPartyFunctions: "funcoes-terceirizados",
+    postThirdPartyFunction: "funcoes-terceirizados/funcao-terceirizado",
+    deleteThirdPartyFunction: "funcoes-terceirizados/funcao-terceirizado/"
+};
+
+
 atualizarTabela()
 
 function atualizarTabela(){
-    get('listarFuncoesTerceirizado').then(data=>{
+    get(endpoints.getAllThirdPartyFunctions).then(data=>{
     this.funcaoterceirizadosList = data
     console.log('List funcaoTerceirizado', this.funcaoterceirizadosList)
 
@@ -168,7 +175,7 @@ function adicionar(){
     this.funcaoterceirizado.nome = document.getElementById('nomeNew').value;
     this.funcaoterceirizado.descricao = document.getElementById('descricaoNew').value;
 
-    post('salvarFuncaoTerceirizado', this.funcaoterceirizado).then(result=>{
+    post(endpoints.postThirdPartyFunction, this.funcaoterceirizado).then(result=>{
         console.log('result', result)
         atualizarTabela()
     }).catch(error=>{
@@ -181,10 +188,13 @@ function adicionar(){
 function remover(){
     console.log('Deletar ' + this.selectedId)
 
-    get_params('deletarFuncaoTerceirizado', {id:this.selectedId}).then(result=>{
-        atualizarTabela()
-    }).catch(error=>{
-    })
+    fecthDelete(`${endpoints.deleteThirdPartyFunction}${this.selectedId}`).then((result) => {
+        atualizarTabela();
+    }).catch((error)=>{
+        console.log(error);
+    });
+    
+
 }
 
 function buscar(){
@@ -220,7 +230,7 @@ function editar(){//Editar aqui
     })
     console.log('Nova funcao de terceirizado ', this.funcaoterceirizado)
 
-    post('salvarFuncaoTerceirizado', this.funcaoterceirizado).then(result=>{
+    post(endpoints.postThirdPartyFunction, this.funcaoterceirizado).then(result=>{
         console.log('Result ', result)
         this.atualizarTabela()
     }).catch(error=>{

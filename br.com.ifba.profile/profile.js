@@ -1,3 +1,16 @@
+const endpoints = {
+    getAllUserProfiles: "perfilUsuarios",
+    getUserProfileByName: "perfilUsuarios/login",
+    updateUserProfile: "perfilUsuarios/perfilUsuario",
+    saveUserProfile: "perfilUsuarios/perfilUsuario",
+    deleteUserProfileById: "perfilUsuarios/perfilUsuario/",
+    getAllUsers: "usuarios",
+    getUserById: "usuarios/usuario/",
+    getUserByLoginAndSenha: "usuarios/login",
+    saveUser: "usuarios/usuario",
+    deleteUserById: "usuarios/usuario/"
+};
+
 
 var user = getUser()
 setData()
@@ -24,7 +37,7 @@ function saveUser(){
     user.email = email
     user.login = login
 
-    post('salvarUsuario', this.user).then(result=>{
+    post(endpoints.saveUser, this.user).then(result=>{
         console.log('result', result)
         setUser(result)
         user = result
@@ -40,7 +53,7 @@ function savePass(){
     let senha = document.getElementById('senhanova').value
     user.senha = senha
 
-    post('salvarUsuario', this.user).then(result=>{
+    post(endpoints.saveUser, this.user).then(result=>{
         console.log('result', result)
         setUser(result)
         user = result

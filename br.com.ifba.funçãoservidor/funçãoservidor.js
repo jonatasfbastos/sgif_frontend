@@ -2,11 +2,17 @@ var selectedId
 var funcaoServidorList = [] 
 var funcaoServidor = {}
 
+const endpoints = {
+    getAllServerFunctions: "funcoesServidor",
+    postServerFunction: "funcoesServidor/funcaoServidor",
+    deleteServerFunction: "funcoesServidor/funcaoServidor/",
+};
+
 
 atualizarTabela()
 
 function atualizarTabela(){   
-    get('funcoesServidor').then(data=>{
+    get(endpoints.getAllServerFunctions).then(data=>{
     console.log('Data', data)
     this.funcaoServidorList = data
     this.tableCreate(this.funcaoServidorList)
@@ -125,7 +131,7 @@ function adicionar(){
 
     ////se os campos de nome ou de descrição estiverem vazios, não serão salvos 
     if(this.funcaoServidor.nome != "" && this.funcaoServidor.descricao != ""){
-        post('salvarFuncaoServidor', funcaoServidor).then(result=>{
+        post(endpoints.postServerFunction, funcaoServidor).then(result=>{
             console.log('result', result)
             atualizarTabela()
         }).catch(error=>{
@@ -144,10 +150,11 @@ function adicionar(){
 function remover(){
     console.log('Deletar ' + this.selectedId)
 
-    get_params('deletarFuncaoServidor', {id:this.selectedId}).then(result=>{
-        atualizarTabela()
-    }).catch(error=>{
-    })
+    fecthDelete(`${endpoints.deleteServerFunction}${this.selectedId}`).then((result) => {
+        atualizarTabela();
+    }).catch((error)=>{
+        console.log(error);
+    });
 }
 
 function buscar(){
@@ -187,7 +194,7 @@ function editar(){
     this.funcaoServidor.descricao = descricao
 
     console.log('Novo tipo user ', this.funcaoServidor)
-    post('salvarFuncaoServidor', this.funcaoServidor).then(result=>{
+    post(endpoints.postServerFunction, this.funcaoServidor).then(result=>{
         console.log('Result ', result)
         this.atualizarTabela()
     }).catch(error=>{

@@ -4,11 +4,18 @@ var empenhosValidos = []
 var empenho = {}
 var ItemList = [] 
 
+const endpoints = {
+    getAllCommitments: "empenhos",
+    getAllItems: "itens",
+    postCommitment: "empenhos/empenho",
+    deleteCommitment: "empenhos/empenho/",
+  };
+
 //testando adicionar os itens no empenho
 pegarItens()
 function pegarItens(){
     
-    get('itens').then(data=>{
+    get(endpoints.getAllItems).then(data=>{
     console.log('Data', data)
     this.ItemList = data
     //this.tableCreate(this.ItemList)
@@ -21,7 +28,7 @@ function pegarItens(){
 atualizarTabela()
 
 function atualizarTabela(){
-    get('empenhos').then(data=>{
+    get(endpoints.getAllCommitments).then(data=>{
     console.log('Data ', data)
     this.empenhoList = data
     this.tableCreate(this.empenhoList)
@@ -188,7 +195,7 @@ function adicionar(){
     //se os campos de nome, valor(valores negativos não serão aceitos) e itens(quando estiver sendo salvo na tela) estiverem vazios, não serão salvos
     //naturalmente sem a validade não salva, então não colocarei no if 
     if(this.empenho.nota != ""){
-        post('salvarEmpenho', this.empenho).then(result=>{
+        post(endpoints.postCommitment, this.empenho).then(result=>{
             console.log('result', result)
             atualizarTabela()   
         }).catch(error=>{
@@ -207,10 +214,15 @@ function adicionar(){
 function remover(){
     console.log('Deletar ' + this.selectedId)
 
-    get_params('deletarEmpenho', {id:this.selectedId}).then(result=>{
-        atualizarTabela()
-    }).catch(error=>{
+
+    fetchDelete(`${endpoints.deleteCommitment}${this.selectedId}`)
+    .then((result) => {
+        atualizarTabela();
     })
+    .catch((error) => {
+      console.log("error", error);
+      popupErroExibir(error);
+    });
 }
 
 function buscar(){
@@ -246,7 +258,7 @@ function editar(){
     this.empenho.nota = newNota
 
     console.log('Novo empenho ', this.empenho)
-    post('salvarEmpenho', this.empenho).then(result=>{
+    post(endpoints.postCommitment, this.empenho).then(result=>{
         console.log('Result ', result)
         this.atualizarTabela()
     }).catch(error=>{

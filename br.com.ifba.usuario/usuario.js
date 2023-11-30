@@ -1,12 +1,20 @@
+
 var selectedId
 var usuariosList = []
 var usuario = {}
+
+const endpoints = {
+  getAllUsers: "usuarios",
+  getAllProfileUser: "perfilUsuarios",
+  deleteUser: "perfilUsuarios/perfilUsuario/",
+  updateUser: "usuarios/usuario",
+};
 
 atualizarTabela()
 setTiposDeUsuario()
 
 function atualizarTabela(){
-    get('usuarios').then(data=>{
+    get(endpoints.getAllUsers).then(data=>{
     console.log('Data ', data)
     this.usuariosList = data
     this.tableCreate(this.usuariosList)
@@ -21,45 +29,44 @@ function tableCreate(data){
         tableBody.innerHTML = ''
         data.forEach(element => {
             var row = document.createElement("tr");
-    
+
             var colLogin = document.createElement("td")
             colLogin.appendChild(document.createTextNode(element.login))
             row.appendChild(colLogin)
-            
+
             var colTipo = document.createElement("td")
             colTipo.appendChild(document.createTextNode(element.perfilUsuario ? element.perfilUsuario.nome : ''))
             row.appendChild(colTipo)
-            
+
             var colRemover = document.createElement("td")
             colRemover.setAttribute("onclick", "openPopup("+element.id+")")
             var removerLink = document.createElement("a")
             var imgRemove = document.createElement("img")
             imgRemove.setAttribute("src", "../images/excluir2.png")
             removerLink.appendChild(imgRemove)
-            
+
             colRemover.appendChild(removerLink)
             row.appendChild(colRemover)
-            
+
             var colEditar = document.createElement("td")
             colEditar.setAttribute("onclick", "openEditPopup("+element.id+")")
             var editarLink = document.createElement("a")
             var imgEditar = document.createElement("img")
             imgEditar.setAttribute("src", "../images/botao-editar2.png")
             editarLink.appendChild(imgEditar)
-            
+
             colEditar.appendChild(editarLink)
             row.appendChild(colEditar)
-            
-    
+
             tableBody.appendChild(row)
             console.log(element)
         });
     }
 }
-          
+
 function setTiposDeUsuario() {
 
-    get('perfilusuario').then(tiposdeusuarios=>{
+    get(endpoints.getAllProfileUser).then(tiposdeusuarios=>{
         console.log('Perfis de usuario ', tiposdeusuarios)
 
         var multiCombo = document.getElementById('tipoUsuario')
@@ -76,7 +83,7 @@ function setTiposDeUsuario() {
             optionEdit.innerHTML = tipo.nome
 
             multiComboEdit.appendChild(optionEdit)
-            
+
         })
     }).catch(error=>{
         console.log('Error ', error)
@@ -97,12 +104,12 @@ function closeAddPopup(){
 }
 
 function openPopup(id){
-    teladisabled()
+    telaDisabled()
     this.selectedId = id
     popup.classList.add("open_popup");
 }
 
-function teladisabled(){
+function telaDisabled(){
     telaDesativada.classList.add("disabled_tela");
     backdrop.classList.add("disabled_tela");
 }
@@ -118,11 +125,11 @@ function telaEnabled(){
 
 function closePopup(){
     popup.classList.remove("open_popup");
-    
+
 }
 
 function openEditPopup(id){
-    teladisabled()
+    telaDisabled()
     this.selectedId = id
     popupEdit.classList.add("popupEditOpen");
     console.log('Id ',id)
@@ -131,7 +138,7 @@ function openEditPopup(id){
     })
 
     console.log('Usuario achado ', usr)
-    
+
     document.getElementById('loginUsuarioEditar').value = usr.login
     if(usr.tipodeusuario){
         document.getElementById('tipoUsuarioEdit').value = usr.tipodeusuario ? usr.tipodeusuario.id : '';
@@ -155,10 +162,9 @@ function adicionar(){
     this.usuario.pessoa = null;
     console.log(this.usuario)
 
-
     //se os campos de login ou de senha estiverem vazios, não serão salvos
     if(this.usuario.login != "" && this.usuario.senha != ""){
-        post('salvarUsuario', this.usuario).then(result=>{
+        post(endpoints.updateUser, this.usuario).then(result=>{
             console.log('result', result)
             atualizarTabela()
         }).catch(error=>{
@@ -174,10 +180,13 @@ function adicionar(){
 function remover(){
     console.log('Deletar ' + this.selectedId)
 
-    get_params('deletarUsuario', {id:this.selectedId}).then(result=>{
-        atualizarTabela()
-    }).catch(error=>{
-    })
+    fecthDelete(`${endpoints.deleteUser}${this.selectedId}`).then((result) => {
+        atualizarTabela();
+    }).catch((error)=>{
+        console.log(error);
+    });
+    
+
 }
 
 function buscar(){
@@ -212,12 +221,12 @@ function editar(){
     this.usuario = this.usuariosList.find(user=>{
         return user.id === this.selectedId
     })
-    
+
     this.usuario.login = newLogin;
     this.usuario.perfilUsuario = newTipoId;
 
     console.log('Novo user ', this.usuario)
-    post('atualizarUsuario', this.usuario).then(result=>{
+    post(endpoints.updateUser, this.usuario).then(result=>{
         console.log('Result ', result)
         this.atualizarTabela()
     }).catch(error=>{

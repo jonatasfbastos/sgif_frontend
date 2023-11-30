@@ -1,5 +1,16 @@
 let globalPermissaoId = 0;
 
+const endpoints = {
+    getAllPermissions: "permissoes",
+    getPermissionsById: "permissoes/",
+    getPermissionsByLinkId: "permissoes/permissao/link/",
+    getAllLinks: "listarLinks",
+    updatePermission: "permissoes/permissao",
+    savePermission: "permissoes/permissao",
+    deletePermissionById: "permissoes/permissao/"
+};
+
+
 function exibirEfeitoBackGround() {
     const efeitoBackground = document.getElementById("background-efeito");
     efeitoBackground.classList.add("mostrar-efeito");
@@ -125,7 +136,7 @@ function removerPermissao(permissaoId) {
 
 document.getElementById("btn-remover-confirmar")
     .addEventListener("click", () => {
-        fetchDelete("deletarPermissao/" + globalPermissaoId)
+        fetchDelete(endpoints.deletePermissionById + globalPermissaoId)
         .then(data => {
             atualizarTabela();
         })
@@ -200,7 +211,7 @@ document.getElementById("btn-editar-confirmar")
             links: links
         }
 
-        put("atualizarPermissao", permissao)
+        put(endpoints.updatePermission, permissao)
         .then(data => {
             atualizarTabela();
         })
@@ -241,7 +252,7 @@ function visualizarLinks(permissao) {
     document.getElementById("titulo-tb-links").innerText = `Links associados com ${permissao.nome}`;
     document.getElementById("table-links").style.display = "block";
 
-    get("listarLinksPermissao/" + permissao.id)
+    get(endpoints.getAllPermissions + permissao.id)
     .then(data => preencherTabelaLinks(data))
     .catch(erro => {
         erro.text()
@@ -270,7 +281,7 @@ function visualizarPerfis(permissao) {
     document.getElementById("titulo-tb-perfis").innerText = `Perfis associados com ${permissao.nome}`;
     document.getElementById("table-perfis").style.display = "block";
 
-    get("listarPerfisPermissoes/" + permissao.id)
+    get(endpoints.getPermissionsById + permissao.id)
     .then(data => preencherTabelaPerfis(data))
     .catch(erro => {
         erro.text()
@@ -343,7 +354,7 @@ function preencherTabelaPermissoes(permissoes) {
 }
 
 function getLinks() {
-    get("listarLinks")
+    get(endpoints.getAllLinks)
     .then(data => preencherLinks(data))
     .catch(erro => {
         erro.text()
@@ -394,7 +405,7 @@ function preencherLinks(links) {
 }
 
 function atualizarTabela() {
-    get("listarPermissoes")
+    get(endpoints.getAllPermissions)
     .then(data => preencherTabelaPermissoes(data))
     .catch(erro => {
         erro.text()

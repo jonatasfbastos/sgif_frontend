@@ -6,6 +6,15 @@ var disciplinasListEdit = []
 var etapasList = []
 var disciplinaCadastradas = []
 
+
+const endpoints = {
+    getAllCourseStages: "etapascurso",
+    getAllCurriculumFrameworks: "matrizesCurriculares",
+    getAllSubjects: "disciplinas",
+    postCourseStage: "etapascurso/etapacurso",
+    deleteCourseStage: "etapascurso/etapacurso/",
+  };
+
 mostrarDisciplina()
 mostrarDisciplinaEdit()
 atualizarTabela()
@@ -13,7 +22,7 @@ setMatrizCurricular()
 
 function atualizarTabela(){
     
-    get('etapascurso').then(data=>{
+    get(endpoints.getAllCourseStages).then(data=>{
         console.log('Data', data)
         this.EtapaCursoList = data
         
@@ -118,7 +127,7 @@ function tableCreateDisciplina(data){
 //matriz curricular
 function setMatrizCurricular() {
     
-    get('matrizesCurriculares').then(matrizCurriculares=>{
+    get(endpoints.getAllCurriculumFrameworks).then(matrizCurriculares=>{
         console.log('Matriz curriculares ', matrizCurriculares)
         
         var multiCombo = document.getElementById('matrizCurricular')
@@ -257,7 +266,7 @@ function showCheckboxesEdit() {
                     return exibirPopUpErro("Não foi possível cadastrar etapa, há algum campo vazio ou disciplina selecionada ja esta cadastrada em outra etapa.");
                 }
 
-                post('salvarEtapaCurso', etapacurso).then(result=>{
+                post(endpoints.postCourseStage, etapacurso).then(result=>{
                     console.log('result', result)
                     atualizarTabela()
                 }).catch(error=>{
@@ -273,7 +282,7 @@ function showCheckboxesEdit() {
 
             function mostrarDisciplina(){
 
-                get('disciplinas').then(data=>{
+                get(endpoints.getAllSubjects).then(data=>{
                     console.log(data);
                    // if(data.map(item=> item.id) != disciplinaCadastradas.id){
                         document.getElementById('checkboxes').innerHTML=data.map(item=>`<label><input type="checkbox" value="${item.id}" class="disciplinas" name="disciplinas" id="disciplinas"/>${item.nome}</label>`).join('');
@@ -301,7 +310,7 @@ function showCheckboxesEdit() {
 
             function mostrarDisciplinaEdit(){
 
-                get('disciplinas').then(data=>{
+                get(endpoints.getAllSubjects).then(data=>{
                 document.getElementById('checkboxesEdit').innerHTML=data.map(item=>`<label><input type="checkbox" value="${item.id}" class="disciplinasEdit" name="disciplinasEdit" id="disciplinasEdit"/>${item.nome}</label>`).join('');
                     }).catch(error=>{
                     console.log('Error ', error)
@@ -327,7 +336,7 @@ function showCheckboxesEdit() {
             function remover(){
                 console.log('Deletar ' + this.selectedId)
 
-                fetchDelete('deletarEtapaCurso/' + this.selectedId)
+                fetchDelete(`${endpoints.deleteCourseStage}${this.selectedId}`)
                 .then(result=>{
                     atualizarTabela();
                 }).catch(error=>{
@@ -390,7 +399,7 @@ function showCheckboxesEdit() {
 
 
                 console.log('Novo Etapa user ', this.etapacurso)
-                post('salvarEtapaCurso', this.etapacurso).then(result=>{
+                post(endpoints.postCourseStage, this.etapacurso).then(result=>{
                     console.log('Result ', result)
                     this.atualizarTabela()
                 }).catch(error=>{

@@ -2,12 +2,20 @@ var selectedId;
 var alunoList = [];
 var aluno = {};
 
+const endpoints = {
+  getAllStudents: "alunos",
+  getAllClasses: "turmas",
+  getAllStudentStatus: "statusAlunos",
+  postStudent: "alunos/aluno",
+  deleteStudent: "alunos/aluno/",
+};
+
 atualizarTabela();
 setTurma();
 setStatus();
 
 function atualizarTabela() {
-  get("alunos")
+  get(endpoints.getAllStudents)
     .then((data) => {
       console.log("Data", data);
       this.alunoList = data;
@@ -91,7 +99,7 @@ function tableCreate(data) {
 }
 
 function setTurma() {
-  get("turmas")
+  get(endpoints.getAllClasses)
     .then((turmas) => {
       console.log("Turmas ", turmas);
 
@@ -117,7 +125,7 @@ function setTurma() {
 }
 
 function setStatus() {
-  get("statusAlunos")
+  get(endpoints.getAllStudentStatus)
     .then((status) => {
       console.log("Status ", status);
 
@@ -236,7 +244,7 @@ function adicionar() {
 
   //se os campos de nome ou de cpf estiverem vazios, não serão salvos
   if (this.aluno.nome != "" && this.aluno.cpf != "") {
-    post("alunos/aluno", this.aluno)
+    post(endpoints.postStudent, this.aluno)
       .then((result) => {
         console.log("result", result);
         atualizarTabela();
@@ -260,7 +268,7 @@ function adicionar() {
 function remover() {
   console.log("Deletar " + this.selectedId);
 
-  fetchDelete(`alunos/aluno/${this.selectedId}`)
+  fetchDelete(`${endpoints.deleteStudent}${this.selectedId}`)
     .then((result) => {
       atualizarTabela();
     })
@@ -342,7 +350,7 @@ function editar() {
   }
 
   console.log("Novo aluno ", this.aluno);
-  post("alunos/aluno", this.aluno)
+  post(endpoints.postStudent, this.aluno)
     .then((result) => {
       console.log("Result ", result);
       this.atualizarTabela();

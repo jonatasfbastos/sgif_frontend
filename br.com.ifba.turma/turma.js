@@ -3,10 +3,19 @@ var turmaList = []
 var turma = {}
 
 
+const endpoints = {
+    getAllClasses: "turmas",
+    saveClass: "turmas/turma",
+    updateClass: "turmas/turma",
+    deleteClassById: "turmas/turma/"
+};
+
+
+
 atualizarTabela()
 
 function atualizarTabela(){
-    get('turma').then(data=>{
+    get(endpoints.getAllClasses).then(data=>{
     console.log('Data', data)
     this.turmaList = data
     this.tableCreate(this.turmaList)
@@ -146,7 +155,7 @@ function adicionar(){
 
     //se os campos de nome ou de codigo estiverem vazios, não serão salvos 
     if(this.turma.nome != "" && this.turma.codigoTurma != ""){
-        post('salvarTurma', this.turma).then(result=>{
+        post(endpoints.saveClass, this.turma).then(result=>{
             console.log('result', result)
             atualizarTabela()
         }).catch(error=>{
@@ -164,11 +173,12 @@ function adicionar(){
 function remover(){
     console.log('Deletar ' + this.selectedId)
 
-    get_params('deletarTurma', {id:this.selectedId}).then(result=>{
-        atualizarTabela()
-    }).catch(error=> {
+    fecthDelete(`${endpoints.deleteClassById}${this.selectedId}`).then((result) => {
+        atualizarTabela();
+    }).catch((error)=>{
         window.alert("não é possivel remover turma, pois existem alunos matriculados nela")
-    })
+    });
+    
 }
 
 
@@ -239,7 +249,7 @@ function editar(){
     }
 
     console.log('Nova turma ', this.turma)
-    post('salvarTurma', this.turma).then(result=>{
+    post(endpoints.saveClass, this.turma).then(result=>{
         console.log('Result ', result)
         this.atualizarTabela()
     }).catch(error=>{

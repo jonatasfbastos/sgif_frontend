@@ -2,10 +2,18 @@ var selectedId
 var statusList = []
 var statusA = {}
 
+const endpoints = {
+    getAllStatusStudents: "statusAlunos",
+    updateStudentStatus: "statusAlunos/statusAluno",
+    saveStudentStatus: "statusAlunos/statusAluno",
+    deleteStudentStatusById: "statusAlunos/statusAluno/"
+};
+
+
 atualizarTabela()
 
 function atualizarTabela(){
-    get('status').then(data=>{
+    get(endpoints.getAllStatusStudents).then(data=>{
         console.log('Data', data)
         this.statusList = data
         this.tableCreate(this.statusList)
@@ -131,7 +139,7 @@ function adicionar(){
 
     //se os campos de nome ou de cpf estiverem vazios, não serão salvos 
     if(this.statusA.nome != "" && this.statusA.descricao != ""){
-    post('salvarStatus', this.statusA).then(result=>{
+    post(endpoints.saveStudentStatus, this.statusA).then(result=>{
         console.log('result', result)
         atualizarTabela()
         }).catch(error=>{
@@ -148,12 +156,13 @@ function adicionar(){
 function remover(){
     console.log('Deletar ' + this.selectedId)
 
-    get_params('deletarStatus', {id:this.selectedId}).then(result=>{
+    fecthDelete(`${endpoints.deleteStudentStatusById}${this.selectedId}`).then((result) => {
         atualizarTabela();
-    }).catch(error=>{
-        error.text()
-        .then(mensagem => exibirPopUpErro("Status não pode ser excluído, pois existe Aluno cadastrado"));
+    }).catch((error)=>{
+        console.log(error);
     });
+    
+
 }
 
 function buscar(){
@@ -209,7 +218,7 @@ function editar(){//Editar aqui
     }
     console.log('Novo user ', this.statusA)
 
-    post('salvarStatus', this.statusA).then(result=>{
+    post(endpoints.saveStudentStatus, this.statusA).then(result=>{
         console.log('Result ', result)
         this.atualizarTabela()
     }).catch(error=>{

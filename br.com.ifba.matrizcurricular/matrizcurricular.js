@@ -4,6 +4,17 @@ var etapasList = []
 var etapasListEdit = []
 var mc = {}
 
+const endpoints = {
+    getAllCurricularMatrices: "matrizesCurriculares",
+    getAllSubjects: "disciplinas",
+    getAllCourses: "cursos",
+    getAllCourseStages: "etapascurso",
+    saveCurricularMatrix: "matrizCurricular",
+    updateCurricularMatrix: "matrizesCurriculares/matrizCurricular",
+    deleteCurricularMatrixById: "matrizesCurriculares/matrizCurricular/"
+};
+
+
 //showcheckboxes()
 mostrarEtapas()
 atualizarTabela()
@@ -12,7 +23,7 @@ mostrarEtapasEdit()
 //setDisciplinas()
 
 function atualizarTabela(){
-    get('matrizes').then(data=>{
+    get(endpoints.getAllCurricularMatrices).then(data=>{
         console.log('Data ', data)
         this.matrizesList = data
         
@@ -46,7 +57,7 @@ function tableCreateEtapa(data){
             //tableBodyEta.appendChild(row)
         }
 
-        get('disciplina').then(disciplinas=>{
+        get(endpoints.getAllSubjects).then(disciplinas=>{
             console.log('Disciplinas ', disciplinas)
 
             var colNomeDisciplina = document.createElement("td")
@@ -118,7 +129,7 @@ function tableCreate(data){
             colEditar.appendChild(editarLink)
             row.appendChild(colEditar)
 
-            get('curso').then(cursos=>{
+            get(endpoints.getAllCourses).then(cursos=>{
                 console.log('Cursos ', cursos)
     
                 var colCurso = document.createElement("td")
@@ -144,7 +155,7 @@ function tableCreate(data){
 
 function setCursos() {
 
-    get('curso').then(cursos=>{
+    get(endpoints.getAllCourses).then(cursos=>{
         console.log('Cursos ', cursos)
 
         var multiCombo = document.getElementById('cursoAdd')
@@ -170,7 +181,7 @@ function setCursos() {
 
 function setEtapasCurso() {
     //console.log("Chamando etapa cursos")
-    get('etapaCurso').then(etapascursos=>{
+    get(endpoints.getAllCourseStages).then(etapascursos=>{
         console.log('Etapas do curso ', etapascursos)
 
         var multiCombo = document.getElementById('etapasAdd')
@@ -196,7 +207,7 @@ function setEtapasCurso() {
 }
 
 function mostrarEtapas(){
-    get('etapaCurso').then(data=>{
+    get(endpoints.getAllCourseStages).then(data=>{
         document.getElementById('checkboxes').innerHTML=data.map(item=>`<label ><input type="checkbox" value="${item.id}" class="etapacurso" name="etapacurso" id="etapacurso"/>${item.nome}<label>`).join('');
     }).catch(error=>{
         console.log("Error ", error)
@@ -205,7 +216,7 @@ function mostrarEtapas(){
 }
 
 function mostrarEtapasEdit(){
-    get('etapaCurso').then(data=>{
+    get(endpoints.getAllCourseStages).then(data=>{
         document.getElementById('checkboxesEdit').innerHTML=data.map(item=>`<label ><input type="checkbox" value="${item.id}" class="etapacurso" name="etapacurso" id="etapacurso"/>${item.nome}<label>`).join('');
     }).catch(error=>{
         console.log("Error ", error)
@@ -380,7 +391,7 @@ function adicionar(){
 
     //se os campos de nome ou de descrição estiverem vazios, não serão salvos
     if(this.mc.nome != "" && this.mc.descricao != ""){
-        post('salvarMatriz', this.mc).then(result=>{
+        post(endpoints.saveCurricularMatrix, this.mc).then(result=>{
             console.log('result', result)
             atualizarTabela()
         }).catch(error=>{
@@ -396,13 +407,13 @@ function adicionar(){
 function remover(){
     console.log('Deletar ' + this.selectedId)
 
-    get_params('deletarMatriz', {id:this.selectedId}).then(result=>{
-        atualizarTabela()
-    }).catch(error=>{
+    fecthDelete(`${endpoints.deleteCurricularMatrixById}${this.selectedId}`).then((result) => {
+        atualizarTabela();
+    }).catch((error)=>{
         error.text()
         .then(mensagem => exibirPopUpErro("Matriz Curricular não pode ser excluída com Etapa Curso"));
-        }
-    )
+    });
+    
 }
 
 function buscar(){
@@ -453,7 +464,7 @@ function editar(){
     }
 
     console.log('Nova Matriz Curricular ', this.mc)
-    post('atualizarMatriz', this.mc).then(result=>{
+    post(endpoints.updateCurricularMatrix, this.mc).then(result=>{
         console.log('Result ', result)
         this.atualizarTabela()
     }).catch(error=>{

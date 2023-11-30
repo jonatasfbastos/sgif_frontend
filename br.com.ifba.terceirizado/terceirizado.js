@@ -2,11 +2,18 @@ var selectedId
 var terceirizadosList = []
 var terceirizado = {}
 
+const endpoints = {
+    getAllTerceirizados: "terceirizados",
+    saveTerceirizado: "terceirizados/terceirizado",
+    deleteTerceirizadoById: "terceirizados/terceirizado/"
+};
+
+
 atualizarTabela()
 setFuncao()
 
 function atualizarTabela(){
-    get('terceirizado').then(data=>{
+    get(endpoints.getAllTerceirizados).then(data=>{
     this.terceirizadosList = data
     console.log('List terceirizados', this.terceirizadosList)
 
@@ -173,7 +180,7 @@ function adicionar(){
 
     console.log('Jonas', this.terceirizado)
 
-    post('salvarTerceirizado', this.terceirizado).then(result=>{
+    post(endpoints.saveTerceirizado, this.terceirizado).then(result=>{
         console.log('result', result)
         atualizarTabela()
     }).catch(error=>{
@@ -186,10 +193,13 @@ function adicionar(){
 function remover(){
     console.log('Deletar ' + this.selectedId)
 
-    get_params('deletarterceirizado', {id:this.selectedId}).then(result=>{
-        atualizarTabela()
-    }).catch(error=>{
-    })
+    fecthDelete(`${endpoints.deleteTerceirizadoById}${this.selectedId}`).then((result) => {
+        atualizarTabela();
+    }).catch((error)=>{
+        console.log(error);
+    });
+    
+
 }
 
 function buscar(){
@@ -229,7 +239,7 @@ function editar(){//Editar aqui
     })
     console.log('Novo user ', this.terceirizado)
 
-    post('salvarTerceirizado', this.terceirizado).then(result=>{
+    post(endpoints.saveTerceirizado, this.terceirizado).then(result=>{
         console.log('Result ', result)
         this.atualizarTabela()
     }).catch(error=>{

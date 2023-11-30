@@ -5,13 +5,20 @@ var selectedIdDisciplina;
 var avaliacaoList = [];
 var avaliacao = {};
 
+const endpoints = {
+  getAllAssessments: "avaliacoes",
+  getAllSubjects: "disciplinas",
+  postAssessment: "avaliacoes/avaliacao",
+  deleteAssessment: "avaliacoes/avaliacao/",
+};
+
 atualizarTabela();
 obterDisciplinas();
 setDisciplina();
 
 function atualizarTabela() {
   window.scrollTo(0, 0);
-  get("avaliacoes")
+  get(endpoints.getAllAssessments)
     .then((data) => {
       this.avaliacaoList = data;
       this.tableCreate(this.avaliacaoList);
@@ -53,7 +60,7 @@ function filtrar() {
 }
 
 function obterDisciplinas() {
-  get("disciplinas").then((disciplinas) => {
+  get(endpoints.getAllSubjects).then((disciplinas) => {
     disciplinas.forEach((disciplina) => {
       var select = document.getElementById("selec_disc");
       option = new Option(disciplina.nome, disciplina.id);
@@ -138,7 +145,7 @@ function tableCreate(data) {
 }
 
 function setDisciplina() {
-  get("disciplinas")
+  get(endpoints.getAllSubjects)
     .then((disciplinas) => {
       var multiCombo = document.getElementById("disciplinaAdd");
       var multiComboEdit = document.getElementById("disciplinaEditar");
@@ -268,7 +275,7 @@ function adicionar() {
     this.avaliacao.dataInicio != "" &&
     this.avaliacao.dataFim != ""
   ) {
-    post("salvarAvaliacao", avaliacao)
+    post(endpoints.postAssessment, avaliacao)
       .then((result) => {
         popupConfirmacaoExibir("Avaliação adicionada");
         atualizarTabela();
@@ -288,7 +295,7 @@ function adicionar() {
 }
 
 function remover() {
-  fetchDelete(`alunos/aluno/${this.selectedId}`)
+  fetchDelete(`${endpoints.deleteAssessment}${this.selectedId}`)
     .then((result) => {
       popupConfirmacaoExibir("Avaliação removida com sucesso");
       atualizarTabela();
@@ -404,7 +411,7 @@ function editar() {
     this.avaliacao.dataInicio != "" &&
     this.avaliacao.dataFim != ""
   ) {
-    post("atualizarAvaliacao", this.avaliacao)
+    post(endpoints.postAssessment, this.avaliacao)
       .then((result) => {
         popupConfirmacaoExibir("Avaliação editada com sucesso");
         this.atualizarTabela();

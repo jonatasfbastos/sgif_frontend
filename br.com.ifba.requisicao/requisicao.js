@@ -8,12 +8,25 @@ var item = {}
 var relatorios = {}
 var relatorio = {}
 
+const endpoints = {
+    getAllRequests: "requisicoes",
+    getAllItems: "itens",
+    getAllSectors :"setores",
+    getAllMonthlyReports: "relatorios-mensais",
+    updateRequest: "requisicoes/requisicao",
+    saveRequest: "requisicoes/requisicao",
+    saveItem: "itens/item",
+    saveMonthlyReport: "relatorios-mensais/relatorio-mensal",
+    deleteRequestById: "requisicoes/requisicao/"
+};
+
+
 setItens()
 setItensEdit()
 setSetores()
 atualizarTabela()
 function atualizarTabela(){
-    get('requisicao').then(data=>{
+    get(endpoints.getAllRequests).then(data=>{
     console.log('requisicoes', data)
     this.requisicaoList = data
     this.tableCreate(this.requisicaoList)
@@ -24,7 +37,7 @@ function atualizarTabela(){
 
 atualizarTabelaItens()
 function atualizarTabelaItens(){
-    get('Item').then(data=>{
+    get(endpoints.getAllItems).then(data=>{
     console.log('Data', data)
     this.itensList = data
     this.tableCreateItens(this.itensList)
@@ -35,7 +48,7 @@ function atualizarTabelaItens(){
 
 atualizarTabelaItensEdit()
 function atualizarTabelaItensEdit(){
-    get('Item').then(data=>{
+    get(endpoints.getAllItems).then(data=>{
     console.log('Data', data)
     this.itensList = data
     this.tableCreateEdit(this.itensList)
@@ -105,7 +118,7 @@ function tableCreate(data){
 
 function setItens() {
 
-    get('Item').then(itens=>{
+    get(endpoints.getAllItems).then(itens=>{
         console.log('Itens ', itens)
 
         var multiCombo = document.getElementById('Item')
@@ -124,7 +137,7 @@ function setItens() {
 
 function setItensEdit() {
 
-    get('Item').then(itens=>{
+    get(endpoints.getAllItems).then(itens=>{
         console.log('Itens ', itens)
 
         var multiComboEdit = document.getElementById('EditItem')
@@ -144,7 +157,7 @@ function setItensEdit() {
 
 function setSetores() {
 
-    get('setor').then(setor=>{
+    get(endpoints.getAllSectors).then(setor=>{
         console.log('Setores ', setor)
 
         var multiCombo = document.getElementById('Setor')
@@ -325,7 +338,7 @@ function editar(){
     this.requisicao.setor = {id:newSetor}
     this.requisicao.itens = {id:newitens}
     
-    get('Item').then(itens=>{
+    get(endpoints.getAllItems).then(itens=>{
         console.log('Itens ', itens)
         var found = itens.find(element => element.id == document.getElementById('EditItem').value)
         console.log(found)
@@ -348,14 +361,14 @@ function editar(){
         this.item.perecivel = found.perecivel
         this.item.quantidadeMinima = found.quantidadeMinima
 
-        post('atualizarItem', this.item).then(result=>{
+        post(endpoints.saveItem, this.item).then(result=>{
             console.log('Result ', result)
             atualizarTabelaItens()
         }).catch(error=>{
             console.log('Error ', error)
         })
 
-        get('relatorio').then(relatorios=>{
+        get(endpoints.getAllMonthlyReports).then(relatorios=>{
             var founder = relatorios.find(element => element.id == document.getElementById('EditItem').value)
             console.log(founder)
     
@@ -375,7 +388,7 @@ function editar(){
             this.relatorio.id = founder.id
             this.relatorio.item = founder.item;
     
-            post('salvarRelatorio', this.relatorio ).then(result=>{
+            post(endpoints.saveMonthlyReport, this.relatorio ).then(result=>{
                 console.log('Result ', result)
             }).catch(error=>{
                 console.log('Error ', error)
@@ -383,7 +396,7 @@ function editar(){
         })
         
 
-        post('atualizarItem', this.item).then(result=>{
+        post(endpoints.saveItem, this.item).then(result=>{
             console.log('Result ', result)
             atualizarTabelaItens()
         }).catch(error=>{
@@ -395,7 +408,7 @@ function editar(){
     })
 
     console.log('Nova Requisição ', this.requisicao)
-    post('salvarRequisicao', this.requisicao).then(result=>{
+    post(endpoints.saveRequest, this.requisicao).then(result=>{
         console.log('Result ', result)
         this.atualizarTabela()
     }).catch(error=>{
@@ -423,7 +436,7 @@ function adicionar(){
 
     gerarCodigoSaida()
 
-    get('Item').then(itens=>{
+    get(endpoints.getAllItems).then(itens=>{
         console.log('Itens ', itens)
         var found = itens.find(element => element.id == document.getElementById('Item').value)
         console.log(found)
@@ -442,7 +455,7 @@ function adicionar(){
         this.item.tipoDeItem = found.tipoDeItem
         this.item.codigoItem = found.codigoItem
 
-        post('atualizarItem', this.item).then(result=>{
+        post(endpoints.saveItem, this.item).then(result=>{
             console.log('Result ', result)
             atualizarTabelaItens()
         }).catch(error=>{
@@ -454,7 +467,7 @@ function adicionar(){
     })
 
 
-    get('relatorio').then(relatorios=>{
+    get(endpoints.getAllRequests).then(relatorios=>{
         var founder = relatorios.find(element => element.id == document.getElementById('Item').value)
         console.log(founder)
 
@@ -504,7 +517,7 @@ function adicionar(){
         this.relatorio.id = founder.id
         this.relatorio.item = founder.item;
     
-            post('atualizarItem', this.item).then(result=>{
+            post(endpoints.saveItem, this.item).then(result=>{
                 console.log('Result ', result)
                 atualizarTabelaItens()
             }).catch(error=>{
@@ -512,7 +525,7 @@ function adicionar(){
             })
             
 
-        post('salvarRelatorio', this.relatorio ).then(result=>{
+        post(endpoints.saveMonthlyReport, this.relatorio ).then(result=>{
             console.log('Result ', result)
         }).catch(error=>{
             console.log('Error ', error)
@@ -528,7 +541,7 @@ function adicionar(){
     this.requisicao.codigoSaida = codSaida;
     this.requisicao.criador = {id:getUser().id}
 
-    post('salvarRequisicao', this.requisicao).then(result=>{
+    post(endpoints.saveRequest, this.requisicao).then(result=>{
         console.log('result', result)
         atualizarTabela()
     }).catch(error=>{
@@ -540,14 +553,14 @@ function adicionar(){
 
 function remover(){
 
-    get('requisicao').then(req=>{
+    get(endpoints.getAllRequests).then(req=>{
         console.log('Find requisicao ', req)
         const found = req.find(element => element.id == this.selectedId)
         console.log(found)
         var returnValueQtd = found.quantidadeItensReq
         var returnValueId = found.itens.id
 
-        get('Item').then(itens=>{
+        get(endpoints.getAllItems).then(itens=>{
             console.log('Itens ', itens)
             const foundItens = itens.find(element => element.id == returnValueId)
             console.log(foundItens)
@@ -567,14 +580,14 @@ function remover(){
             this.item.quantidadeMinima = foundItens.quantidadeMinima
 
     
-            post('atualizarItem', this.item).then(result=>{
+            post(endpoints.saveItem, this.item).then(result=>{
                 console.log('Result ', result)
                 atualizarTabelaItens()
             }).catch(error=>{
                 console.log('Error ', error)
             })
 
-            get('relatorio').then(relatorios=>{
+            get(endpoints.getAllMonthlyReports).then(relatorios=>{
                 var founder = relatorios.find(element => element.id == returnValueId)
                 console.log(founder)
         
@@ -594,7 +607,7 @@ function remover(){
                 this.relatorio.id = founder.id
                 this.relatorio.item = founder.item;
         
-                post('salvarRelatorio', this.relatorio ).then(result=>{
+                post(endpoints.saveMonthlyReport, this.relatorio ).then(result=>{
                     console.log('Result ', result)
                 }).catch(error=>{
                     console.log('Error ', error)
@@ -611,10 +624,13 @@ function remover(){
 
     console.log('Deletar ' + this.selectedId)
 
-    get_params('deletarRequisicao', {id:this.selectedId}).then(result=>{
-        atualizarTabela()
-    }).catch(error=>{
-    })
+    fecthDelete(`${endpoints.deleteRequestById}${this.selectedId}`).then((result) => {
+        atualizarTabela();
+    }).catch((error)=>{
+        console.log(error);
+    });
+    
+
 }
 
 function buscar(){

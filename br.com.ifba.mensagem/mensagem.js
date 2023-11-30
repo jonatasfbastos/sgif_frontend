@@ -2,10 +2,18 @@ var selectedId
 var mensagemList = []
 var mensagem = {}
 var descricaoCa = []
-atualizarTabela()
 
+
+const endpoints = {
+    getAllMessages: "mensagens/mensagem",
+    saveMessage: "mensagens/mensagem",
+    updateMessage: "mensagens/mensagem",
+    deleteMessageById: "mensagens/mensagem/"
+};
+
+atualizarTabela()
 function atualizarTabela(){
-    get('mensagens/mensagem').then(data=>{
+    get(endpoints.getAllMessages).then(data=>{
     console.log('Data ', data)
     this.mensagemList = data
     this.tableCreate(this.mensagemList)
@@ -219,7 +227,7 @@ function adicionar(){
     }
     
     if(this.mensagem.nome != "" && this.mensagem.descricao != ""){
-        post('salvarMensagem', this.mensagem).then(result=>{
+        post(endpoints.saveMessage, this.mensagem).then(result=>{
             console.log('result', result)
             atualizarTabela()
         }).catch(error=>{
@@ -241,10 +249,13 @@ function adicionar(){
 function remover(){
     console.log('Deletar ' + this.selectedId)
 
-    get_params('deletarMensagem', {id:this.selectedId}).then(result=>{
-        atualizarTabela()
-    }).catch(error=>{
-    })
+    fecthDelete(`${endpoints.deleteMessageById}${this.selectedId}`).then((result) => {
+        atualizarTabela();
+    }).catch((error)=>{
+        console.log(error);
+    });
+    
+
 }
 
 function buscar(){
@@ -291,7 +302,7 @@ function editar(){
     }
 
     console.log('Nova mensagem ', this.mensagem)
-    post('salvarMensagem', this.mensagem).then(result=>{
+    post(endpoints.saveMessage, this.mensagem).then(result=>{
         console.log('Result ', result)
         this.atualizarTabela()
     }).catch(error=>{

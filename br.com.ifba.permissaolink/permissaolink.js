@@ -1,5 +1,14 @@
 let globalLinkId = 0;
 
+const endpoints = {
+    getAllLinks: "listarLinks",
+    getPermissionsById: "listarLinksPermissao/",
+    updatePermissionLink: "permissoesLinks/permissoesLink",
+    savePermission: "permissoesLinks/permissoesLink",
+    deletePermissionLinkId: "permissoesLinks/permissoesLink/"
+};
+
+
 function exibirEfeitoBackGround() {
     const efeitoBackground = document.getElementById("background-efeito");
     efeitoBackground.classList.add("mostrar-efeito");
@@ -59,7 +68,7 @@ document.getElementById("btn-add-confirmar")
             url: url
         }
         
-        post("salvarLink", link)
+        post(endpoints.savePermission, link)
         .then(data => {
             atualizarTabela();
         })
@@ -94,7 +103,7 @@ function removerLink(linkId) {
 
 document.getElementById("btn-remover-confirmar")
     .addEventListener("click", () => {
-        fetchDelete("deletarLink/" + globalLinkId)
+        fetchDelete(endpoints.deletePermissionLinkId + globalLinkId)
         .then(data => {
             atualizarTabela();
         })
@@ -148,7 +157,7 @@ document.getElementById("btn-editar-confirmar")
             url: url
         }
 
-        put("atualizarLink", link)
+        put(endpoints.updatePermissionLink, link)
         .then(data => {
             atualizarTabela();
         })
@@ -185,7 +194,7 @@ document.getElementById("btn-fechar-view").addEventListener("click", () => {
 
 function visualizarPermissoes(link) {
     document.getElementById("table-permissoes").style.display = "block";
-    get("listarPermissoesLink/" + link.id)
+    get(endpoints.getPermissionsById + link.id)
     .then(data => preencherTabelaPermissoes(link, data))
     .catch(erro => {
         erro.text()
@@ -254,7 +263,7 @@ function preencherTabelaLinks(links) {
 }
 
 function atualizarTabela() {
-    get("listarLinks")
+    get(endpoints.getAllLinks)
     .then(data => preencherTabelaLinks(data))
     .catch(erro => {
         erro.text()

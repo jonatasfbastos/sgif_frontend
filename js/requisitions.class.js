@@ -2,7 +2,7 @@ const HOST = "http://localhost:8080/";
 const API = "apif/v1/";
 const URL = HOST + API;
 
-export const Requisitions = {
+const requisitions = {
   async get(endpoint) {
     try {
       const response = await fetch(URL + endpoint, {
@@ -56,6 +56,7 @@ export const Requisitions = {
           Accept: "application/json",
         },
         method: "post",
+        mode: "cors",
         body: JSON.stringify(data),
       });
       return response.json();
@@ -65,3 +66,5 @@ export const Requisitions = {
     }
   },
 };
+
+export default requisitions;

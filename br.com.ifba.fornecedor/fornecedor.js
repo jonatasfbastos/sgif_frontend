@@ -2,10 +2,16 @@ var selectedId
 var fornecedorList = [] 
 var fornecedor = {}
 
+const endpoints = {
+    getAllSuppliers: "fornecedores",
+    postSupplier: "fornecedores/fornecedor",
+    deleteSupplier: "fornecedores/fornecedor/",
+};
+
 
 atualizarTabela()
 function atualizarTabela(){
-    get('fornecedores').then(data=>{
+    get(endpoints.getAllSuppliers).then(data=>{
     console.log('Data', data)
     this.fornecedorList = data
     this.tableCreate(this.fornecedorList)
@@ -142,7 +148,7 @@ function adicionar(){
 
     //se os campos de nome ou de cnpj estiverem vazios, não serão salvos 
     if(this.fornecedor.nome != "" && this.fornecedor.cnpj != ""){
-        post('salvarFornecedor', this.fornecedor).then(result=>{
+        post(endpoints.postSupplier, this.fornecedor).then(result=>{
             console.log('result', result)
             atualizarTabela()
         }).catch(error=>{
@@ -163,10 +169,11 @@ function adicionar(){
 function remover(){
     console.log('Deletar ' + this.selectedId)
 
-    get_params('deletarFornecedor', {id:this.selectedId}).then(result=>{
-        atualizarTabela()
-    }).catch(error=>{
-    })
+    fecthDelete(`${endpoints.deleteSupplier}${this.selectedId}`).then((result) => {
+        atualizarTabela();
+    }).catch((error)=>{
+        console.log(error);
+    });
 }
 
 
@@ -214,7 +221,7 @@ function editar(){
     this.fornecedor.inscricaoEstadual = ie
 
     console.log('Novo fornecedor ', this.fornecedor)
-    post('salvarFornecedor', this.fornecedor).then(result=>{
+    post(endpoints.postSupplier, this.fornecedor).then(result=>{
         console.log('Result ', result)
         this.atualizarTabela()
     }).catch(error=>{

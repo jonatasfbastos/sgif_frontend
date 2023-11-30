@@ -152,11 +152,13 @@ async function post(endpoint, body) {
       endpoint === "login" ? HOST + endpoint : HOST + API + endpoint;
 
     console.log(urlPost);
+    console.log(body);
     const fetched = await fetch(urlPost, {
-      method: "POST",
+      method: "post",
       headers: {
-        "Content-type": "application/json"
+        "Content-type": "application/json",
       },
+      mode: "cors",
       body: JSON.stringify(body),
     });
 

@@ -2,11 +2,19 @@ var selectedId
 var professorList = [] 
 var professor = {}
 
+const endpoints = {
+    getAllProfessors: "professors",
+    getProfessorById: "professors/professor/",
+    saveProfessor: "professors/professor",
+    updateProfessor: "professors/professor",
+    deleteProfessorById: "professors/professor/"
+};
+
 
 atualizarTabela()
 
 function atualizarTabela(){
-    get('professores').then(data=>{
+    get(endpoints.getAllProfessors).then(data=>{
     console.log('Data', data)
     this.professorList = data
     this.tableCreate(this.professorList)
@@ -148,7 +156,7 @@ function adicionar(){
 
     //se os campos de nome ou de cpf estiverem vazios, não serão salvos 
     if(this.professor.nome != "" && this.professor.cpf != ""){
-        post('professores/professor', this.professor).then(result=>{
+        post(endpoints.saveProfessor, this.professor).then(result=>{
             console.log('result', result)
             atualizarTabela()
         }).catch(error=>{
@@ -170,10 +178,13 @@ function adicionar(){
 function remover(){
     console.log('Deletar ' + this.selectedId)
 
-    get_params('deletarProfessor', {id:this.selectedId}).then(result=>{
-        atualizarTabela()
-    }).catch(error=>{
-    })
+    fecthDelete(`${endpoints.deleteProfessorById}${this.selectedId}`).then((result) => {
+        atualizarTabela();
+    }).catch((error)=>{
+        console.log(error);
+    });
+    
+
 }
 
 
@@ -248,7 +259,7 @@ function editar(){
     }
 
     console.log('Novo professor ', this.professor)
-    put('atualizarProfessor', this.professor).then(result=>{
+    put(endpoints.updateProfessor, this.professor).then(result=>{
         console.log('Result ', result)
         this.atualizarTabela()
     }).catch(error=>{

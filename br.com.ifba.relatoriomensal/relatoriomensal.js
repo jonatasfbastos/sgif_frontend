@@ -1,10 +1,16 @@
 var selectedId
 var relatorioList = []
 
+const endpoints = {
+    getAllMonthlyReports: "relatorios-mensais",
+    saveMonthlyReport: "relatorios-mensais/relatorio-mensal",
+    deleteMonthlyReportById: "relatorios-mensais/relatorio-mensal/"
+};
+
 
 atualizarTabela()
 function atualizarTabela(){
-    get('relatorio').then(data=>{
+    get(endpoints.getAllMonthlyReports).then(data=>{
     console.log('Data', data)
     this.relatorioList = data
     this.tableCreate(this.relatorioList)

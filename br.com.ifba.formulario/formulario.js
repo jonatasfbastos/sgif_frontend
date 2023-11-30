@@ -1,12 +1,18 @@
 var selectedId
 var formulariosList = []
 var formulario = {}
+const endpoints = {
+    getAllForms: "formularios",
+    getAllAssessments: "avaliacoes",
+    postForm: "formularios/formulario",
+    deleteForm: "formularios/formulario/",
+  };
 
 atualizarTabela()
 setAvaliacoes()
 
 function atualizarTabela(){
-    get('formularios').then(data=>{
+    get(endpoints.getAllForms).then(data=>{
     console.log('Data ', data)
     this.formulariosList = data
     this.tableCreate(this.formulariosList)
@@ -63,7 +69,7 @@ function tableCreate(data){
 
 function setAvaliacoes() {
 
-    get('avaliacoes').then(avaliacoes=>{
+    get(endpoints.getAllAssessments).then(avaliacoes=>{
         console.log('Avaliações ', avaliacoes)
 
         var multiCombo = document.getElementById('avaliacao')
@@ -180,7 +186,7 @@ function adicionar(){
 
     //se os campos de título ou de descrição estiverem vazios, não serão salvos
     if(this.formulario.titulo != "" && this.formulario.descricao != ""){
-        post('salvarFormulario', this.formulario).then(result=>{
+        post(endpoints.postForm, this.formulario).then(result=>{
             console.log('result', result)
             atualizarTabela()
             openConfirmaPopup('As informações foram gravadas com sucesso')
@@ -201,13 +207,15 @@ function adicionar(){
 function remover(){
     console.log('Deletar ' + this.selectedId)
 
-    get_params('deletarFormulario', {id:this.selectedId}).then(result=>{
-        atualizarTabela()
+    fetchDelete(`${endpoints.deleteForm}${this.selectedId}`)
+    .then((result) => {
+      atualizarTabela()
         openConfirmaPopup('As informações foram removidas com sucesso')
-    }).catch(error=>{
+    })
+    .catch((error) => {
         console.log('error', error)
         openErroPopup('Impossível remover formulário', 'Erro ao excluir no banco de dados');
-    })
+    });
 }
 
 function buscar(){
@@ -249,7 +257,7 @@ function editar(){
     this.formulario.avaliacao = newAvaliacaoId;
 
     console.log('Editar formulario ', this.formulario)
-    post('atualizarFormulario', this.formulario).then(result=>{
+    post(endpoints.postForm, this.formulario).then(result=>{
         console.log('Result ', result)
         this.atualizarTabela()
         openConfirmaPopup('As informações foram editadas com sucesso')

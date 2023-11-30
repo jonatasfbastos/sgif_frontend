@@ -3,11 +3,19 @@ var selectedId
 var modalidadesList = []
 var modalidade = {}
 
+const endpoints = {
+    getAllModalities: "modalidades",
+    saveModality: "modalidades/modalidade",
+    updateModality: "modalidades/modalidade",
+    deleteModalityById: "modalidades/modalidade/"
+};
+
+
 //Funcoes
 atualizarTabela()
 
 function atualizarTabela(){
-    get('modalidades').then(data=>{
+    get(endpoints.getAllModalities).then(data=>{
     this.modalidadesList = data
     console.log('List Modalidades', this.modalidadesList)
     this.tableCreate(this.modalidadesList)
@@ -134,7 +142,7 @@ function adicionar(){
     console.log(modalidade.id)*/
 
     //Verificando se os campos nome e descricao estiverem vazios
-    post('salvarModalidade', this.modalidade).then(result=>{
+    post(endpoints.saveModality, this.modalidade).then(result=>{
         console.log('result', result)
         atualizarTabela()
     }).catch(error=>{
@@ -150,10 +158,13 @@ function adicionar(){
 function remover(){
     console.log('Deletar ' + this.selectedId)
 
-    get_params('deletarModalidade', {id:this.selectedId}).then(result=>{
-        atualizarTabela()
-    }).catch(error=>{
-    })
+    fecthDelete(`${endpoints.deleteModalityById}${this.selectedId}`).then((result) => {
+        atualizarTabela();
+    }).catch((error)=>{
+        console.log(error);
+    });
+    
+
 }
 
 function buscar(){
@@ -193,7 +204,7 @@ function editar(){
     this.modalidade.descricao = newDescricao;
 
     console.log('Nova Modalidade ', this.modalidade)
-    post('salvarModalidade', this.modalidade).then(result=>{
+    post(endpoints.saveModality, this.modalidade).then(result=>{
         console.log('Result ', result)
         this.atualizarTabela()
     }).catch(error=>{
