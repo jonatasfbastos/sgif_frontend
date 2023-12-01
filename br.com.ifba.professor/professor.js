@@ -3,11 +3,11 @@ var professorList = []
 var professor = {}
 
 const endpoints = {
-    getAllProfessors: "professors",
-    getProfessorById: "professors/professor/",
-    saveProfessor: "professors/professor",
-    updateProfessor: "professors/professor",
-    deleteProfessorById: "professors/professor/"
+    getAllProfessors: "professores",
+    getProfessorById: "professores/professor/",
+    saveProfessor: "professores/professor",
+    updateProfessor: "professores/professor",
+    deleteProfessorById: "professores/professor/"
 };
 
 
@@ -178,7 +178,7 @@ function adicionar(){
 function remover(){
     console.log('Deletar ' + this.selectedId)
 
-    fecthDelete(`${endpoints.deleteProfessorById}${this.selectedId}`).then((result) => {
+    fetchDelete(`${endpoints.deleteProfessorById}${this.selectedId}`).then((result) => {
         atualizarTabela();
     }).catch((error)=>{
         console.log(error);

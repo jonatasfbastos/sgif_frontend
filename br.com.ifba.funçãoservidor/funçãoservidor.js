@@ -5,6 +5,7 @@ var funcaoServidor = {}
 const endpoints = {
     getAllServerFunctions: "funcoesServidor",
     postServerFunction: "funcoesServidor/funcaoServidor",
+    putServerFunction: "funcoesServidor/funcaoServidor",
     deleteServerFunction: "funcoesServidor/funcaoServidor/",
 };
 
@@ -150,7 +151,7 @@ function adicionar(){
 function remover(){
     console.log('Deletar ' + this.selectedId)
 
-    fecthDelete(`${endpoints.deleteServerFunction}${this.selectedId}`).then((result) => {
+    fetchDelete(`${endpoints.deleteServerFunction}${this.selectedId}`).then((result) => {
         atualizarTabela();
     }).catch((error)=>{
         console.log(error);
@@ -194,7 +195,7 @@ function editar(){
     this.funcaoServidor.descricao = descricao
 
     console.log('Novo tipo user ', this.funcaoServidor)
-    post(endpoints.postServerFunction, this.funcaoServidor).then(result=>{
+    put(endpoints.postServerFunction, this.funcaoServidor).then(result=>{
         console.log('Result ', result)
         this.atualizarTabela()
     }).catch(error=>{

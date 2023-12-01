@@ -46,6 +46,11 @@ let stateQuestions = {
   inputField: null,
 };
 
+// Pegar o id (via url) da avaliação ao usuário cilcar em pedente
+const endpoints = {
+  getFormById: "/formularios/formulario/"
+};
+
 const endpointTest =
   "../assets/data/data_teste/data_professores/perguntasDocente.json";
 

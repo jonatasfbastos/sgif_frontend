@@ -407,7 +407,7 @@ function adicionar(){
 function remover(){
     console.log('Deletar ' + this.selectedId)
 
-    fecthDelete(`${endpoints.deleteCurricularMatrixById}${this.selectedId}`).then((result) => {
+    fetchDelete(`${endpoints.deleteCurricularMatrixById}${this.selectedId}`).then((result) => {
         atualizarTabela();
     }).catch((error)=>{
         error.text()

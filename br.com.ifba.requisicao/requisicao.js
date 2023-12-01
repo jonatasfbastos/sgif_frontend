@@ -624,7 +624,7 @@ function remover(){
 
     console.log('Deletar ' + this.selectedId)
 
-    fecthDelete(`${endpoints.deleteRequestById}${this.selectedId}`).then((result) => {
+    fetchDelete(`${endpoints.deleteRequestById}${this.selectedId}`).then((result) => {
         atualizarTabela();
     }).catch((error)=>{
         console.log(error);

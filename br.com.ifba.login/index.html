@@ -91,7 +91,6 @@
         post("login", user)
           .then((usuario) => {
             if (!usuario) return;
-
             setUser(usuario);
             window.location.replace(
               "../br.com.ifba.homescreensad/homescreensad.html"

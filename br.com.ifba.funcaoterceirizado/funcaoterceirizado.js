@@ -188,7 +188,7 @@ function adicionar(){
 function remover(){
     console.log('Deletar ' + this.selectedId)
 
-    fecthDelete(`${endpoints.deleteThirdPartyFunction}${this.selectedId}`).then((result) => {
+    fetchDelete(`${endpoints.deleteThirdPartyFunction}${this.selectedId}`).then((result) => {
         atualizarTabela();
     }).catch((error)=>{
         console.log(error);

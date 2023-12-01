@@ -249,7 +249,7 @@ function adicionar(){
 function remover(){
     console.log('Deletar ' + this.selectedId)
 
-    fecthDelete(`${endpoints.deleteMessageById}${this.selectedId}`).then((result) => {
+    fetchDelete(`${endpoints.deleteMessageById}${this.selectedId}`).then((result) => {
         atualizarTabela();
     }).catch((error)=>{
         console.log(error);

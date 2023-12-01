@@ -51,10 +51,17 @@ async function fetchDelete(endpoint) {
 
 async function put(endpoint, body) {
   loadingStart();
+  const token =
+    "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ6ZWRhbWFuZ2EiLCJleHAiOjE3MDM5NjY3NDh9.4FeIbznwXyTVRy-jIdLgR8ZcjY5qYy59DvmHc_uWSwfGblaO8aiD-CH1iyrCn1ZuyjHXGVk7QCCOBWcVGEzCvg";
+
+  console.log("put", body);
   try {
     const fetched = await fetch(HOST + API + endpoint, {
-      method: "PUT",
-      headers: { "Content-type": "application/json" },
+      method: "put",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
       body: JSON.stringify(body),
     });
 
@@ -146,20 +153,29 @@ async function get_params(endpoint, paramsMap) {
 async function post(endpoint, body) {
   loadingStart();
   try {
-    let jwt;
+    const token =
+      "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ6ZWRhbWFuZ2EiLCJleHAiOjE3MDM5NjY3NDh9.4FeIbznwXyTVRy-jIdLgR8ZcjY5qYy59DvmHc_uWSwfGblaO8aiD-CH1iyrCn1ZuyjHXGVk7QCCOBWcVGEzCvg";
 
     const urlPost =
       endpoint === "login" ? HOST + endpoint : HOST + API + endpoint;
 
+    const headers = {
+      "Content-type": "application/json",
+    };
+
+    if (token && endpoint !== "login") {
+      headers["Authorization"] = `Bearer ${token}`;
+    }
+
     console.log(urlPost);
     console.log(body);
+    const user = JSON.stringify(body);
+    console.log(user);
     const fetched = await fetch(urlPost, {
       method: "post",
-      headers: {
-        "Content-type": "application/json",
-      },
+      headers: headers,
       mode: "cors",
-      body: JSON.stringify(body),
+      body: user,
     });
 
     if (fetched.ok) {

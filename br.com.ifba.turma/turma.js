@@ -173,7 +173,7 @@ function adicionar(){
 function remover(){
     console.log('Deletar ' + this.selectedId)
 
-    fecthDelete(`${endpoints.deleteClassById}${this.selectedId}`).then((result) => {
+    fetchDelete(`${endpoints.deleteClassById}${this.selectedId}`).then((result) => {
         atualizarTabela();
     }).catch((error)=>{
         window.alert("não é possivel remover turma, pois existem alunos matriculados nela")

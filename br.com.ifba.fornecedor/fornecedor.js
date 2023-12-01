@@ -169,7 +169,7 @@ function adicionar(){
 function remover(){
     console.log('Deletar ' + this.selectedId)
 
-    fecthDelete(`${endpoints.deleteSupplier}${this.selectedId}`).then((result) => {
+    fetchDelete(`${endpoints.deleteSupplier}${this.selectedId}`).then((result) => {
         atualizarTabela();
     }).catch((error)=>{
         console.log(error);

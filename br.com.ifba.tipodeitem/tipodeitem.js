@@ -164,7 +164,7 @@ function adicionar() {
 function remover() {
   console.log("Deletar " + this.selectedId);
 
-  fecthDelete(`${endpoints.deleteTipoDeItemById}${this.selectedId}`)
+  fetchDelete(`${endpoints.deleteTipoDeItemById}${this.selectedId}`)
     .then((result) => {
       atualizarTabela();
     })
