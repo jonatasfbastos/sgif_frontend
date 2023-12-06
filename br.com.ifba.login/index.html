@@ -66,7 +66,7 @@
               name="send"
               value="Logar"
               class="button"
-              onclick="getDatas(event)"
+             
             />
             <p class="forgot">Esqueceu a senha?</p>
           </form>
@@ -76,35 +76,9 @@
     </main>
 
     <script src="../js/requisitions.js"></script>
+    <script type="module" src="./index.js"></script>
 
     <script>
-      function getDatas(e) {
-        e.preventDefault();
-        var usuario = document.getElementById("usuario").value;
-        var senha = document.getElementById("senha").value;
-
-        const user = {
-          login: usuario,
-          senha: senha,
-        };
-
-        post("login", user)
-          .then((usuario) => {
-            if (!usuario) return;
-            setUser(usuario);
-            window.location.replace(
-              "../br.com.ifba.homescreensad/homescreensad.html"
-            );
-          })
-          .catch((erro) => {
-            console.log(erro);
-            showMessage({
-              type: "warning",
-              message: "Verifique o login e a senha e tente novamente",
-            });
-          });
-      }
-
       function handleChangeField() {
         var usuario = document.getElementById("usuario");
         var senha = document.getElementById("senha");
