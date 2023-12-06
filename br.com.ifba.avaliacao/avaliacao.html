@@ -1,125 +1,182 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Avaliação</title>
-    <link rel="stylesheet" href="avaliacao.css">
-</head>
-<body id="tela">
-
+    <link rel="stylesheet" href="avaliacao.css" />
+    <script src="../js/accessControl.js"></script>
+    <script src="../js/session.js"></script>
+  </head>
+  <body id="tela">
     <div class="popupRemove" id="popupRemove">
-        <img src="../images/ask.png" alt="question-sign-in-circles">
-        <h2>Você tem certeza que deseja remover essa Avaliação?</h2>
-        <button type="button" onclick="remover(), closePopup(), telaEnabled()">Sim</button>
-        <button type="button" onclick="closePopup(), telaEnabled()">Não</button>
+      <img src="../images/ask.png" alt="question-sign-in-circles" />
+      <h2>Você tem certeza que deseja remover essa Avaliação?</h2>
+      <button type="button" onclick="remover(), closePopup(), telaEnabled()">
+        Sim
+      </button>
+      <button type="button" onclick="closePopup(), telaEnabled()">Não</button>
     </div>
 
     <div class="popupEdit" id="popupEdit">
-        <img src="../images/caneta.png" alt="editar">
-        <h2>Digite as novas informações</h2>
-        <input type="text" name="avaliacaoName" placeholder="Nome..." autocomplete="off" class="avaliacaoName" id="avaliacaoDescricaoEditar">
-        <div class="campoData">
-            <p>Data inicial:</p>
-            <input type="date" class="avaliacaoData" id="avaliacaoDataInicioEditar">
-        </div>
-        <div class="campoData">
-            <p>Data final:</p>
-            <input type="date" class="avaliacaoData" id="avaliacaoDataFimEditar">
-        </div>
-        <div class="campoDisciplina">
-            <label for="cursos">Selecione a Disciplina:</label>
-            <select name="Disciplina" id="disciplinaEditar">
-            </select><br>
-        </div>
-        <button type="button" onclick="closeEditPopup(), editar(), telaEnabled()">Confirmar</button>
-        <button type="button" onclick="closeEditPopup(), telaEnabled()">Cancelar</button>
+      <img src="../images/caneta.png" alt="editar" />
+      <h2>Digite as novas informações</h2>
+      <input
+        type="text"
+        name="avaliacaoName"
+        placeholder="Nome..."
+        autocomplete="off"
+        class="avaliacaoName"
+        id="avaliacaoDescricaoEditar"
+      />
+      <div class="campoData">
+        <p>Data inicial:</p>
+        <input
+          type="date"
+          class="avaliacaoData"
+          id="avaliacaoDataInicioEditar"
+        />
+      </div>
+      <div class="campoData">
+        <p>Data final:</p>
+        <input type="date" class="avaliacaoData" id="avaliacaoDataFimEditar" />
+      </div>
+      <div class="campoDisciplina">
+        <label for="cursos">Selecione a Disciplina:</label>
+        <select name="Disciplina" id="disciplinaEditar"></select
+        ><br />
+      </div>
+      <button type="button" onclick="closeEditPopup(), editar(), telaEnabled()">
+        Confirmar
+      </button>
+      <button type="button" onclick="closeEditPopup(), telaEnabled()">
+        Cancelar
+      </button>
     </div>
 
     <div class="popupAdd" id="popupAdd">
-        <img src="../images/botao-adicionar3.png" alt="editar">
-        <h2>Digite as informações da Avaliação</h2>
-        <input type="text" name="avaliacaoName" placeholder="Descrição..." autocomplete="off" class="avaliacaoName" id="avaliacaoDescricaoAdd">
-        <div class="campoData">
-            <p>Data inicial:</p>
-            <input type="date" class="avaliacaoData" id="avaliacaoDataInicioAdd">
-        </div>
-        <div class="campoData">
-            <p>Data final:</p>
-            <input type="date" class="avaliacaoData" id="avaliacaoDataFimAdd">
-        </div>
-        <div class="campoDisciplina">
-            <label for="cursos">Selecione a Disciplina:</label>
-            <select name="Disciplina" id="disciplinaAdd">
-            </select><br>
-        </div>
-        <button type="button" onclick="closeAddPopup(), adicionar(), telaEnabled()">Confirmar</button>
-        <button type="button" onclick="closeAddPopup(), telaEnabled()">Cancelar</button>
+      <img src="../images/botao-adicionar3.png" alt="editar" />
+      <h2>Digite as informações da Avaliação</h2>
+      <input
+        type="text"
+        name="avaliacaoName"
+        placeholder="Descrição..."
+        autocomplete="off"
+        class="avaliacaoName"
+        id="avaliacaoDescricaoAdd"
+      />
+      <div class="campoData">
+        <p>Data inicial:</p>
+        <input type="date" class="avaliacaoData" id="avaliacaoDataInicioAdd" />
+      </div>
+      <div class="campoData">
+        <p>Data final:</p>
+        <input type="date" class="avaliacaoData" id="avaliacaoDataFimAdd" />
+      </div>
+      <div class="campoDisciplina">
+        <label for="cursos">Selecione a Disciplina:</label>
+        <select name="Disciplina" id="disciplinaAdd"></select
+        ><br />
+      </div>
+      <button
+        type="button"
+        onclick="closeAddPopup(), adicionar(), telaEnabled()"
+      >
+        Confirmar
+      </button>
+      <button type="button" onclick="closeAddPopup(), telaEnabled()">
+        Cancelar
+      </button>
     </div>
 
     <div class="backdrop" id="backdrop" onclick="stopPropagation()"></div>
 
     <div class="buttons">
-        <div class="search">
-            <input type="text" placeholder="Procurar..." class="loupe" id="loupe" onkeyup="buscar()"> 
-        </div>
-        <button class="adicionar" type="button" onclick="openAddPopup(), teladisabled()"><img src="../images/botao-adicionar2.png" alt="adicionar" title="Adicionar"></button>
-        <a href="../br.com.ifba.homescreen/homescreen.html"><button class="homescreen"> <img src="../images/casa.png" alt="homescreen"></button></a>
+      <div class="search">
+        <input
+          type="text"
+          placeholder="Procurar..."
+          class="loupe"
+          id="loupe"
+          onkeyup="buscar()"
+        />
+      </div>
+      <button
+        class="adicionar"
+        type="button"
+        onclick="openAddPopup(), teladisabled()"
+      >
+        <img
+          src="../images/botao-adicionar2.png"
+          alt="adicionar"
+          title="Adicionar"
+        />
+      </button>
+      <a href="../br.com.ifba.homescreen/homescreen.html"
+        ><button class="homescreen">
+          <img src="../images/casa.png" alt="homescreen" /></button
+      ></a>
     </div>
 
     <div class="painelFiltros">
-        <h2>Filtros</h2>
-        <div>
-            <p>Data inicial: </p>
-            <input type="date" class="loupe" id="dt_inicial">
-            <p>Data final: </p>
-            <input type="date" class="loupe" id="dt_final">
-            <p>Disciplina: </p>
-            <select id="selec_disc">
-                <option value=0>Todas</option>
-            </select>
-            <button type="button" onclick="filtrar()">Filtrar</button>
-        </div>
+      <h2>Filtros</h2>
+      <div>
+        <p>Data inicial:</p>
+        <input type="date" class="loupe" id="dt_inicial" />
+        <p>Data final:</p>
+        <input type="date" class="loupe" id="dt_final" />
+        <p>Disciplina:</p>
+        <select id="selec_disc">
+          <option value="0">Todas</option>
+        </select>
+        <button type="button" onclick="filtrar()">Filtrar</button>
+      </div>
     </div>
 
     <!-- Popup de erro -->
     <div id="popupErro">
-        <img src="../images/alerta-icone.png" alt="imagem de erro"> <!-- Imagem de alerta de erro -->
-        <p id="erro"></p> <!-- Local para exibir a mensagem de erro -->
-        <button type="button" onclick="popupErroOcultar(), telaEnabled()">Fechar</button> <!-- Botão para fechar o popup de erro -->
+      <img src="../images/alerta-icone.png" alt="imagem de erro" />
+      <!-- Imagem de alerta de erro -->
+      <p id="erro"></p>
+      <!-- Local para exibir a mensagem de erro -->
+      <button type="button" onclick="popupErroOcultar(), telaEnabled()">
+        Fechar
+      </button>
+      <!-- Botão para fechar o popup de erro -->
     </div>
 
     <!-- Popup de confirmação -->
     <div id="popupConfirmacao">
-        <img src="../images/icone-confirma.png" alt="imagem de confirmacao"> <!-- Imagem de confirmação -->
-        <p id="msg"></p> <!-- Local para exibir a mensagem de confirmação -->
-        <button type="button" onclick="popupConfirmacaoOcultar(), telaEnabled()">Fechar</button> <!-- Botão para fechar o popup de confirmação -->
+      <img src="../images/icone-confirma.png" alt="imagem de confirmacao" />
+      <!-- Imagem de confirmação -->
+      <p id="msg"></p>
+      <!-- Local para exibir a mensagem de confirmação -->
+      <button type="button" onclick="popupConfirmacaoOcultar(), telaEnabled()">
+        Fechar
+      </button>
+      <!-- Botão para fechar o popup de confirmação -->
     </div>
 
-
     <div class="tableContain" id="tbContain">
-        <div class="scroll">
-            <table class="rTable" id="itens-table">
-                <thead>
-                    <tr id="trTopo">
-                        <th id="primeiroTh">Descrição</th>
-                        <th>Data Início</th>
-                        <th>Data Fim</th>
-                        <th>Disciplina</th>
-                        <th>Remover</th>
-                        <th id="ultimoTh">Editar</th>
-                    </tr>
-                </thead>
-                <tbody id="table-body">
-                </tbody>
-            </table>
-        </div>
+      <div class="scroll">
+        <table class="rTable" id="itens-table">
+          <thead>
+            <tr id="trTopo">
+              <th id="primeiroTh">Descrição</th>
+              <th>Data Início</th>
+              <th>Data Fim</th>
+              <th>Disciplina</th>
+              <th>Remover</th>
+              <th id="ultimoTh">Editar</th>
+            </tr>
+          </thead>
+          <tbody id="table-body"></tbody>
+        </table>
+      </div>
     </div>
 
     <script type="text/javascript" src="../js/requisitions.js"></script>
     <script type="text/javascript" src="avaliacao.js"></script>
-    <script src="../js/session.js"></script> 
-    
-</body>
+  </body>
 </html>
