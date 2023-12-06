@@ -2,6 +2,7 @@
   "id": 1,
   "titulo": "Bem-vindo à Avaliação Docente",
   "descricao": "Por favor, forneça seu feedback sobre o desempenho da sua disciplina abaixo. Sua contribuição é valiosa para nós.",
+  "opcoes": ["Bom", "Regular", "Ruim"],
   "questoes": [
     {
       "id": 1,
