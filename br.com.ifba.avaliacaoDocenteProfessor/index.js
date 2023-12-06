@@ -25,16 +25,19 @@ const html = {
   },
 };
 
-
 const container = html.get(".container main");
 
 /**---------{Chamadas a API professores}----------**/
+const endpoints = {
+  getAllTeachers: "professores" 
+}
 const endpoint = "professores";
 const endpointTest =
   "../assets/data/data_teste/data_professores/professores.json";
 
 const getAllTeachers = async () => {
-  const response = await get(endpointTest);
+  const response = await get(endpoints.getAllTeachers);
+  console.log(response);
   generateSectionListTeachers(response);
 };
 

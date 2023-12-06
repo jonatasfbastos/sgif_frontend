@@ -44,11 +44,13 @@ let stateQuestions = {
   allQuestions: [],
   answers: [{}],
   inputField: null,
+  idForm: null,
 };
 
 // Pegar o id (via url) da avaliação ao usuário cilcar em pedente
 const endpoints = {
-  getFormById: "/formularios/formulario/"
+  getFormById: "/formularios/formulario/",
+  saveAnswer: "questoes/questao",
 };
 
 const endpointTest =
@@ -255,8 +257,21 @@ const eventListenerButtonsForm = (button) => {
 
   const send = (button) => {
     if (validateInput()) {
-      showMessageSuccess();
-      localStorage.setItem("avaliacaoRealizada", true);
+      answer = {
+        fomulario: { id: stateQuestions.idForm },
+        resposta: stateQuestions.answers,
+      };
+      console.log(answer);
+
+      put(endpoints.saveAnswer, answer)
+        .then((result) => {
+          console.log("Feito", result);
+          showMessageSuccess();
+          localStorage.setItem("avaliacaoRealizada", true);
+        })
+        .catch((error) => {
+          console.log("Erro", error);
+        });
     }
   };
 
@@ -366,6 +381,7 @@ const saveAnswers = () => {
 function init() {
   stateQuestions.maxQuestionIndex = form.questoes.length - 1;
   stateQuestions.allQuestions = form.questoes;
+  stateQuestions.idForm = form.id;
 
   renderForm(form);
   eventListenerButtonsForm();
