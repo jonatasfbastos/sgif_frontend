@@ -47,7 +47,7 @@ let stateQuestions = {
   idForm: null,
 };
 
-// Pegar o id (via url) da avaliação ao usuário cilcar em pedente
+// Pegar o id (via url) da avaliação usuário ao cilcar em pedente
 const endpoints = {
   getFormById: "/formularios/formulario/",
   saveAnswer: "questoes/questao",
@@ -116,8 +116,7 @@ const renderForm = async (data) => {
  * e gerenciar os botões de navegação.
  */
 const renderQuestion = () => {
-  const { currentQuestionIndex, allQuestions, inputField, ...rest } =
-    stateQuestions;
+  const { currentQuestionIndex, allQuestions, inputField, ...rest } = stateQuestions;
 
   const idQuestion = allQuestions[currentQuestionIndex].id;
   const statementQuestion = allQuestions[currentQuestionIndex].enunciado;
@@ -127,20 +126,48 @@ const renderQuestion = () => {
     const newInputField = html.createElementWithClasses("div", "input-field");
 
     newInputField.innerHTML = `
-        <label for="${idQuestion}">${statementQuestion}</label>
-        <input type="text" id="${idQuestion}" name="teacher-feedback" autofocus autocomplete="off">
-        <span class="error hide"></span>
-      `;
+      <label>${statementQuestion}</label>
+      <div class="radio-options">
+        <div>
+          <input type="radio" id="${idQuestion}-good" name="${idQuestion}" value="bom">
+          <label for="${idQuestion}-good">Bom</label>
+        </div>
+
+        <div>
+          <input type="radio" id="${idQuestion}-regular" name="${idQuestion}" value="regular">
+          <label for="${idQuestion}-regular">Regular</label>
+        </div>
+
+        <div>
+          <input type="radio" id="${idQuestion}-bad" name="${idQuestion}" value="ruim">
+          <label for="${idQuestion}-bad">Ruim</label>
+        </div>
+      </div>
+      <span class="error hide"></span>
+    `;
 
     form.appendChild(newInputField);
     stateQuestions.inputField = newInputField;
     createButton("Próximo", "form-button", "button-next");
 
-    const input = newInputField.querySelector("input");
-    input.addEventListener("input", saveAnswers);
+    const radioDivs = newInputField.querySelectorAll(".radio-options > div");
+    radioDivs.forEach(radioDiv => {
+      const radioButton = radioDiv.querySelector("input[type='radio']");
+      const label = radioDiv.querySelector("label");
+
+      radioButton.addEventListener("click", () => {
+        saveAnswers();
+      });
+
+      label.addEventListener("click", () => {
+        radioButton.checked = true;
+        saveAnswers();
+      });
+    });
 
     return;
   }
+
 
   const input = inputField.querySelector("input");
   inputField.querySelector("label").textContent = statementQuestion;
@@ -258,20 +285,21 @@ const eventListenerButtonsForm = (button) => {
   const send = (button) => {
     if (validateInput()) {
       answer = {
-        fomulario: { id: stateQuestions.idForm },
+        formulario: { id: stateQuestions.idForm },
         resposta: stateQuestions.answers,
       };
       console.log(answer);
-
-      put(endpoints.saveAnswer, answer)
-        .then((result) => {
-          console.log("Feito", result);
-          showMessageSuccess();
+  
+      showMessageSuccess();
           localStorage.setItem("avaliacaoRealizada", true);
-        })
-        .catch((error) => {
-          console.log("Erro", error);
-        });
+
+      // put(endpoints.saveAnswer, answer)
+      //   .then((result) => {
+      //     console.log("Feito", result);
+      //   })
+      //   .catch((error) => {
+      //     console.log("Erro", error);
+      //   });
     }
   };
 
@@ -336,20 +364,29 @@ const eventListenerButtonsForm = (button) => {
 };
 
 /**
- * Valida o campo de entrada no formulário de avaliação.
- * Esta função verifica se o campo está preenchido e exibe uma mensagem de erro, se necessário.
+ * Valida o campo de entrada no formulário de avaliação (opções de rádio).
+ * Esta função verifica se uma opção de rádio foi selecionada e exibe uma mensagem de erro, se necessário.
  *
- * @returns {boolean} - `true` se o campo estiver preenchido corretamente, `false` se estiver vazio.
+ * @returns {boolean} - `true` se uma opção de rádio foi selecionada, `false` se nenhuma opção foi selecionada.
  */
 const validateInput = () => {
   if (stateQuestions.inputField) {
-    const input = stateQuestions.inputField.querySelector("input");
+    const radioOptions = stateQuestions.inputField.querySelectorAll(
+      "input[type='radio']"
+    );
     const error = stateQuestions.inputField.querySelector(".error");
     error.textContent = "";
 
-    if (input.value.trim() === "") {
-      input.value = "";
-      error.textContent = "Por favor, preencha este campo!";
+    let isChecked = false;
+
+    radioOptions.forEach((radio) => {
+      if (radio.checked) {
+        isChecked = true;
+      }
+    });
+
+    if (!isChecked) {
+      error.textContent = "Por favor, selecione uma opção!";
       return false;
     }
 
@@ -362,17 +399,22 @@ const validateInput = () => {
  * Esta função extrai o valor do campo de entrada e armazena a resposta no estado.
  */
 const saveAnswers = () => {
-  const currentInput = stateQuestions.inputField.querySelector("input");
-  const currentInputId = currentInput.id;
-  const currentInputValue = currentInput.value;
+  const currentQuestion = stateQuestions.allQuestions[stateQuestions.currentQuestionIndex];
+  const radioOptions = stateQuestions.inputField.querySelectorAll("input[type='radio']");
 
-  const answerCurrent = {
-    id: currentInputId,
-    value: currentInputValue,
-  };
-
-  stateQuestions.answers[stateQuestions.currentQuestionIndex] = answerCurrent;
+  radioOptions.forEach((radio) => {
+    if (radio.checked) {
+      const answerCurrent = {
+        id: currentQuestion.id,
+        value: radio.value,
+      };
+      stateQuestions.answers[stateQuestions.currentQuestionIndex] = answerCurrent;
+    }
+  });
 };
+
+
+
 
 /**
  * Inicializa o formulário de avaliação.

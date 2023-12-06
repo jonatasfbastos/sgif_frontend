@@ -156,22 +156,17 @@ async function get_params(endpoint, paramsMap) {
 async function post(endpoint, body) {
   loadingStart();
   try {
+    console.log(getToken());
 
     const urlPost =
       endpoint === "login" ? HOST + endpoint : HOST + API + endpoint;
 
-    const headers = {
-      "Content-type": "application/json",
-    };
 
-    if (TOKEN && endpoint !== "login") {
-      headers["Authorization"] = `Bearer ${TOKEN}`;
-    }
     const user = JSON.stringify(body);
     console.log(user);
     const fetched = await fetch(urlPost, {
       method: "post",
-      headers: headers,
+      headers: { "Content-type": "application/json", TOKEN },
       mode: "cors",
       body: user,
     });

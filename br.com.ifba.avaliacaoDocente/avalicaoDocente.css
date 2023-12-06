@@ -209,6 +209,26 @@ main .form-header .form-description {
     outline 70ms cubic-bezier(0.2, 0, 0.38, 0.9);
 }
 
+.input-field .radio-options {
+  display: flex !important;
+  flex-direction: row !important;
+
+  gap: 2rem; 
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.radio-options input[type='radio'] {
+  margin-right: 5px; /* Espaçamento entre os botões de radio */
+  width: 25px !important;
+  height: 25px !important;
+}
+.radio-options div{
+  display: flex !important;
+  align-items: center;
+
+}
+
 #evaluation-form div input:focus {
   outline: 2px solid var(--cor-primaria);
   outline-offset: -2px;

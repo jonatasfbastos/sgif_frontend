@@ -36,7 +36,7 @@ const endpointTest =
   "../assets/data/data_teste/data_professores/professores.json";
 
 const getAllTeachers = async () => {
-  const response = await get(endpoints.getAllTeachers);
+  const response = await get(endpointTest);
   console.log(response);
   generateSectionListTeachers(response);
 };

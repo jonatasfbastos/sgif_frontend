@@ -4,11 +4,11 @@ function setUser(user) {
 }
 
 function setToken(token) {
-  localStorage.setItem("token", token);
+  localStorage.setItem("token", JSON.stringify(token));
 }
 
 function getToken() {
-  return localStorage.getItem("token");
+  return JSON.parse(localStorage.getItem("token"));
 }
 
 function getUser() {
